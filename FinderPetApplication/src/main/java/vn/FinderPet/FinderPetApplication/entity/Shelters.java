@@ -1,5 +1,8 @@
 package vn.FinderPet.FinderPetApplication.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -7,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "shelters")
+@JsonIgnoreProperties({"shelterInfo", "listAnimals", "listSpons", "users"})
 public class Shelters {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -145,20 +149,5 @@ public class Shelters {
 
     public void setListSpons(List<Spons> listSpons) {
         this.listSpons = listSpons;
-    }
-
-    @Override
-    public String toString() {
-        return "Shelters{" +
-                "id=" + id +
-                ", shelterAvatar='" + shelterAvatar + '\'' +
-                ", shelterName='" + shelterName + '\'' +
-                ", shelterEmail='" + shelterEmail + '\'' +
-                ", shelterAddress='" + shelterAddress + '\'' +
-                ", shelterPhone='" + shelterPhone + '\'' +
-                ", shelterDate=" + shelterDate +
-                ", users=" + users +
-                ", shelterInfo=" + shelterInfo +
-                '}';
     }
 }

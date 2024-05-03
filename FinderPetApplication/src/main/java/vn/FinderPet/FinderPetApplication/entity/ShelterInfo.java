@@ -1,9 +1,11 @@
 package vn.FinderPet.FinderPetApplication.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "shelter_info")
+//@JsonIgnoreProperties({"shelters"})
 public class ShelterInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,16 +75,5 @@ public class ShelterInfo {
 
     public void setShelters(Shelters shelters) {
         this.shelters = shelters;
-    }
-
-    @Override
-    public String toString() {
-        return "ShelterInfo{" +
-                "id=" + id +
-                ", shelterInfoMission='" + shelterInfoMission + '\'' +
-                ", shelterInfoPolicy='" + shelterInfoPolicy + '\'' +
-                ", shelterInfoOperatingTime='" + shelterInfoOperatingTime + '\'' +
-                ", shelters=" + shelters +
-                '}';
     }
 }

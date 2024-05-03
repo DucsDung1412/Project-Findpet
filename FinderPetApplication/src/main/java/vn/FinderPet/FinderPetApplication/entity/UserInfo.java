@@ -1,5 +1,6 @@
 package vn.FinderPet.FinderPetApplication.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 
 @Entity
 @Table(name = "user_info")
+@JsonIgnoreProperties({"users"})
 public class UserInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

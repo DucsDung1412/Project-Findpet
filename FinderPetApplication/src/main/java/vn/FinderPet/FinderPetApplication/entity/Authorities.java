@@ -1,10 +1,12 @@
 package vn.FinderPet.FinderPetApplication.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "authorities",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"username", "authority"})})
+@JsonIgnoreProperties({"users"})
 public class Authorities {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

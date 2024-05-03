@@ -1,11 +1,13 @@
 package vn.FinderPet.FinderPetApplication.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties({"authorities", "userInfo", "adopterProfile", "shelters", "listSpons", "listFavorites", "listAdopt"})
 public class Users {
     @Id
     @Column(name = "username", nullable = false, length = 50)
@@ -50,17 +52,6 @@ public class Users {
         this.password = password;
         this.enabled = enabled;
         this.email = email;
-    }
-
-    public Users(String userName, String password, Boolean enabled, String email, Authorities authorities, UserInfo userInfo, AdopterProfile adopterProfile, Shelters shelters) {
-        this.userName = userName;
-        this.password = password;
-        this.enabled = enabled;
-        this.email = email;
-        this.authorities = authorities;
-        this.userInfo = userInfo;
-        this.adopterProfile = adopterProfile;
-        this.shelters = shelters;
     }
 
     public String getUserName() {
@@ -149,6 +140,14 @@ public class Users {
 
     public void setListFavorites(List<Favorites> listFavorites) {
         this.listFavorites = listFavorites;
+    }
+
+    public List<Adopt> getListAdopt() {
+        return listAdopt;
+    }
+
+    public void setListAdopt(List<Adopt> listAdopt) {
+        this.listAdopt = listAdopt;
     }
 
     @Override

@@ -1,11 +1,13 @@
 package vn.FinderPet.FinderPetApplication.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.sql.Date;
 
 @Entity
 @Table(name = "adopt")
+@JsonIgnoreProperties({"users", "animals"})
 public class Adopt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
