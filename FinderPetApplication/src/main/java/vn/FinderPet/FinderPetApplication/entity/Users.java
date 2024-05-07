@@ -10,7 +10,7 @@ import java.util.List;
 @JsonIgnoreProperties({"authorities", "userInfo", "adopterProfile", "shelters", "listSpons", "listFavorites", "listAdopt"})
 public class Users {
     @Id
-    @Column(name = "username", nullable = false, length = 50)
+    @Column(name = "username", nullable = false)
     private String userName;
 
     @Column(name = "password", nullable = false, length = 50)
@@ -18,9 +18,6 @@ public class Users {
 
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
-
-    @Column(name = "email", nullable = false)
-    private String email;
 
     @OneToOne(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Authorities authorities;
@@ -47,11 +44,10 @@ public class Users {
 
     }
 
-    public Users(String userName, String password, Boolean enabled, String email) {
+    public Users(String userName, String password, Boolean enabled) {
         this.userName = userName;
         this.password = password;
         this.enabled = enabled;
-        this.email = email;
     }
 
     public String getUserName() {
@@ -92,14 +88,6 @@ public class Users {
 
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public AdopterProfile getAdopterProfile() {
@@ -156,7 +144,6 @@ public class Users {
                 "userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
-                ", email=" + email +
                 '}';
     }
 }
