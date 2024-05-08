@@ -15,19 +15,19 @@ public class UserInfo {
     @Column(name = "info_id")
     private Long id;
 
-    @Column(name = "info_firstname", nullable = false, length = 50)
+    @Column(name = "info_firstname", nullable = false, length = 50, columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
     private String firstName;
 
-    @Column(name = "info_lastname", nullable = false, length = 50)
+    @Column(name = "info_lastname", nullable = false, length = 50, columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
     private String lastName;
 
-    @Column(name = "info_country", nullable = false, length = 50)
+    @Column(name = "info_country", nullable = false, length = 50, columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
     private String country;
 
     @Column(name = "info_address")
     private String address;
 
-    @Column(name = "info_phone", nullable = false, length = 15)
+    @Column(name = "info_phone", length = 15)
     private String phone;
 
     @Column(name = "info_avatar")

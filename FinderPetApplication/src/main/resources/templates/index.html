@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
 	<title>Petfind - Multipurpose Online Petfind Theme</title>
 
@@ -118,7 +118,7 @@
 					<span></span>
 					<span></span>
 				</span>
-        <span class="d-none d-sm-inline-block small">Menu</span>
+        		<span class="d-none d-sm-inline-block small">Menu</span>
 			</button>
 
 			<!-- Responsive category toggler -->
@@ -235,8 +235,8 @@
 					
 					<!-- Nav item Cats -->
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="accounntMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Other Animals</a>
-						<ul class="dropdown-menu" aria-labelledby="accounntMenu">
+						<a class="nav-link dropdown-toggle" href="#" id="accounntMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Other Animals</a>
+						<ul class="dropdown-menu" aria-labelledby="accounntMenu1">
 							<li> <a class="dropdown-item" href="#">Rabbits</a></li>
 							<li> <a class="dropdown-item" href="#">Small & Furry</a></li>
 							<li> <a class="dropdown-item" href="#">Birds</a></li>
@@ -295,7 +295,7 @@
 			<!-- Nav category menu END -->
 
 			<!-- Theme and Sign up START -->
-			<ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
+			<ul sec:authorize="!isAuthenticated()" class="nav flex-row align-items-center list-unstyled ms-xl-auto">
 				<!-- Dark mode options START -->
 				<li class="nav-item dropdown me-2" style="padding-bottom: 4px;">
 					<button class="btn btn-link text-warning p-0 mb-0" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static">
@@ -343,7 +343,7 @@
 			<!-- Theme and Sign up END -->
 
 			<!-- Profile and Notification START -->
-			<ul class="nav flex-row align-items-center list-unstyled ms-xl-auto d-none">
+			<ul sec:authorize="isAuthenticated()" class="nav flex-row align-items-center list-unstyled ms-xl-auto">
 
 				<!-- Notification dropdown START -->
 				<li class="nav-item dropdown ms-0 ms-md-3">
@@ -423,7 +423,7 @@
 						<li><a class="dropdown-item" href="#"><i class="bi bi-heart fa-fw me-2"></i>My Wishlist</a></li>
 						<li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Settings</a></li>
 						<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help Center</a></li>
-						<li><a class="dropdown-item bg-danger-soft-hover" href="#"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+						<li><a class="dropdown-item bg-danger-soft-hover" href="#" th:href="@{/logout}"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
 						<li> <hr class="dropdown-divider"></li>
 
 						<!-- Dark mode options START -->

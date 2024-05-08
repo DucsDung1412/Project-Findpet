@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 	
 <head>
 	<title>Booking - Multipurpose Online Booking Theme</title>
@@ -125,19 +125,22 @@ Main Content START -->
 								<p class="mb-0">New here?<a href="sign-up.html"> Create an account</a></p>
 		
 								<!-- Form START -->
-								<form class="mt-4 text-start">
+								<form class="mt-4 text-start" action="#" th:action="@{/authenticateTheUser}" method="POST" >
 									<!-- Email -->
 									<div class="mb-3">
 										<label class="form-label">Enter email address</label>
-										<input type="email" class="form-control">
+										<input name="username" type="text" class="form-control">
 									</div>
 									<!-- Password -->
 									<div class="mb-3 position-relative">
 										<label class="form-label">Enter password</label>
-										<input class="form-control fakepassword" type="password" id="psw-input">
+										<input name="password" class="form-control fakepassword" type="password" id="psw-input">
 										<span class="position-absolute top-50 end-0 translate-middle-y p-0 mt-3">
 											<i class="fakepasswordicon fas fa-eye-slash cursor-pointer p-2"></i>
 										</span>
+									</div>
+									<div class="my-2" th:if="${param.error}">
+										<label class="form-label text-danger">Username or password is incorrect</label>
 									</div>
 									<!-- Remember me -->
 									<div class="mb-3 d-sm-flex justify-content-between">
@@ -148,8 +151,9 @@ Main Content START -->
 										<a href="forgot-password.html">Forgot password?</a>
 									</div>
 									<!-- Button -->
-									<div><button type="submit" class="btn btn-primary w-100 mb-0">Login</button></div>
-		
+									<div>
+										<button type="submit" class="btn btn-primary w-100 mb-0">Login</button>
+									</div>
 									<!-- Divider -->
 									<div class="position-relative my-4">
 										<hr>
@@ -158,8 +162,8 @@ Main Content START -->
 		
 									<!-- Google and facebook button -->
 									<div class="vstack gap-3">
-										<a href="#" class="btn btn-light mb-0"><i class="fab fa-fw fa-google text-google-icon me-2"></i>Sign in with Google</a>
-										<a href="#" class="btn btn-light mb-0"><i class="fab fa-fw fa-facebook-f text-facebook me-2"></i>Sign in with Facebook</a>
+										<a href="#" th:href="@{/oauth2/authorization/google}" class="btn btn-light mb-0"><i class="fab fa-fw fa-google text-google-icon me-2"></i>Sign in with Google</a>
+										<a href="#" th:href="@{/oauth2/authorization/facebook}" class="btn btn-light mb-0"><i class="fab fa-fw fa-facebook-f text-facebook me-2"></i>Sign in with Facebook</a>
 									</div>
 		
 									<!-- Copyright -->
