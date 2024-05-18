@@ -19,4 +19,15 @@ public class PageController {
     public String signUp(){
         return "/sign-up";
     }
+
+    @GetMapping("/forgot-password")
+    public String res() {
+        return "/forgot-password";}
+
+    @GetMapping("/two-factor-auth")
+    public String getMethodName() {
+        return "/two-factor-auth";
+    }
+
+
 }

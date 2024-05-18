@@ -119,27 +119,28 @@ Main Content START -->
 							<div class="p-4 p-sm-7">
 								<!-- Logo -->
 								<a href="index.html">
-									<img class="mb-4 h-50px" src="assets/images/logo-icon.svg" alt="logo">
+									<img class="mb-4 h-50px" src="#" alt="logo">
 								</a>
 								<!-- Title -->
 								<h1 class="mb-2 h3">Two factor authentication</h1>
 								<p class="mb-sm-0">We have to send a code to <b>example@gmail.com</b></p>
 								
 								<!-- Form START -->
-								<form class="mt-sm-4">
+								<form action="/checkotp" class="mt-sm-4" method="post">
 									<!-- Input box -->
 									<p class="mb-1">Enter the code we have sent you:</p>
 									<div class="autotab d-flex justify-content-between gap-1 gap-sm-3 mb-2">
-										<input type="text" maxlength="1" class="form-control text-center p-3">
-										<input type="text" maxlength="1" class="form-control text-center p-3">
-										<input type="text" maxlength="1" class="form-control text-center p-3">
-										<input type="text" maxlength="1" class="form-control text-center p-3">
+										<input name="so1" type="text" maxlength="1" class="form-control text-center p-3">
+										<input name="so2" type="text" maxlength="1" class="form-control text-center p-3">
+										<input name="so3" type="text" maxlength="1" class="form-control text-center p-3">
+										<input name="so4" type="text" maxlength="1" class="form-control text-center p-3">
+										<input name="so5" type="text" maxlength="1" class="form-control text-center p-3">
 									</div>
 									
 									<!-- Button link -->
 									<div class="d-sm-flex justify-content-between small mb-4">
 										<span>Don't get a code?</span>
-										<a href="#" class="btn btn-sm btn-link p-0 text-decoration-underline mb-0">Click to resend</a>
+										<a href="/resetotp" class="btn btn-sm btn-link p-0 text-decoration-underline mb-0">Click to resend</a>
 									</div>
 
 									<!-- Button -->
