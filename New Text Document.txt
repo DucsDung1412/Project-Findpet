@@ -1,0 +1,16 @@
+git init -tạo hàm(master)
+mã
+git branch -M thuat
+git remote add origin Link github
+git add .
+git commit -m (chú thích của mình)
+
+ git config --global user.email (gmail github)
+git config --global user.name (đăt tên mình làm phần nào)
+git push -u origin Thuat
+
+tk mk git hub
+
+git push --set-upstream origin thuat
+ (/c/Users/THUAT/.ssh/id_ed25519)
+SHA256:xbDsbfDO6pVjZ6yAHQ1hxMU3A3vdfL+ts7kezSCypUk nguyenhoangchienthuat@gmail.com
