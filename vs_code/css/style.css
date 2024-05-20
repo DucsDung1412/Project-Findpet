@@ -195,6 +195,21 @@
   }
 }
 
+/* Ẩn biểu tượng con mắt mặc định */
+input[type="password"]::-ms-reveal, 
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none;
+}
+
+input[type="password"] {
+  -webkit-appearance: none; /* Ẩn biểu tượng con mắt trên các trình duyệt webkit */
+  appearance: none; /* Ẩn biểu tượng con mắt trên các trình duyệt hỗ trợ appearance */
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -21147,6 +21162,14 @@ body.dashboard main {
   .page-content .page-content-wrapper {
     margin: 1rem 0;
     padding: 1rem;
+  }
+}
+@media (max-width: 599.98px) {
+  .btn-center-left {
+    display: block !important;
+  }
+  .list-btn-tab {
+    margin-top: 8px;
   }
 }
 .text-primary-hover a {
