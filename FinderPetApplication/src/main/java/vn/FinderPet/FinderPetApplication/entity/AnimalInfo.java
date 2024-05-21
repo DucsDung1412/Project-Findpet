@@ -18,13 +18,13 @@ public class AnimalInfo {
     @Column(name = "animal_info_color", nullable = false)
     private String animalInfoColor;
 
-    @Column(name = "animal_info_characteristics", nullable = false)
+    @Column(name = "animal_info_characteristics", nullable = false, columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
     private String animalInfoCharacteristics;
 
-    @Column(name = "animal_info_health", nullable = false)
+    @Column(name = "animal_info_health", nullable = false, columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
     private String animalInfoHealth;
 
-    @Column(name = "animal_info_harmony", nullable = false)
+    @Column(name = "animal_info_harmony", nullable = false, columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
     private String animalInfoHarmony;
 
     @Column(name = "animal_info_description", nullable = false, columnDefinition = "LONGTEXT")

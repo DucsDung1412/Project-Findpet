@@ -33,9 +33,6 @@ public class Animals {
     @Column(name = "animal_date", nullable = false)
     private Date animalDate;
 
-    @Column(name = "animal_status", nullable = false)
-    private Boolean animalStatus;
-
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "breed_id", nullable = false)
     private Breed breed;
@@ -50,7 +47,7 @@ public class Animals {
     @OneToMany(mappedBy = "animals", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Adopt> listAdopt;
 
-    public Animals(Long id, String animalAvatar, String animalName, String animalAge, String animalSize, Boolean animalGender, Date animalDate, Boolean animalStatus, Breed breed, Shelters shelters) {
+    public Animals(Long id, String animalAvatar, String animalName, String animalAge, String animalSize, Boolean animalGender, Date animalDate, Breed breed, Shelters shelters) {
         this.id = id;
         this.animalAvatar = animalAvatar;
         this.animalName = animalName;
@@ -58,7 +55,6 @@ public class Animals {
         this.animalSize = animalSize;
         this.animalGender = animalGender;
         this.animalDate = animalDate;
-        this.animalStatus = animalStatus;
         this.breed = breed;
         this.shelters = shelters;
     }
@@ -123,14 +119,6 @@ public class Animals {
         this.animalDate = animalDate;
     }
 
-    public Boolean getAnimalStatus() {
-        return animalStatus;
-    }
-
-    public void setAnimalStatus(Boolean animalStatus) {
-        this.animalStatus = animalStatus;
-    }
-
     public Breed getBreed() {
         return breed;
     }
@@ -173,7 +161,6 @@ public class Animals {
                 ", animalSize='" + animalSize + '\'' +
                 ", animalGender=" + animalGender +
                 ", animalDate=" + animalDate +
-                ", animalStatus=" + animalStatus +
                 ", breed=" + breed +
                 ", shelters=" + shelters +
                 '}';

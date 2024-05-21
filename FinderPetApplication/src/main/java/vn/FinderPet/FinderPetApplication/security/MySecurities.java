@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import vn.FinderPet.FinderPetApplication.entity.UserInfo;
 import vn.FinderPet.FinderPetApplication.entity.Users;
 import vn.FinderPet.FinderPetApplication.oauth2User.CustomOAuth2User;
 import vn.FinderPet.FinderPetApplication.oauth2User.CustomOAuth2UserService;
@@ -69,9 +68,8 @@ public class MySecurities {
 
                                     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
                                     String enCode = bCryptPasswordEncoder.encode(password);
-                                    Users users = new Users(email, "{bcrypt}"+enCode, true);
-                                    UserInfo userInfo = new UserInfo(null, family_name, given_name, "Hồ Chí Minh", null, null, null, Date.valueOf(LocalDate.now()), users);
-                                    this.session.setAttribute("userLogin", userInfo);
+                                    Users users = new Users(email, "{bcrypt}"+enCode, true, family_name, given_name, null, Date.valueOf(LocalDate.now()));
+                                    this.session.setAttribute("userLogin", users);
                                     response.sendRedirect("/sign-in");
                                 } else {
                                     response.sendRedirect("/index");

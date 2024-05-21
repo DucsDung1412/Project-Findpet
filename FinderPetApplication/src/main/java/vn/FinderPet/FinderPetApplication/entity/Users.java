@@ -3,6 +3,7 @@ package vn.FinderPet.FinderPetApplication.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -19,11 +20,29 @@ public class Users {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
 
-    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Authorities authorities;
+    @Column(name = "info_firstname", nullable = false, length = 50, columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
+    private String firstName;
+
+    @Column(name = "info_lastname", nullable = false, length = 50, columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
+    private String lastName;
+
+    @Column(name = "info_country", nullable = false, length = 50, columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
+    private String country;
+
+    @Column(name = "info_address", columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
+    private String address;
+
+    @Column(name = "info_phone", length = 15)
+    private String phone;
+
+    @Column(name = "info_avatar")
+    private String avatar;
+
+    @Column(name = "info_date", nullable = false)
+    private Date createdDate;
 
     @OneToOne(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private UserInfo userInfo;
+    private Authorities authorities;
 
     @OneToOne(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private AdopterProfile adopterProfile;
@@ -44,10 +63,14 @@ public class Users {
 
     }
 
-    public Users(String userName, String password, Boolean enabled) {
+    public Users(String userName, String password, Boolean enabled, String firstName, String lastName, String country, Date createdDate) {
         this.userName = userName;
         this.password = password;
         this.enabled = enabled;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.country = country;
+        this.createdDate = createdDate;
     }
 
     public String getUserName() {
@@ -82,12 +105,59 @@ public class Users {
         this.authorities = authorities;
     }
 
-    public UserInfo getUserInfo() {
-        return userInfo;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {        this.avatar = avatar;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public AdopterProfile getAdopterProfile() {

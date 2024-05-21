@@ -35,12 +35,18 @@ public class Shelters {
     @Column(name = "shelter_date", nullable = false)
     private Date shelterDate;
 
+    @Column(name = "shelter_info_mission", nullable = false, columnDefinition = "LONGTEXT")
+    private String shelterInfoMission;
+
+    @Column(name = "shelter_info_policy", nullable = false, columnDefinition = "LONGTEXT")
+    private String shelterInfoPolicy;
+
+    @Column(name = "shelter_info_operating_time", nullable = false)
+    private String shelterInfoOperatingTime;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "username", nullable = false)
     private Users users;
-
-    @OneToOne(mappedBy = "shelters", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ShelterInfo shelterInfo;
 
     @OneToMany(mappedBy = "shelters", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Animals> listAnimals;
@@ -48,7 +54,7 @@ public class Shelters {
     @OneToMany(mappedBy = "shelters", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Spons> listSpons;
 
-    public Shelters(Long id, String shelterAvatar, String shelterName, String shelterEmail, String shelterAddress, String shelterPhone, Date shelterDate, Users users) {
+    public Shelters(Long id, String shelterAvatar, String shelterName, String shelterEmail, String shelterAddress, String shelterPhone, Date shelterDate, Users users, String shelterInfoMission, String shelterInfoPolicy, String shelterInfoOperatingTime) {
         this.id = id;
         this.shelterAvatar = shelterAvatar;
         this.shelterName = shelterName;
@@ -57,6 +63,9 @@ public class Shelters {
         this.shelterPhone = shelterPhone;
         this.shelterDate = shelterDate;
         this.users = users;
+        this.shelterInfoMission = shelterInfoMission;
+        this.shelterInfoPolicy = shelterInfoPolicy;
+        this.shelterInfoOperatingTime = shelterInfoOperatingTime;
     }
 
     public Shelters() {
@@ -127,12 +136,28 @@ public class Shelters {
         this.users = users;
     }
 
-    public ShelterInfo getShelterInfo() {
-        return shelterInfo;
+    public String getShelterInfoMission() {
+        return shelterInfoMission;
     }
 
-    public void setShelterInfo(ShelterInfo shelterInfo) {
-        this.shelterInfo = shelterInfo;
+    public void setShelterInfoMission(String shelterInfoMission) {
+        this.shelterInfoMission = shelterInfoMission;
+    }
+
+    public String getShelterInfoPolicy() {
+        return shelterInfoPolicy;
+    }
+
+    public void setShelterInfoPolicy(String shelterInfoPolicy) {
+        this.shelterInfoPolicy = shelterInfoPolicy;
+    }
+
+    public String getShelterInfoOperatingTime() {
+        return shelterInfoOperatingTime;
+    }
+
+    public void setShelterInfoOperatingTime(String shelterInfoOperatingTime) {
+        this.shelterInfoOperatingTime = shelterInfoOperatingTime;
     }
 
     public List<Animals> getListAnimals() {

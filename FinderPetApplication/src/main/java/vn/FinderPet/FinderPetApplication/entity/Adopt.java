@@ -20,9 +20,6 @@ public class Adopt {
     @Column(name = "adopt_fee", nullable = false)
     private Double adopt_fee;
 
-    @Column(name = "adopt_pay", nullable = false)
-    private Boolean adopt_pay;
-
     @Column(name = "adopt_status", nullable = false)
     private String adopt_status;
 
@@ -34,11 +31,10 @@ public class Adopt {
     @JoinColumn(name = "animals_id", nullable = false)
     private Animals animals;
 
-    public Adopt(Long id, Date adoptDate, Double adopt_fee, Boolean adopt_pay, String adopt_status, Users users, Animals animals) {
+    public Adopt(Long id, Date adoptDate, Double adopt_fee, String adopt_status, Users users, Animals animals) {
         this.id = id;
         this.adoptDate = adoptDate;
         this.adopt_fee = adopt_fee;
-        this.adopt_pay = adopt_pay;
         this.adopt_status = adopt_status;
         this.users = users;
         this.animals = animals;
@@ -72,14 +68,6 @@ public class Adopt {
         this.adopt_fee = adopt_fee;
     }
 
-    public Boolean getAdopt_pay() {
-        return adopt_pay;
-    }
-
-    public void setAdopt_pay(Boolean adopt_pay) {
-        this.adopt_pay = adopt_pay;
-    }
-
     public String getAdopt_status() {
         return adopt_status;
     }
@@ -110,7 +98,6 @@ public class Adopt {
                 "id=" + id +
                 ", adoptDate=" + adoptDate +
                 ", adopt_fee=" + adopt_fee +
-                ", adopt_pay=" + adopt_pay +
                 ", adopt_status='" + adopt_status + '\'' +
                 ", users=" + users +
                 ", animals=" + animals +

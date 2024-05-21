@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import vn.FinderPet.FinderPetApplication.entity.UserInfo;
+import vn.FinderPet.FinderPetApplication.entity.Users;
 
 @Controller
 public class PageController {
@@ -15,7 +15,7 @@ public class PageController {
 
     @GetMapping("/sign-in")
     public String signIn(HttpSession session, Model model){
-        UserInfo userInfo = (UserInfo) session.getAttribute("userLogin");
+        Users userInfo = (Users) session.getAttribute("userLogin");
         if(userInfo != null){
             model.addAttribute("modal", true);
         }

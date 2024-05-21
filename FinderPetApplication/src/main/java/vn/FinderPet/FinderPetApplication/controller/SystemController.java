@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import vn.FinderPet.FinderPetApplication.entity.UserInfo;
+import vn.FinderPet.FinderPetApplication.entity.Users;
 import vn.FinderPet.FinderPetApplication.service.MailService;
 import vn.FinderPet.FinderPetApplication.service.OtpService;
 import vn.FinderPet.FinderPetApplication.service.UsersService;
@@ -63,10 +63,9 @@ public class SystemController {
 
     @PostMapping("/saveUserLoginWithOAuth2")
     public String saveUserLoginWithOAuth2(@ModelAttribute(value = "country") String country, HttpSession session){
-        System.out.println(country);
-        UserInfo userInfo = (UserInfo) session.getAttribute("userLogin");
+        Users userInfo = (Users) session.getAttribute("userLogin");
         userInfo.setCountry(country);
-        this.usersv.createdUser(userInfo.getUsers(), userInfo);
+        this.usersv.createdUser(userInfo);
         return "redirect:/index";
     }
 }
