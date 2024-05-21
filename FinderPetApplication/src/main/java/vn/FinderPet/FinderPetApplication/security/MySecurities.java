@@ -1,5 +1,6 @@
 package vn.FinderPet.FinderPetApplication.security;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,12 +26,14 @@ public class MySecurities {
     private DataSource dataSource;
     private CustomOAuth2UserService customOAuth2UserService;
     private UsersService usersService;
+    private HttpSession session;
 
     @Autowired
-    public MySecurities(CustomOAuth2UserService customOAuth2UserService, DataSource dataSource, UsersService usersService) {
+    public MySecurities(CustomOAuth2UserService customOAuth2UserService, DataSource dataSource, UsersService usersService, HttpSession session) {
         this.customOAuth2UserService = customOAuth2UserService;
         this.dataSource = dataSource;
         this.usersService = usersService;
+        this.session = session;
     }
 
     @Bean
@@ -68,10 +71,11 @@ public class MySecurities {
                                     String enCode = bCryptPasswordEncoder.encode(password);
                                     Users users = new Users(email, "{bcrypt}"+enCode, true);
                                     UserInfo userInfo = new UserInfo(null, family_name, given_name, "Hồ Chí Minh", null, null, null, Date.valueOf(LocalDate.now()), users);
-                                    this.usersService.createdUser(users, userInfo);
+                                    this.session.setAttribute("userLogin", userInfo);
+                                    response.sendRedirect("/sign-in");
+                                } else {
+                                    response.sendRedirect("/index");
                                 }
-
-                                response.sendRedirect("/index");
                             });
                 })
                 .logout(

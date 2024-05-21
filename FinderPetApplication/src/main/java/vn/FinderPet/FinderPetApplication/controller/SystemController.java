@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import vn.FinderPet.FinderPetApplication.entity.UserInfo;
 import vn.FinderPet.FinderPetApplication.service.MailService;
 import vn.FinderPet.FinderPetApplication.service.OtpService;
 import vn.FinderPet.FinderPetApplication.service.UsersService;
@@ -33,7 +34,7 @@ public class SystemController {
         return"redirect:/two-factor-auth";
     }
 
-   @PostMapping("/getmail")
+    @PostMapping("/getmail")
     public String getmail(@ModelAttribute(value = "emailUs") String emailus, HttpSession session, Model md)  throws ExecutionException {
         if(usersv.findById(emailus).isPresent()) {
             mail.MaxacNhan(emailus);
@@ -42,8 +43,9 @@ public class SystemController {
         }
         return "redirect:/forgot-password";
     }
+
     @PostMapping("/checkotp")
-    public String getmail(@ModelAttribute(value = "so1") String so1,
+    public String checkOTP(@ModelAttribute(value = "so1") String so1,
                           @ModelAttribute(value = "so2") String so2,
                           @ModelAttribute(value = "so3") String so3,
                           @ModelAttribute(value = "so4") String so4,
@@ -57,5 +59,14 @@ public class SystemController {
             System.out.println(2);
             return "redirect:/two-factor-auth";
         }
+    }
+
+    @PostMapping("/saveUserLoginWithOAuth2")
+    public String saveUserLoginWithOAuth2(@ModelAttribute(value = "country") String country, HttpSession session){
+        System.out.println(country);
+        UserInfo userInfo = (UserInfo) session.getAttribute("userLogin");
+        userInfo.setCountry(country);
+        this.usersv.createdUser(userInfo.getUsers(), userInfo);
+        return "redirect:/index";
     }
 }

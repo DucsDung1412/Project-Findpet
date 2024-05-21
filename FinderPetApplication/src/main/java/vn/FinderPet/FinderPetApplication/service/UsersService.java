@@ -27,7 +27,7 @@ public class UsersService {
 
     @Transactional
     public Users createdUser(Users users, UserInfo userInfo){
-        Authorities authorities = new Authorities(users, "ROLE_USERS");
+        Authorities authorities = new Authorities(users, "ROLE_USER");
         authorities.setId(null);
         this.authoritiesDAO.save(authorities);
         this.userInfoDAO.save(userInfo);
