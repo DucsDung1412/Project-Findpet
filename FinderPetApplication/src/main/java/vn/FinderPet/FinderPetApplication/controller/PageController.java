@@ -29,12 +29,16 @@ public class PageController {
 
     @GetMapping("/forgot-password")
     public String res() {
-        return "/forgot-password";}
+        return "/forgot-password";
+    }
 
     @GetMapping("/two-factor-auth")
     public String getMethodName() {
         return "/two-factor-auth";
     }
 
-
+    @GetMapping("/pet-grid")
+    public String petGrid(){
+        return "/pet-grid";
+    }
 }

@@ -33,7 +33,7 @@ public class Animals {
     @Column(name = "animal_date", nullable = false)
     private Date animalDate;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "breed_id", nullable = false)
     private Breed breed;
 

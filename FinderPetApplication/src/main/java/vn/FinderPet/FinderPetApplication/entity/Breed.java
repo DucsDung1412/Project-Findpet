@@ -3,6 +3,8 @@ package vn.FinderPet.FinderPetApplication.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "breed")
 @JsonIgnoreProperties({"animals"})
@@ -18,8 +20,8 @@ public class Breed {
     @Column(name = "breed_name", nullable = false, length = 50)
     private String breed_name;
 
-    @OneToOne(mappedBy = "breed", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    private Animals animals;
+    @OneToMany(mappedBy = "breed", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    private List<Animals> listAnimals;
 
     public Breed(Long id, String breed_type, String breed_name) {
         this.id = id;
@@ -55,12 +57,12 @@ public class Breed {
         this.breed_name = breed_name;
     }
 
-    public Animals getAnimals() {
-        return animals;
+    public List<Animals> getListAnimals() {
+        return listAnimals;
     }
 
-    public void setAnimals(Animals animals) {
-        this.animals = animals;
+    public void setListAnimals(List<Animals> listAnimals) {
+        this.listAnimals = listAnimals;
     }
 
     @Override
