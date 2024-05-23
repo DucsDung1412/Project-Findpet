@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Booking - Multipurpose Online Booking Theme</title>
 
@@ -574,7 +574,7 @@
                                                     <option selected value="">Select type</option>
                                                     <option>Adventure</option>
                                                     <option>Beach</option>
-                                                    <option>Desert</option>
+                                                    <option>Labrador Retriever</option>
                                                     <option>History</option>
                                                 </select>
                                             </div>
@@ -585,7 +585,7 @@
                                 <!-- Button -->
                                 <div class="col-xl-2">
                                     <div class="d-grid">
-                                        <a href="#" class="btn btn-lg btn-dark mb-0" id="take-a-pet">Take a pet</a>
+                                        <a href="#" class="btn btn-lg btn-dark mb-0 take-a-pet">Take a pet</a>
                                     </div>
                                 </div>
                             </div>
@@ -1086,11 +1086,12 @@
                     <nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
                         <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
                             <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fa-solid fa-angle-left"></i></a></li>
-                            <li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
-                            <li class="page-item mb-0"><a class="page-link" href="#">6</a></li>
-                            <li class="page-item mb-0"><a class="page-link" href="#"><i class="fa-solid fa-angle-right"></i></a></li>
+                            <li class="page-item mb-0 pageable"><a class="page-link take-a-pet" href="#">1</a></li>
+                            <li class="page-item mb-0 pageable active"><a class="page-link take-a-pet" href="#">2</a></li>
+                            <li class="page-item mb-0 pageable"><a class="page-link take-a-pet" href="#">3</a></li>
+                            <li class="page-item mb-0 pageable"><a class="page-link take-a-pet" href="#">..</a></li>
+                            <li class="page-item mb-0 pageable"><a class="page-link take-a-pet" href="#">6</a></li>
+                            <li class="page-item mb-0 pageable"><a class="page-link take-a-pet" href="#"><i class="fa-solid fa-angle-right"></i></a></li>
                         </ul>
                     </nav>
                 </div>
@@ -1281,15 +1282,24 @@ Footer END -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
-    $(document).on('click', '#take-a-pet', function(event) {
+    $(document).on('click', '.take-a-pet', function(event) {
         event.preventDefault();
+        console.log("zo");
 
         var location = $(".sl-location")[0].value
         var breed = $(".sl-breed")[0].value
         var name = "";
         var size = "";
         var listAge = [];
+        var listGender = [];
         var gender = "";
+        var pageable = "";
+        var pageNumber = 0;
+        var sizePage = 3;
+
+        if(event.currentTarget.parentElement.classList.contains("pageable")){
+            pageNumber = parseInt(event.currentTarget.innerText) - 1;
+        }
 
         if($("#btn-check-soft")[0].checked){
             name = $(".ip-name")[0].value
@@ -1304,7 +1314,15 @@ Footer END -->
 
             for(let i = 0; i < $("input[type='radio']").length; i++){
                 if($("input[type='radio']")[i].checked){
-                    gender = $('label[for="'+ $("input[type='radio']")[i].id +'"]')[0].innerText
+                    var gender = $('label[for="'+ $("input[type='radio']")[i].id +'"]')[0].innerText
+                    var bo = true;
+                    if(gender === "Female"){
+                        bo = false;
+                    } else if(gender === "Both"){
+                        var bo1 = false;
+                        listGender.push(bo1)
+                    }
+                    listGender.push(bo)
                 }
             }
         }
@@ -1315,7 +1333,9 @@ Footer END -->
                 name: name,
                 size: size,
                 age: listAge,
-                gender: gender
+                gender: listGender,
+                page: pageNumber,
+                sizePage: sizePage
             };
 
         $.ajax({
