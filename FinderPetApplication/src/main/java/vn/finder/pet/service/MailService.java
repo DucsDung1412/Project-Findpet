@@ -11,19 +11,36 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MailService {
-	@Autowired
 	private JavaMailSender mailsender;
-	@Autowired
-	OtpService otp;	
+	private OtpService otp;
 
 	@Value("${spring.mail.username}")
 	private String send;
-	
+
+	@Autowired
+	public MailService(JavaMailSender mailsender, OtpService otp) {
+		this.mailsender = mailsender;
+		this.otp = otp;
+	}
+
 	public void sendmail(String mail,String subject, String text) {
 		SimpleMailMessage ml= new SimpleMailMessage();
 		ml.setFrom(mail);
 		ml.setSubject(subject);
 		ml.setText(text);
+		mailsender.send(ml);
+	}
+
+	public String getSend() {
+		return send;
+	}
+
+	public void sendmail(String mail, String subject, String text,String toMail) {
+		SimpleMailMessage ml= new SimpleMailMessage();
+		ml.setFrom(mail);
+		ml.setSubject(subject);
+		ml.setText(text);
+		ml.setTo(toMail);
 		mailsender.send(ml);
 	}
 
@@ -51,6 +68,4 @@ public class MailService {
 		ml.setTo(mailto);
 		mailsender.send(ml);
 	}
-	
-	
 }

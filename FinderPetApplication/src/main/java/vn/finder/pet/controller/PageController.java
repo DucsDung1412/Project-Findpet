@@ -41,4 +41,9 @@ public class PageController {
     public String petGrid(){
         return "/pet-grid";
     }
+
+    @GetMapping("/two-factor-auth-password")
+    public String twoFatorAuthPass() {
+        return "/two-factor-auth-password";
+    }
 }
