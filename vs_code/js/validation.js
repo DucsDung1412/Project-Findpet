@@ -6,15 +6,44 @@ function Validator(job) {
 	workplace.onsubmit = function(e) {
 		e.preventDefault();
 		
+		var isValid = "";
+		var validPassword = false;
+
 		job.rules.forEach(function(rule) {
 			var workplaceElement = workplace.querySelector(rule.select);
 			
-			validate(workplaceElement, rule);
+			isValid = validate(workplaceElement, rule);
 		});
 
         workplace.querySelectorAll(".invalid-feedback").forEach(function(element){
             element.classList.add("d-block")
         })
+
+		try {
+			var pass = document.querySelector("input[type='password'].password").value;
+		} catch (error) {
+			var pass = document.querySelector("input[type='text'].password").value;
+		}
+		if(document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText === ""){
+			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = pass.trim() === "" ? "This value should not be empty." : ``
+		}
+		
+		if(document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText === ""){
+			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = (pass.trim().length < 21 && pass.trim().length > 7) ? "" : `Mật khẩu phải từ 8 đến 20 ký tự.`
+		}
+
+		if(document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText === ""){
+			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = checkPasswordRequirements(pass) ? "" : `Mật khảu phải chứa ít nhất 3 trong 4 điều sau: \n1. Ký tự viết thường\n2. Ký tự viết hoa\n3. Ký tự đặc biệt\n4. Ký tự số`
+		}
+		if(document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText !== ""){
+			validPassword = true;
+		}
+
+		if(isValid === null || isValid === undefined || isValid === ""){
+			if(!validPassword){
+				workplace.submit();
+			}
+		}
 	}
 	
 	function getParent(workplaceElement, parent) {
@@ -131,8 +160,57 @@ document.querySelector('.password').onfocus = function (params) {
 	document.querySelector(".valid-password").classList.remove("d-none");
 }
 
+function checkPasswordRequirements(password) {
+	const hasLowercase = /[a-z]/.test(password);
+	const hasUppercase = /[A-Z]/.test(password);
+	const hasNumber = /\d/.test(password);
+	const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+	// Count the number of requirements met
+	const requirementsMet = [hasLowercase, hasUppercase, hasNumber, hasSpecial].filter(Boolean).length;
+
+	return requirementsMet >= 3;
+}
+
 document.querySelector('.password').onblur = function (params) {
 	document.querySelector(".valid-password").classList.add("d-none");
+
+	var errorMessage = false;
+	try {
+		var pass = document.querySelector("input[type='password'].password").value;
+	} catch (error) {
+		var pass = document.querySelector("input[type='text'].password").value;
+	}
+
+	if(pass.trim() === ""){
+		document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = "This value should not be empty."; 
+		errorMessage = true;
+	} else {
+		document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = ``; 
+		errorMessage = false;
+	}
+	document.querySelector(".password").parentElement.querySelector(".invalid-feedback").classList.add('d-block');
+
+
+	if(!errorMessage){
+		if(pass.trim().length > 7 && pass.trim().length < 21){
+			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = ``;
+			errorMessage = false;
+		} else {
+			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = `Mật khẩu phải từ 8 đến 20 ký tự.`;
+			errorMessage = true;
+		}
+	} 
+
+	if(!errorMessage){
+		if(checkPasswordRequirements(pass)){
+			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = ``;
+			errorMessage = false;
+		} else {
+			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = `Mật khảu phải chứa ít nhất 3 trong 4 điều sau: \n1. Ký tự viết thường\n2. Ký tự viết hoa\n3. Ký tự đặc biệt\n4. Ký tự số`;
+			errorMessage = true;
+		}
+	}
 }
 
 var validPassword = {
