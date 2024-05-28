@@ -128,19 +128,21 @@ Main Content START -->
 								<p class="mb-0">New here?<a href="sign-up.html"> Create an account</a></p>
 		
 								<!-- Form START -->
-								<form class="mt-4 text-start">
+								<form class="mt-4 text-start tab-singIn">
 									<!-- Email -->
-									<div class="mb-3">
+									<div class="mb-3 form-group">
 										<label class="form-label">Enter email id</label>
-										<input type="text" class="form-control">
+										<input type="text" class="form-control" id="si-email">
+										<div class="invalid-feedback">  </div>
 									</div>
 									<!-- Password -->
-									<div class="mb-3 position-relative">
+									<div class="mb-3 position-relative form-group">
 										<label class="form-label">Enter password</label>
-										<input class="form-control fakepassword" type="password" id="psw-input">
+										<input class="form-control fakepassword" type="password" id="si-password">
 										<span class="position-absolute top-50 end-0 translate-middle-y p-0 mt-3">
 											<i class="fakepasswordicon fas fa-eye-slash cursor-pointer p-2"></i>
 										</span>
+										<div class="invalid-feedback">  </div>
 									</div>
 									<!-- Remember me -->
 									<div class="mb-3 d-sm-flex justify-content-between">
@@ -281,10 +283,22 @@ Main Content END -->
 <!-- ThemeFunctions -->
 <script src="../js/functions.js"></script>
 
+<!-- Validation -->
+<script src="../js/validation.js"></script>
+
 <script>
 	document.querySelector(".btn-close").onclick = function(){
 		document.querySelector("#detailModal").classList.add("d-none");
 	}
+	
+	Validator({
+				workplace: ".tab-singIn",
+				formGroupSelector: '.form-group',
+				rules: [
+					Validator.isRequired("#si-email", "Please provide a valid email address."),
+					Validator.isRequired("#si-password", "Please provide a valid password confirm."),
+				]
+			});
 </script>
 
 </body>

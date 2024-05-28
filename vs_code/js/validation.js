@@ -6,13 +6,18 @@ function Validator(job) {
 	workplace.onsubmit = function(e) {
 		e.preventDefault();
 		
-		var isValid = "";
+		var error = [];
 		var validPassword = false;
 
 		job.rules.forEach(function(rule) {
 			var workplaceElement = workplace.querySelector(rule.select);
 			
-			isValid = validate(workplaceElement, rule);
+			var isValid = validate(workplaceElement, rule);
+			if(isValid !== undefined){
+				error.push(true);
+			} else {
+				error.push(false);
+			}
 		});
 
         workplace.querySelectorAll(".invalid-feedback").forEach(function(element){
@@ -20,30 +25,41 @@ function Validator(job) {
         })
 
 		try {
-			var pass = document.querySelector("input[type='password'].password").value;
+			try {
+				var pass = document.querySelector("input[type='password'].password").value;
+			} catch (error) {
+				var pass = document.querySelector("input[type='text'].password").value;
+			}
+			if(document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText === ""){
+				document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = pass.trim() === "" ? "This value should not be empty." : ``
+			}
+			
+			if(document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText === ""){
+				document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = (pass.trim().length < 21 && pass.trim().length > 7) ? "" : `Mật khẩu phải từ 8 đến 20 ký tự.`
+			}
+	
+			if(document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText === ""){
+				document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = checkPasswordRequirements(pass) ? "" : `Mật khảu phải chứa ít nhất 3 trong 4 điều sau: \n1. Ký tự viết thường\n2. Ký tự viết hoa\n3. Ký tự đặc biệt\n4. Ký tự số`
+			}
+			if(document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText !== ""){
+				validPassword = true;
+			}
 		} catch (error) {
-			var pass = document.querySelector("input[type='text'].password").value;
-		}
-		if(document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText === ""){
-			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = pass.trim() === "" ? "This value should not be empty." : ``
+			
 		}
 		
-		if(document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText === ""){
-			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = (pass.trim().length < 21 && pass.trim().length > 7) ? "" : `Mật khẩu phải từ 8 đến 20 ký tự.`
-		}
+		var i = 0;
+		error.forEach(e => {
+			if(e){
+				i++;
+			}
+		});
 
-		if(document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText === ""){
-			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = checkPasswordRequirements(pass) ? "" : `Mật khảu phải chứa ít nhất 3 trong 4 điều sau: \n1. Ký tự viết thường\n2. Ký tự viết hoa\n3. Ký tự đặc biệt\n4. Ký tự số`
-		}
-		if(document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText !== ""){
-			validPassword = true;
-		}
-
-		if(isValid === null || isValid === undefined || isValid === ""){
+		if(i === 0){
 			if(!validPassword){
 				workplace.submit();
 			}
-		}
+		}	
 	}
 	
 	function getParent(workplaceElement, parent) {
@@ -134,8 +150,8 @@ Validator.isLengthMin = function(select, minValue, message) {
 	return {
 		select: select,
 		test: function(value) {
-			var min = minValue ? minValue : 6
-			return value.length >= min ? undefined :  message || `Trường này phải chứa ít nhất ${min} ký tự`;
+			var min = minValue ? minValue : 10
+			return value.length == min ? undefined :  message || `Trường này phải chứa ít nhất ${min} ký tự`;
 		}
 	}
 }
@@ -154,12 +170,6 @@ Validator.isConfirm = function(select, confirm, message) {
 
 */
 // Validation password
-var password = document.querySelector('.password');
-
-document.querySelector('.password').onfocus = function (params) {
-	document.querySelector(".valid-password").classList.remove("d-none");
-}
-
 function checkPasswordRequirements(password) {
 	const hasLowercase = /[a-z]/.test(password);
 	const hasUppercase = /[A-Z]/.test(password);
@@ -172,168 +182,177 @@ function checkPasswordRequirements(password) {
 	return requirementsMet >= 3;
 }
 
-document.querySelector('.password').onblur = function (params) {
-	document.querySelector(".valid-password").classList.add("d-none");
+var password = document.querySelector('.password');
+if(password != null){
 
-	var errorMessage = false;
-	try {
-		var pass = document.querySelector("input[type='password'].password").value;
-	} catch (error) {
-		var pass = document.querySelector("input[type='text'].password").value;
+	document.querySelector('.password').onfocus = function (params) {
+		document.querySelector(".valid-password").classList.remove("d-none");
 	}
-
-	if(pass.trim() === ""){
-		document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = "This value should not be empty."; 
-		errorMessage = true;
-	} else {
-		document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = ``; 
-		errorMessage = false;
-	}
-	document.querySelector(".password").parentElement.querySelector(".invalid-feedback").classList.add('d-block');
-
-
-	if(!errorMessage){
-		if(pass.trim().length > 7 && pass.trim().length < 21){
-			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = ``;
-			errorMessage = false;
-		} else {
-			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = `Mật khẩu phải từ 8 đến 20 ký tự.`;
+	
+	document.querySelector('.password').onblur = function (params) {
+		document.querySelector(".valid-password").classList.add("d-none");
+	
+		var errorMessage = false;
+		try {
+			var pass = document.querySelector("input[type='password'].password").value;
+		} catch (error) {
+			var pass = document.querySelector("input[type='text'].password").value;
+		}
+	
+		if(pass.trim() === ""){
+			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = "This value should not be empty."; 
 			errorMessage = true;
-		}
-	} 
-
-	if(!errorMessage){
-		if(checkPasswordRequirements(pass)){
-			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = ``;
-			errorMessage = false;
 		} else {
-			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = `Mật khảu phải chứa ít nhất 3 trong 4 điều sau: \n1. Ký tự viết thường\n2. Ký tự viết hoa\n3. Ký tự đặc biệt\n4. Ký tự số`;
-			errorMessage = true;
+			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = ``; 
+			errorMessage = false;
 		}
-	}
-}
-
-var validPassword = {
-	charLength: document.querySelector('.valid-password .length'),
-	lowercase: document.querySelector('.valid-password .lowercase'),
-	uppercase: document.querySelector('.valid-password .uppercase'),
-	number: document.querySelector('.valid-password .number'),
-	special: document.querySelector('.valid-password .special')
-};
-
-var pattern = {
-
-	charLength: function () {
-		if (password.value.length >= 8 && password.value.length <= 20) {
-			return true;
-		}
-	},
-
-	lowercase: function () {
-		var regex = /^(?=.*[a-z]).+$/; // Lowercase character pattern
-		if (regex.test(password.value)) {
-			return true;
-		}
-	},
-
-	uppercase: function () {
-		var regex = /^(?=.*[A-Z]).+$/; // Uppercase character pattern
-		if (regex.test(password.value)) {
-			return true;
-		}
-	},
-
-	number: function () {
-		var regex = /^(?=.*[0-9]).+$/; // Number check
-		if (regex.test(password.value)) {
-			return true;
-		}
-	},
-
-	special: function () {
-		var regex = /^(?=.*[_\W]).+$/; // Special character 
-		if (regex.test(password.value)) {
-			return true;
-		}
-	}
-};
-
-// Listen for keyup action on password field
-password.addEventListener('keyup', function () {
-	patternTest(pattern.charLength(), validPassword.charLength);
-	patternTest(pattern.lowercase(), validPassword.lowercase);
-	patternTest(pattern.uppercase(), validPassword.uppercase);
-	patternTest(pattern.number(), validPassword.number);
-	patternTest(pattern.special(), validPassword.special);
-
-	// Check that all requirements are fulfilled
-	if (hasClass(validPassword.charLength, 'valid')) {
-		var i = 0;
-		if (document.querySelectorAll(".true3in4 li").forEach(e => {
-			if (e.classList[1] === "valid") {
-				i++;
+		document.querySelector(".password").parentElement.querySelector(".invalid-feedback").classList.add('d-block');
+	
+	
+		if(!errorMessage){
+			if(pass.trim().length > 7 && pass.trim().length < 21){
+				document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = ``;
+				errorMessage = false;
+			} else {
+				document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = `Mật khẩu phải từ 8 đến 20 ký tự.`;
+				errorMessage = true;
 			}
-		}))
-
-		console.log(i >= 3)
-		if (i >= 3) {
-			addClass(password.parentElement, 'valid');
-			document.querySelector(".batbuoc").classList.add("d-none");
-			document.querySelector(".true3in4").classList.add("d-none");
-
-			document.querySelector(".trueValid").classList.remove("d-none");
-		} else {
+		} 
+	
+		if(!errorMessage){
+			if(checkPasswordRequirements(pass)){
+				document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = ``;
+				errorMessage = false;
+			} else {
+				document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = `Mật khảu phải chứa ít nhất 3 trong 4 điều sau: \n1. Ký tự viết thường\n2. Ký tự viết hoa\n3. Ký tự đặc biệt\n4. Ký tự số`;
+				errorMessage = true;
+			}
+		}
+	}
+	
+	var validPassword = {
+		charLength: document.querySelector('.valid-password .length'),
+		lowercase: document.querySelector('.valid-password .lowercase'),
+		uppercase: document.querySelector('.valid-password .uppercase'),
+		number: document.querySelector('.valid-password .number'),
+		special: document.querySelector('.valid-password .special')
+	};
+	
+	var pattern = {
+	
+		charLength: function () {
+			if (password.value.length >= 8 && password.value.length <= 20) {
+				return true;
+			}
+		},
+	
+		lowercase: function () {
+			var regex = /^(?=.*[a-z]).+$/; // Lowercase character pattern
+			if (regex.test(password.value)) {
+				return true;
+			}
+		},
+	
+		uppercase: function () {
+			var regex = /^(?=.*[A-Z]).+$/; // Uppercase character pattern
+			if (regex.test(password.value)) {
+				return true;
+			}
+		},
+	
+		number: function () {
+			var regex = /^(?=.*[0-9]).+$/; // Number check
+			if (regex.test(password.value)) {
+				return true;
+			}
+		},
+	
+		special: function () {
+			var regex = /^(?=.*[_\W]).+$/; // Special character 
+			if (regex.test(password.value)) {
+				return true;
+			}
+		}
+	};
+	
+	// Listen for keyup action on password field
+	password.addEventListener('keyup', function () {
+		patternTest(pattern.charLength(), validPassword.charLength);
+		patternTest(pattern.lowercase(), validPassword.lowercase);
+		patternTest(pattern.uppercase(), validPassword.uppercase);
+		patternTest(pattern.number(), validPassword.number);
+		patternTest(pattern.special(), validPassword.special);
+	
+		// Check that all requirements are fulfilled
+		if (hasClass(validPassword.charLength, 'valid')) {
+			var i = 0;
+			if (document.querySelectorAll(".true3in4 li").forEach(e => {
+				if (e.classList[1] === "valid") {
+					i++;
+				}
+			}))
+	
+			console.log(i >= 3)
+			if (i >= 3) {
+				addClass(password.parentElement, 'valid');
+				document.querySelector(".batbuoc").classList.add("d-none");
+				document.querySelector(".true3in4").classList.add("d-none");
+	
+				document.querySelector(".trueValid").classList.remove("d-none");
+			} else {
+				removeClass(password.parentElement, 'valid');
+				document.querySelector(".batbuoc").classList.remove("d-none");
+				document.querySelector(".true3in4").classList.remove("d-none");
+	
+				document.querySelector(".trueValid").classList.add("d-none");
+			}
+		}
+		else {
 			removeClass(password.parentElement, 'valid');
 			document.querySelector(".batbuoc").classList.remove("d-none");
 			document.querySelector(".true3in4").classList.remove("d-none");
-
+	
 			document.querySelector(".trueValid").classList.add("d-none");
 		}
+	});
+	
+	
+	// Pattern Test function
+	function patternTest(pattern, response) {
+		if (pattern) {
+			addClass(response, 'valid');
+		}
+		else {
+			removeClass(response, 'valid');
+		}
 	}
-	else {
-		removeClass(password.parentElement, 'valid');
-		document.querySelector(".batbuoc").classList.remove("d-none");
-		document.querySelector(".true3in4").classList.remove("d-none");
+	
+	// Has Class Function 
+	function hasClass(el, className) {
+		if (el.classList) {
+			return el.classList.contains(className);
+		}
+		else {
+			new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+		}
+	}
+	
+	// Add Class Function
+	function addClass(el, className) {
+		if (el.classList) {
+			el.classList.add(className);
+		}
+		else {
+			el.className += ' ' + className;
+		}
+	}
+	
+	// Remove Class Function
+	function removeClass(el, className) {
+		if (el.classList)
+			el.classList.remove(className);
+		else
+			el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+	}
 
-		document.querySelector(".trueValid").classList.add("d-none");
-	}
-});
-
-
-// Pattern Test function
-function patternTest(pattern, response) {
-	if (pattern) {
-		addClass(response, 'valid');
-	}
-	else {
-		removeClass(response, 'valid');
-	}
-}
-
-// Has Class Function 
-function hasClass(el, className) {
-	if (el.classList) {
-		return el.classList.contains(className);
-	}
-	else {
-		new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
-	}
-}
-
-// Add Class Function
-function addClass(el, className) {
-	if (el.classList) {
-		el.classList.add(className);
-	}
-	else {
-		el.className += ' ' + className;
-	}
-}
-
-// Remove Class Function
-function removeClass(el, className) {
-	if (el.classList)
-		el.classList.remove(className);
-	else
-		el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
 }
