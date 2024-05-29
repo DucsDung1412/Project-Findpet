@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Booking - Multipurpose Online Booking Theme</title>
     
@@ -84,11 +83,20 @@
     
         <!-- Plugins CSS -->
         <link rel="stylesheet" type="text/css" href="../css/all.min.css">
-        <link rel="stylesheet" type="text/css" href="../css/bootstrap-icons.css">
-    
+
         <!-- Theme CSS -->
         <link rel="stylesheet" type="text/css" href="../css/style.css">
-    
+
+		<style>
+			.disabled {
+                pointer-events: none;
+                color: grey;
+            }
+            #countdown {
+                margin-left: 12px;
+                font-weight: bold;
+            }
+		</style>
     </head>
 </head>
 
@@ -118,7 +126,7 @@ Main Content START -->
 						<div class="col-lg-6 order-1">
 							<div class="p-4 p-sm-7">
 								<!-- Logo -->
-								<a href="index.html">
+								<a href="/index">
 									<img class="mb-4 h-50px" src="#" alt="logo">
 								</a>
 								<!-- Title -->
@@ -126,21 +134,26 @@ Main Content START -->
 								<p class="mb-sm-0">We have to send a code to <b>example@gmail.com</b></p>
 								
 								<!-- Form START -->
-								<form action="/checkotp" class="mt-sm-4" method="post">
+								<form action="/checkOtp" class="mt-sm-4 tab-two-factor" method="post">
 									<!-- Input box -->
 									<p class="mb-1">Enter the code we have sent you:</p>
-									<div class="autotab d-flex justify-content-between gap-1 gap-sm-3 mb-2">
-										<input name="so1" type="text" maxlength="1" class="form-control text-center p-3">
-										<input name="so2" type="text" maxlength="1" class="form-control text-center p-3">
-										<input name="so3" type="text" maxlength="1" class="form-control text-center p-3">
-										<input name="so4" type="text" maxlength="1" class="form-control text-center p-3">
-										<input name="so5" type="text" maxlength="1" class="form-control text-center p-3">
+									<div class="form-group">
+										<div class="autotab d-flex justify-content-between gap-1 gap-sm-3 mb-2">
+											<input id="tf-1" name="so1" type="text" maxlength="1" class="form-control text-center p-3">
+											<input id="tf-2" name="so2" type="text" maxlength="1" class="form-control text-center p-3">
+											<input id="tf-3" name="so3" type="text" maxlength="1" class="form-control text-center p-3">
+											<input id="tf-4" name="so4" type="text" maxlength="1" class="form-control text-center p-3">
+											<input id="tf-5" name="so5" type="text" maxlength="1" class="form-control text-center p-3">
+										</div>
+										<div th:class="${errorMessage} ==null ? 'invalid-feedback d-flex justify-content-end d-block' : 'invalid-feedback d-flex justify-content-end'" th:text="${errorMessage}">  </div>
 									</div>
-									
 									<!-- Button link -->
 									<div class="d-sm-flex justify-content-between small mb-4">
 										<span>Don't get a code?</span>
-										<a href="/resetotp" class="btn btn-sm btn-link p-0 text-decoration-underline mb-0">Click to resend</a>
+										<div>
+											<span id="countdown" class="text-decoration"></span>
+											<a href="/resetOtp" id="resendBtn" class="btn btn-sm btn-link p-0 text-decoration-underline mb-0">Click to resend</a>
+										</div>
 									</div>
 
 									<!-- Button -->
@@ -173,5 +186,49 @@ Main Content END -->
 <!-- ThemeFunctions -->
 <script src="../js/functions.js"></script>
 
+<!-- Validation -->
+<script src="../js/validation.js"></script>
+
+<script>
+	Validator({
+        workplace: ".tab-two-factor",
+        formGroupSelector: '.form-group',
+        rules: [
+            Validator.isRequired("#tf-1", "Please provide a valid."),
+            Validator.isRequired("#tf-2", "Please provide a valid."),
+            Validator.isRequired("#tf-3", "Please provide a valid."),
+            Validator.isRequired("#tf-4", "Please provide a valid."),
+            Validator.isRequired("#tf-5", "Please provide a valid."),
+        ]
+    });
+</script>
+
+<script th:if="${reset}">
+	window.onload = function() {
+        let btn = document.getElementById('resendBtn');
+        let countdownSpan = document.getElementById('countdown');
+        let countdownTime = 60;
+
+        // Set disable
+        btn.classList.add("disabled");
+
+        // Set initial countdown
+        btn.textContent = 'Resend OTP in ';
+        countdownSpan.textContent = countdownTime + 's';
+
+        // Update countdown every second
+        let countdownInterval = setInterval(function() {
+            countdownTime--;
+            countdownSpan.textContent = countdownTime + 's';
+
+            if (countdownTime <= 0) {
+                clearInterval(countdownInterval);
+                btn.classList.remove('disabled');
+                btn.textContent = 'Click to resend';
+                countdownSpan.textContent = '';
+            }
+        }, 1000);
+    };
+</script>
 </body>
 </html>

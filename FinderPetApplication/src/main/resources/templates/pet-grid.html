@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Booking - Multipurpose Online Booking Theme</title>
+
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Webestica.com">
+    <meta name="description" content="Booking - Multipurpose Online Booking Theme">
+
+    <!-- Dark mode -->
+    <script>
+        const storedTheme = localStorage.getItem('theme')
+ 
+        const getPreferredTheme = () => {
+            if (storedTheme) {
+                return storedTheme
+            }
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+
+        const setTheme = function (theme) {
+            if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-bs-theme', 'dark')
+            } else {
+                document.documentElement.setAttribute('data-bs-theme', theme)
+            }
+        }
+
+        setTheme(getPreferredTheme())
+
+        window.addEventListener('DOMContentLoaded', () => {
+            var el = document.querySelector('.theme-icon-active');
+            if(el != 'undefined' && el != null) {
+                const showActiveTheme = theme => {
+                const activeThemeIcon = document.querySelector('.theme-icon-active use')
+                const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
+                const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href')
+
+                document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+                    element.classList.remove('active')
+                })
+
+                btnToActive.classList.add('active')
+                activeThemeIcon.setAttribute('href', svgOfActiveBtn)
+            }
+
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                if (storedTheme !== 'light' || storedTheme !== 'dark') {
+                    setTheme(getPreferredTheme())
+                }
+            })
+
+            showActiveTheme(getPreferredTheme())
+
+            document.querySelectorAll('[data-bs-theme-value]')
+                .forEach(toggle => {
+                    toggle.addEventListener('click', () => {
+                        const theme = toggle.getAttribute('data-bs-theme-value')
+                        localStorage.setItem('theme', theme)
+                        setTheme(theme)
+                        showActiveTheme(theme)
+                    })
+                })
+
+            }
+        })
+
+    </script>
+
+    <!-- Font-Awesome -->
+    <link rel="stylesheet" type="text/css" href="//use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../images/favicon.ico">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Font Icon CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/choices.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/nouislider.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+
+<body>
+
+<!-- Header START -->
+<header class="navbar-light header-sticky">
+    <!-- Logo Nav START -->
+    <nav class="navbar navbar-expand-xl">
+        <div class="container">
+            <!-- Logo START -->
+            <a class="navbar-brand" href="index.html">
+                <img class="light-mode-item navbar-brand-item" src="https://booking.webestica.com/assets/images/logo.svg" alt="logo">
+                <img class="dark-mode-item navbar-brand-item" src="https://booking.webestica.com/assets/images/logo-light.svg" alt="logo">
+            </a>
+            <!-- Logo END -->
+
+            <!-- Responsive navbar toggler -->
+            <button class="navbar-toggler ms-auto ms-sm-0 p-0 p-sm-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-animation">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+                <span class="d-none d-sm-inline-block small">Menu</span>
+            </button>
+
+            <!-- Responsive category toggler -->
+            <button class="navbar-toggler ms-sm-auto mx-3 me-md-0 p-0 p-sm-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCategoryCollapse" aria-controls="navbarCategoryCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-grid-3x3-gap-fill fa-fw"></i><span class="d-none d-sm-inline-block small">Category</span>
+            </button>
+
+            <!-- Main navbar START -->
+            <div class="navbar-collapse collapse" id="navbarCollapse">
+                <ul class="navbar-nav navbar-nav-scroll me-auto">
+                    <!-- Nav item Dogs -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="pagesMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dogs & Puppies</a>
+                        <ul class="dropdown-menu" aria-labelledby="pagesMenu">
+                            <!-- Dropdown submenu -->
+                            <li class="dropdown-submenu dropend">
+                                <a class="dropdown-item dropdown-toggle" href="#">Breed</a>
+                                <ul class="dropdown-menu" data-bs-popper="none">
+                                    <li> <a class="dropdown-item" href="#">American Bulldog</a></li>
+                                    <li> <a class="dropdown-item" href="#">American Staffordshire Terrier</a></li>
+                                    <li> <a class="dropdown-item" href="#">Australian Cattle Dog</a></li>
+                                    <li> <a class="dropdown-item" href="#">Beagle</a></li>
+                                    <li> <a class="dropdown-item" href="#">Black Labrador Retriever</a></li>
+                                    <li> <a class="dropdown-item" href="#">Other</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- Dropdown submenu -->
+                            <li class="dropdown-submenu dropend">
+                                <a class="dropdown-item dropdown-toggle" href="#">Age</a>
+                                <ul class="dropdown-menu" data-bs-popper="none">
+                                    <li> <a class="dropdown-item" href="#">Puppy</a></li>
+                                    <li> <a class="dropdown-item" href="#">Young</a></li>
+                                    <li> <a class="dropdown-item" href="#">Adult</a></li>
+                                    <li> <a class="dropdown-item" href="#">Senior</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- Dropdown submenu -->
+                            <li class="dropdown-submenu dropend">
+                                <a class="dropdown-item dropdown-toggle" href="#">Size</a>
+                                <ul class="dropdown-menu" data-bs-popper="none">
+                                    <li> <a class="dropdown-item" href="#">Small (0-25 lbs)</a></li>
+                                    <li> <a class="dropdown-item" href="#">Medium (26-60 lbs)</a></li>
+                                    <li> <a class="dropdown-item" href="#">Large (61-100 lbs)</a></li>
+                                    <li> <a class="dropdown-item" href="#">Extra Large (101 lbs or more)</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- Dropdown submenu -->
+                            <li class="dropdown-submenu dropend">
+                                <a class="dropdown-item dropdown-toggle" href="#">Gender</a>
+                                <ul class="dropdown-menu" data-bs-popper="none">
+                                    <li> <a class="dropdown-item" href="#">Male</a></li>
+                                    <li> <a class="dropdown-item" href="#">Female</a></li>
+                                </ul>
+                            </li>
+
+                            <li> <a class="dropdown-item" href="#">Other</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Nav item Cats -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="accounntMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cats & Kittens</a>
+                        <ul class="dropdown-menu" aria-labelledby="accounntMenu">
+                            <!-- Dropdown submenu -->
+                            <li class="dropdown-submenu dropend">
+                                <a class="dropdown-item dropdown-toggle" href="#">Breed</a>
+                                <ul class="dropdown-menu" data-bs-popper="none">
+                                    <li> <a class="dropdown-item" href="#">American Shorthair</a></li>
+                                    <li> <a class="dropdown-item" href="#">Calico</a></li>
+                                    <li> <a class="dropdown-item" href="#">Domestic Medium Hair</a></li>
+                                    <li> <a class="dropdown-item" href="#">Domestic Short Hair</a></li>
+                                    <li> <a class="dropdown-item" href="#">Tuxedo</a></li>
+                                    <li> <a class="dropdown-item" href="#">Other</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- Dropdown submenu -->
+                            <li class="dropdown-submenu dropend">
+                                <a class="dropdown-item dropdown-toggle" href="#">Age</a>
+                                <ul class="dropdown-menu" data-bs-popper="none">
+                                    <li> <a class="dropdown-item" href="#">Kitten</a></li>
+                                    <li> <a class="dropdown-item" href="#">Young</a></li>
+                                    <li> <a class="dropdown-item" href="#">Adult</a></li>
+                                    <li> <a class="dropdown-item" href="#">Senior</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- Dropdown submenu -->
+                            <li class="dropdown-submenu dropend">
+                                <a class="dropdown-item dropdown-toggle" href="#">Size</a>
+                                <ul class="dropdown-menu" data-bs-popper="none">
+                                    <li> <a class="dropdown-item" href="#">Small (0-6 lbs)</a></li>
+                                    <li> <a class="dropdown-item" href="#">Medium (7-11 lbs)</a></li>
+                                    <li> <a class="dropdown-item" href="#">Large (12-16 lbs)</a></li>
+                                    <li> <a class="dropdown-item" href="#">Extra Large (17 lbs or more)</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- Dropdown submenu -->
+                            <li class="dropdown-submenu dropend">
+                                <a class="dropdown-item dropdown-toggle" href="#">Gender</a>
+                                <ul class="dropdown-menu" data-bs-popper="none">
+                                    <li> <a class="dropdown-item" href="#">Male</a></li>
+                                    <li> <a class="dropdown-item" href="#">Female</a></li>
+                                </ul>
+                            </li>
+
+                            <li> <a class="dropdown-item" href="#">Other</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Nav item Cats -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="accounntMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Other Animals</a>
+                        <ul class="dropdown-menu" aria-labelledby="accounntMenu1">
+                            <li> <a class="dropdown-item" href="#">Rabbits</a></li>
+                            <li> <a class="dropdown-item" href="#">Small & Furry</a></li>
+                            <li> <a class="dropdown-item" href="#">Birds</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Nav item link-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" id="advanceMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </a>
+                        <ul class="dropdown-menu min-w-auto" data-bs-popper="none">
+                            <li>
+                                <a class="dropdown-item" href="https://support.webestica.com/" target="_blank">
+                                    <i class="text-warning fa-fw bi bi-life-preserver me-2"></i>About Us
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="docs/index.html" target="_blank">
+                                    <i class="text-danger fa-fw bi bi-card-text me-2"></i>Contact
+                                </a>
+                            </li>
+                            <li> <hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item" href="https://booking.webestica.com/rtl/" target="_blank">
+                                    <i class="text-info fa-fw bi bi-toggle-off me-2"></i>Help Center
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="https://themes.getbootstrap.com/store/webestica/" target="_blank">
+                                    <i class="text-success fa-fw bi bi-cloud-download-fill me-2"></i>News and Blog
+                                </a>
+                            </li>
+                            <li> <hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item" href="docs/alerts.html" target="_blank">
+                                    <i class="text-orange fa-fw bi bi-puzzle-fill me-2"></i>Donate
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- Main navbar END -->
+
+            <!-- Nav category menu START -->
+            <div class="navbar-collapse collapse" id="navbarCategoryCollapse">
+                <ul class="navbar-nav navbar-nav-scroll nav-pills-primary-soft text-center ms-auto p-2 p-xl-0">
+                    <!-- Nav item Home -->
+                    <li class="nav-item"> <a class="nav-link active" href="index.html"><i class="fa-solid fa-house fa-lg me-2"></i>Home</a></li>
+
+                    <!-- Nav item Favorites -->
+                    <li class="nav-item"> <a class="nav-link" href="favorites.html"><i class="fa-solid fa-heart fa-lg me-2"></i>Favorites</a></li>
+                </ul>
+            </div>
+            <!-- Nav category menu END -->
+
+            <!-- Theme and Sign up START -->
+            <ul sec:authorize="!isAuthenticated()" class="nav flex-row align-items-center list-unstyled ms-xl-auto">
+                <!-- Dark mode options START -->
+                <li class="nav-item dropdown me-2" style="padding-bottom: 4px;">
+                    <button class="btn btn-link text-warning p-0 mb-0" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-circle-half theme-icon-active fa-fw" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"></path>
+                            <use href="#"></use>
+                        </svg>
+                    </button>
+
+                    <ul class="dropdown-menu min-w-auto dropdown-menu-end" aria-labelledby="bd-theme">
+                        <li class="mb-1">
+                            <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="light">
+                                <svg width="16" height="16" fill="currentColor" class="bi bi-brightness-high-fill fa-fw mode-switch me-1" viewBox="0 0 16 16">
+                                    <path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path>
+                                    <use href="#"></use>
+                                </svg>Light
+                            </button>
+                        </li>
+                        <li class="mb-1">
+                            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-stars-fill fa-fw mode-switch me-1" viewBox="0 0 16 16">
+                                    <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path>
+                                    <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"></path>
+                                    <use href="#"></use>
+                                </svg>Dark
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-half fa-fw mode-switch me-1" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"></path>
+                                    <use href="#"></use>
+                                </svg>Auto
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Dark mode options END -->
+
+                <!-- Sign In button -->
+                <li class="nav-item">
+                    <a href="./sign-up.html" class="btn btn-sm btn-primary mb-0"><i class="fa-solid fa-right-to-bracket fa-lg me-sm-2"></i><span class="d-none d-sm-inline fs-6">Sign Up</span></a>
+                </li>
+            </ul>
+            <!-- Theme and Sign up END -->
+
+            <!-- Profile and Notification START -->
+            <ul sec:authorize="isAuthenticated()" class="nav flex-row align-items-center list-unstyled ms-xl-auto">
+
+                <!-- Notification dropdown START -->
+                <li class="nav-item dropdown ms-0 ms-md-3">
+                    <!-- Notification button -->
+                    <a class="nav-notification btn btn-light p-0 mb-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                        <i class="bi bi-bell fa-fw"></i>
+                    </a>
+                    <!-- Notification dote -->
+                    <span class="notif-badge animation-blink"></span>
+
+                    <!-- Notification dropdown menu START -->
+                    <div class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md shadow-lg p-0">
+                        <div class="card bg-transparent">
+                            <!-- Card header -->
+                            <div class="card-header bg-transparent d-flex justify-content-between align-items-center border-bottom">
+                                <h6 class="m-0">Notifications <span class="badge bg-danger bg-opacity-10 text-danger ms-2">4 new</span></h6>
+                                <a class="small" href="#">Clear all</a>
+                            </div>
+
+                            <!-- Card body START -->
+                            <div class="card-body p-0">
+                                <ul class="list-group list-group-flush list-unstyled p-2">
+                                    <!-- Notification item -->
+                                    <li>
+                                        <a href="#" class="list-group-item list-group-item-action rounded notif-unread border-0 mb-1 p-3">
+                                            <h6 class="mb-2">New! Booking flights from New York ✈️</h6>
+                                            <p class="mb-0 small">Find the flexible ticket on flights around the world. Start searching today</p>
+                                            <span>Wednesday</span>
+                                        </a>
+                                    </li>
+                                    <!-- Notification item -->
+                                    <li>
+                                        <a href="#" class="list-group-item list-group-item-action rounded border-0 mb-1 p-3">
+                                            <h6 class="mb-2">Sunshine saving are here 🌞 save 30% or more on a stay</h6>
+                                            <span>15 Nov 2022</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Card body END -->
+
+                            <!-- Card footer -->
+                            <div class="card-footer bg-transparent text-center border-top">
+                                <a href="#" class="btn btn-sm btn-link mb-0 p-0">See all incoming activity</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Notification dropdown menu END -->
+                </li>
+                <!-- Notification dropdown END -->
+
+                <!-- Profile dropdown START -->
+                <li class="nav-item ms-3 dropdown">
+                    <!-- Avatar -->
+                    <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img class="avatar-img rounded-2" src="https://booking.webestica.com/assets/images/avatar/01.jpg" alt="avatar">
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+                        <!-- Profile info -->
+                        <li class="px-3 mb-3">
+                            <div class="d-flex align-items-center">
+                                <!-- Avatar -->
+                                <div class="avatar me-3">
+                                    <img class="avatar-img rounded-circle shadow" src="https://booking.webestica.com/assets/images/avatar/01.jpg" alt="avatar">
+                                </div>
+                                <div>
+                                    <a class="h6 mt-2 mt-sm-0" href="#">Lori Ferguson</a>
+                                    <p class="small m-0">example@gmail.com</p>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Links -->
+                        <li> <hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-bookmark-check fa-fw me-2"></i>My Bookings</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-heart fa-fw me-2"></i>My Wishlist</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Settings</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help Center</a></li>
+                        <li><a class="dropdown-item bg-danger-soft-hover" href="#" th:href="@{/logout}"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+                        <li> <hr class="dropdown-divider"></li>
+
+                        <!-- Dark mode options START -->
+                        <li>
+                            <div class="nav-pills-primary-soft theme-icon-active d-flex justify-content-between align-items-center p-2 pb-0">
+                                <span>Mode:</span>
+                                <button type="button" class="btn btn-link nav-link text-primary-hover mb-0 p-0" data-bs-theme-value="light" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Light">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sun fa-fw mode-switch" viewBox="0 0 16 16">
+                                        <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+                                        <use href="#"></use>
+                                    </svg>
+                                </button>
+                                <button type="button" class="btn btn-link nav-link text-primary-hover mb-0 p-0" data-bs-theme-value="dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Dark">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-stars fa-fw mode-switch" viewBox="0 0 16 16">
+                                        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/>
+                                        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+                                        <use href="#"></use>
+                                    </svg>
+                                </button>
+                                <button type="button" class="btn btn-link nav-link text-primary-hover mb-0 p-0 active" data-bs-theme-value="auto" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Auto">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-half fa-fw mode-switch" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+                                        <use href="#"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                        </li>
+                        <!-- Dark mode options END-->
+                    </ul>
+                </li>
+                <!-- Profile dropdown END -->
+            </ul>
+            <!-- Profile and Notification START -->
+
+        </div>
+    </nav>
+    <!-- Logo Nav END -->
+</header>
+<!-- Header END -->
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main>
+
+    <!-- =======================
+    Main Banner START -->
+    <section class="pt-0">
+        <div class="container">
+            <!-- Background image -->
+            <div class="p-3 p-sm-5 rounded-3" style="background-image: url(https://booking.webestica.com/assets/images/bg/04.jpg); background-position: center center; background-repeat: no-repeat; background-size: cover;">
+                <!-- Banner title -->
+                <div class="row">
+                    <div class="col-md-8 mx-auto my-5">
+                        <h1 class="text-center text-dark">Dogs</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search START -->
+            <div class="row mt-n4 mt-sm-n7">
+                <div class="col-11 mx-auto">
+
+                    <!-- Booking from START -->
+                    <div class="bg-mode shadow p-4 rounded-3">
+
+                        <!-- Main search START -->
+                        <form class="form-control-bg-transparent bg-mode rounded-3">
+                            <div class="row g-4 align-items-center">
+
+                                <div class="col-xl-10">
+                                    <div class="row g-4">
+                                        <!-- Location -->
+                                        <div class="col-md-6 col-lg-6">
+                                            <label class="h6 fw-normal mb-0"><i class="bi bi-geo-alt text-primary me-1"></i>Location</label>
+                                            <!-- Input field -->
+                                            <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
+                                                <select class="form-select js-choice sl-location" data-search-enabled="true">
+                                                    <option value="" selected>Select location</option>
+                                                    <option>An Giang</option>
+                                                    <option>Bà Rịa - Vũng Tàu</option>
+                                                    <option>Bắc Giang</option>
+                                                    <option>Bắc Kạn</option>
+                                                    <option>Bạc Liêu</option>
+                                                    <option>Bắc Ninh</option>
+                                                    <option>Bến Tre</option>
+                                                    <option>Bình Dương</option>
+                                                    <option>Bình Định</option>
+                                                    <option>Bình Phước</option>
+                                                    <option>Bình Thuận</option>
+                                                    <option>Cà Mau</option>
+                                                    <option>Cần Thơ</option>
+                                                    <option>Cao Bằng</option>
+                                                    <option>Đà Nẵng</option>
+                                                    <option>Đắk Lắk</option>
+                                                    <option>Đắk Nông</option>
+                                                    <option>Điện Biên</option>
+                                                    <option>Đồng Nai</option>
+                                                    <option>Đồng Tháp</option>
+                                                    <option>Gia Lai</option>
+                                                    <option>Hà Giang</option>
+                                                    <option>Hà Nam</option>
+                                                    <option>Hà Nội</option>
+                                                    <option>Hà Tĩnh</option>
+                                                    <option>Hải Dương</option>
+                                                    <option>Hải Phòng</option>
+                                                    <option>Hậu Giang</option>
+                                                    <option>Hồ Chí Minh</option>
+                                                    <option>Hoà Bình</option>
+                                                    <option>Hưng Yên</option>
+                                                    <option>Khánh Hòa</option>
+                                                    <option>Kiên Giang</option>
+                                                    <option>Kon Tum</option>
+                                                    <option>Lai Châu</option>
+                                                    <option>Lâm Đồng</option>
+                                                    <option>Lạng Sơn</option>
+                                                    <option>Lào Cai</option>
+                                                    <option>Long An</option>
+                                                    <option>Nam Định</option>
+                                                    <option>Nghệ An</option>
+                                                    <option>Ninh Bình</option>
+                                                    <option>Ninh Thuận</option>
+                                                    <option>Phú Thọ</option>
+                                                    <option>Phú Yên</option>
+                                                    <option>Quảng Bình</option>
+                                                    <option>Quảng Nam</option>
+                                                    <option>Quảng Ngãi</option>
+                                                    <option>Quảng Ninh</option>
+                                                    <option>Quảng Trị</option>
+                                                    <option>Sóc Trăng</option>
+                                                    <option>Sơn La</option>
+                                                    <option>Tây Ninh</option>
+                                                    <option>Thái Bình</option>
+                                                    <option>Thái Nguyên</option>
+                                                    <option>Thanh Hóa</option>
+                                                    <option>Thừa Thiên Huế</option>
+                                                    <option>Tiền Giang</option>
+                                                    <option>Trà Vinh</option>
+                                                    <option>Tuyên Quang</option>
+                                                    <option>Vĩnh Long</option>
+                                                    <option>Vĩnh Phúc</option>
+                                                    <option>Yên Bái</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Breed -->
+                                        <div class="col-md-6 col-lg-6">
+                                            <label class="h6 fw-normal mb-0"><i class="fa-solid fa-person-skating text-primary me-1"></i>Breed type</label>
+                                            <!-- Input field -->
+                                            <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
+                                                <select class="form-select js-choice sl-breed" data-search-enabled="true">
+                                                    <option selected value="">Select type</option>
+                                                    <option>Adventure</option>
+                                                    <option>Beach</option>
+                                                    <option>Labrador Retriever</option>
+                                                    <option>History</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Button -->
+                                <div class="col-xl-2">
+                                    <div class="d-grid">
+                                        <a href="#" class="btn btn-lg btn-dark mb-0 take-a-pet">Take a pet</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Main search END -->
+
+                        <!-- Collapse button -->
+                        <div class="d-grid mt-4">
+                            <input type="checkbox" class="btn-check" id="btn-check-soft">
+                            <label class="btn btn-primary-soft btn-primary-check mb-0" for="btn-check-soft" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-controls="collapseExample">
+                                <i class="bi fa-fe bi-sliders me-2"></i>Advance Filters
+                            </label>
+                        </div>
+
+                        <!-- Advance filter START -->
+                        <div class="collapse" id="collapseExample">
+                            <form class="row g-4 mt-3">
+
+                                <!-- Input item -->
+                                <div class="col-md-6 col-lg-6">
+                                    <div class="form-control-borderless">
+                                        <label class="form-label">Enter Pet Name</label>
+                                        <input type="text" class="form-control form-control-lg bg-light ip-name">
+                                    </div>
+                                </div>
+
+                                <!-- Select Size -->
+                                <div class="col-md-6 col-lg-6">
+                                    <div class="form-control-bg-light form-size-lg">
+                                        <label class="form-label">Size Type</label>
+                                        <select class="form-select js-choice sl-size">
+                                            <option value="">Select Option</option>
+                                            <option>Small (0-25 lbs)</option>
+                                            <option>Medium (26-60 lbs)</option>
+                                            <option>Large (61-100 lbs)</option>
+                                            <option>Extra Large (101 lbs or more)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Age -->
+                                <div class="col-md-6 col-lg-6">
+                                    <label class="form-label">Age type</label>
+                                    <ul class="list-inline mb-0 g-3">
+                                        <!-- 1 -->
+                                        <li class="list-inline-item">
+                                            <input type="checkbox" class="btn-check" id="btn-check-9">
+                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-9">Puppy</label>
+                                        </li>
+                                        <!-- 2 -->
+                                        <li class="list-inline-item">
+                                            <input type="checkbox" class="btn-check" id="btn-check-10">
+                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-10">Young</label>
+                                        </li>
+                                        <!-- 3 -->
+                                        <li class="list-inline-item">
+                                            <input type="checkbox" class="btn-check" id="btn-check-11">
+                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-11">Adult</label>
+                                        </li>
+                                        <!-- 4 -->
+                                        <li class="list-inline-item">
+                                            <input type="checkbox" class="btn-check" id="btn-check-12">
+                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-12">Senior</label>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Gender -->
+                                <div class="col-md-6 col-lg-6">
+                                    <label class="form-label">Gender</label>
+                                    <div>
+                                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1">
+                                            <label class="btn btn-light btn-primary-soft-check mb-0" for="btnradio1">Male</label>
+
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2">
+                                            <label class="btn btn-light btn-primary-soft-check mb-0" for="btnradio2">Female</label>
+
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3">
+                                            <label class="btn btn-light btn-primary-soft-check mb-0" for="btnradio3">Both</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Advance filter END -->
+
+                    </div>
+                    <!-- Booking from END -->
+                </div>
+            </div>
+            <!-- Search END -->
+        </div>
+    </section>
+    <!-- =======================
+    Main Banner END -->
+
+    <!-- =======================
+    Tour grid START -->
+    <section class="pt-0">
+        <div class="container">
+
+            <!-- Filter and content START -->
+            <div class="row g-4 align-items-center justify-content-between mb-4">
+                <!-- Content -->
+                <div class="col-12 col-xl-8">
+                    <h5 class="mb-0">Showing 1-9 of 32 result</h5>
+                </div>
+
+                <!-- Select option -->
+                <div class="col-xl-2">
+                    <form class="form-control-bg-light">
+                        <select class="form-select js-choice">
+                            <option value="">Most Viewed</option>
+                            <option>Recently search</option>
+                            <option>Most popular</option>
+                            <option>Top rated</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+            <!-- Filter and content END -->
+
+            <div class="row g-4">
+                <!-- Card item START -->
+                <div class="col-md-6 col-xl-4">
+                    <div class="card shadow p-2 pb-0 h-100">
+                        <!-- Image -->
+                        <img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080" class="rounded-2" alt="Card image">
+
+                        <!-- Card body START -->
+                        <div class="card-body px-3 pb-0">
+                            <!-- Rating and cart -->
+                            <div class="d-flex justify-content-between mb-3">
+                                <a href="#" class="badge bg-dark text-white"><i class="bi fa-fw bi-star-fill me-2 text-warning"></i>Husky Mix</a>
+                                <a href="#" class="h6 mb-0 z-index-2"><i class="bi fa-fw bi-bookmark-fill text-danger"></i></a>
+                            </div>
+
+                            <!-- Title -->
+                            <h5 class="card-title"><a href="hotel-detail.html">Cole</a></h5>
+
+                            <!-- List -->
+                            <ul class="nav nav-divider mb-2 mb-sm-3">
+                                <li class="nav-item">Young</li>
+                                <li class="nav-item">Medium</li>
+                                <li class="nav-item">Male</li>
+                                <li class="nav-item">More +</li>
+                            </ul>
+                        </div>
+                        <!-- Card body END -->
+
+                        <!-- Card footer START-->
+                        <div class="card-footer pt-0">
+                            <!-- Price and Button -->
+                            <div class="d-sm-flex justify-content-sm-center align-items-center">
+                                <!-- Button -->
+                                <div class="mt-2 mt-sm-0">
+                                    <a href="hotel-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View Detail<i class="bi bi-arrow-right ms-2"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card item END -->
+
+                <!-- Card item START -->
+                <div class="col-md-6 col-xl-4">
+                    <div class="card shadow p-2 pb-0 h-100">
+                        <!-- Image -->
+                        <img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080" class="rounded-2" alt="Card image">
+
+                        <!-- Card body START -->
+                        <div class="card-body px-3 pb-0">
+                            <!-- Rating and cart -->
+                            <div class="d-flex justify-content-between mb-3">
+                                <a href="#" class="badge bg-dark text-white"><i class="bi fa-fw bi-star-fill me-2 text-warning"></i>Husky Mix</a>
+                                <a href="#" class="h6 mb-0 z-index-2"><i class="bi fa-fw bi-bookmark"></i></a>
+                            </div>
+
+                            <!-- Title -->
+                            <h5 class="card-title"><a href="hotel-detail.html">Cole</a></h5>
+
+                            <!-- List -->
+                            <ul class="nav nav-divider mb-2 mb-sm-3">
+                                <li class="nav-item">Young</li>
+                                <li class="nav-item">Medium</li>
+                                <li class="nav-item">Male</li>
+                                <li class="nav-item">More +</li>
+                            </ul>
+                        </div>
+                        <!-- Card body END -->
+
+                        <!-- Card footer START-->
+                        <div class="card-footer pt-0">
+                            <!-- Price and Button -->
+                            <div class="d-sm-flex justify-content-sm-center align-items-center">
+                                <!-- Button -->
+                                <div class="mt-2 mt-sm-0">
+                                    <a href="hotel-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View Detail<i class="bi bi-arrow-right ms-2"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card item END -->
+
+                <!-- Card item START -->
+                <div class="col-md-6 col-xl-4">
+                    <div class="card shadow p-2 pb-0 h-100">
+                        <!-- Image -->
+                        <img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080" class="rounded-2" alt="Card image">
+
+                        <!-- Card body START -->
+                        <div class="card-body px-3 pb-0">
+                            <!-- Rating and cart -->
+                            <div class="d-flex justify-content-between mb-3">
+                                <a href="#" class="badge bg-dark text-white"><i class="bi fa-fw bi-star-fill me-2 text-warning"></i>Husky Mix</a>
+                                <a href="#" class="h6 mb-0 z-index-2"><i class="bi fa-fw bi-bookmark"></i></a>
+                            </div>
+
+                            <!-- Title -->
+                            <h5 class="card-title"><a href="hotel-detail.html">Cole</a></h5>
+
+                            <!-- List -->
+                            <ul class="nav nav-divider mb-2 mb-sm-3">
+                                <li class="nav-item">Young</li>
+                                <li class="nav-item">Medium</li>
+                                <li class="nav-item">Male</li>
+                                <li class="nav-item">More +</li>
+                            </ul>
+                        </div>
+                        <!-- Card body END -->
+
+                        <!-- Card footer START-->
+                        <div class="card-footer pt-0">
+                            <!-- Price and Button -->
+                            <div class="d-sm-flex justify-content-sm-center align-items-center">
+                                <!-- Button -->
+                                <div class="mt-2 mt-sm-0">
+                                    <a href="hotel-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View Detail<i class="bi bi-arrow-right ms-2"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card item END -->
+
+                <!-- Card item START -->
+                <div class="col-md-6 col-xl-4">
+                    <div class="card shadow p-2 pb-0 h-100">
+                        <!-- Image -->
+                        <img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080" class="rounded-2" alt="Card image">
+
+                        <!-- Card body START -->
+                        <div class="card-body px-3 pb-0">
+                            <!-- Rating and cart -->
+                            <div class="d-flex justify-content-between mb-3">
+                                <a href="#" class="badge bg-dark text-white"><i class="bi fa-fw bi-star-fill me-2 text-warning"></i>Husky Mix</a>
+                                <a href="#" class="h6 mb-0 z-index-2"><i class="bi fa-fw bi-bookmark-fill text-danger"></i></a>
+                            </div>
+
+                            <!-- Title -->
+                            <h5 class="card-title"><a href="hotel-detail.html">Cole</a></h5>
+
+                            <!-- List -->
+                            <ul class="nav nav-divider mb-2 mb-sm-3">
+                                <li class="nav-item">Young</li>
+                                <li class="nav-item">Medium</li>
+                                <li class="nav-item">Male</li>
+                                <li class="nav-item">More +</li>
+                            </ul>
+                        </div>
+                        <!-- Card body END -->
+
+                        <!-- Card footer START-->
+                        <div class="card-footer pt-0">
+                            <!-- Price and Button -->
+                            <div class="d-sm-flex justify-content-sm-center align-items-center">
+                                <!-- Button -->
+                                <div class="mt-2 mt-sm-0">
+                                    <a href="hotel-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View Detail<i class="bi bi-arrow-right ms-2"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card item END -->
+
+                <!-- Card item START -->
+                <div class="col-md-6 col-xl-4">
+                    <div class="card shadow p-2 pb-0 h-100">
+                        <!-- Image -->
+                        <img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080" class="rounded-2" alt="Card image">
+
+                        <!-- Card body START -->
+                        <div class="card-body px-3 pb-0">
+                            <!-- Rating and cart -->
+                            <div class="d-flex justify-content-between mb-3">
+                                <a href="#" class="badge bg-dark text-white"><i class="bi fa-fw bi-star-fill me-2 text-warning"></i>Husky Mix</a>
+                                <a href="#" class="h6 mb-0 z-index-2"><i class="bi fa-fw bi-bookmark"></i></a>
+                            </div>
+
+                            <!-- Title -->
+                            <h5 class="card-title"><a href="hotel-detail.html">Cole</a></h5>
+
+                            <!-- List -->
+                            <ul class="nav nav-divider mb-2 mb-sm-3">
+                                <li class="nav-item">Young</li>
+                                <li class="nav-item">Medium</li>
+                                <li class="nav-item">Male</li>
+                                <li class="nav-item">More +</li>
+                            </ul>
+                        </div>
+                        <!-- Card body END -->
+
+                        <!-- Card footer START-->
+                        <div class="card-footer pt-0">
+                            <!-- Price and Button -->
+                            <div class="d-sm-flex justify-content-sm-center align-items-center">
+                                <!-- Button -->
+                                <div class="mt-2 mt-sm-0">
+                                    <a href="hotel-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View Detail<i class="bi bi-arrow-right ms-2"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card item END -->
+
+                <!-- Card item START -->
+                <div class="col-md-6 col-xl-4">
+                    <div class="card shadow p-2 pb-0 h-100">
+                        <!-- Image -->
+                        <img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080" class="rounded-2" alt="Card image">
+
+                        <!-- Card body START -->
+                        <div class="card-body px-3 pb-0">
+                            <!-- Rating and cart -->
+                            <div class="d-flex justify-content-between mb-3">
+                                <a href="#" class="badge bg-dark text-white"><i class="bi fa-fw bi-star-fill me-2 text-warning"></i>Husky Mix</a>
+                                <a href="#" class="h6 mb-0 z-index-2"><i class="bi fa-fw bi-bookmark"></i></a>
+                            </div>
+
+                            <!-- Title -->
+                            <h5 class="card-title"><a href="hotel-detail.html">Cole</a></h5>
+
+                            <!-- List -->
+                            <ul class="nav nav-divider mb-2 mb-sm-3">
+                                <li class="nav-item">Young</li>
+                                <li class="nav-item">Medium</li>
+                                <li class="nav-item">Male</li>
+                                <li class="nav-item">More +</li>
+                            </ul>
+                        </div>
+                        <!-- Card body END -->
+
+                        <!-- Card footer START-->
+                        <div class="card-footer pt-0">
+                            <!-- Price and Button -->
+                            <div class="d-sm-flex justify-content-sm-center align-items-center">
+                                <!-- Button -->
+                                <div class="mt-2 mt-sm-0">
+                                    <a href="hotel-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View Detail<i class="bi bi-arrow-right ms-2"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card item END -->
+
+                <!-- Card item START -->
+                <div class="col-md-6 col-xl-4">
+                    <div class="card shadow p-2 pb-0 h-100">
+                        <!-- Image -->
+                        <img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080" class="rounded-2" alt="Card image">
+
+                        <!-- Card body START -->
+                        <div class="card-body px-3 pb-0">
+                            <!-- Rating and cart -->
+                            <div class="d-flex justify-content-between mb-3">
+                                <a href="#" class="badge bg-dark text-white"><i class="bi fa-fw bi-star-fill me-2 text-warning"></i>Husky Mix</a>
+                                <a href="#" class="h6 mb-0 z-index-2"><i class="bi fa-fw bi-bookmark-fill text-danger"></i></a>
+                            </div>
+
+                            <!-- Title -->
+                            <h5 class="card-title"><a href="hotel-detail.html">Cole</a></h5>
+
+                            <!-- List -->
+                            <ul class="nav nav-divider mb-2 mb-sm-3">
+                                <li class="nav-item">Young</li>
+                                <li class="nav-item">Medium</li>
+                                <li class="nav-item">Male</li>
+                                <li class="nav-item">More +</li>
+                            </ul>
+                        </div>
+                        <!-- Card body END -->
+
+                        <!-- Card footer START-->
+                        <div class="card-footer pt-0">
+                            <!-- Price and Button -->
+                            <div class="d-sm-flex justify-content-sm-center align-items-center">
+                                <!-- Button -->
+                                <div class="mt-2 mt-sm-0">
+                                    <a href="hotel-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View Detail<i class="bi bi-arrow-right ms-2"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card item END -->
+
+                <!-- Card item START -->
+                <div class="col-md-6 col-xl-4">
+                    <div class="card shadow p-2 pb-0 h-100">
+                        <!-- Image -->
+                        <img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080" class="rounded-2" alt="Card image">
+
+                        <!-- Card body START -->
+                        <div class="card-body px-3 pb-0">
+                            <!-- Rating and cart -->
+                            <div class="d-flex justify-content-between mb-3">
+                                <a href="#" class="badge bg-dark text-white"><i class="bi fa-fw bi-star-fill me-2 text-warning"></i>Husky Mix</a>
+                                <a href="#" class="h6 mb-0 z-index-2"><i class="bi fa-fw bi-bookmark"></i></a>
+                            </div>
+
+                            <!-- Title -->
+                            <h5 class="card-title"><a href="hotel-detail.html">Cole</a></h5>
+
+                            <!-- List -->
+                            <ul class="nav nav-divider mb-2 mb-sm-3">
+                                <li class="nav-item">Young</li>
+                                <li class="nav-item">Medium</li>
+                                <li class="nav-item">Male</li>
+                                <li class="nav-item">More +</li>
+                            </ul>
+                        </div>
+                        <!-- Card body END -->
+
+                        <!-- Card footer START-->
+                        <div class="card-footer pt-0">
+                            <!-- Price and Button -->
+                            <div class="d-sm-flex justify-content-sm-center align-items-center">
+                                <!-- Button -->
+                                <div class="mt-2 mt-sm-0">
+                                    <a href="hotel-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View Detail<i class="bi bi-arrow-right ms-2"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card item END -->
+
+                <!-- Card item START -->
+                <div class="col-md-6 col-xl-4">
+                    <div class="card shadow p-2 pb-0 h-100">
+                        <!-- Image -->
+                        <img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080" class="rounded-2" alt="Card image">
+
+                        <!-- Card body START -->
+                        <div class="card-body px-3 pb-0">
+                            <!-- Rating and cart -->
+                            <div class="d-flex justify-content-between mb-3">
+                                <a href="#" class="badge bg-dark text-white"><i class="bi fa-fw bi-star-fill me-2 text-warning"></i>Husky Mix</a>
+                                <a href="#" class="h6 mb-0 z-index-2"><i class="bi fa-fw bi-bookmark"></i></a>
+                            </div>
+
+                            <!-- Title -->
+                            <h5 class="card-title"><a href="hotel-detail.html">Cole</a></h5>
+
+                            <!-- List -->
+                            <ul class="nav nav-divider mb-2 mb-sm-3">
+                                <li class="nav-item">Young</li>
+                                <li class="nav-item">Medium</li>
+                                <li class="nav-item">Male</li>
+                                <li class="nav-item">More +</li>
+                            </ul>
+                        </div>
+                        <!-- Card body END -->
+
+                        <!-- Card footer START-->
+                        <div class="card-footer pt-0">
+                            <!-- Price and Button -->
+                            <div class="d-sm-flex justify-content-sm-center align-items-center">
+                                <!-- Button -->
+                                <div class="mt-2 mt-sm-0">
+                                    <a href="hotel-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View Detail<i class="bi bi-arrow-right ms-2"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card item END -->
+            </div> <!-- Row END -->
+
+            <!-- Pagination -->
+            <div class="row">
+                <div class="col-12">
+                    <nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
+                        <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                            <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fa-solid fa-angle-left"></i></a></li>
+                            <li class="page-item mb-0 pageable"><a class="page-link take-a-pet" href="#">1</a></li>
+                            <li class="page-item mb-0 pageable active"><a class="page-link take-a-pet" href="#">2</a></li>
+                            <li class="page-item mb-0 pageable"><a class="page-link take-a-pet" href="#">3</a></li>
+                            <li class="page-item mb-0 pageable"><a class="page-link take-a-pet" href="#">..</a></li>
+                            <li class="page-item mb-0 pageable"><a class="page-link take-a-pet" href="#">6</a></li>
+                            <li class="page-item mb-0 pageable"><a class="page-link take-a-pet" href="#"><i class="fa-solid fa-angle-right"></i></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- =======================
+    Tour grid END -->
+
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- =======================
+Footer START -->
+<footer class="bg-dark pt-5">
+    <div class="container">
+        <!-- Row START -->
+        <div class="row g-4">
+
+            <!-- Widget 1 START -->
+            <div class="col-lg-3">
+                <!-- logo -->
+                <a href="index.html">
+                    <img class="h-40px" src="https://booking.webestica.com/assets/images/logo-light.svg" alt="logo">
+                </a>
+                <p class="my-3 text-body-secondary">Departure defective arranging rapturous did believe him all had supported.</p>
+                <p class="mb-2"><a href="#" class="text-body-secondary text-primary-hover"><i class="bi bi-telephone me-2"></i>+1234 568 963</a> </p>
+                <p class="mb-0"><a href="#" class="text-body-secondary text-primary-hover"><i class="bi bi-envelope me-2"></i>example@gmail.com</a></p>
+            </div>
+            <!-- Widget 1 END -->
+
+            <!-- Widget 2 START -->
+            <div class="col-lg-8 ms-auto">
+                <div class="row g-4">
+                    <!-- Link block -->
+                    <div class="col-6 col-md-3">
+                        <h5 class="text-white mb-2 mb-md-4">Page</h5>
+                        <ul class="nav flex-column text-primary-hover">
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">About us</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Contact us</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">News and Blog</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Meet a Team</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Link block -->
+                    <div class="col-6 col-md-3">
+                        <h5 class="text-white mb-2 mb-md-4">Link</h5>
+                        <ul class="nav flex-column text-primary-hover">
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Sign up</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Sign in</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Privacy Policy</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Terms</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Cookie</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Support</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Link block -->
+                    <div class="col-6 col-md-3">
+                        <h5 class="text-white mb-2 mb-md-4">Global Site</h5>
+                        <ul class="nav flex-column text-primary-hover">
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">India</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">California</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Indonesia</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Canada</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Malaysia</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Link block -->
+                    <div class="col-6 col-md-3">
+                        <h5 class="text-white mb-2 mb-md-4">Booking</h5>
+                        <ul class="nav flex-column text-primary-hover">
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i class="fa-solid fa-hotel me-2"></i>Hotel</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i class="fa-solid fa-plane me-2"></i>Flight</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i class="fa-solid fa-globe-americas me-2"></i>Tour</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i class="fa-solid fa-car me-2"></i>Cabs</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Widget 2 END -->
+
+        </div><!-- Row END -->
+
+        <!-- Tops Links -->
+        <div class="row mt-5">
+            <h5 class="mb-2 text-white">Top Links</h5>
+            <ul class="list-inline text-primary-hover lh-lg">
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Flights</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Hotels</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Tours</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Cabs</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">About</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Contact us</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Blogs</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Services</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Detail page</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Services</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Policy</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Testimonials</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Newsletters</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Podcasts</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Protests</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">NewsCyber</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Education</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Sports</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Tech and Auto</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Opinion</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Share Market</a></li>
+            </ul>
+        </div>
+
+        <!-- Payment and card -->
+        <div class="row g-4 justify-content-between mt-0 mt-md-2">
+
+            <!-- Payment card -->
+            <div class="col-sm-7 col-md-6 col-lg-4">
+                <h5 class="text-white mb-2">Payment & Security</h5>
+                <ul class="list-inline mb-0 mt-3">
+                    <li class="list-inline-item"> <a href="#"><img src="https://booking.webestica.com/assets/images/element/paypal.svg" class="h-30px" alt=""></a></li>
+                    <li class="list-inline-item"> <a href="#"><img src="https://booking.webestica.com/assets/images/element/visa.svg" class="h-30px" alt=""></a></li>
+                    <li class="list-inline-item"> <a href="#"><img src="https://booking.webestica.com/assets/images/element/mastercard.svg" class="h-30px" alt=""></a></li>
+                    <li class="list-inline-item"> <a href="#"><img src="https://booking.webestica.com/assets/images/element/expresscard.svg" class="h-30px" alt=""></a></li>
+                </ul>
+            </div>
+
+            <!-- Social media icon -->
+            <div class="col-sm-5 col-md-6 col-lg-3 text-sm-end">
+                <h5 class="text-white mb-2">Follow us on</h5>
+                <ul class="list-inline mb-0 mt-3">
+                    <li class="list-inline-item"> <a class="btn btn-sm px-2 bg-facebook mb-0" href="#"><i class="fab fa-fw fa-facebook-f"></i></a> </li>
+                    <li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-instagram mb-0" href="#"><i class="fab fa-fw fa-instagram"></i></a> </li>
+                    <li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-twitter mb-0" href="#"><i class="fab fa-fw fa-twitter"></i></a> </li>
+                    <li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-linkedin mb-0" href="#"><i class="fab fa-fw fa-linkedin-in"></i></a> </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <hr class="mt-4 mb-0">
+
+        <!-- Bottom footer -->
+        <div class="row">
+            <div class="container">
+                <div class="d-lg-flex justify-content-between align-items-center py-3 text-center text-lg-start">
+                    <!-- copyright text -->
+                    <div class="text-body-secondary text-primary-hover"> Copyrights ©2023 Booking. Build by <a href="https://www.webestica.com/" class="text-body-secondary">Webestica</a>. </div>
+                    <!-- copyright links-->
+                    <div class="nav mt-2 mt-lg-0">
+                        <ul class="list-inline text-primary-hover mx-auto mb-0">
+                            <li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1" href="#">Privacy policy</a></li>
+                            <li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1" href="#">Terms and conditions</a></li>
+                            <li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1 pe-0" href="#">Refund policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- =======================
+Footer END -->
+
+<!-- Back to top -->
+<div class="back-top">
+    <svg xmlns="http://www.w3.org/2000/svg" height="20" width="12"
+         viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+        <path fill="#ffffff"
+              d="M214.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 109.3V480c0 17.7 14.3 32 32 32s32-14.3 32-32V109.3l73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128z">
+        </path>
+    </svg>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="../js/bootstrap.bundle.min.js"></script>
+
+<!-- Vendors -->
+<script src="../js/flatpickr.min.js"></script>
+<script src="../js/choices.min.js"></script>
+<script src="../js/nouislider.min.js"></script>
+
+<!-- ThemeFunctions -->
+<script src="../js/functions.js"></script>
+
+<!--  JQuery  -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).on('click', '.take-a-pet', function(event) {
+        event.preventDefault();
+        console.log("zo");
+
+        var location = $(".sl-location")[0].value
+        var breed = $(".sl-breed")[0].value
+        var name = "";
+        var size = "";
+        var listAge = [];
+        var listGender = [];
+        var gender = "";
+        var pageable = "";
+        var pageNumber = 0;
+        var sizePage = 3;
+
+        if(event.currentTarget.parentElement.classList.contains("pageable")){
+            pageNumber = parseInt(event.currentTarget.innerText) - 1;
+        }
+
+        if($("#btn-check-soft")[0].checked){
+            name = $(".ip-name")[0].value
+            size = $(".sl-size")[0].value
+
+            for (let j = 0; j < $('.list-inline-item>input[type="checkbox"]').length; j++) {
+                if($('.list-inline-item>input[type="checkbox"]')[j].checked){
+                    var age = $('label[for="'+ $('.list-inline-item>input[type="checkbox"]')[j].id +'"]')[0].innerText
+                    listAge.push(age)
+                }
+            }
+
+            for(let i = 0; i < $("input[type='radio']").length; i++){
+                if($("input[type='radio']")[i].checked){
+                    var gender = $('label[for="'+ $("input[type='radio']")[i].id +'"]')[0].innerText
+                    var bo = true;
+                    if(gender === "Female"){
+                        bo = false;
+                    } else if(gender === "Both"){
+                        var bo1 = false;
+                        listGender.push(bo1)
+                    }
+                    listGender.push(bo)
+                }
+            }
+        }
+
+        var requestData = {
+                location: location,
+                breed: breed,
+                name: name,
+                size: size,
+                age: listAge,
+                gender: listGender,
+                page: pageNumber,
+                sizePage: sizePage
+            };
+
+        $.ajax({
+            type: "POST",
+            url: "/search-pet",
+            contentType: "application/json",
+            data: JSON.stringify(requestData),
+            success: function(response) {
+
+            },
+            error: function() {
+
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

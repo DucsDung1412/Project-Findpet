@@ -569,11 +569,71 @@ Main Banner START -->
 										<label class="h6 fw-normal mb-0"><i class="bi bi-geo-alt text-primary me-1"></i>Location</label>
 										<!-- Input field -->
 										<div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
-											<select class="form-select js-choice" data-search-enabled="true">
-												<option selected value="">Select location</option>
-												<option>San Jacinto, USA</option>
-												<option>North Dakota, Canada</option>
-												<option>West Virginia, Paris</option>
+											<select class="form-select js-choice sl-location" data-search-enabled="true">
+												<option value="" selected>Select location</option>
+												<option>An Giang</option>
+												<option>Bà Rịa - Vũng Tàu</option>
+												<option>Bắc Giang</option>
+												<option>Bắc Kạn</option>
+												<option>Bạc Liêu</option>
+												<option>Bắc Ninh</option>
+												<option>Bến Tre</option>
+												<option>Bình Dương</option>
+												<option>Bình Định</option>
+												<option>Bình Phước</option>
+												<option>Bình Thuận</option>
+												<option>Cà Mau</option>
+												<option>Cần Thơ</option>
+												<option>Cao Bằng</option>
+												<option>Đà Nẵng</option>
+												<option>Đắk Lắk</option>
+												<option>Đắk Nông</option>
+												<option>Điện Biên</option>
+												<option>Đồng Nai</option>
+												<option>Đồng Tháp</option>
+												<option>Gia Lai</option>
+												<option>Hà Giang</option>
+												<option>Hà Nam</option>
+												<option>Hà Nội</option>
+												<option>Hà Tĩnh</option>
+												<option>Hải Dương</option>
+												<option>Hải Phòng</option>
+												<option>Hậu Giang</option>
+												<option>Hồ Chí Minh</option>
+												<option>Hoà Bình</option>
+												<option>Hưng Yên</option>
+												<option>Khánh Hòa</option>
+												<option>Kiên Giang</option>
+												<option>Kon Tum</option>
+												<option>Lai Châu</option>
+												<option>Lâm Đồng</option>
+												<option>Lạng Sơn</option>
+												<option>Lào Cai</option>
+												<option>Long An</option>
+												<option>Nam Định</option>
+												<option>Nghệ An</option>
+												<option>Ninh Bình</option>
+												<option>Ninh Thuận</option>
+												<option>Phú Thọ</option>
+												<option>Phú Yên</option>
+												<option>Quảng Bình</option>
+												<option>Quảng Nam</option>
+												<option>Quảng Ngãi</option>
+												<option>Quảng Ninh</option>
+												<option>Quảng Trị</option>
+												<option>Sóc Trăng</option>
+												<option>Sơn La</option>
+												<option>Tây Ninh</option>
+												<option>Thái Bình</option>
+												<option>Thái Nguyên</option>
+												<option>Thanh Hóa</option>
+												<option>Thừa Thiên Huế</option>
+												<option>Tiền Giang</option>
+												<option>Trà Vinh</option>
+												<option>Tuyên Quang</option>
+												<option>Vĩnh Long</option>
+												<option>Vĩnh Phúc</option>
+												<option>Yên Bái</option>
 											</select>
 										</div>
 									</div>
@@ -583,7 +643,7 @@ Main Banner START -->
 										<label class="h6 fw-normal mb-0"><i class="fa-solid fa-person-skating text-primary me-1"></i>Breed type</label>
 										<!-- Input field -->
 										<div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
-											<select class="form-select js-choice" data-search-enabled="true">
+											<select class="form-select js-choice sl-breed" data-search-enabled="true">
 												<option selected value="">Select type</option>
 												<option>Adventure</option>
 												<option>Beach</option>
@@ -598,7 +658,7 @@ Main Banner START -->
 							<!-- Button -->
 							<div class="col-xl-2">
 								<div class="d-grid">
-									<a href="#" class="btn btn-lg btn-dark mb-0">Take a pet</a>
+									<a href="#" class="btn btn-lg btn-dark mb-0" id="take-a-pet">Take a pet</a>
 								</div>
 							</div>
 						</div>
@@ -621,7 +681,7 @@ Main Banner START -->
 							<div class="col-md-6 col-lg-6">
 								<div class="form-control-borderless">
 									<label class="form-label">Enter Pet Name</label>
-									<input type="text" class="form-control form-control-lg bg-light">
+									<input type="text" class="form-control form-control-lg bg-light ip-name">
 								</div>
 							</div>
 
@@ -629,7 +689,7 @@ Main Banner START -->
 							<div class="col-md-6 col-lg-6">
 								<div class="form-control-bg-light form-size-lg">
 									<label class="form-label">Size Type</label>
-									<select class="form-select js-choice">
+									<select class="form-select js-choice sl-size">
 										<option value="">Select Option</option>
 										<option>Small (0-25 lbs)</option>
 										<option>Medium (26-60 lbs)</option>
@@ -671,7 +731,7 @@ Main Banner START -->
 								<label class="form-label">Gender</label>
 								<div>
 									<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-										<input type="radio" class="btn-check" name="btnradio" id="btnradio1" checked>
+										<input type="radio" class="btn-check" name="btnradio" id="btnradio1">
 										<label class="btn btn-light btn-primary-soft-check mb-0" for="btnradio1">Male</label>
 									
 										<input type="radio" class="btn-check" name="btnradio" id="btnradio2">
@@ -1289,6 +1349,58 @@ Footer END -->
 
 <!-- ThemeFunctions -->
 <script src="../js/functions.js"></script>
+
+<!--  JQuery  -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+	$(document).on('click', '#take-a-pet', function(event) {
+		event.preventDefault();
+
+		var location = $(".sl-location")[0].value
+		var breed = $(".sl-breed")[0].value
+
+		if($("#btn-check-soft")[0].checked){
+			var name = $(".ip-name")[0].value
+			var size = $(".sl-size")[0].value
+			var listAge = [];
+			for (let j = 0; j < $('.list-inline-item>input[type="checkbox"]').length; j++) {
+				if($('.list-inline-item>input[type="checkbox"]')[j].checked){
+					var age = $('label[for="'+ $('.list-inline-item>input[type="checkbox"]')[j].id +'"]')[0].innerText
+					listAge.push(age)
+				}	
+			}
+
+			for(let i = 0; i < $("input[type='radio']").length; i++){
+				if($("input[type='radio']")[i].checked){
+					var gender = $('label[for="'+ $("input[type='radio']")[i].id +'"]')[0].innerText
+				}
+			}
+		}
+
+		var requestData = {
+                location: location,
+				breed: breed,
+                name: name,
+                size: size,
+				age: listAge,
+				gender: gender
+            };
+		console.log(requestData);
+		// $.ajax({
+        //     type: "GET",
+        //     url: "/search-pet",
+        //     contentType: "application/json", 
+        //     data: JSON.stringify(requestData), 
+        //     success: function(response) {
+                
+        //     },
+        //     error: function() {
+                
+        //     }
+        // });
+	});
+</script>
 
 </body>
 </html>
