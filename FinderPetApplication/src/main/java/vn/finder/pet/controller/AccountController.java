@@ -105,24 +105,27 @@ public class AccountController {
     public String checkTwoFactorAuthPass(@RequestParam String passwordcode,
                                          @RequestParam String password,
                                          @RequestParam String confirmpassword) {
-        if (passwordcode != null && password != null && confirmpassword != null) {
-            if (twoFactorAuthPasswordsService.validateOneTimePassword(passwordcode)) {
-                if (password.equals(confirmpassword)) {
-                    twoFactorAuthPasswordsService.checkTwoFactorAuthPassword(password);
-                    System.out.println("Đúng rồi");
-                    return  "redirect:/two-factor-auth-password/";
-                } else {
-                    System.out.println("password không giống");
-                    return "redirect:/two-factor-auth-password/";
-                }
-            } else {
-                System.out.println("sai code");
-                return "redirect:/two-factor-auth-password/";
-            }
-        }else{
+        //Trống field input
+        if (passwordcode.isEmpty() || password.isEmpty() || confirmpassword.isEmpty()) {
             System.out.println("Trống field");
-            return "redirect:/two-factor-auth-password/";
+            return "redirect:/two-factor-auth-password";
         }
-//        return "redirect:/index";
+        //Kiểm tra password dùng 1 lần
+        if (!twoFactorAuthPasswordsService.validateOneTimePassword(passwordcode)) {
+            System.out.println("Sai code");
+            return "redirect:/two-factor-auth-password";
+        }
+        //Kiểm tra password với password confirm
+        if (!password.equals(confirmpassword)) {
+            System.out.println("Mật khẩu không trùng khớp với xác nhận mật khẩu");
+            return "redirect:/two-factor-auth-password";
+        }
+        // Kiểm tra định dạng và khác nhau với password cũ > Thực hiện đổi password
+        if (twoFactorAuthPasswordsService.checkTwoFactorAuthPassword(password)) {
+            System.out.println("Đúng rồi");
+            return "redirect:/two-factor-auth-password";
+        }
+
+        return "redirect:/two-factor-auth-password";
     }
 }

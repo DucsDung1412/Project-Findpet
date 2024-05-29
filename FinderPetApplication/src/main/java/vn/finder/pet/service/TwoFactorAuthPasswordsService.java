@@ -3,17 +3,22 @@ package vn.finder.pet.service;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vn.finder.pet.dao.UsersDAO;
 import vn.finder.pet.common.RandomCommon;
+import vn.finder.pet.entity.Users;
+
 
 @Service
 public class TwoFactorAuthPasswordsService {
     private MailService mailService;
     private HttpSession session;
+    private UsersDAO usersDAO;
 
     @Autowired
-    public TwoFactorAuthPasswordsService(HttpSession session, MailService mailService) {
+    public TwoFactorAuthPasswordsService(HttpSession session, MailService mailService, UsersDAO usersDAO) {
         this.session = session;
         this.mailService = mailService;
+        this.usersDAO = usersDAO;
     }
 
     /**
@@ -39,12 +44,52 @@ public class TwoFactorAuthPasswordsService {
     }
 
     /**
-     * Thực hiện TwoFactorAuthPassword và kiểm tra password với password cũ
-     * @param password mật khẩu người muốn đổi
+     * Dùng để kiểm tra pattern Password
+     *
+     * @param password password cần kiểm tra
+     * @return true nếu đúng định dạng, false nếu sai định dạng
      */
-    public void checkTwoFactorAuthPassword(String password){
-        session.removeAttribute("one-time-passwords");
-        //Đổi mật khẩu trong database của người dùng
+    public boolean validatePatternPassword(String password) {
+        String pattern = "^(?=.*[A-Z])(?=.*[!@#$%^&*()_+=-])(?=.*\\d).{8,20}$";
+        if (password.matches(pattern)) {
+            System.out.println("đúng định dạng password");
+            return true;
+        } else {
+            System.out.println("sai định dạng password");
+            return false;
+        }
+    }
 
+
+    /**
+     * Thực hiện kiểm tra password với password cũ
+     * nếu khác thì sẽ đổi password
+     * nếu sai thì không thực hiện đổi password
+     *
+     * @param password mật khẩu người muốn đổi
+     * @return true nếu khác password cũ, false nếu giống password cũ
+     */
+    public boolean checkTwoFactorAuthPassword(String password) {
+        Users user = usersDAO.findById(session.getAttribute("emailUs").toString()).get();
+        System.out.println(user.toString());
+
+        if (password.isEmpty()) {
+            return false;
+        }
+
+        if (password.equals(user.getPassword())) {
+            return false;
+        } else {
+            System.out.println("mật khẩu khác mk cũ");
+            if (validatePatternPassword(password)) {
+                //Đổi mật khẩu trong database của người dùng
+                user.setPassword(password);
+                usersDAO.save(user);
+                //Xoá mật khẩu dùng một lần
+                session.removeAttribute("one-time-passwords");
+                return true;
+            }
+            return false;
+        }
     }
 }

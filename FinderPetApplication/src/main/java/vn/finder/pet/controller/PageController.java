@@ -52,4 +52,6 @@ public class PageController {
     public String twoFatorAuthPass() {
         return "/two-factor-auth-password";
     }
+    @GetMapping("/account-profile")
+    public String accountProfile(){return "/account-profile";}
 }
