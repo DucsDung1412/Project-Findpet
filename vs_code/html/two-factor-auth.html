@@ -88,7 +88,17 @@
     
         <!-- Theme CSS -->
         <link rel="stylesheet" type="text/css" href="../css/style.css">
-    
+        
+        <style>
+            .disabled {
+                pointer-events: none;
+                color: grey;
+            }
+            #countdown {
+                margin-left: 12px;
+                font-weight: bold;
+            }
+        </style>
     </head>
 </head>
 
@@ -142,7 +152,10 @@ Main Content START -->
 									<!-- Button link -->
 									<div class="d-sm-flex justify-content-between small mb-4">
 										<span>Don't get a code?</span>
-										<a href="/resetOtp" class="btn btn-sm btn-link p-0 text-decoration-underline mb-0">Click to resend</a>
+                                        <div>
+                                            <span id="countdown" class="text-decoration"></span>
+                                            <a href="/resetOtp" id="resendBtn" class="btn btn-sm btn-link p-0 text-decoration-underline mb-0">Click to resend</a>
+                                        </div>
 									</div>
 
 									<!-- Button -->
@@ -180,16 +193,44 @@ Main Content END -->
 
 <script>
     Validator({
-            workplace: ".tab-two-factor",
-            formGroupSelector: '.form-group',
-            rules: [
-                Validator.isRequired("#tf-1", "Please provide a valid."),
-                Validator.isRequired("#tf-2", "Please provide a valid."),
-                Validator.isRequired("#tf-3", "Please provide a valid."),
-                Validator.isRequired("#tf-4", "Please provide a valid."),
-                Validator.isRequired("#tf-5", "Please provide a valid."),
-            ]
-        });
+        workplace: ".tab-two-factor",
+        formGroupSelector: '.form-group',
+        rules: [
+            Validator.isRequired("#tf-1", "Please provide a valid."),
+            Validator.isRequired("#tf-2", "Please provide a valid."),
+            Validator.isRequired("#tf-3", "Please provide a valid."),
+            Validator.isRequired("#tf-4", "Please provide a valid."),
+            Validator.isRequired("#tf-5", "Please provide a valid."),
+        ]
+    });
+</script>
+
+<script>
+    window.onload = function() {
+        let btn = document.getElementById('resendBtn');
+        let countdownSpan = document.getElementById('countdown');
+        let countdownTime = 60;
+
+        // Set disable
+        btn.classList.add("disabled");
+
+        // Set initial countdown
+        btn.textContent = 'Resend OTP in ';
+        countdownSpan.textContent = countdownTime + 's';
+
+        // Update countdown every second
+        let countdownInterval = setInterval(function() {
+            countdownTime--;
+            countdownSpan.textContent = countdownTime + 's';
+
+            if (countdownTime <= 0) {
+                clearInterval(countdownInterval);
+                btn.classList.remove('disabled');
+                btn.textContent = 'Click to resend';
+                countdownSpan.textContent = '';
+            }
+        }, 1000);
+    };
 </script>
 
 </body>

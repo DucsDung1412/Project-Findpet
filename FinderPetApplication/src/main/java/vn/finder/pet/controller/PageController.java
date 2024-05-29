@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import vn.finder.pet.entity.Users;
 
 @Controller
@@ -23,17 +24,22 @@ public class PageController {
     }
 
     @GetMapping("/sign-up")
-    public String signUp(){
+    public String signUp(Model model){
+        Users users = new Users();
+        model.addAttribute("users", users);
         return "/sign-up";
     }
 
     @GetMapping("/forgot-password")
-    public String res() {
+    public String forgotPassword(Model model, @RequestParam(value = "errorMessage", required = false) String errorMessage) {
+        model.addAttribute("errorMessage", errorMessage);
         return "/forgot-password";
     }
 
     @GetMapping("/two-factor-auth")
-    public String getMethodName() {
+    public String getMethodName(Model model, @RequestParam(value = "errorMessage", required = false) String errorMessage, @RequestParam(value = "reset", required = false) String reset) {
+        model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute("reset", reset);
         return "/two-factor-auth";
     }
 

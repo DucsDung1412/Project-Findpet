@@ -3,10 +3,8 @@ package vn.finder.pet.controller;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.finder.pet.entity.Users;
 import vn.finder.pet.service.MailService;
 import vn.finder.pet.service.OtpService;
@@ -42,10 +40,18 @@ public class AccountController {
         return "redirect:/index";
     }
 
+    @PostMapping("/sign-up")
+    public String signUp(@ModelAttribute("users") Users users, @RequestParam(value = "cfPassword") String cfPassword){
+        System.out.println(users.toString());
+        System.out.println(cfPassword);
+        return "redirect:/sign-up";
+    }
+
     @PostMapping("/checkMail")
-    public String checkMail(@ModelAttribute(value = "emailUs") String emailus, HttpSession session)  throws ExecutionException {
+    public String checkMail(@ModelAttribute(value = "emailUs") String emailus, HttpSession session, RedirectAttributes ra)  throws ExecutionException {
+        System.out.println(emailus);
         if (emailus.trim().isEmpty()) {
-            System.out.println("Email không được bỏ trống");
+            ra.addAttribute("errorMessage","Email không được bỏ trống");
         } else {
             Matcher matcher = pattern.matcher(emailus);
             if(matcher.matches()){
@@ -54,10 +60,10 @@ public class AccountController {
                     session.setAttribute("emailUs", emailus);
                     return "redirect:/two-factor-auth";
                 } else {
-                    System.out.println("Email chưa được đăng ký vào hệ thống");
+                    ra.addAttribute("errorMessage","Email chưa được đăng ký vào hệ thống");
                 }
             } else {
-                System.out.println("Email không đúng định dạng");
+                ra.addAttribute("errorMessage", "Email không đúng định dạng");
             }
         }
 
@@ -70,7 +76,7 @@ public class AccountController {
                           @ModelAttribute(value = "so3") String so3,
                           @ModelAttribute(value = "so4") String so4,
                           @ModelAttribute(value = "so5") String so5,
-                          HttpSession session) {
+                          HttpSession session, RedirectAttributes ra) {
         String a=(String)session.getAttribute("emailUs");
         String ma=so1+so2+so3+so4+so5;
         if(!ma.trim().isEmpty() && ma.length() == 5){
@@ -79,18 +85,19 @@ public class AccountController {
                 twoFactorAuthPasswordsService.sendOneTimePasswords(a);
                 return "redirect:/two-factor-auth-password";
             } else {
-                System.out.println("Mã xác nhận không đúng");
+                ra.addAttribute("errorMessage","Mã xác nhận không đúng");
             }
         } else {
-            System.out.println("Vui lòng không để trống field nào");
+            ra.addAttribute("errorMessage","Vui lòng không để trống field nào");
         }
         return "redirect:/two-factor-auth";
     }
 
     @GetMapping("/resetOtp")
-    public String resetOtp(HttpSession session) throws ExecutionException {
+    public String resetOtp(HttpSession session, RedirectAttributes ra) throws ExecutionException {
         String a=(String)session.getAttribute("emailUs");
         mailService.MaxacNhan(a);
+        ra.addAttribute("reset", true);
         return"redirect:/two-factor-auth";
     }
 
