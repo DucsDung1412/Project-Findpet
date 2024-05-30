@@ -131,7 +131,7 @@ Main Content START -->
 								</a>
 								<!-- Title -->
 								<h1 class="mb-2 h3">Two factor authentication</h1>
-								<p class="mb-sm-0">We have to send a code to <b>example@gmail.com</b></p>
+								<p class="mb-sm-0">We have to send a code to <b th:text="${email}">example@gmail.com</b></p>
 								
 								<!-- Form START -->
 								<form action="/checkOtp" class="mt-sm-4 tab-two-factor" method="post">
@@ -145,7 +145,7 @@ Main Content START -->
 											<input id="tf-4" name="so4" type="text" maxlength="1" class="form-control text-center p-3">
 											<input id="tf-5" name="so5" type="text" maxlength="1" class="form-control text-center p-3">
 										</div>
-										<div th:class="${errorMessage} ==null ? 'invalid-feedback d-flex justify-content-end d-block' : 'invalid-feedback d-flex justify-content-end'" th:text="${errorMessage}">  </div>
+										<div th:class="${errorMessage} == null ? 'invalid-feedback d-flex justify-content-end d-block' : 'invalid-feedback d-flex justify-content-end'" th:text="${errorMessage}">  </div>
 									</div>
 									<!-- Button link -->
 									<div class="d-sm-flex justify-content-between small mb-4">

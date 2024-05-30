@@ -1,5 +1,6 @@
 package vn.finder.pet.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,12 @@ public class MyRestController {
     @Autowired
     public MyRestController(AnimalsService animalsService) {
         this.animalsService = animalsService;
+    }
+
+    @PostMapping("/remove-session-user")
+    public Boolean removeSessionUser(HttpSession session){
+        session.removeAttribute("userLogin");
+        return true;
     }
 
     @PostMapping("/search-pet")

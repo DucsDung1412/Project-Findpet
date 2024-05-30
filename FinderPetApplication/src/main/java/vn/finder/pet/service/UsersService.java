@@ -9,16 +9,19 @@ import vn.finder.pet.entity.Authorities;
 import vn.finder.pet.entity.Users;
 
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 public class UsersService {
     private UsersDAO usersDAO;
     private AuthoritiesDAO authoritiesDAO;
+    private TwoFactorAuthPasswordsService twoFactorAuthPasswordsService;
 
     @Autowired
-    public UsersService(UsersDAO usersDAO, AuthoritiesDAO authoritiesDAO) {
+    public UsersService(UsersDAO usersDAO, AuthoritiesDAO authoritiesDAO, TwoFactorAuthPasswordsService twoFactorAuthPasswordsService) {
         this.usersDAO = usersDAO;
         this.authoritiesDAO = authoritiesDAO;
+        this.twoFactorAuthPasswordsService = twoFactorAuthPasswordsService;
     }
 
     @Transactional
@@ -32,5 +35,25 @@ public class UsersService {
     @Transactional
     public Optional<Users> findById(String username){
         return this.usersDAO.findById(username);
+    }
+
+    public boolean isValidEmailAddress(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        return pattern.matcher(email).matches();
+    }
+
+    public boolean isValidPassword(String password) {
+        if (this.twoFactorAuthPasswordsService.validatePatternPassword(password)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isUserExists(String userName) {
+        if (!this.usersDAO.findById(userName).isEmpty()){
+            return true;
+        }
+        return false;
     }
 }

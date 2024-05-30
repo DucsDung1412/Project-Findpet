@@ -1,19 +1,25 @@
 package vn.finder.pet.service;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.finder.pet.common.RandomCommon;
+import vn.finder.pet.dao.UsersDAO;
+import vn.finder.pet.entity.Users;
 
 @Service
 public class TwoFactorAuthPasswordsService {
     private MailService mailService;
     private HttpSession session;
+    private UsersDAO usersDAO;
 
     @Autowired
-    public TwoFactorAuthPasswordsService(HttpSession session, MailService mailService) {
+    public TwoFactorAuthPasswordsService(HttpSession session, MailService mailService, UsersDAO usersDAO) {
         this.session = session;
         this.mailService = mailService;
+        this.usersDAO = usersDAO;
     }
 
     /**
@@ -39,12 +45,67 @@ public class TwoFactorAuthPasswordsService {
     }
 
     /**
-     * Thực hiện TwoFactorAuthPassword và kiểm tra password với password cũ
-     * @param password mật khẩu người muốn đổi
+     * Dùng để kiểm tra pattern Password
+     *
+     * @param password password cần kiểm tra
+     * @return true nếu đúng định dạng, false nếu sai định dạng
      */
-    public void checkTwoFactorAuthPassword(String password){
-        session.removeAttribute("one-time-passwords");
-        //Đổi mật khẩu trong database của người dùng
+    public boolean validatePatternPassword(String password) {
+        // Kiểm tra độ dài của mật khẩu
+        if (password.length() < 8 || password.length() > 20) {
+            return false;
+        }
 
+        // Biểu thức chính quy cho từng điều kiện
+        String uppercasePattern = ".*[A-Z].*";
+        String specialCharacterPattern = ".*[!@#$%^&*()_+=-].*";
+        String digitPattern = ".*\\d.*";
+        String lowercasePattern = ".*[a-z].*";
+
+        int validConditions = 0;
+
+        // Kiểm tra từng điều kiện
+        if (password.matches(uppercasePattern)) {
+            validConditions++;
+        }
+        if (password.matches(specialCharacterPattern)) {
+            validConditions++;
+        }
+        if (password.matches(digitPattern)) {
+            validConditions++;
+        }
+        if (password.matches(lowercasePattern)) {
+            validConditions++;
+        }
+
+        // Kiểm tra nếu mật khẩu thỏa mãn ít nhất 3 trong 4 điều kiện
+        return validConditions >= 3;
+    }
+
+
+    /**
+     * Thực hiện kiểm tra password
+     *
+     * @param password mật khẩu người muốn đổi
+     * @return true nếu khác password cũ, false nếu giống password cũ
+     */
+    public boolean checkTwoFactorAuthPassword(String password) {
+        if (validatePatternPassword(password)) {
+            session.removeAttribute("one-time-passwords");
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    public Users updatePassword(String email, String password){
+        Users users = this.usersDAO.findById(email).get();
+        if (users != null){
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            String passwordEncoder = bCryptPasswordEncoder.encode(password);
+            users.setPassword("{bcrypt}"+passwordEncoder);
+            return this.usersDAO.save(users);
+        }
+        return null;
     }
 }
