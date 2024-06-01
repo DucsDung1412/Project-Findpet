@@ -11,8 +11,9 @@ public class AnimalInfoRequest {
     private List<Boolean> gender;
     private int pageNumber;
     private int sizePage;
+    private List<String> breedType;
 
-    public AnimalInfoRequest(String location, String breed, String name, String size, List<String> age, List<Boolean> gender, int pageNumber, int sizePage) {
+    public AnimalInfoRequest(String location, String breed, String name, String size, List<String> age, List<Boolean> gender, int pageNumber, int sizePage, List<String> breedType) {
         this.location = location;
         this.breed = breed;
         this.name = name;
@@ -21,6 +22,7 @@ public class AnimalInfoRequest {
         this.gender = gender;
         this.pageNumber = pageNumber;
         this.sizePage = sizePage;
+        this.breedType = breedType;
     }
 
     public AnimalInfoRequest() {
@@ -100,15 +102,23 @@ public class AnimalInfoRequest {
         this.sizePage = sizePage;
     }
 
+    public List<String> getBreedType() {
+        return breedType;
+    }
+
+    public void setBreedType(List<String> breedType) {
+        this.breedType = breedType;
+    }
+
     @Override
     public String toString() {
         return "AnimalInfoRequest{" +
                 "location='" + location + '\'' +
                 ", breed='" + breed + '\'' +
                 ", name='" + name + '\'' +
-                ", size='" + size + '\'' +
-                ", age='" + this.getListAge() + '\'' +
-                ", gender='" + gender + '\'' +
+                ", gender=" + gender +
+                ", pageNumber=" + pageNumber +
+                ", sizePage=" + sizePage +
                 '}';
     }
 }

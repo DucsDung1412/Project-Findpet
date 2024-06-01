@@ -12,6 +12,6 @@ import java.util.List;
 
 @RepositoryRestResource(path = "animals")
 public interface AnimalsDAO extends JpaRepository<Animals, Long> {
-    @Query("SELECT a FROM Animals a WHERE a.breed.breed_name LIKE %:breedName% AND a.shelters.shelterAddress LIKE %:shelterAddress% AND a.animalAge IN :ages AND a.animalGender IN :genders AND a.animalSize LIKE %:size% AND a.animalName LIKE %:name%")
-    Page<Animals> findByBreedNameContains(@Param("breedName") String breedName, @Param("shelterAddress") String shelterAddress, @Param("ages") List<String> ages, @Param("genders") List<Boolean> genders, @Param("size") String size, @Param("name") String name, Pageable pageable);
+    @Query("SELECT a FROM Animals a WHERE a.breed.breed_type IN :breedType AND a.breed.breed_name LIKE %:breedName% AND a.shelters.shelterAddress LIKE %:shelterAddress% AND a.animalAge IN :ages AND a.animalGender IN :genders AND a.animalSize LIKE %:size% AND a.animalName LIKE %:name%")
+    Page<Animals> findByBreedNameContains(@Param("breedType") List<String> breedType, @Param("breedName") String breedName, @Param("shelterAddress") String shelterAddress, @Param("ages") List<String> ages, @Param("genders") List<Boolean> genders, @Param("size") String size, @Param("name") String name, Pageable pageable);
 }
