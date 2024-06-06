@@ -17,7 +17,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
-import java.util.Optional;
 
 @Service
 public class UsersService {
@@ -27,6 +26,7 @@ public class UsersService {
     private static String URL_AVATAR="/images/avatarUser/";
     @Autowired
     HttpSession session;
+
 
     @Autowired
     public UsersService(UsersDAO usersDAO, AuthoritiesDAO authoritiesDAO) {
@@ -122,5 +122,4 @@ public class UsersService {
             return false;
         }
     }
-
 }

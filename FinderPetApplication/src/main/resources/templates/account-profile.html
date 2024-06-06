@@ -1,5 +1,9 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="en" xmlns:th="http://www.thymeleaf.org">>
+=======
+<html lang="en">
+>>>>>>> main
 
 <head>
     <title>Booking - Multipurpose Online Booking Theme</title>
@@ -72,6 +76,10 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="../images/favicon.ico">
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -86,15 +94,24 @@
     <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
 
     <!-- Plugins CSS -->
+<<<<<<< HEAD
     <link rel="stylesheet" type="image" href="../images/">
+=======
+>>>>>>> main
     <link rel="stylesheet" type="text/css" href="../css/all.min.css">
     <link rel="stylesheet" type="text/css" href="../css/aos.css">
     <link rel="stylesheet" type="text/css" href="../css/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="../css/choices.min.css">
+<<<<<<< HEAD
     <!-- Theme CSS -->
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <script src="https://esgoo.net/scripts/jquery.js"></script>
 
+=======
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+>>>>>>> main
 
 </head>
 
@@ -512,6 +529,7 @@
                                             <!-- Avatar -->
                                             <div class="avatar avatar-xl mb-2">
                                                 <img class="avatar-img rounded-circle border border-2 border-white"
+<<<<<<< HEAD
                                                     th:src="${user.avatar==null?'https://booking.webestica.com/assets/images/avatar/01.jpg':user.avatar}"
                                                     alt="">
                                             </div>
@@ -520,6 +538,13 @@
                                             <p href="#" class="email text-reset text-primary-hover small"
                                                 th:text="${user.userName}">
                                             </p>
+=======
+                                                    src="https://booking.webestica.com/assets/images/avatar/01.jpg"
+                                                    alt="">
+                                            </div>
+                                            <h6 class="mb-0">Jacqueline Miller</h6>
+                                            <a href="#" class="text-reset text-primary-hover small">hello@gmail.com</a>
+>>>>>>> main
                                             <hr>
                                         </div>
 
@@ -635,7 +660,7 @@
 
                                         <!-- Nationality -->
                                         <div class="col-md-6">
-                                            <label for="country" class="form-label">Nationality<span
+                                            <label for="tinh" class="form-label">Nationality<span
                                                     class="text-danger">*</span></label>
                                             <select id="tinh" name="country" class="form-select">
                                                 <option value="">Select your country</option>
@@ -701,7 +726,6 @@
                                         <input name="confirmpassword" class="form-control" type="password"
                                             placeholder="Confirm new password" required>
                                     </div>
-
                                     <div class="text-end">
                                         <button type="submit" class="btn btn-primary mb-0">Change Password</button>
                                     </div>
@@ -724,170 +748,133 @@ Content END -->
 
     <!-- =======================
 Footer START -->
-    <footer class="bg-dark pt-5">
-        <div class="container">
-            <!-- Row START -->
-            <div class="row g-4">
+<footer class="bg-dark pt-5">
+    <div class="container">
+        <!-- Row START -->
+        <div class="row g-4">
 
-                <!-- Widget 1 START -->
-                <div class="col-lg-4">
-                    <!-- logo -->
-                    <a href="index.html">
-                        <img class="h-40px" src="https://booking.webestica.com/assets/images/logo-light.svg" alt="logo">
-                    </a>
-                    <p class="mt-3 mb-2"><a href="#" class="text-body-secondary text-primary-hover"><i
-                                class="bi bi-telephone me-2"></i>+1234 568 963</a> </p>
-                    <p class="mb-2"><a href="#" class="text-body-secondary text-primary-hover"><i
-                                class="bi bi-envelope me-2" style="padding-right: 2px;"></i>example@gmail.com</a></p>
-                    <p class="mb-0 text-body-secondary"><a href="#" class="text-body-secondary text-primary-hover"><i
-                                class="fa-solid fa-hotel me-2"></i>Floor 4-5-6, Capital Place Building, 29 Lieu Giai
-                            Street, Ngoc Khanh Ward, Ba Dinh District, Hanoi City, Vietnam.</a> </p>
-                </div>
-                <!-- Widget 1 END -->
+            <!-- Widget 1 START -->
+            <div class="col-lg-4">
+                <!-- logo -->
+                <a href="index.html">
+                    <img class="h-40px" src="https://booking.webestica.com/assets/images/logo-light.svg" alt="logo">
+                </a>
+                <p class="mt-3 mb-2"><a href="#" class="text-body-secondary text-primary-hover"><i class="bi bi-telephone me-2"></i>+1234 568 963</a> </p>
+                <p class="mb-2"><a href="#" class="text-body-secondary text-primary-hover"><i class="bi bi-envelope me-2" style="padding-right: 2px;"></i>example@gmail.com</a></p>
+                <p class="mb-0 text-body-secondary"><a href="#" class="text-body-secondary text-primary-hover"><i class="fa-solid fa-hotel me-2"></i>Floor 4-5-6, Capital Place Building, 29 Lieu Giai Street, Ngoc Khanh Ward, Ba Dinh District, Hanoi City, Vietnam.</a> </p>
+            </div>
+            <!-- Widget 1 END -->
 
-                <!-- Widget 2 START -->
-                <div class="col-lg-8 ms-auto">
-                    <div class="row g-4">
-                        <!-- Link block -->
-                        <div class="col-6 col-md-4">
-                            <h5 class="text-white mb-2 mb-md-4">Resources</h5>
-                            <ul class="nav flex-column text-primary-hover">
-                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">About us</a></li>
-                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Contact us</a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">News and Blog</a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Help Center</a>
-                                </li>
-                            </ul>
-                        </div>
+            <!-- Widget 2 START -->
+            <div class="col-lg-8 ms-auto">
+                <div class="row g-4">
+                    <!-- Link block -->
+                    <div class="col-6 col-md-4">
+                        <h5 class="text-white mb-2 mb-md-4">Resources</h5>
+                        <ul class="nav flex-column text-primary-hover">
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">About us</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Contact us</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">News and Blog</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Help Center</a></li>
+                        </ul>
+                    </div>
 
-                        <!-- Link block -->
-                        <div class="col-6 col-md-4">
-                            <h5 class="text-white mb-2 mb-md-4">Customer Service</h5>
-                            <ul class="nav flex-column text-primary-hover">
-                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Adoption Guide</a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Donation
-                                        Instructions</a></li>
-                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Shelter
-                                        Instructions</a></li>
-                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Privacy Policy</a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Cookie</a></li>
-                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Support</a></li>
-                            </ul>
-                        </div>
+                    <!-- Link block -->
+                    <div class="col-6 col-md-4">
+                        <h5 class="text-white mb-2 mb-md-4">Customer Service</h5>
+                        <ul class="nav flex-column text-primary-hover">
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Adoption Guide</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Donation Instructions</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Shelter Instructions</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Privacy Policy</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Cookie</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Support</a></li>
+                        </ul>
+                    </div>
 
-                        <!-- Link block -->
-                        <div class="col-6 col-md-4 footer-flex-row">
-                            <h5 class="text-white mb-2 mb-md-4">Searching</h5>
-                            <ul class="nav flex-column text-primary-hover">
-                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i
-                                            class="fa-solid fa-dog me-2" style="color: #ffffff;"></i>Dogs & Puppies</a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i
-                                            class="fa-solid fa-cat me-2" style="color: #ffffff;"></i>Cats & Kiitens</a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i
-                                            class="fa-solid fa-paw me-2" style="color: #ffffff;"></i>Other Animals</a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i
-                                            class="fa-solid fa-house me-2" style="color: #ffffff;"></i>Shelter &
-                                        Rescues</a></li>
-                            </ul>
-                        </div>
+                    <!-- Link block -->
+                    <div class="col-6 col-md-4 footer-flex-row">
+                        <h5 class="text-white mb-2 mb-md-4">Searching</h5>
+                        <ul class="nav flex-column text-primary-hover">
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i class="fa-solid fa-dog me-2" style="color: #ffffff;"></i>Dogs & Puppies</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i class="fa-solid fa-cat me-2" style="color: #ffffff;"></i>Cats & Kiitens</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i class="fa-solid fa-paw me-2" style="color: #ffffff;"></i>Other Animals</a></li>
+                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i class="fa-solid fa-house me-2" style="color: #ffffff;"></i>Shelter & Rescues</a></li>
+                        </ul>
                     </div>
                 </div>
-                <!-- Widget 2 END -->
+            </div>
+            <!-- Widget 2 END -->
 
-            </div><!-- Row END -->
+        </div><!-- Row END -->
 
-            <!-- Tops Links -->
-            <div class="row mt-5">
-                <h5 class="mb-2 text-white">Top Links</h5>
-                <ul class="list-inline text-primary-hover lh-lg">
-                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Shelter & Rescue
-                            Registration</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Sitemap</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Terms of Service</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Notice at Collection</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-body-secondary">About us</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Contact us</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Blogs</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Services</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Privacy Policy</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Cookie Policy</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Accessibility</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Do Not Sell Or Share My
-                            Personal Information</a></li>
+        <!-- Tops Links -->
+        <div class="row mt-5">
+            <h5 class="mb-2 text-white">Top Links</h5>
+            <ul class="list-inline text-primary-hover lh-lg">
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Shelter & Rescue Registration</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Sitemap</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Terms of Service</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Notice at Collection</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">About us</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Contact us</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Blogs</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Services</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Privacy Policy</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Cookie Policy</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Accessibility</a></li>
+                <li class="list-inline-item"><a href="#" class="text-body-secondary">Do Not Sell Or Share My Personal Information</a></li>
+            </ul>
+        </div>
+
+        <!-- Payment and card -->
+        <div class="row g-4 justify-content-between mt-0 mt-md-2">
+
+            <!-- Payment card -->
+            <div class="col-sm-7 col-md-6 col-lg-4">
+                <h5 class="text-white mb-2">Payment & Security</h5>
+                <ul class="list-inline mb-0 mt-3">
+                    <li class="list-inline-item"> <a href="#"><img src="https://booking.webestica.com/assets/images/element/paypal.svg" class="h-30px" alt=""></a></li>
+                    <li class="list-inline-item"> <a href="#"><img src="https://booking.webestica.com/assets/images/element/visa.svg" class="h-30px" alt=""></a></li>
+                    <li class="list-inline-item"> <a href="#"><img src="https://booking.webestica.com/assets/images/element/mastercard.svg" class="h-30px" alt=""></a></li>
+                    <li class="list-inline-item"> <a href="#"><img src="https://booking.webestica.com/assets/images/element/expresscard.svg" class="h-30px" alt=""></a></li>
                 </ul>
             </div>
 
-            <!-- Payment and card -->
-            <div class="row g-4 justify-content-between mt-0 mt-md-2">
-
-                <!-- Payment card -->
-                <div class="col-sm-7 col-md-6 col-lg-4">
-                    <h5 class="text-white mb-2">Payment & Security</h5>
-                    <ul class="list-inline mb-0 mt-3">
-                        <li class="list-inline-item"> <a href="#"><img
-                                    src="https://booking.webestica.com/assets/images/element/paypal.svg" class="h-30px"
-                                    alt=""></a></li>
-                        <li class="list-inline-item"> <a href="#"><img
-                                    src="https://booking.webestica.com/assets/images/element/visa.svg" class="h-30px"
-                                    alt=""></a></li>
-                        <li class="list-inline-item"> <a href="#"><img
-                                    src="https://booking.webestica.com/assets/images/element/mastercard.svg"
-                                    class="h-30px" alt=""></a></li>
-                        <li class="list-inline-item"> <a href="#"><img
-                                    src="https://booking.webestica.com/assets/images/element/expresscard.svg"
-                                    class="h-30px" alt=""></a></li>
-                    </ul>
-                </div>
-
-                <!-- Social media icon -->
-                <div class="col-sm-5 col-md-6 col-lg-3 text-sm-end">
-                    <h5 class="text-white mb-2">Follow us on</h5>
-                    <ul class="list-inline mb-0 mt-3">
-                        <li class="list-inline-item"> <a class="btn btn-sm px-2 bg-facebook mb-0" href="#"><i
-                                    class="fab fa-fw fa-facebook-f"></i></a> </li>
-                        <li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-instagram mb-0" href="#"><i
-                                    class="fab fa-fw fa-instagram"></i></a> </li>
-                        <li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-twitter mb-0" href="#"><i
-                                    class="fab fa-fw fa-twitter"></i></a> </li>
-                        <li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-linkedin mb-0" href="#"><i
-                                    class="fab fa-fw fa-linkedin-in"></i></a> </li>
-                    </ul>
-                </div>
+            <!-- Social media icon -->
+            <div class="col-sm-5 col-md-6 col-lg-3 text-sm-end">
+                <h5 class="text-white mb-2">Follow us on</h5>
+                <ul class="list-inline mb-0 mt-3">
+                    <li class="list-inline-item"> <a class="btn btn-sm px-2 bg-facebook mb-0" href="#"><i class="fab fa-fw fa-facebook-f"></i></a> </li>
+                    <li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-instagram mb-0" href="#"><i class="fab fa-fw fa-instagram"></i></a> </li>
+                    <li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-twitter mb-0" href="#"><i class="fab fa-fw fa-twitter"></i></a> </li>
+                    <li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-linkedin mb-0" href="#"><i class="fab fa-fw fa-linkedin-in"></i></a> </li>
+                </ul>	
             </div>
+        </div>
 
-            <!-- Divider -->
-            <hr class="mt-4 mb-0">
+        <!-- Divider -->
+        <hr class="mt-4 mb-0">
 
-            <!-- Bottom footer -->
-            <div class="row">
-                <div class="container">
-                    <div class="d-lg-flex justify-content-between align-items-center py-3 text-center text-lg-start">
-                        <!-- copyright text -->
-                        <div class="text-body-secondary text-primary-hover"> Copyrights ©2023 Booking. Build by <a
-                                href="https://www.webestica.com/" class="text-body-secondary">Webestica</a>. </div>
-                        <!-- copyright links-->
-                        <div class="nav mt-2 mt-lg-0">
-                            <ul class="list-inline text-primary-hover mx-auto mb-0">
-                                <li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1"
-                                        href="#">Privacy policy</a></li>
-                                <li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1"
-                                        href="#">Terms and conditions</a></li>
-                                <li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1 pe-0"
-                                        href="#">Refund policy</a></li>
-                            </ul>
-                        </div>
+        <!-- Bottom footer -->
+        <div class="row">
+            <div class="container">
+                <div class="d-lg-flex justify-content-between align-items-center py-3 text-center text-lg-start">
+                    <!-- copyright text -->
+                    <div class="text-body-secondary text-primary-hover"> Copyrights ©2023 Booking. Build by <a href="https://www.webestica.com/" class="text-body-secondary">Webestica</a>. </div>
+                    <!-- copyright links-->
+                    <div class="nav mt-2 mt-lg-0">
+                        <ul class="list-inline text-primary-hover mx-auto mb-0">
+                            <li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1" href="#">Privacy policy</a></li>
+                            <li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1" href="#">Terms and conditions</a></li>
+                            <li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1 pe-0" href="#">Refund policy</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
     <!-- =======================
 Footer END -->
 
@@ -945,75 +932,6 @@ Footer END -->
         })
     </script>
 
-    // $(document).ready(function () {
-    // // Sử dụng AJAX để gửi yêu cầu GET tới endpoint /profile
-    // $.ajax({
-    // url: "/request-profile",
-    // type: "GET",
-    // success: function (user) {
-
-    // console.log(user); // In dữ liệu profile ra console
-
-    // //lấy firstname
-    // var firstname = user.firstName !== null ? user.firstName : '';
-    // document.getElementById("firstname").value = firstname;
-    // //lấy lastname
-    // var lastname = user.lastName !== null ? user.lastName : '';
-    // document.getElementById("lastname").value = lastname;
-    // //lấy phone
-    // var phone = user.phone !== null ? user.phone : '';
-    // document.getElementById("phone").value = phone;
-    // // Chọn country
-    // var country = user.country !== null ? user.country : '0';
-
-    // var countryElement = document.getElementById("country");
-    // if (countryElement) {
-    // Array.from(countryElement.options).forEach(function (e) {
-    // if (e.text === country) {
-    // console.log(country);
-    // e.selected = true;
-    // }
-    // })
-    // }
-    // // lấy address
-    // var address = user.address !== null ? user.address : '';
-    // document.getElementById("address").textContent = address;
-
-    // //update tất cả class=email
-    // var email = user.userName !== null ? user.userName : '';
-    // var emailElements = document.getElementsByClassName("email");
-    // if (emailElements) {
-    // Array.from(emailElements).forEach(function (element) {
-    // if (element.nodeName === "P") {
-    // element.textContent = email;
-    // } else {
-    // element.value = email;
-    // }
-    // })
-    // };
-
-    // // Update avatar image src
-    // var avatarSrc = user.avatar !== null ? user.avatar : 'https://booking.webestica.com/assets/images/avatar/01.jpg';
-    // var avatarElements = document.getElementsByClassName("avatar-img");
-    // Array.from(avatarElements).forEach(function (element) {
-    // element.src = avatarSrc;
-    // });
-
-    // // Update nameProfile
-    // var nameProfile = user.lastName + ' ' + user.firstName;
-    // document.getElementById("nameProfile").textContent = nameProfile;
-    // },
-    // error: function (xhr, status, error) {
-    // console.error(xhr.responseText);
-    // }
-    // });
-    // });
-
-    </script>
-
-    <script>
-
-    </script>
 
 </body>
 

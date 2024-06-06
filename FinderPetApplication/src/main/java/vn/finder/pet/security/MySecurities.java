@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -30,6 +28,7 @@ public class MySecurities {
     private HttpSession session;
     private static CustomOAuth2User oAuth2User;
 
+
     @Autowired
     public MySecurities(CustomOAuth2UserService customOAuth2UserService, DataSource dataSource, UsersService usersService, HttpSession session) {
         this.customOAuth2UserService = customOAuth2UserService;
@@ -45,6 +44,7 @@ public class MySecurities {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http.authorizeHttpRequests(config ->
                         config.requestMatchers("/**").permitAll())
                 .formLogin(login -> {
@@ -56,11 +56,9 @@ public class MySecurities {
                             .successHandler((request, response, authentication) -> {
                                 oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
                                 String email = oAuth2User.getAttribute("email");
-                                session.setAttribute("email", email);
                                 if (this.usersService.findById(email).isEmpty()) {
                                     String given_name = oAuth2User.getAttribute("given_name");
                                     String family_name = oAuth2User.getAttribute("family_name");
-
                                     String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
                                     StringBuilder password = new StringBuilder(10);
                                     SecureRandom random = new SecureRandom();
@@ -71,7 +69,8 @@ public class MySecurities {
 
                                     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
                                     String enCode = bCryptPasswordEncoder.encode(password);
-                                    Users users = new Users(email, "{bcrypt}" + enCode, true, family_name, given_name, null, Date.valueOf(LocalDate.now()));
+
+                                    Users users = new Users(email, "{bcrypt}"+enCode, true, family_name, given_name, null, Date.valueOf(LocalDate.now()));
                                     this.session.setAttribute("userLogin", users);
                                     response.sendRedirect("/sign-in");
                                 } else {
@@ -86,8 +85,8 @@ public class MySecurities {
         http.csrf(csrf -> csrf.disable());
         return http.build();
     }
-
     public static String getEmail() {
         return oAuth2User.getAttribute("email") == null ? "" : oAuth2User.getAttribute("email");
     }
+
 }

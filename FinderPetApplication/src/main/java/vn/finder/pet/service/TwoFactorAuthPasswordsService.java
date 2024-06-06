@@ -3,11 +3,13 @@ package vn.finder.pet.service;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import vn.finder.pet.common.PasswordCommon;
 import vn.finder.pet.dao.UsersDAO;
 import vn.finder.pet.common.RandomCommon;
 import vn.finder.pet.entity.Users;
 
+import vn.finder.pet.common.RandomCommon;
 
 @Service
 public class TwoFactorAuthPasswordsService {
@@ -20,6 +22,7 @@ public class TwoFactorAuthPasswordsService {
         this.session = session;
         this.mailService = mailService;
         this.usersDAO = usersDAO;
+
     }
 
     /**
@@ -43,7 +46,6 @@ public class TwoFactorAuthPasswordsService {
     public boolean validateOneTimePassword(String otp) {
         return otp.equals(session.getAttribute("one-time-passwords"));
     }
-
 
     /**
      * Thực hiện kiểm tra password với password cũ

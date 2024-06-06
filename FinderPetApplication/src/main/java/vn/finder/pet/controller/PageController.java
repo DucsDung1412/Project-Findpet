@@ -1,6 +1,7 @@
 package vn.finder.pet.controller;
 
 import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import vn.finder.pet.service.UsersService;
 public class PageController {
     @Autowired
     UsersService usersService;
+
     @GetMapping("/index")
     public String index(){
         return "/index";
@@ -56,6 +58,7 @@ public class PageController {
     public String petdetail(){
         return "/pet-detail";
     }
+
     @GetMapping("/two-factor-auth-password")
     public String twoFatorAuthPass() {
         return "/two-factor-auth-password";
@@ -69,4 +72,5 @@ public class PageController {
         System.out.println("email là"+MySecurities.getEmail());
         model.addAttribute("user",MySecurities.getEmail().isEmpty()?new Users():usersService.findById(MySecurities.getEmail()).orElse(new Users()));
         return "/account-profile";}
+
 }
