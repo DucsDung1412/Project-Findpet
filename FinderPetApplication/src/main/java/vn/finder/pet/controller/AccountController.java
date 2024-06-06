@@ -45,7 +45,7 @@ public class AccountController {
     }
 
     @PostMapping("/sign-up")
-    public String signUp(@ModelAttribute("users") Users users, @RequestParam(value = "cfPassword") String cfPassword, RedirectAttributes redirectAtb){
+    public String signUp(@ModelAttribute("users") Users users, @RequestParam(value = "cfPassword") String cfPassword, RedirectAttributes redirectAtb, HttpSession session){
         int valid = 0;
         if (users.getFirstName().isEmpty()) {
             redirectAtb.addAttribute("errorMessageFirstName", "Thiếu thông tin");
@@ -106,11 +106,14 @@ public class AccountController {
             users.setPassword("{bcrypt}"+enCode);
             users.setEnabled(true);
             users.setCreatedDate(Date.valueOf(LocalDate.now()));
-            this.userService.createdUser(users);
+//            this.userService.createdUser(users);
 
             mailService.MaxacNhan(users.getUserName());
 
-            return "redirect:/index";
+            session.setAttribute("username",users.getUserName());
+            session.setAttribute("userByName",users);
+
+            return "redirect:/two-factor-auth";
         }
         return "redirect:/sign-up";
     }
@@ -145,17 +148,29 @@ public class AccountController {
                           @ModelAttribute(value = "so4") String so4,
                           @ModelAttribute(value = "so5") String so5,
                           HttpSession session, RedirectAttributes ra) {
-        String a=(String)session.getAttribute("emailUs");
+        String userFogotPw = (String)session.getAttribute("emailUs");
+        String userSignUp = (String) session.getAttribute("username");
+        Users users= (Users) session.getAttribute("userByName");
         String ma=so1+so2+so3+so4+so5;
         if(!ma.trim().isEmpty() && ma.length() == 5){
-            if(otpService.GetOtp(a).equals(ma)) {
-                //đúng mã
-                twoFactorAuthPasswordsService.sendOneTimePasswords(a);
-                ra.addAttribute("email", session.getAttribute("emailUs"));
-                return "redirect:/two-factor-auth-password";
-            } else {
-                ra.addAttribute("errorMessage","Mã xác nhận không đúng");
+            if(userFogotPw!=null) {
+                if ((otpService.GetOtp(userFogotPw).equals(ma))) {
+                    //đúng mã
+                    twoFactorAuthPasswordsService.sendOneTimePasswords(userFogotPw);
+                    ra.addAttribute("email", session.getAttribute("emailUs"));
+                    return "redirect:/two-factor-auth-password";
+                } else {
+                    ra.addAttribute("errorMessage", "Mã xác nhận không đúng");
+                }
+            }if(userSignUp!=null){
+                if(otpService.GetOtp(userSignUp).equals(ma)) {
+                    //đúng Mã
+                    this.userService.createdUser(users);
+                    return "redirect:/index";
+                }
             }
+
+
         } else {
             ra.addAttribute("errorMessage","Vui lòng không để trống field nào");
         }
@@ -165,9 +180,16 @@ public class AccountController {
     @GetMapping("/resetOtp")
     public String resetOtp(HttpSession session, RedirectAttributes ra) throws ExecutionException {
         String emailus = (String)session.getAttribute("emailUs");
-        mailService.MaxacNhan(emailus);
-        ra.addAttribute("reset", true);
-        ra.addAttribute("email", emailus);
+        String userSignUp = (String) session.getAttribute("username");
+        if(emailus!=null){
+            mailService.MaxacNhan(emailus);
+            ra.addAttribute("reset", true);
+            ra.addAttribute("email", emailus);
+        }else if(userSignUp!=null){
+            mailService.MaxacNhan(userSignUp);
+            ra.addAttribute("reset", true);
+            ra.addAttribute("email", emailus);
+        }
         return"redirect:/two-factor-auth";
     }
 
@@ -219,4 +241,6 @@ public class AccountController {
         }
         return "redirect:/two-factor-auth-password";
     }
+
+
 }

@@ -27,4 +27,24 @@ public class AnimalsService {
         Pageable pageable = PageRequest.of(page, sizePage);
         return animalsDAO.findByBreedNameContains(breedType, breedName, shelterAddress, ages, genders, size, name, pageable);
     }
+
+    public Page<Animals> findAll(int page, int sizePage) {
+        Pageable pageable = PageRequest.of(page, sizePage);
+        return animalsDAO.findAll(pageable);
+    }
+
+    public Page<Animals> filterName(int page, int sizePage) {
+        Pageable pageable = PageRequest.of(page, sizePage);
+        return animalsDAO.filterName(pageable);
+    }
+
+    public Page<Animals> filterDate(int page, int sizePage) {
+        Pageable pageable = PageRequest.of(page, sizePage);
+        return animalsDAO.filterDate(pageable);
+    }
+
+    public Page<Animals> filterFavorite(int page, int sizePage) {
+        Pageable pageable = PageRequest.of(page, sizePage);
+        return animalsDAO.filterFavorite(pageable);
+    }
 }

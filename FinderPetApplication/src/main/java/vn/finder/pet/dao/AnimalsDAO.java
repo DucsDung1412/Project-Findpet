@@ -14,4 +14,17 @@ import java.util.List;
 public interface AnimalsDAO extends JpaRepository<Animals, Long> {
     @Query("SELECT a FROM Animals a WHERE a.breed.breed_type IN :breedType AND a.breed.breed_name LIKE %:breedName% AND a.shelters.shelterAddress LIKE %:shelterAddress% AND a.animalAge IN :ages AND a.animalGender IN :genders AND a.animalSize LIKE %:size% AND a.animalName LIKE %:name%")
     Page<Animals> findByBreedNameContains(@Param("breedType") List<String> breedType, @Param("breedName") String breedName, @Param("shelterAddress") String shelterAddress, @Param("ages") List<String> ages, @Param("genders") List<Boolean> genders, @Param("size") String size, @Param("name") String name, Pageable pageable);
+
+    @Query("SELECT a FROM Animals a ORDER BY a.animalName DESC")
+    Page<Animals> filterName(Pageable pageable);
+
+    @Query("SELECT a FROM Animals a ORDER BY a.animalDate DESC")
+    Page<Animals> filterDate(Pageable pageable);
+
+    @Query("SELECT a " +
+            "FROM Animals a " +
+            "LEFT JOIN a.listFavorites f " +
+            "GROUP BY a.id " +
+            "ORDER BY COUNT(f.id) DESC")
+    Page<Animals> filterFavorite(Pageable pageable);
 }
