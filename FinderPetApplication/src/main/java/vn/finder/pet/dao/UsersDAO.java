@@ -6,6 +6,4 @@ import vn.finder.pet.entity.Users;
 
 @RepositoryRestResource(path = "users")
 public interface UsersDAO extends JpaRepository<Users, String> {
-
-
 }

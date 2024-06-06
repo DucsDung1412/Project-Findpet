@@ -3,6 +3,7 @@ package vn.finder.pet.service;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vn.finder.pet.common.PasswordCommon;
 import vn.finder.pet.dao.UsersDAO;
 import vn.finder.pet.common.RandomCommon;
 import vn.finder.pet.entity.Users;
@@ -43,23 +44,6 @@ public class TwoFactorAuthPasswordsService {
         return otp.equals(session.getAttribute("one-time-passwords"));
     }
 
-    /**
-     * Dùng để kiểm tra pattern Password
-     *
-     * @param password password cần kiểm tra
-     * @return true nếu đúng định dạng, false nếu sai định dạng
-     */
-    public boolean validatePatternPassword(String password) {
-        String pattern = "^(?=.*[A-Z])(?=.*[!@#$%^&*()_+=-])(?=.*\\d).{8,20}$";
-        if (password.matches(pattern)) {
-            System.out.println("đúng định dạng password");
-            return true;
-        } else {
-            System.out.println("sai định dạng password");
-            return false;
-        }
-    }
-
 
     /**
      * Thực hiện kiểm tra password với password cũ
@@ -81,7 +65,7 @@ public class TwoFactorAuthPasswordsService {
             return false;
         } else {
             System.out.println("mật khẩu khác mk cũ");
-            if (validatePatternPassword(password)) {
+            if (PasswordCommon.validatePatternPassword(password)) {
                 //Đổi mật khẩu trong database của người dùng
                 user.setPassword(password);
                 usersDAO.save(user);

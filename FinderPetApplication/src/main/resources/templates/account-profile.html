@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">>
 
 <head>
     <title>Booking - Multipurpose Online Booking Theme</title>
@@ -72,7 +72,6 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="../images/favicon.ico">
-
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -87,13 +86,15 @@
     <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
 
     <!-- Plugins CSS -->
+    <link rel="stylesheet" type="image" href="../images/">
     <link rel="stylesheet" type="text/css" href="../css/all.min.css">
     <link rel="stylesheet" type="text/css" href="../css/aos.css">
     <link rel="stylesheet" type="text/css" href="../css/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="../css/choices.min.css">
-
     <!-- Theme CSS -->
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <script src="https://esgoo.net/scripts/jquery.js"></script>
+
 
 </head>
 
@@ -380,8 +381,9 @@
                         <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button"
                             data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <img class="avatar-img rounded-2"
-                                src="https://booking.webestica.com/assets/images/avatar/01.jpg" alt="avatar">
+                            <img id="" class="avatar-img rounded-2"
+                                th:src="${user.avatar==null?'https://booking.webestica.com/assets/images/avatar/01.jpg':user.avatar}"
+                                alt="avatar">
                         </a>
 
                         <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
@@ -392,12 +394,12 @@
                                     <!-- Avatar -->
                                     <div class="avatar me-3">
                                         <img class="avatar-img rounded-circle shadow"
-                                            src="https://booking.webestica.com/assets/images/avatar/01.jpg"
+                                            th:src="${user.avatar==null?'https://booking.webestica.com/assets/images/avatar/01.jpg':user.avatar}"
                                             alt="avatar">
                                     </div>
                                     <div>
-                                        <a class="h6 mt-2 mt-sm-0" href="#">Lori Ferguson</a>
-                                        <p class="small m-0">example@gmail.com</p>
+                                        <p class="h6 mt-2 mt-sm-0" href="#">Lori Ferguson</p>
+                                        <p class="small m-0 email">example@gmail.com</p>
                                     </div>
                                 </div>
                             </li>
@@ -510,11 +512,14 @@
                                             <!-- Avatar -->
                                             <div class="avatar avatar-xl mb-2">
                                                 <img class="avatar-img rounded-circle border border-2 border-white"
-                                                    src="https://booking.webestica.com/assets/images/avatar/01.jpg"
+                                                    th:src="${user.avatar==null?'https://booking.webestica.com/assets/images/avatar/01.jpg':user.avatar}"
                                                     alt="">
                                             </div>
-                                            <h6 class="mb-0">Jacqueline Miller</h6>
-                                            <a href="#" class="text-reset text-primary-hover small">hello@gmail.com</a>
+                                            <h6 class="mb-0" id="nameProfile" th:text="${user.firstName+user.lastName}">
+                                            </h6>
+                                            <p href="#" class="email text-reset text-primary-hover small"
+                                                th:text="${user.userName}">
+                                            </p>
                                             <hr>
                                         </div>
 
@@ -577,7 +582,8 @@
                                 <!-- Card body START -->
                                 <div class="card-body">
                                     <!-- Form START -->
-                                    <form class="row g-3">
+                                    <form class="row g-3" action="/accountprofile/changeprofile" method="post"
+                                        enctype="multipart/form-data">
                                         <!-- Profile photo -->
                                         <div class="col-12">
                                             <label class="form-label">Upload your profile photo<span
@@ -589,130 +595,69 @@
                                                     <span class="avatar avatar-xl">
                                                         <img id="uploadfile-1-preview"
                                                             class="avatar-img rounded-circle border border-white border-3 shadow"
-                                                            src="https://booking.webestica.com/assets/images/avatar/01.jpg"
+                                                            th:src="${user.avatar==null?'https://booking.webestica.com/assets/images/avatar/01.jpg':user.avatar}"
                                                             alt="">
                                                     </span>
                                                 </label>
                                                 <!-- Upload button -->
                                                 <label class="btn btn-sm btn-primary-soft mb-0"
                                                     for="uploadfile-1">Change</label>
-                                                <input id="uploadfile-1" class="form-control d-none" type="file" accept="image/*">
+                                                <input name="profilePhoto" id="uploadfile-1" class="form-control d-none"
+                                                    type="file" accept="image/*">
                                             </div>
                                         </div>
 
                                         <!-- First Name -->
                                         <div class="col-md-6">
-                                            <label class="form-label">First Name<span
+                                            <label for="firstname" class="form-label">First Name<span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" value="Jacqueline"
-                                                placeholder="Enter your first name">
+                                            <input name="firstName" id="firstname" type="text" class="form-control"
+                                                placeholder="Enter your first name"
+                                                th:value="${user.firstName != null ? user.firstName : ''}">
                                         </div>
 
                                         <!-- Last Name -->
                                         <div class="col-md-6">
-                                            <label class="form-label">Last Name<span
+                                            <label for="lastname" class="form-label">Last Name<span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" value="Miller"
-                                                placeholder="Enter your last name">
+                                            <input type="text" id="lastname" name="lastName" class="form-control"
+                                                placeholder="Enter your last name"
+                                                th:value="${user.lastName != null ? user.lastName : ''}">
                                         </div>
 
                                         <!-- Mobile -->
                                         <div class="col-md-6">
-                                            <label class="form-label">Mobile number</label>
-                                            <input type="text" class="form-control" value="222 555 666"
+                                            <label for="phone" class="form-label">Mobile number</label>
+                                            <input id="phone" name="phone" type="text" class="form-control"
+                                                th:value="${user.phone != null ? user.phone : ''}"
                                                 placeholder="Enter your mobile number">
                                         </div>
 
                                         <!-- Nationality -->
                                         <div class="col-md-6">
-                                            <label class="form-label">Nationality<span
+                                            <label for="country" class="form-label">Nationality<span
                                                     class="text-danger">*</span></label>
-                                            <select class="form-select js-choice">
+                                            <select id="tinh" name="country" class="form-select">
                                                 <option value="">Select your country</option>
-                                                <option>An Giang</option>
-                                                <option>Bà Rịa - Vũng Tàu</option>
-                                                <option>Bắc Giang</option>
-                                                <option>Bắc Kạn</option>
-                                                <option>Bạc Liêu</option>
-                                                <option>Bắc Ninh</option>
-                                                <option>Bến Tre</option>
-                                                <option>Bình Dương</option>
-                                                <option>Bình Định</option>
-                                                <option>Bình Phước</option>
-                                                <option>Bình Thuận</option>
-                                                <option>Cà Mau</option>
-                                                <option>Cần Thơ</option>
-                                                <option>Cao Bằng</option>
-                                                <option>Đà Nẵng</option>
-                                                <option>Đắk Lắk</option>
-                                                <option>Đắk Nông</option>
-                                                <option>Điện Biên</option>
-                                                <option>Đồng Nai</option>
-                                                <option>Đồng Tháp</option>
-                                                <option>Gia Lai</option>
-                                                <option>Hà Giang</option>
-                                                <option>Hà Nam</option>
-                                                <option>Hà Nội</option>
-                                                <option>Hà Tĩnh</option>
-                                                <option>Hải Dương</option>
-                                                <option>Hải Phòng</option>
-                                                <option>Hậu Giang</option>
-                                                <option selected>Hồ Chí Minh</option>
-                                                <option>Hoà Bình</option>
-                                                <option>Hưng Yên</option>
-                                                <option>Khánh Hòa</option>
-                                                <option>Kiên Giang</option>
-                                                <option>Kon Tum</option>
-                                                <option>Lai Châu</option>
-                                                <option>Lâm Đồng</option>
-                                                <option>Lạng Sơn</option>
-                                                <option>Lào Cai</option>
-                                                <option>Long An</option>
-                                                <option>Nam Định</option>
-                                                <option>Nghệ An</option>
-                                                <option>Ninh Bình</option>
-                                                <option>Ninh Thuận</option>
-                                                <option>Phú Thọ</option>
-                                                <option>Phú Yên</option>
-                                                <option>Quảng Bình</option>
-                                                <option>Quảng Nam</option>
-                                                <option>Quảng Ngãi</option>
-                                                <option>Quảng Ninh</option>
-                                                <option>Quảng Trị</option>
-                                                <option>Sóc Trăng</option>
-                                                <option>Sơn La</option>
-                                                <option>Tây Ninh</option>
-                                                <option>Thái Bình</option>
-                                                <option>Thái Nguyên</option>
-                                                <option>Thanh Hóa</option>
-                                                <option>Thừa Thiên Huế</option>
-                                                <option>Tiền Giang</option>
-                                                <option>Trà Vinh</option>
-                                                <option>Tuyên Quang</option>
-                                                <option>Vĩnh Long</option>
-                                                <option>Vĩnh Phúc</option>
-                                                <option>Yên Bái</option>
                                             </select>
                                         </div>
-
                                         <!-- Email -->
                                         <div class="col-md-6">
-                                            <label class="form-label">Email address<span
-                                                    class="text-danger">*</span></label>
-                                            <input type="email" class="form-control" value="hello@gmail.com"
-                                                placeholder="Enter your email id" disabled>
+                                            <label for="email" class="form-label">Email address<span2
+                                                    class="text-danger"></span></label>
+                                            <input id="email" name="email" type="email" class="form-control email"
+                                                placeholder="Enter your email id" th:value="${user.userName}" disabled>
                                         </div>
-
                                         <!-- Address -->
                                         <div class="col-12">
-                                            <label class="form-label">Address</label>
-                                            <textarea class="form-control" rows="3"
-                                                spellcheck="false">2119 N Division Ave, New Hampshire, York, United States</textarea>
+                                            <label class="form-label" for="address">Address</label>
+                                            <textarea name="address" id="address" class="form-control" rows="3"
+                                                spellcheck="false" th:text="${user.address}"></textarea>
                                         </div>
 
                                         <!-- Button -->
                                         <div class="col-12 text-end">
-                                            <a href="#" class="btn btn-primary mb-0">Save Changes</a>
+                                            <button type="submit" class="btn btn-primary mb-0">Save Changes</button>
                                         </div>
                                     </form>
                                     <!-- Form END -->
@@ -726,24 +671,25 @@
                                 <!-- Card header -->
                                 <div class="card-header border-bottom">
                                     <h4 class="card-header-title">Update Password</h4>
-                                    <p class="mb-0">Your current email address is <span
+                                    <p class="mb-0 email">Your current email address is <span th:text="${user.userName}"
                                             class="text-primary">example@gmail.com</span></p>
                                 </div>
 
                                 <!-- Card body START -->
-                                <form class="card-body">
+                                <form class="card-body" action="/accountprofile/changepassword">
                                     <!-- Current password -->
                                     <div class="mb-3">
                                         <label class="form-label">Current password</label>
-                                        <input class="form-control" type="password"
-                                            placeholder="Enter current password">
+                                        <input name="currentpassword" class="form-control" type="password"
+                                            placeholder="Enter current password" required>
                                     </div>
                                     <!-- New password -->
                                     <div class="mb-3">
                                         <label class="form-label"> Enter new password</label>
                                         <div class="input-group">
-                                            <input class="form-control fakepassword" placeholder="Enter new password"
-                                                type="password" id="psw-input">
+                                            <input name="newpassword" class="form-control fakepassword"
+                                                placeholder="Enter new password" type="password" id="psw-input"
+                                                required>
                                             <span class="input-group-text p-0 bg-transparent">
                                                 <i class="fakepasswordicon fas fa-eye-slash cursor-pointer p-2"></i>
                                             </span>
@@ -752,11 +698,12 @@
                                     <!-- Confirm -->
                                     <div class="mb-3">
                                         <label class="form-label">Confirm new password</label>
-                                        <input class="form-control" type="password" placeholder="Confirm new password">
+                                        <input name="confirmpassword" class="form-control" type="password"
+                                            placeholder="Confirm new password" required>
                                     </div>
 
                                     <div class="text-end">
-                                        <a href="#" class="btn btn-primary mb-0">Change Password</a>
+                                        <button type="submit" class="btn btn-primary mb-0">Change Password</button>
                                     </div>
                                 </form>
                                 <!-- Card body END -->
@@ -777,133 +724,170 @@ Content END -->
 
     <!-- =======================
 Footer START -->
-<footer class="bg-dark pt-5">
-    <div class="container">
-        <!-- Row START -->
-        <div class="row g-4">
+    <footer class="bg-dark pt-5">
+        <div class="container">
+            <!-- Row START -->
+            <div class="row g-4">
 
-            <!-- Widget 1 START -->
-            <div class="col-lg-4">
-                <!-- logo -->
-                <a href="index.html">
-                    <img class="h-40px" src="https://booking.webestica.com/assets/images/logo-light.svg" alt="logo">
-                </a>
-                <p class="mt-3 mb-2"><a href="#" class="text-body-secondary text-primary-hover"><i class="bi bi-telephone me-2"></i>+1234 568 963</a> </p>
-                <p class="mb-2"><a href="#" class="text-body-secondary text-primary-hover"><i class="bi bi-envelope me-2" style="padding-right: 2px;"></i>example@gmail.com</a></p>
-                <p class="mb-0 text-body-secondary"><a href="#" class="text-body-secondary text-primary-hover"><i class="fa-solid fa-hotel me-2"></i>Floor 4-5-6, Capital Place Building, 29 Lieu Giai Street, Ngoc Khanh Ward, Ba Dinh District, Hanoi City, Vietnam.</a> </p>
-            </div>
-            <!-- Widget 1 END -->
+                <!-- Widget 1 START -->
+                <div class="col-lg-4">
+                    <!-- logo -->
+                    <a href="index.html">
+                        <img class="h-40px" src="https://booking.webestica.com/assets/images/logo-light.svg" alt="logo">
+                    </a>
+                    <p class="mt-3 mb-2"><a href="#" class="text-body-secondary text-primary-hover"><i
+                                class="bi bi-telephone me-2"></i>+1234 568 963</a> </p>
+                    <p class="mb-2"><a href="#" class="text-body-secondary text-primary-hover"><i
+                                class="bi bi-envelope me-2" style="padding-right: 2px;"></i>example@gmail.com</a></p>
+                    <p class="mb-0 text-body-secondary"><a href="#" class="text-body-secondary text-primary-hover"><i
+                                class="fa-solid fa-hotel me-2"></i>Floor 4-5-6, Capital Place Building, 29 Lieu Giai
+                            Street, Ngoc Khanh Ward, Ba Dinh District, Hanoi City, Vietnam.</a> </p>
+                </div>
+                <!-- Widget 1 END -->
 
-            <!-- Widget 2 START -->
-            <div class="col-lg-8 ms-auto">
-                <div class="row g-4">
-                    <!-- Link block -->
-                    <div class="col-6 col-md-4">
-                        <h5 class="text-white mb-2 mb-md-4">Resources</h5>
-                        <ul class="nav flex-column text-primary-hover">
-                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">About us</a></li>
-                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Contact us</a></li>
-                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">News and Blog</a></li>
-                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Help Center</a></li>
-                        </ul>
-                    </div>
+                <!-- Widget 2 START -->
+                <div class="col-lg-8 ms-auto">
+                    <div class="row g-4">
+                        <!-- Link block -->
+                        <div class="col-6 col-md-4">
+                            <h5 class="text-white mb-2 mb-md-4">Resources</h5>
+                            <ul class="nav flex-column text-primary-hover">
+                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">About us</a></li>
+                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Contact us</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">News and Blog</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Help Center</a>
+                                </li>
+                            </ul>
+                        </div>
 
-                    <!-- Link block -->
-                    <div class="col-6 col-md-4">
-                        <h5 class="text-white mb-2 mb-md-4">Customer Service</h5>
-                        <ul class="nav flex-column text-primary-hover">
-                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Adoption Guide</a></li>
-                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Donation Instructions</a></li>
-                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Shelter Instructions</a></li>
-                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Privacy Policy</a></li>
-                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Cookie</a></li>
-                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Support</a></li>
-                        </ul>
-                    </div>
+                        <!-- Link block -->
+                        <div class="col-6 col-md-4">
+                            <h5 class="text-white mb-2 mb-md-4">Customer Service</h5>
+                            <ul class="nav flex-column text-primary-hover">
+                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Adoption Guide</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Donation
+                                        Instructions</a></li>
+                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Shelter
+                                        Instructions</a></li>
+                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Privacy Policy</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Cookie</a></li>
+                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#">Support</a></li>
+                            </ul>
+                        </div>
 
-                    <!-- Link block -->
-                    <div class="col-6 col-md-4 footer-flex-row">
-                        <h5 class="text-white mb-2 mb-md-4">Searching</h5>
-                        <ul class="nav flex-column text-primary-hover">
-                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i class="fa-solid fa-dog me-2" style="color: #ffffff;"></i>Dogs & Puppies</a></li>
-                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i class="fa-solid fa-cat me-2" style="color: #ffffff;"></i>Cats & Kiitens</a></li>
-                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i class="fa-solid fa-paw me-2" style="color: #ffffff;"></i>Other Animals</a></li>
-                            <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i class="fa-solid fa-house me-2" style="color: #ffffff;"></i>Shelter & Rescues</a></li>
-                        </ul>
+                        <!-- Link block -->
+                        <div class="col-6 col-md-4 footer-flex-row">
+                            <h5 class="text-white mb-2 mb-md-4">Searching</h5>
+                            <ul class="nav flex-column text-primary-hover">
+                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i
+                                            class="fa-solid fa-dog me-2" style="color: #ffffff;"></i>Dogs & Puppies</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i
+                                            class="fa-solid fa-cat me-2" style="color: #ffffff;"></i>Cats & Kiitens</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i
+                                            class="fa-solid fa-paw me-2" style="color: #ffffff;"></i>Other Animals</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link text-body-secondary" href="#"><i
+                                            class="fa-solid fa-house me-2" style="color: #ffffff;"></i>Shelter &
+                                        Rescues</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Widget 2 END -->
+                <!-- Widget 2 END -->
 
-        </div><!-- Row END -->
+            </div><!-- Row END -->
 
-        <!-- Tops Links -->
-        <div class="row mt-5">
-            <h5 class="mb-2 text-white">Top Links</h5>
-            <ul class="list-inline text-primary-hover lh-lg">
-                <li class="list-inline-item"><a href="#" class="text-body-secondary">Shelter & Rescue Registration</a></li>
-                <li class="list-inline-item"><a href="#" class="text-body-secondary">Sitemap</a></li>
-                <li class="list-inline-item"><a href="#" class="text-body-secondary">Terms of Service</a></li>
-                <li class="list-inline-item"><a href="#" class="text-body-secondary">Notice at Collection</a></li>
-                <li class="list-inline-item"><a href="#" class="text-body-secondary">About us</a></li>
-                <li class="list-inline-item"><a href="#" class="text-body-secondary">Contact us</a></li>
-                <li class="list-inline-item"><a href="#" class="text-body-secondary">Blogs</a></li>
-                <li class="list-inline-item"><a href="#" class="text-body-secondary">Services</a></li>
-                <li class="list-inline-item"><a href="#" class="text-body-secondary">Privacy Policy</a></li>
-                <li class="list-inline-item"><a href="#" class="text-body-secondary">Cookie Policy</a></li>
-                <li class="list-inline-item"><a href="#" class="text-body-secondary">Accessibility</a></li>
-                <li class="list-inline-item"><a href="#" class="text-body-secondary">Do Not Sell Or Share My Personal Information</a></li>
-            </ul>
-        </div>
-
-        <!-- Payment and card -->
-        <div class="row g-4 justify-content-between mt-0 mt-md-2">
-
-            <!-- Payment card -->
-            <div class="col-sm-7 col-md-6 col-lg-4">
-                <h5 class="text-white mb-2">Payment & Security</h5>
-                <ul class="list-inline mb-0 mt-3">
-                    <li class="list-inline-item"> <a href="#"><img src="https://booking.webestica.com/assets/images/element/paypal.svg" class="h-30px" alt=""></a></li>
-                    <li class="list-inline-item"> <a href="#"><img src="https://booking.webestica.com/assets/images/element/visa.svg" class="h-30px" alt=""></a></li>
-                    <li class="list-inline-item"> <a href="#"><img src="https://booking.webestica.com/assets/images/element/mastercard.svg" class="h-30px" alt=""></a></li>
-                    <li class="list-inline-item"> <a href="#"><img src="https://booking.webestica.com/assets/images/element/expresscard.svg" class="h-30px" alt=""></a></li>
+            <!-- Tops Links -->
+            <div class="row mt-5">
+                <h5 class="mb-2 text-white">Top Links</h5>
+                <ul class="list-inline text-primary-hover lh-lg">
+                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Shelter & Rescue
+                            Registration</a></li>
+                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Sitemap</a></li>
+                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Terms of Service</a></li>
+                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Notice at Collection</a></li>
+                    <li class="list-inline-item"><a href="#" class="text-body-secondary">About us</a></li>
+                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Contact us</a></li>
+                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Blogs</a></li>
+                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Services</a></li>
+                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Privacy Policy</a></li>
+                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Cookie Policy</a></li>
+                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Accessibility</a></li>
+                    <li class="list-inline-item"><a href="#" class="text-body-secondary">Do Not Sell Or Share My
+                            Personal Information</a></li>
                 </ul>
             </div>
 
-            <!-- Social media icon -->
-            <div class="col-sm-5 col-md-6 col-lg-3 text-sm-end">
-                <h5 class="text-white mb-2">Follow us on</h5>
-                <ul class="list-inline mb-0 mt-3">
-                    <li class="list-inline-item"> <a class="btn btn-sm px-2 bg-facebook mb-0" href="#"><i class="fab fa-fw fa-facebook-f"></i></a> </li>
-                    <li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-instagram mb-0" href="#"><i class="fab fa-fw fa-instagram"></i></a> </li>
-                    <li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-twitter mb-0" href="#"><i class="fab fa-fw fa-twitter"></i></a> </li>
-                    <li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-linkedin mb-0" href="#"><i class="fab fa-fw fa-linkedin-in"></i></a> </li>
-                </ul>	
+            <!-- Payment and card -->
+            <div class="row g-4 justify-content-between mt-0 mt-md-2">
+
+                <!-- Payment card -->
+                <div class="col-sm-7 col-md-6 col-lg-4">
+                    <h5 class="text-white mb-2">Payment & Security</h5>
+                    <ul class="list-inline mb-0 mt-3">
+                        <li class="list-inline-item"> <a href="#"><img
+                                    src="https://booking.webestica.com/assets/images/element/paypal.svg" class="h-30px"
+                                    alt=""></a></li>
+                        <li class="list-inline-item"> <a href="#"><img
+                                    src="https://booking.webestica.com/assets/images/element/visa.svg" class="h-30px"
+                                    alt=""></a></li>
+                        <li class="list-inline-item"> <a href="#"><img
+                                    src="https://booking.webestica.com/assets/images/element/mastercard.svg"
+                                    class="h-30px" alt=""></a></li>
+                        <li class="list-inline-item"> <a href="#"><img
+                                    src="https://booking.webestica.com/assets/images/element/expresscard.svg"
+                                    class="h-30px" alt=""></a></li>
+                    </ul>
+                </div>
+
+                <!-- Social media icon -->
+                <div class="col-sm-5 col-md-6 col-lg-3 text-sm-end">
+                    <h5 class="text-white mb-2">Follow us on</h5>
+                    <ul class="list-inline mb-0 mt-3">
+                        <li class="list-inline-item"> <a class="btn btn-sm px-2 bg-facebook mb-0" href="#"><i
+                                    class="fab fa-fw fa-facebook-f"></i></a> </li>
+                        <li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-instagram mb-0" href="#"><i
+                                    class="fab fa-fw fa-instagram"></i></a> </li>
+                        <li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-twitter mb-0" href="#"><i
+                                    class="fab fa-fw fa-twitter"></i></a> </li>
+                        <li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-linkedin mb-0" href="#"><i
+                                    class="fab fa-fw fa-linkedin-in"></i></a> </li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <!-- Divider -->
-        <hr class="mt-4 mb-0">
+            <!-- Divider -->
+            <hr class="mt-4 mb-0">
 
-        <!-- Bottom footer -->
-        <div class="row">
-            <div class="container">
-                <div class="d-lg-flex justify-content-between align-items-center py-3 text-center text-lg-start">
-                    <!-- copyright text -->
-                    <div class="text-body-secondary text-primary-hover"> Copyrights ©2023 Booking. Build by <a href="https://www.webestica.com/" class="text-body-secondary">Webestica</a>. </div>
-                    <!-- copyright links-->
-                    <div class="nav mt-2 mt-lg-0">
-                        <ul class="list-inline text-primary-hover mx-auto mb-0">
-                            <li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1" href="#">Privacy policy</a></li>
-                            <li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1" href="#">Terms and conditions</a></li>
-                            <li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1 pe-0" href="#">Refund policy</a></li>
-                        </ul>
+            <!-- Bottom footer -->
+            <div class="row">
+                <div class="container">
+                    <div class="d-lg-flex justify-content-between align-items-center py-3 text-center text-lg-start">
+                        <!-- copyright text -->
+                        <div class="text-body-secondary text-primary-hover"> Copyrights ©2023 Booking. Build by <a
+                                href="https://www.webestica.com/" class="text-body-secondary">Webestica</a>. </div>
+                        <!-- copyright links-->
+                        <div class="nav mt-2 mt-lg-0">
+                            <ul class="list-inline text-primary-hover mx-auto mb-0">
+                                <li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1"
+                                        href="#">Privacy policy</a></li>
+                                <li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1"
+                                        href="#">Terms and conditions</a></li>
+                                <li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1 pe-0"
+                                        href="#">Refund policy</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
     <!-- =======================
 Footer END -->
 
@@ -924,24 +908,111 @@ Footer END -->
     <script src="../js/aos.js"></script>
     <script src="../js/flatpickr.min.js"></script>
     <script src="../js/choices.min.js"></script>
-
     <!-- ThemeFunctions -->
     <script src="../js/functions.js"></script>
 
     <!--  JQuery  -->
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <script>
-        document.getElementById('uploadfile-1').addEventListener('change', function(event) {
+    <script th:inline="javascript">
+        var user = /*[[${user}]]*/ null;
+        document.getElementById('uploadfile-1').addEventListener('change', function (event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     document.getElementById('uploadfile-1-preview').src = e.target.result;
                 }
                 reader.readAsDataURL(file);
             }
         });
+
+        $(document).ready(function () {
+            //Lấy tỉnh thành
+            $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function (data_tinh) {
+                if (data_tinh.error == 0) {
+                    $.each(data_tinh.data, function (key_tinh, val_tinh) {
+                        // Tạo một đối tượng option
+                        var option = $('<option></option>').attr('value', val_tinh.name).text(val_tinh.name);
+                        if (val_tinh.name == user.country) {
+                            option.attr('selected', 'selected');
+                        }
+                        $("#tinh").append(option);
+
+                    });
+                }
+            });
+        })
+    </script>
+
+    // $(document).ready(function () {
+    // // Sử dụng AJAX để gửi yêu cầu GET tới endpoint /profile
+    // $.ajax({
+    // url: "/request-profile",
+    // type: "GET",
+    // success: function (user) {
+
+    // console.log(user); // In dữ liệu profile ra console
+
+    // //lấy firstname
+    // var firstname = user.firstName !== null ? user.firstName : '';
+    // document.getElementById("firstname").value = firstname;
+    // //lấy lastname
+    // var lastname = user.lastName !== null ? user.lastName : '';
+    // document.getElementById("lastname").value = lastname;
+    // //lấy phone
+    // var phone = user.phone !== null ? user.phone : '';
+    // document.getElementById("phone").value = phone;
+    // // Chọn country
+    // var country = user.country !== null ? user.country : '0';
+
+    // var countryElement = document.getElementById("country");
+    // if (countryElement) {
+    // Array.from(countryElement.options).forEach(function (e) {
+    // if (e.text === country) {
+    // console.log(country);
+    // e.selected = true;
+    // }
+    // })
+    // }
+    // // lấy address
+    // var address = user.address !== null ? user.address : '';
+    // document.getElementById("address").textContent = address;
+
+    // //update tất cả class=email
+    // var email = user.userName !== null ? user.userName : '';
+    // var emailElements = document.getElementsByClassName("email");
+    // if (emailElements) {
+    // Array.from(emailElements).forEach(function (element) {
+    // if (element.nodeName === "P") {
+    // element.textContent = email;
+    // } else {
+    // element.value = email;
+    // }
+    // })
+    // };
+
+    // // Update avatar image src
+    // var avatarSrc = user.avatar !== null ? user.avatar : 'https://booking.webestica.com/assets/images/avatar/01.jpg';
+    // var avatarElements = document.getElementsByClassName("avatar-img");
+    // Array.from(avatarElements).forEach(function (element) {
+    // element.src = avatarSrc;
+    // });
+
+    // // Update nameProfile
+    // var nameProfile = user.lastName + ' ' + user.firstName;
+    // document.getElementById("nameProfile").textContent = nameProfile;
+    // },
+    // error: function (xhr, status, error) {
+    // console.error(xhr.responseText);
+    // }
+    // });
+    // });
+
+    </script>
+
+    <script>
+
     </script>
 
 </body>

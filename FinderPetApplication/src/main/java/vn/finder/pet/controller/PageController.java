@@ -1,14 +1,19 @@
 package vn.finder.pet.controller;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import vn.finder.pet.entity.Users;
+import vn.finder.pet.security.MySecurities;
+import vn.finder.pet.service.UsersService;
 
 @Controller
 public class PageController {
+    @Autowired
+    UsersService usersService;
     @GetMapping("/index")
     public String index(){
         return "/index";
@@ -47,11 +52,21 @@ public class PageController {
     public String petGrid(){
         return "/pet-grid";
     }
-
+    @GetMapping("/pet-detail")
+    public String petdetail(){
+        return "/pet-detail";
+    }
     @GetMapping("/two-factor-auth-password")
     public String twoFatorAuthPass() {
         return "/two-factor-auth-password";
     }
+
+    /**
+     * @return URL trang profile
+     */
     @GetMapping("/account-profile")
-    public String accountProfile(){return "/account-profile";}
+    public String accountProfile(Model model){
+        System.out.println("email là"+MySecurities.getEmail());
+        model.addAttribute("user",MySecurities.getEmail().isEmpty()?new Users():usersService.findById(MySecurities.getEmail()).orElse(new Users()));
+        return "/account-profile";}
 }
