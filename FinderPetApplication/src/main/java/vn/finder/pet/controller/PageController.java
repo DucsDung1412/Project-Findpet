@@ -65,12 +65,6 @@ public class PageController {
         return "/two-factor-auth";
     }
 
-    @GetMapping("/pet-grid")
-    public String petGrid(HttpSession session){
-        session.removeAttribute("emailUs");
-        return "/pet-grid";
-    }
-
     @GetMapping("/two-factor-auth-password")
     public String twoFatorAuthPass(Model model, @RequestParam(value = "email", required = false) String email, @RequestParam(value = "errorMessagePasswordCode", required = false) String errorMessagePasswordCode, @RequestParam(value = "errorMessagePassword", required = false) String errorMessagePassword, @RequestParam(value = "errorMessageConfirmPassword", required = false) String errorMessageConfirmPassword) {
         model.addAttribute("email", email);
@@ -78,5 +72,11 @@ public class PageController {
         model.addAttribute("errorMessagePassword", errorMessagePassword);
         model.addAttribute("errorMessageConfirmPassword", errorMessageConfirmPassword);
         return "/two-factor-auth-password";
+    }
+
+    @GetMapping("/pet-detail")
+    public String getPetDetail(@RequestParam String id){
+        System.out.println(id);
+        return "/pet-detail";
     }
 }

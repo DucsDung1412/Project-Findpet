@@ -1,12 +1,19 @@
 package vn.finder.pet.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import vn.finder.pet.entity.Animals;
 import vn.finder.pet.service.AnimalsService;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -17,6 +24,16 @@ public class PetController {
     @Autowired
     public PetController(AnimalsService animalsService) {
         this.animalsService = animalsService;
+    }
+
+    @GetMapping("/pet-grid/{breed_type}")
+    public String petGrid(HttpSession session, Model model, @PathVariable String breed_type){
+        session.removeAttribute("emailUs");
+        List<Animals> listAnimal = new ArrayList<>();
+        listAnimal =  this.animalsService.searchAnimals(Arrays.asList(breed_type), "", "", Arrays.asList("Puppy", "Young", "Adult", "Senior"), Arrays.asList(true, false), "", "", 0, 12).stream().toList();
+        model.addAttribute("listAnimal", listAnimal);
+        model.addAttribute("breed_type", breed_type);
+        return "/pet-grid";
     }
 
     @RequestMapping("/filter-pet")
