@@ -6,8 +6,11 @@ import org.springframework.stereotype.Service;
 import vn.finder.pet.dao.AuthoritiesDAO;
 import vn.finder.pet.dao.UsersDAO;
 import vn.finder.pet.entity.Authorities;
+import vn.finder.pet.entity.Favorites;
 import vn.finder.pet.entity.Users;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -16,12 +19,14 @@ public class UsersService {
     private UsersDAO usersDAO;
     private AuthoritiesDAO authoritiesDAO;
     private TwoFactorAuthPasswordsService twoFactorAuthPasswordsService;
+    private FavoritesService favoritesService;
 
     @Autowired
-    public UsersService(UsersDAO usersDAO, AuthoritiesDAO authoritiesDAO, TwoFactorAuthPasswordsService twoFactorAuthPasswordsService) {
+    public UsersService(UsersDAO usersDAO, AuthoritiesDAO authoritiesDAO, TwoFactorAuthPasswordsService twoFactorAuthPasswordsService, FavoritesService favoritesService) {
         this.usersDAO = usersDAO;
         this.authoritiesDAO = authoritiesDAO;
         this.twoFactorAuthPasswordsService = twoFactorAuthPasswordsService;
+        this.favoritesService = favoritesService;
     }
 
     @Transactional
@@ -52,6 +57,42 @@ public class UsersService {
 
     public boolean isUserExists(String userName) {
         if (!this.usersDAO.findById(userName).isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    public Boolean changeInfoUser(Users user) {
+        if(!this.usersDAO.findById(user.getUserName()).isEmpty()){
+            this.usersDAO.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    public boolean deleteFavorite(Long id) {
+        if(this.favoritesService.removeOne(id)){
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    public boolean deleteAllFavorite(String email) {
+        Optional<Users> usersOptional = this.usersDAO.findById(email);
+        if (usersOptional.isPresent()) {
+            Users user = usersOptional.get();
+            List<Favorites> favorites = user.getListFavorites();
+
+            // Sử dụng Iterator để tránh ConcurrentModificationException
+            Iterator<Favorites> iterator = favorites.iterator();
+            while (iterator.hasNext()) {
+                Favorites favorite = iterator.next();
+                this.favoritesService.removeOne(favorite.getId());
+                iterator.remove(); // Xóa khỏi danh sách của user (nếu cần)
+            }
             return true;
         }
         return false;

@@ -14,8 +14,6 @@ public class PageController {
     @GetMapping("/index")
     public String index(HttpSession session){
         session.removeAttribute("emailUs");
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
         return "/index";
     }
 
@@ -72,11 +70,5 @@ public class PageController {
         model.addAttribute("errorMessagePassword", errorMessagePassword);
         model.addAttribute("errorMessageConfirmPassword", errorMessageConfirmPassword);
         return "/two-factor-auth-password";
-    }
-
-    @GetMapping("/pet-detail")
-    public String getPetDetail(@RequestParam String id){
-        System.out.println(id);
-        return "/pet-detail";
     }
 }

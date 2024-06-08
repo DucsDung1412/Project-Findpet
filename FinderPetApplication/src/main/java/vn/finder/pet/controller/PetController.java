@@ -2,12 +2,10 @@ package vn.finder.pet.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import vn.finder.pet.entity.Animals;
 import vn.finder.pet.service.AnimalsService;
 
@@ -29,11 +27,16 @@ public class PetController {
     @GetMapping("/pet-grid/{breed_type}")
     public String petGrid(HttpSession session, Model model, @PathVariable String breed_type){
         session.removeAttribute("emailUs");
-        List<Animals> listAnimal = new ArrayList<>();
-        listAnimal =  this.animalsService.searchAnimals(Arrays.asList(breed_type), "", "", Arrays.asList("Puppy", "Young", "Adult", "Senior"), Arrays.asList(true, false), "", "", 0, 12).stream().toList();
+        Page<Animals> listAnimal = this.animalsService.searchAnimals(Arrays.asList(breed_type), "", "", Arrays.asList("Puppy", "Young", "Adult", "Senior"), Arrays.asList(true, false), "", "", 0, 12);
         model.addAttribute("listAnimal", listAnimal);
         model.addAttribute("breed_type", breed_type);
         return "/pet-grid";
+    }
+
+    @GetMapping("/pet-detail")
+    public String getPetDetail(@RequestParam String id){
+        System.out.println(id);
+        return "/pet-detail";
     }
 
     @RequestMapping("/filter-pet")

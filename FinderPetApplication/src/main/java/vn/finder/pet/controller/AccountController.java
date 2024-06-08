@@ -2,8 +2,11 @@ package vn.finder.pet.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.finder.pet.entity.Users;
@@ -11,9 +14,11 @@ import vn.finder.pet.service.MailService;
 import vn.finder.pet.service.OtpService;
 import vn.finder.pet.service.TwoFactorAuthPasswordsService;
 import vn.finder.pet.service.UsersService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,6 +38,20 @@ public class AccountController {
         this.mailService = mailService;
         this.userService = userService;
         this.twoFactorAuthPasswordsService = twoFactorAuthPasswordsService;
+    }
+
+    public String getEmailLogin(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = "";
+        if (authentication != null) {
+            if(this.userService.findById(authentication.getName()).isEmpty()){
+                OAuth2User principal = (OAuth2User) authentication.getPrincipal();
+                email = principal.getAttribute("email");
+            } else {
+                email = authentication.getName();
+            }
+        }
+        return email;
     }
 
     @PostMapping("/saveUserLoginWithOAuth2")
@@ -242,5 +261,92 @@ public class AccountController {
         return "redirect:/two-factor-auth-password";
     }
 
+    @GetMapping("/account-profile")
+    public String accessAccountProfile(Model model){
+        Users users = this.userService.findById(getEmailLogin()).get();
+        users.setPassword("");
+        model.addAttribute("user", users);
+        return "/account-profile";
+    }
 
+    @GetMapping("/change-info-user")
+    public String changeInfoUser(RedirectAttributes redirectAttributes, @RequestParam(value = "country") String country, @ModelAttribute(value = "user") Users user){
+        user.setUserName(getEmailLogin());
+        if(!this.userService.findById(user.getUserName()).isEmpty()){
+            user.setCountry(country);
+            user.setCreatedDate(this.userService.findById(user.getUserName()).get().getCreatedDate());
+            user.setEnabled(this.userService.findById(user.getUserName()).get().getEnabled());
+            user.setPassword(this.userService.findById(user.getUserName()).get().getPassword());
+            user.setAvatar(this.userService.findById(user.getUserName()).get().getAvatar());
+            this.userService.changeInfoUser(user);
+        }
+
+        return "redirect:/account-profile";
+    }
+
+    @PostMapping("/change-password-user")
+    public String changePasswordUser(RedirectAttributes redirectAttributes, @RequestParam(value = "passOld") String passOld, @RequestParam(value = "passNew") String passNew, @RequestParam(value = "cfPassNew") String cfPassNew){
+        Optional<Users> users = this.userService.findById(getEmailLogin());
+        if(!users.isEmpty()){
+            int valid = 0;
+            //Trống field input
+            if (passOld.trim().isEmpty()) {
+                redirectAttributes.addAttribute("errorMessagePasswordOld", "Trống field");
+            } else {
+                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+                bCryptPasswordEncoder.matches(passOld, users.get().getPassword());
+
+                if(bCryptPasswordEncoder.matches(passOld, users.get().getPassword().substring(8))){
+                    valid++;
+                } else {
+                    redirectAttributes.addAttribute("errorMessagePasswordOld", "Sai pass old");
+                }
+            }
+
+            if (passNew.trim().isEmpty()) {
+                redirectAttributes.addAttribute("errorMessagePasswordNew", "Trống field");
+            } else {
+                // Kiểm tra định dạng và khác nhau với password cũ > Thực hiện đổi password
+                if (twoFactorAuthPasswordsService.checkTwoFactorAuthPassword(passNew)) {
+                    valid++;
+                } else {
+                    redirectAttributes.addAttribute("errorMessagePasswordNew", "Sai định dạng password");
+                }
+            }
+
+            if (cfPassNew.trim().isEmpty()) {
+                redirectAttributes.addAttribute("errorMessageConfirmPassword", "Trống field");
+            } else {
+                if (!passNew.equals(cfPassNew)) {
+                    redirectAttributes.addAttribute("errorMessageConfirmPassword", "Mật khẩu không trùng khớp với xác nhận mật khẩu");
+                } else {
+                    valid++;
+                }
+            }
+
+            if (valid == 3) {
+                redirectAttributes.addAttribute("messageComplete", "Đổi password thành công");
+                this.twoFactorAuthPasswordsService.updatePassword(getEmailLogin(), passNew.trim());
+            }
+        }
+        return "redirect:/account-profile";
+    }
+
+    @GetMapping("/account-wishlist")
+    public String accountWishlist(Model model){
+        model.addAttribute("listFavorite", this.userService.findById(getEmailLogin()).get().getListFavorites());
+        return "/account-wishlist";
+    }
+
+    @GetMapping("/delete-favorite-detail")
+    public String deleteFavoriteDetail(@RequestParam(value = "id") Long id){
+        this.userService.deleteFavorite(id);
+        return "redirect:/account-wishlist";
+    }
+
+    @GetMapping("/delete-all-favorites")
+    public String deleteAllFavorites(){
+        this.userService.deleteAllFavorite(getEmailLogin());
+        return "redirect:/account-wishlist";
+    }
 }
