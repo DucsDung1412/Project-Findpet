@@ -1158,13 +1158,15 @@ Tour grid START -->
 			<div class="col-12">
 				<nav class="mt-4 d-flex justify-content-center" aria-label="navigation">
 					<ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-						<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fa-solid fa-angle-left"></i></a></li>
-						<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-						<li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
-						<li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
-						<li class="page-item mb-0"><a class="page-link" href="#">6</a></li>
-						<li class="page-item mb-0"><a class="page-link" href="#"><i class="fa-solid fa-angle-right"></i></a></li>
-					</ul>
+                        <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fa-solid fa-angle-left"></i></a></li>
+                        <li class="page-item mb-0 pageable active"><a class="page-link take-a-pet" href="#">1</a></li>
+                        <li class="page-item mb-0 pageable"><a class="page-link take-a-pet" href="#">2</a></li>
+						<li class="page-item mb-0 pageable"><a class="page-link take-a-pet" href="#">3</a></li>
+                        <li class="page-item mb-0 pageable"><a class="page-link take-a-pet" href="#">4</a></li>
+                        <li class="page-item mb-0 pageable"><a class="page-link take-a-pet" href="#">5</a></li>
+                        <li class="page-item mb-0 pageable"><a class="page-link take-a-pet" href="#">6</a></li>
+                        <li class="page-item mb-0 pageable"><a class="page-link" href="#"><i class="fa-solid fa-angle-right"></i></a></li>
+                    </ul>
 				</nav>
 			</div>
 		</div>
@@ -1354,52 +1356,59 @@ Footer END -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
-	$(document).on('click', '#take-a-pet', function(event) {
-		event.preventDefault();
+	// $(document).on('click', '#take-a-pet', function(event) {
+	// 	event.preventDefault();
 
-		var location = $(".sl-location")[0].value
-		var breed = $(".sl-breed")[0].value
+	// 	var location = $(".sl-location")[0].value
+	// 	var breed = $(".sl-breed")[0].value
 
-		if($("#btn-check-soft")[0].checked){
-			var name = $(".ip-name")[0].value
-			var size = $(".sl-size")[0].value
-			var listAge = [];
-			for (let j = 0; j < $('.list-inline-item>input[type="checkbox"]').length; j++) {
-				if($('.list-inline-item>input[type="checkbox"]')[j].checked){
-					var age = $('label[for="'+ $('.list-inline-item>input[type="checkbox"]')[j].id +'"]')[0].innerText
-					listAge.push(age)
-				}	
-			}
+	// 	if($("#btn-check-soft")[0].checked){
+	// 		var name = $(".ip-name")[0].value
+	// 		var size = $(".sl-size")[0].value
+	// 		var listAge = [];
+	// 		for (let j = 0; j < $('.list-inline-item>input[type="checkbox"]').length; j++) {
+	// 			if($('.list-inline-item>input[type="checkbox"]')[j].checked){
+	// 				var age = $('label[for="'+ $('.list-inline-item>input[type="checkbox"]')[j].id +'"]')[0].innerText
+	// 				listAge.push(age)
+	// 			}	
+	// 		}
 
-			for(let i = 0; i < $("input[type='radio']").length; i++){
-				if($("input[type='radio']")[i].checked){
-					var gender = $('label[for="'+ $("input[type='radio']")[i].id +'"]')[0].innerText
-				}
-			}
-		}
+	// 		for(let i = 0; i < $("input[type='radio']").length; i++){
+	// 			if($("input[type='radio']")[i].checked){
+	// 				var gender = $('label[for="'+ $("input[type='radio']")[i].id +'"]')[0].innerText
+	// 			}
+	// 		}
+	// 	}
 
-		var requestData = {
-                location: location,
-				breed: breed,
-                name: name,
-                size: size,
-				age: listAge,
-				gender: gender
-            };
-		console.log(requestData);
-		// $.ajax({
-        //     type: "GET",
-        //     url: "/search-pet",
-        //     contentType: "application/json", 
-        //     data: JSON.stringify(requestData), 
-        //     success: function(response) {
+	// 	var requestData = {
+    //             location: location,
+	// 			breed: breed,
+    //             name: name,
+    //             size: size,
+	// 			age: listAge,
+	// 			gender: gender
+    //         };
+	// 	console.log(requestData);
+	// 	$.ajax({
+    //         type: "GET",
+    //         url: "/search-pet",
+    //         contentType: "application/json", 
+    //         data: JSON.stringify(requestData), 
+    //         success: function(response) {
                 
-        //     },
-        //     error: function() {
+    //         },
+    //         error: function() {
                 
-        //     }
-        // });
-	});
+    //         }
+    //     });
+	// });
+
+	$(document).on('click', ".pageable", e => {
+		document.querySelectorAll("li.pageable").forEach(v => {
+            v.classList.remove("active");
+        });
+		e.currentTarget.classList.add("active");
+	})
 </script>
 
 </body>

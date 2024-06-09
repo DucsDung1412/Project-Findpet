@@ -7,7 +7,6 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "favorites")
-@JsonIgnoreProperties({"users", "animals"})
 public class Favorites {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

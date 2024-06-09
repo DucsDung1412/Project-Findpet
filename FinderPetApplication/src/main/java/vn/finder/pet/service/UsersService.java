@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import vn.finder.pet.dao.AuthoritiesDAO;
 import vn.finder.pet.dao.UsersDAO;
 import vn.finder.pet.entity.Authorities;
+import vn.finder.pet.entity.Favorites;
 import vn.finder.pet.entity.Users;
 
 import java.io.File;
@@ -16,7 +17,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 public class UsersService {
@@ -27,11 +31,15 @@ public class UsersService {
     @Autowired
     HttpSession session;
 
+    private TwoFactorAuthPasswordsService twoFactorAuthPasswordsService;
+    private FavoritesService favoritesService;
 
     @Autowired
-    public UsersService(UsersDAO usersDAO, AuthoritiesDAO authoritiesDAO) {
+    public UsersService(UsersDAO usersDAO, AuthoritiesDAO authoritiesDAO, TwoFactorAuthPasswordsService twoFactorAuthPasswordsService, FavoritesService favoritesService) {
         this.usersDAO = usersDAO;
         this.authoritiesDAO = authoritiesDAO;
+        this.twoFactorAuthPasswordsService = twoFactorAuthPasswordsService;
+        this.favoritesService = favoritesService;
     }
 
     @Transactional
@@ -45,6 +53,62 @@ public class UsersService {
     @Transactional
     public Optional<Users> findById(String username) {
         return this.usersDAO.findById(username);
+    }
+
+    public boolean isValidEmailAddress(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        return pattern.matcher(email).matches();
+    }
+
+    public boolean isValidPassword(String password) {
+        if (this.twoFactorAuthPasswordsService.validatePatternPassword(password)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isUserExists(String userName) {
+        if (!this.usersDAO.findById(userName).isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    public Boolean changeInfoUser(Users user) {
+        if(!this.usersDAO.findById(user.getUserName()).isEmpty()){
+            this.usersDAO.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    public boolean deleteFavorite(Long id) {
+        if(this.favoritesService.removeOne(id)){
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    public boolean deleteAllFavorite(String email) {
+        Optional<Users> usersOptional = this.usersDAO.findById(email);
+        if (usersOptional.isPresent()) {
+            Users user = usersOptional.get();
+            List<Favorites> favorites = user.getListFavorites();
+
+            // Sử dụng Iterator để tránh ConcurrentModificationException
+            Iterator<Favorites> iterator = favorites.iterator();
+            while (iterator.hasNext()) {
+                Favorites favorite = iterator.next();
+                this.favoritesService.removeOne(favorite.getId());
+                iterator.remove(); // Xóa khỏi danh sách của user (nếu cần)
+            }
+            return true;
+        }
+        return false;
     }
 
     /**

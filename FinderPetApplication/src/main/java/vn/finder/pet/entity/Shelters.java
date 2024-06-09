@@ -42,6 +42,12 @@ public class Shelters {
     @Column(name = "shelter_info_operating_time", nullable = false)
     private String shelterInfoOperatingTime;
 
+    @Column(name = "shelter_info_facebook", nullable = false)
+    private String shelterInfoFacebook;
+
+    @Column(name = "shelter_info_Instagram", nullable = false)
+    private String shelterInfoInstagram;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "username", nullable = false)
     private Users users;
@@ -52,7 +58,7 @@ public class Shelters {
     @OneToMany(mappedBy = "shelters", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Spons> listSpons;
 
-    public Shelters(Long id, String shelterAvatar, String shelterName, String shelterEmail, String shelterAddress, String shelterPhone, Date shelterDate, Users users, String shelterInfoMission, String shelterInfoPolicy, String shelterInfoOperatingTime) {
+    public Shelters(Long id, String shelterAvatar, String shelterName, String shelterEmail, String shelterAddress, String shelterPhone, Date shelterDate, Users users, String shelterInfoMission, String shelterInfoPolicy, String shelterInfoOperatingTime, String shelterInfoFacebook, String shelterInfoInstagram) {
         this.id = id;
         this.shelterAvatar = shelterAvatar;
         this.shelterName = shelterName;
@@ -64,6 +70,8 @@ public class Shelters {
         this.shelterInfoMission = shelterInfoMission;
         this.shelterInfoPolicy = shelterInfoPolicy;
         this.shelterInfoOperatingTime = shelterInfoOperatingTime;
+        this.shelterInfoFacebook = shelterInfoFacebook;
+        this.shelterInfoInstagram = shelterInfoInstagram;
     }
 
     public Shelters() {
@@ -172,5 +180,21 @@ public class Shelters {
 
     public void setListSpons(List<Spons> listSpons) {
         this.listSpons = listSpons;
+    }
+
+    public String getShelterInfoFacebook() {
+        return shelterInfoFacebook;
+    }
+
+    public void setShelterInfoFacebook(String shelterInfoFacebook) {
+        this.shelterInfoFacebook = shelterInfoFacebook;
+    }
+
+    public String getShelterInfoInstagram() {
+        return shelterInfoInstagram;
+    }
+
+    public void setShelterInfoInstagram(String shelterInfoInstagram) {
+        this.shelterInfoInstagram = shelterInfoInstagram;
     }
 }

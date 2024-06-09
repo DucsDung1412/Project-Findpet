@@ -164,20 +164,20 @@
 												<div class="col-lg-6 form-group">
 													<label class="form-label">Enter first name</label>
 													<input type="text" class="form-control" id="su-fname" th:field="*{firstName}">
-													<div class="invalid-feedback">  </div>
+													<div th:class="${errorMessageFirstName} == null ? 'invalid-feedback' : 'invalid-feedback d-block'" th:text="${errorMessageFirstName}">  </div>
 												</div>
 												<!-- Last name -->
 												<div class="col-lg-6 form-group">
 													<label class="form-label">Enter last name</label>
 													<input type="text" class="form-control" id="su-lname" th:field="*{lastName}">
-													<div class="invalid-feedback">  </div>
+													<div th:class="${errorMessageLastName} == null ? 'invalid-feedback' : 'invalid-feedback d-block'" th:text="${errorMessageLastName}">  </div>
 												</div>
 											</div>
 											<!-- Country -->
 											<div class="mb-3 form-group">
 												<label class="form-label">Select Country</label>
 												<div class="form-control-bg-dark form-fs-md">
-													<select id="su-country" class="form-select js-choice" name="country">
+													<select id="su-country" class="form-select js-choice" data-search-enabled="true" name="country">
 														<option value="" selected>Select your country</option>
 														<option>An Giang</option>
 														<option>Bà Rịa - Vũng Tàu</option>
@@ -243,14 +243,14 @@
 														<option>Vĩnh Phúc</option>
 														<option>Yên Bái</option>
 													</select>
-													<div class="invalid-feedback">  </div>
+													<div th:class="${errorMessageCountry} == null ? 'invalid-feedback' : 'invalid-feedback d-block'" th:text="${errorMessageCountry}">  </div>
 												</div>
 											</div>
 											<!-- Email -->
 											<div class="mb-3 form-group">
 												<label class="form-label">Enter email address</label>
 												<input type="email" class="form-control" id="su-email" th:field="*{userName}">
-												<div class="invalid-feedback">  </div>
+												<div th:class="${errorMessageUserName} == null ? 'invalid-feedback' : 'invalid-feedback d-block'" th:text="${errorMessageUserName}">  </div>
 											</div>
 											<!-- Password -->
 											<div class="mb-3 position-relative form-group">
@@ -277,13 +277,13 @@
 														<li class="true-valid valid">Valid.</li>
 													</div>
 												</ul>
-												<div class="invalid-feedback" style="color: red;">  </div>
+												<div th:class="${errorMessagePassword} == null ? 'invalid-feedback' : 'invalid-feedback d-block'" th:text="${errorMessagePassword}" style="color: red;">  </div>
 											</div>
 											<!-- Confirm Password -->
 											<div class="mb-3 form-group">
 												<label class="form-label">Confirm Password</label>
 												<input type="password" class="form-control" id="su-password-confirm" name="cfPassword">
-												<div class="invalid-feedback">  </div>
+												<div th:class="${errorMessageConfirmPassword} == null ? 'invalid-feedback' : 'invalid-feedback d-block'" th:text="${errorMessageConfirmPassword}">  </div>
 											</div>
 											<!-- Remember me -->
 											<div class="mb-3">
