@@ -72,5 +72,8 @@ public class PageController {
         System.out.println("email là"+MySecurities.getEmail());
         model.addAttribute("user",MySecurities.getEmail().isEmpty()?new Users():usersService.findById(MySecurities.getEmail()).orElse(new Users()));
         return "/account-profile";}
-
+    @GetMapping("/addListing")
+    public String addListing(){
+        return"add-listing";
+    }
 }
