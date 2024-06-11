@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
 	<title>Booking - Multipurpose Online Booking Theme</title>
 
@@ -550,7 +550,7 @@
 							</div>
 							<!-- Content -->
 							<div class="ms-3">
-								<h4>56</h4>
+								<h4 th:text="${availablePets}">56</h4>
 								<span>Available Pets</span>
 							</div>
 						</div>
@@ -567,7 +567,7 @@
 							</div>
 							<!-- Content -->
 							<div class="ms-3">
-								<h4>15</h4>
+								<h4 th:text="${awaitingApproval}">15</h4>
 								<span>Awaiting Approval</span>
 							</div>
 						</div>
@@ -584,7 +584,7 @@
 							</div>
 							<!-- Content -->
 							<div class="ms-3">
-								<h4>12K</h4>
+								<h4 th:text="${totalInteractions}">12K</h4>
 								<span>Total Interactions</span>
 							</div>
 						</div>
@@ -718,77 +718,17 @@
 									<!-- Table body START -->
 									<tbody class="border-top-0">
 										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">01</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Deluxe Pool View</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">With Breakfast</a></h6> </td>
-											<td> Nov 22 - 25 </td>
+										<tr th:each="awaiting, stat : ${listAwaiting}">
+											<td> <h6 class="mb-0" th:text="${stat.count} < 10 ? '0'+${stat.count} : ${stat.count}">01</h6> </td>
+											<td> <h6 class="mb-0"><a href="#" th:text="${awaiting.getUsers().getUserName()}">Deluxe Pool View</a></h6> </td>
+											<td> <h6 class="mb-0"><a href="#" th:text="${awaiting.getAnimals().getAnimalName()}">With Breakfast</a></h6> </td>
+											<td th:text="${awaiting.getAdoptDate()}"> Nov 22 - 25 </td>
 											<td> <div class="badge text-bg-warning">Awaiting</div> </td>
 											<td> 
 												<div class="d-flex flex-column">	
 													<a href="#" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
 													<a href="#" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
 												</div>
-											</td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">02</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Deluxe Pool View with Breakfast</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation | Breakfast only</a></h6> </td>
-											<td> Nov 24 - 28 </td>
-											<td> <div class="badge text-bg-warning">Awaiting</div> </td>
-											<td> 
-												<div class="d-flex flex-column">	
-													<a href="#" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
-													<a href="#" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
-												</div>	
-											</td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">03</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Luxury Room with Balcony</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
-											<td> Nov 24 - 28 </td>
-											<td> <div class="badge text-bg-warning">Awaiting</div> </td>
-											<td> 
-											<div class="d-flex flex-column">	
-													<a href="#" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
-													<a href="#" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
-												</div>	
-											</td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">04</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Deluxe Room Twin Bed With Balcony</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation</a></h6> </td>
-											<td> Nov 28 - 30 </td>
-											<td> <div class="badge text-bg-warning">Awaiting</div> </td>
-											<td> 
-											<div class="d-flex flex-column">	
-													<a href="#" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
-													<a href="#" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
-												</div>	
-											</td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">05</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Room With Free Cancellation | Breakfast + Lunch</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation</a></h6> </td>
-											<td> Nov 28 - 30 </td>
-											<td> <div class="badge text-bg-warning">Awaiting</div> </td>
-											<td> 
-											<div class="d-flex flex-column">	
-													<a href="#" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
-													<a href="#" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
-												</div>	
 											</td>
 										</tr>
 									</tbody>
@@ -804,17 +744,17 @@
 							<!-- Pagination and content -->
 							<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
 								<!-- Content -->
-								<p class="mb-sm-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
+								<p class="mb-sm-0 text-center text-sm-start">Showing <span th:text="${listAwaiting.number} * ${listAwaiting.size} == 0 ? 1 : (${listAwaiting.number} * ${listAwaiting.size}) + 1">1</span> to <span th:text="${listAwaiting.totalElements} - (${listAwaiting.number} * ${listAwaiting.size} + ${listAwaiting.size}) < 0 ? ${listAwaiting.totalElements} : (${listAwaiting.number} * ${listAwaiting.size} + ${listAwaiting.size})">10</span> of <span th:text="${listAwaiting.totalElements}">57</span> entries</p>
 								<!-- Pagination -->
-								<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
+								<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation" th:if="${listAwaiting.totalPages} >= 2">
 									<ul class="pagination pagination-sm pagination-primary-soft mb-0">
 										<li class="page-item disabled">
 											<a class="page-link" href="#" tabindex="-1">Prev</a>
 										</li>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item active"><a class="page-link" href="#">2</a></li>
-										<li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-										<li class="page-item"><a class="page-link" href="#">15</a></li>
+                                        <li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listAwaiting.totalPages - 1)}"
+                                            th:class="${pageIndex.index + 1} == 1 ? 'page-item active' : 'page-item'">
+                                            <a href="#" th:text="${pageIndex.index + 1}" class="page-link"></a>
+                                        </li>
 										<li class="page-item">
 											<a class="page-link" href="#">Next</a>
 										</li>
@@ -991,10 +931,12 @@ Footer END -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
-	var options = {
+    var test = [[${availablePets}]];
+    console.log(test);
+    var options = {
       series: [{
         name: 'Số lượng',
-        data: [15, 25, 35, 45, 55, 65, 75, 85, 15, 5, 15, 25]
+        data: [test, 15, 35, 45, 55, 65, 75, 85, 15, 5, 15, 25]
       }],
       chart: {
         type: 'line' // Chart type
@@ -1007,8 +949,8 @@ Footer END -->
     var chart = new ApexCharts(document.querySelector("#apexChartTrafficStats1"), options);
     chart.render();
 
-	// Pie Chart Options
-	var options1 = {
+    // Pie Chart Options
+    var options1 = {
           series: [44, 55, 41, 17, 15],
           chart: {
           width: 380,
@@ -1031,11 +973,11 @@ Footer END -->
             return val + " - " + opts.w.globals.series[opts.seriesIndex]
           }
         },
-		labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
-		legend: {
-			position: 'bottom',
-			show: false
-		}
+        labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+        legend: {
+            position: 'bottom',
+            show: false
+        }
     };
 
     var chart1 = new ApexCharts(document.querySelector("#ChartTrafficViews1"), options1);

@@ -2,6 +2,7 @@ package vn.finder.pet.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import vn.finder.pet.dao.AuthoritiesDAO;
 import vn.finder.pet.dao.UsersDAO;
@@ -22,7 +23,7 @@ public class UsersService {
     private FavoritesService favoritesService;
 
     @Autowired
-    public UsersService(UsersDAO usersDAO, AuthoritiesDAO authoritiesDAO, TwoFactorAuthPasswordsService twoFactorAuthPasswordsService, FavoritesService favoritesService) {
+    public UsersService(UsersDAO usersDAO, AuthoritiesDAO authoritiesDAO, TwoFactorAuthPasswordsService twoFactorAuthPasswordsService, @Lazy FavoritesService favoritesService) {
         this.usersDAO = usersDAO;
         this.authoritiesDAO = authoritiesDAO;
         this.twoFactorAuthPasswordsService = twoFactorAuthPasswordsService;

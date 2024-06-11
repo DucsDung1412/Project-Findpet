@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import vn.finder.pet.entity.Adopt;
 import vn.finder.pet.entity.Animals;
 
 import java.util.List;
@@ -27,4 +28,28 @@ public interface AnimalsDAO extends JpaRepository<Animals, Long> {
             "GROUP BY a.id " +
             "ORDER BY COUNT(f.id) DESC")
     Page<Animals> filterFavorite(Pageable pageable);
+
+    @Query("SELECT COUNT(a.id) FROM Animals a LEFT JOIN a.listAdopt ad WHERE ad.id IS NULL AND a.shelters.id = :id")
+    Integer findCountAnimalsAvailable(@Param("id") Long id);
+
+    @Query("SELECT COUNT(a.id) FROM Animals a INNER JOIN a.listAdopt ad WHERE ad.adopt_status LIKE '%Awaiting%' AND a.shelters.id = :id")
+    Integer findCountAwaitingAnimals(@Param("id") Long id);
+
+    @Query("SELECT COUNT(a.id) FROM Animals a JOIN a.listAdopt ad WHERE ad.adopt_status LIKE '%Adopted%' AND a.shelters.id = :id")
+    Integer findCountAnimalsAdopted(@Param("id") Long id);
+
+    @Query("SELECT COUNT(a.id) FROM Animals a WHERE a.shelters.id = :id")
+    Integer findCountAnimalsInShelter(@Param("id") Long id);
+
+    @Query("SELECT COUNT(a.id) FROM Animals a INNER JOIN a.listAdopt ad WHERE a.shelters.id = :id")
+    Integer findCountAdopt(@Param("id") Long id);
+
+    @Query("SELECT ad FROM Animals a INNER JOIN a.listAdopt ad WHERE ad.adopt_status LIKE %:status% AND a.shelters.id = :id")
+    Page<Adopt> findByStatus(@Param("status") String status, Pageable pageable, @Param("id") Long id);
+
+    @Query("SELECT COUNT(a.id) FROM Animals a INNER JOIN a.listFavorites f WHERE a.shelters.id = :id")
+    Integer findCountFavorite(@Param("id") Long id);
+
+    @Query("SELECT a FROM Animals a WHERE a.shelters.id = :id")
+    Page<Animals> findAllPet(Pageable pageable, @Param("id") Long id);
 }

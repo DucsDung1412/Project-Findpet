@@ -42,6 +42,9 @@ public class Animals {
     private Shelters shelters;
 
     @OneToMany(mappedBy = "animals", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Avatar> listAvatar;
+
+    @OneToMany(mappedBy = "animals", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Favorites> listFavorites;
 
     @OneToMany(mappedBy = "animals", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -149,6 +152,14 @@ public class Animals {
 
     public void setListAdopt(List<Adopt> listAdopt) {
         this.listAdopt = listAdopt;
+    }
+
+    public List<Avatar> getListAvatar() {
+        return listAvatar;
+    }
+
+    public void setListAvatar(List<Avatar> listAvatar) {
+        this.listAvatar = listAvatar;
     }
 
     @Override

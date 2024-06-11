@@ -88,7 +88,10 @@
 	<!-- Plugins CSS -->
 	<link rel="stylesheet" type="text/css" href="../css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/choices.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/apexcharts.css">
+	<link rel="stylesheet" type="text/css" href="../css/flatpickr.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/bs-stepper.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/quill.snow.css">
+	<link rel="stylesheet" type="text/css" href="../css/dropzone.css">
 
 	<!-- Theme CSS -->
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
@@ -311,6 +314,70 @@
             </div>
             <!-- Nav category menu END -->
 
+            <!-- Theme and Sign up START -->
+            <ul class="nav flex-row align-items-center list-unstyled ms-xl-auto d-none">
+                <!-- Dark mode options START -->
+                <li class="nav-item dropdown me-2" style="padding-bottom: 4px;">
+                    <button class="btn btn-link text-warning p-0 mb-0" id="bd-theme" type="button"
+                        aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-circle-half theme-icon-active fa-fw" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"></path>
+                            <use href="#"></use>
+                        </svg>
+                    </button>
+
+                    <ul class="dropdown-menu min-w-auto dropdown-menu-end" aria-labelledby="bd-theme">
+                        <li class="mb-1">
+                            <button type="button" class="dropdown-item d-flex align-items-center active"
+                                data-bs-theme-value="light">
+                                <svg width="16" height="16" fill="currentColor"
+                                    class="bi bi-brightness-high-fill fa-fw mode-switch me-1" viewBox="0 0 16 16">
+                                    <path
+                                        d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z">
+                                    </path>
+                                    <use href="#"></use>
+                                </svg>Light
+                            </button>
+                        </li>
+                        <li class="mb-1">
+                            <button type="button" class="dropdown-item d-flex align-items-center"
+                                data-bs-theme-value="dark">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-moon-stars-fill fa-fw mode-switch me-1" viewBox="0 0 16 16">
+                                    <path
+                                        d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z">
+                                    </path>
+                                    <path
+                                        d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z">
+                                    </path>
+                                    <use href="#"></use>
+                                </svg>Dark
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="dropdown-item d-flex align-items-center"
+                                data-bs-theme-value="auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-circle-half fa-fw mode-switch me-1" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"></path>
+                                    <use href="#"></use>
+                                </svg>Auto
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Dark mode options END -->
+
+                <!-- Sign In button -->
+                <li class="nav-item">
+                    <a href="./sign-up.html" class="btn btn-sm btn-primary mb-0"><i
+                            class="fa-solid fa-right-to-bracket fa-lg me-sm-2"></i><span
+                            class="d-none d-sm-inline fs-6">Sign Up</span></a>
+                </li>
+            </ul>
+            <!-- Theme and Sign up END -->
+
             <!-- Profile and Notification START -->
             <ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
 
@@ -473,364 +540,385 @@
 
 <!-- **************** MAIN CONTENT START **************** -->
 <main>
-
+	
 	<!-- =======================
-	Menu item START -->
-	<section class="pt-4">
+	Page Banner START -->
+	<section class="pt-4 pt-md-5 pb-0">
 		<div class="container">
-			<div class="card rounded-3 border p-3 pb-2">
-				<!-- Avatar and info START -->
-				<div class="d-sm-flex align-items-center">
-					<div class="avatar avatar-xl mb-2 mb-sm-0">
-						<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/01.jpg" alt="">
-					</div>
-					<h4 class="mb-2 mb-sm-0 ms-sm-3"><span class="fw-light">Hi</span> Jacqueline Miller</h4>
-					<a href="add-listing-minimal.html" class="btn btn-sm btn-primary-soft mb-0 ms-auto flex-shrink-0"><i class="bi bi-plus-lg fa-fw me-2"></i>Add New Listing</a>
+			<div class="row">
+				<div class="col-12 mx-auto text-center">
+					<h1 class="fs-2 mb-2">Add New Listing</h1>
+					<p class="mb-0">Praise effects wish change way and any wanted. Lively use looked latter regard had.</p>
 				</div>
-				<!-- Avatar and info START -->
-				
-				<!-- Responsive navbar toggler -->
-				<button class="btn btn-primary w-100 d-block d-xl-none mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#dashboardMenu" aria-controls="dashboardMenu">
-					<i class="bi bi-list"></i> Dashboard Menu
-				</button>
-	
-				<!-- Nav links START -->
-				<div class="offcanvas-xl offcanvas-end mt-xl-3" tabindex="-1" id="dashboardMenu">
-					<div class="offcanvas-header border-bottom p-3">
-						<h5 class="offcanvas-title">Menu</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#dashboardMenu" aria-label="Close"></button>
-					</div>
-					<!-- Offcanvas body -->
-					<div class="offcanvas-body p-3 p-xl-0">
-						<!-- Nav item -->
-						<div class="navbar navbar-expand-xl">
-							<ul class="navbar-nav navbar-offcanvas-menu">
-	
-								<li class="nav-item"> <a class="nav-link active" href="agent-dashboard.html"><i class="bi bi-house-door fa-fw me-1"></i>Dashboard</a>	</li>
-	
-								<li class="nav-item mx-2"> <a class="nav-link" href="agent-listings.html"><i class="bi bi-journals fa-fw me-1"></i>Listings</a> </li>
-	
-								<li class="nav-item mx-2"> <a class="nav-link" href="agent-bookings.html"><i class="bi bi-bookmark-heart fa-fw me-1"></i>Bookings</a> </li>
-	
-								<li class="nav-item mx-2"> <a class="nav-link" href="agent-activities.html"><i class="bi bi-bell fa-fw me-1"></i>Activities</a> </li>
-			
-								<li class="nav-item mx-2"> <a class="nav-link" href="agent-settings.html"><i class="bi bi-gear fa-fw me-1"></i>Settings</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<!-- Nav links END -->
 			</div>
 		</div>
 	</section>
 	<!-- =======================
-	Menu item END -->
-		
+	Page Banner END -->
+	
 	<!-- =======================
-	Content START -->
-	<section class="pt-0">
-		<div class="container vstack gap-4">
-			<!-- Title START -->
+	Main content START -->
+	<section>
+		<div class="container">
 			<div class="row">
-				<div class="col-12">
-					<h1 class="fs-4 mb-0"><i class="bi bi-house-door fa-fw me-1"></i>Dashboard</h1>
-				</div>
-			</div>	
-			<!-- Title END -->
+				<div class="col-lg-10 mx-auto">
+					<form class="vstack gap-4">
 	
-			<!-- Counter START -->
-			<div class="row g-4">
-				<!-- Counter item -->
-				<div class="col-sm-6 col-xl-3">
-					<div class="card card-body border">
-						<div class="d-flex align-items-center">
-							<!-- Icon -->
-							<div class="icon-xl bg-success rounded-3 text-white">
-								<i class="bi bi-journals"></i>
-							</div>
-							<!-- Content -->
-							<div class="ms-3">
-								<h4>56</h4>
-								<span>Available Pets</span>
-							</div>
-						</div>
-					</div>
-				</div>
-	
-				<!-- Counter item -->
-				<div class="col-sm-6 col-xl-3">
-					<div class="card card-body border">
-						<div class="d-flex align-items-center">
-							<!-- Icon -->
-							<div class="icon-xl bg-warning rounded-3 text-white">
-								<i class="fa-regular fa-pen-to-square"></i>
-							</div>
-							<!-- Content -->
-							<div class="ms-3">
-								<h4>15</h4>
-								<span>Awaiting Approval</span>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Counter item -->
-				<div class="col-sm-6 col-xl-3">
-					<div class="card card-body border">
-						<div class="d-flex align-items-center">
-							<!-- Icon -->
-							<div class="icon-xl bg-primary rounded-3 text-white">
-								<i class="bi bi-star"></i>
-							</div>
-							<!-- Content -->
-							<div class="ms-3">
-								<h4>12K</h4>
-								<span>Total Interactions</span>
-							</div>
-						</div>
-					</div>
-				</div>
-	
-				<!-- Counter item -->
-				<div class="col-sm-6 col-xl-3">
-					<div class="card card-body border">
-						<div class="d-flex align-items-center">
-							<!-- Icon -->
-							<div class="icon-xl bg-info rounded-3 text-white">
-								<i class="bi bi-bar-chart-line-fill"></i>
-							</div>
-							<!-- Content -->
-							<div class="ms-3">
-								<h4>15K</h4>
-								<span>Visitors</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Counter END -->
-	
-			<!-- Graph START -->
-			<div class="row g-4">
-				<!-- Booking Chart START -->
-				<div class="col-lg-7 col-xl-8">
-					<!-- Chart START -->
-					<div class="card border h-100">
-						<!-- Card header -->
-						<div class="card-header border-bottom">
-							<h5 class="card-header-title">Booking stats</h5>
-						</div>
-						<!-- Card body -->
-						<div class="card-body">
-							<!-- Apex chart -->
-							<div id="apexChartTrafficStats1" class="mt-2"></div>
-						</div>
-					</div>
-					<!-- Chart END -->
-				</div>
-				<!-- Booking Chart END -->
-	
-				<!-- Booking graph START -->
-				<div class="col-lg-4">
-					<div class="card border h-100">
-	
-						<!-- Card header -->
-						<div class="card-header border-bottom d-flex justify-content-between align-items-center">
-							<h5 class="card-header-title">Booking Traffic</h5>
-							<a href="#" class="btn btn-link p-0 mb-0">View all</a>
-						</div>
-	
-						<!-- Card body START -->
-						<div class="card-body p-3">
-							<!-- Chart -->
-							<div class="col-sm-6 mx-auto">
-								<div class="d-flex justify-content-center" id="ChartTrafficViews1"></div>
+						<!-- Basic Information START -->
+						<div class="card shadow">
+							<!-- Card header -->
+							<div class="card-header border-bottom">
+								<h5 class="mb-0">Basic Information</h5>
 							</div>
 	
-							<!-- Content -->
-							<ul class="list-group list-group-borderless align-items-center mt-3">
-								<li class="list-group-item"><i class="text-primary fas fa-circle me-2"></i>Organic</li>
-								<li class="list-group-item"><i class="text-success fas fa-circle me-2"></i>Google</li>
-								<li class="list-group-item"><i class="text-warning fas fa-circle me-2"></i>Social media</li>
-								<li class="list-group-item"><i class="text-danger fas fa-circle me-2"></i>Referral program</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<!-- Booking graph END -->
-			</div>	
-			<!-- Graph END -->
-	
-			<!-- Booking table START -->
-			<div class="row">
-				<div class="col-12">
-					<div class="card border rounded-3">
-						<!-- Card header START -->
-						<div class="card-header border-bottom">
-							<div class="d-sm-flex justify-content-between align-items-center">
-								<h5 class="mb-2 mb-sm-0">Awaiting Approval</h5>
-							</div>
-						</div>
-						<!-- Card header END -->
-	
-						<!-- Card body START -->
-						<div class="card-body">
-							<!-- Search and select START -->
-							<div class="row g-3 align-items-center justify-content-between mb-3">
-								<!-- Search -->
-								<div class="col-md-8">
-									<form class="rounded position-relative">
-										<input class="form-control pe-5" type="search" placeholder="Search" aria-label="Search">
-										<button class="btn border-0 px-3 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6"></i></button>
-									</form>
-								</div>
-	
-								<!-- Select option -->
-								<div class="col-md-3">
-									<!-- Short by filter -->
-									<form>
-										<select class="form-select js-choice" aria-label=".form-select-sm">
-											<option value="">Sort by</option>
-											<option>Name A - Z</option>
-											<option>Name Z - A</option>
-											<option>Date</option>
+							<!-- Card body -->
+							<div class="card-body">
+								<div class="row g-3">
+									<!-- Animal type -->
+									<div class="col-md-6">
+										<label class="form-label">Animal type</label>
+										<select class="form-select js-choice sl-size animal-type">
+											<option value="">Select Option</option>
+											<option>Dog</option>
+											<option>Cat</option>
+											<option>Bird</option>
+											<option>Rabbits</option>
+											<option>Small & Furry</option>
+											<option>Rabbits</option>
+											<option>Other</option>
 										</select>
-									</form>
+										<input class="form-control mt-2 other-animal d-none" type="text" placeholder="Enter animal name">
+									</div>
+
+									<!-- Animal breed -->
+									<div class="col-md-6">
+										<label class="form-label">Animal breed</label>
+										<select class="form-select js-choice animal-breed" data-search-enabled="true">
+											<option value="">Select breed</option>
+											<option>Gogri</option>
+											<option>Bulldog</option>
+											<option>Chichiquaqua</option>
+											<option>Other</option>
+										</select>
+										<input class="form-control breed-name d-none mt-2" type="text" placeholder="Enter breed name">
+									</div>
+
+									<!-- Animal name -->
+									<div class="col-md-6">
+										<label class="form-label">Animal name</label>
+										<input class="form-control" type="text" placeholder="Enter animal name">
+									</div>
+	
+									<!-- Animal size -->
+									<div class="col-md-6 animal-size">
+										<label class="form-label">Animal size</label>
+										<div class="dog-size list-select">
+											<select class="form-select js-choice sl-size">
+												<option value="">Select Option</option>
+												<option>Small (0-25 lbs)</option>
+												<option>Medium (26-60 lbs)</option>
+												<option>Large (61-100 lbs)</option>
+												<option>Extra Large (101 lbs or more)</option>
+											</select>
+										</div>
+										<div class="cat-size d-none list-select">
+											<select class="form-select js-choice sl-size">
+												<option value="">Select Option</option>
+												<option>x</option>
+												<option>x</option>
+												<option>z</option>
+												<option>(more)</option>
+											</select>
+										</div>
+										<div class="other-size list-select d-none">
+											<select class="form-select js-choice sl-size">
+												<option value="">Select Option</option>
+												<option>Small</option>
+												<option>Medium</option>
+												<option>Large</option>
+												<option>Extra Large</option>
+											</select>
+										</div>
+									</div>
+
+									<!-- Animal age -->
+									<div class="col-md-6">
+										<label class="form-label">Animal age</label>
+										<select class="form-select js-choice" data-search-enabled="true">
+											<option value="">Select Age</option>
+											<option>Puppy</option>
+											<option>Young</option>
+											<option>Adult</option>
+											<option>Senior</option>
+										</select>
+									</div>
+	
+									<!-- Animal gender -->
+									<div class="col-md-6">
+										<label class="form-label">Animal gender</label>
+										<div class="d-sm-flex">
+											<!-- Radio -->
+											<div class="form-check radio-bg-light me-4">
+												<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked="">
+												<label class="form-check-label" for="flexRadioDefault1">
+													Male
+												</label>
+											</div>
+											<!-- Radio -->
+											<div class="form-check radio-bg-light me-4">
+												<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+												<label class="form-check-label" for="flexRadioDefault2">
+													Female
+												</label>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
-							<!-- Search and select END -->
-	
-							<!-- Hotel room list START -->
-							<div class="table-responsive border-0">
-								<table class="table align-middle p-4 mb-0 table-hover table-shrink">
-									<!-- Table head -->
-									<thead class="table-light">
-										<tr>
-											<th scope="col" class="border-0 rounded-start">#</th>
-											<th scope="col" class="border-0">Name</th>
-											<th scope="col" class="border-0">Type</th>
-											<th scope="col" class="border-0">Date</th>
-											<th scope="col" class="border-0">status</th>
-											<th scope="col" class="border-0 rounded-end">Action</th>
-										</tr>
-									</thead>
-	
-									<!-- Table body START -->
-									<tbody class="border-top-0">
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">01</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Deluxe Pool View</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">With Breakfast</a></h6> </td>
-											<td> Nov 22 - 25 </td>
-											<td> <div class="badge text-bg-warning">Awaiting</div> </td>
-											<td> 
-												<div class="d-flex flex-column">	
-													<a href="#" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
-													<a href="#" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
+						</div>
+						<!-- Basic Infomation END -->
+
+						<!-- Upload image START -->
+						<div class="card shadow">
+							<!-- Card header -->
+							<div class="card-header border-bottom">
+								<!-- Title -->
+								<h5 class="mb-0">Upload Images</h5>
+							</div>
+
+							<!-- Card body START -->
+							<div class="card-body">
+								<div class="row g-3">
+									<!-- Thumbnail image -->
+									<div class="col-12">
+										<label class="form-label">Upload thumbnail image *</label>
+										<input class="form-control" type="file" name="my-image" id="image" accept="image/gif, image/jpeg, image/png">
+										<p class="small mb-0 mt-2"><b>Note:</b> Only JPG, JPEG, and PNG. Our suggested dimensions are 600px * 450px. The larger image will be cropped to 4:3 to fit our thumbnails/previews.</p>
+									</div>
+
+									<!-- Image Gallery -->
+									<div class="col-12">
+										<label class="form-label">Upload image gallery *</label>
+										<div class="dropzone dropzone-custom" data-dropzone='{"maxFiles": 5, "addRemoveLinks": false}'>
+											<div class="dz-message needsclick">
+												<i class="bi bi-upload display-3"></i>    
+												<p>Drop files here or click to upload.</p>
+											</div>
+											<div class="dz-preview row g-4">
+												<div class="col-xl-2 col-md-4 col-sm-6">
+													<div class="card p-2 mb-0 shadow-none border position-relative h-100">
+														<!-- Image -->
+														<img data-dz-thumbnail src="#" class="rounded bg-light" alt="">
+														<!-- info -->
+														<div class="mt-2">
+															<a href="javascript:void(0);" class="text-body-secondary fw-bold" data-dz-name></a>
+															<p class="mb-0 small" data-dz-size></p>
+														</div>
+														<!-- Close btn -->
+														<div class="position-absolute top-0 start-100 translate-middle">
+															<a href="#!" class="btn btn-danger rounded-circle icon-sm p-0" data-dz-remove>
+																<i class="fas fa-times"></i>
+															</a>
+														</div>
+													</div>
 												</div>
-											</td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">02</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Deluxe Pool View with Breakfast</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation | Breakfast only</a></h6> </td>
-											<td> Nov 24 - 28 </td>
-											<td> <div class="badge text-bg-warning">Awaiting</div> </td>
-											<td> 
-												<div class="d-flex flex-column">	
-													<a href="#" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
-													<a href="#" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
-												</div>	
-											</td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">03</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Luxury Room with Balcony</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
-											<td> Nov 24 - 28 </td>
-											<td> <div class="badge text-bg-warning">Awaiting</div> </td>
-											<td> 
-											<div class="d-flex flex-column">	
-													<a href="#" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
-													<a href="#" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
-												</div>	
-											</td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">04</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Deluxe Room Twin Bed With Balcony</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation</a></h6> </td>
-											<td> Nov 28 - 30 </td>
-											<td> <div class="badge text-bg-warning">Awaiting</div> </td>
-											<td> 
-											<div class="d-flex flex-column">	
-													<a href="#" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
-													<a href="#" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
-												</div>	
-											</td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">05</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Room With Free Cancellation | Breakfast + Lunch</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation</a></h6> </td>
-											<td> Nov 28 - 30 </td>
-											<td> <div class="badge text-bg-warning">Awaiting</div> </td>
-											<td> 
-											<div class="d-flex flex-column">	
-													<a href="#" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
-													<a href="#" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
-												</div>	
-											</td>
-										</tr>
-									</tbody>
-									<!-- Table body END -->
-								</table>
+											</div>
+										</div> 
+										<p class="small mb-0 mt-2"><b>Note:</b> Only JPG, JPEG, and PNG. Our suggested dimensions are 600px * 450px. The larger image will be cropped to 4:3 to fit our thumbnails/previews.</p>
+									</div>
+								</div>
 							</div>
-							<!-- Hotel room list END -->
+							<!-- Card body END -->
 						</div>
-						<!-- Card body END -->
+						<!-- Upload image END -->	
 	
-						<!-- Card footer START -->
-						<div class="card-footer pt-0">
-							<!-- Pagination and content -->
-							<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
-								<!-- Content -->
-								<p class="mb-sm-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
-								<!-- Pagination -->
-								<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
-									<ul class="pagination pagination-sm pagination-primary-soft mb-0">
-										<li class="page-item disabled">
-											<a class="page-link" href="#" tabindex="-1">Prev</a>
-										</li>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item active"><a class="page-link" href="#">2</a></li>
-										<li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-										<li class="page-item"><a class="page-link" href="#">15</a></li>
-										<li class="page-item">
-											<a class="page-link" href="#">Next</a>
-										</li>
-									</ul>
-								</nav>
+						<!-- Detailed Information START -->
+						<div class="card shadow">
+							<!-- Card header -->
+							<div class="card-header border-bottom">
+								<h5 class="mb-0">Detailed Information</h5>
+							</div>
+	
+							<!-- Card body -->
+							<div class="card-body">
+								<div class="row g-3">
+									<!-- Color -->
+									<div class="col-md-6">
+										<label class="form-label">Color</label>
+										<input class="form-control" type="text" placeholder="Enter animal color">
+									</div>
+	
+									<!-- leg -->
+									<div class="col-md-6">
+										<label class="form-label">leg</label>
+										<select class="form-select js-choice">
+											<option value="">Select Leg</option>
+											<option>Short</option>
+											<option>Long</option>
+										</select>
+									</div>
+	
+									<!-- Harmony -->
+									<div class="col-md-6">
+										<label class="form-label">Harmony</label>
+										<div class="d-flex">
+											<!-- Checkbox -->
+											<div class="form-check checkbox-bg-light me-4">
+												<input class="form-check-input" type="checkbox" name="flexCheckboxDefaultHarmony" id="flexCheckboxDefault1">
+												<label class="form-check-label" for="flexCheckboxDefault1">
+													Children
+												</label>
+											</div>
+											<!-- Checkbox -->
+											<div class="form-check checkbox me-4">
+												<input class="form-check-input" type="checkbox" name="flexCheckboxDefaultHarmony" id="flexCheckboxDefault2">
+												<label class="form-check-label" for="flexCheckboxDefault2">
+													Dog
+												</label>
+											</div>
+											<!-- Checkbox -->
+											<div class="form-check checkbox me-4">
+												<input class="form-check-input" type="checkbox" name="flexCheckboxDefaultHarmony" id="flexCheckboxDefault3">
+												<label class="form-check-label" for="flexCheckboxDefault3">
+													Cat
+												</label>
+											</div>
+											<!-- Checkbox -->
+											<div class="form-check checkbox me-4">
+												<input class="form-check-input" type="checkbox" name="flexCheckboxDefaultHarmony" id="flexCheckboxDefault4">
+												<label class="form-check-label" for="flexCheckboxDefault4">
+													Other animal
+												</label>
+											</div>
+										</div>
+									</div>
+	
+									<!-- Health -->
+									<div class="col-md-6">
+										<label class="form-label">Health</label>
+										<div class="d-flex">
+											<!-- Checkbox -->
+											<div class="form-check checkbox-bg-light me-4">
+												<input class="form-check-input" type="checkbox" name="flexCheckboxDefaultHealth" id="flexCheckboxDefault5">
+												<label class="form-check-label" for="flexCheckboxDefault5">
+													Vaccinated
+												</label>
+											</div>
+											<!-- Checkbox -->
+											<div class="form-check checkbox me-4">
+												<input class="form-check-input" type="checkbox" name="flexCheckboxDefaultHealth" id="flexCheckboxDefault6">
+												<label class="form-check-label" for="flexCheckboxDefault6">
+													Dewormed
+												</label>
+											</div>
+											<!-- Checkbox -->
+											<div class="form-check checkbox me-4">
+												<input class="form-check-input" type="checkbox" name="flexCheckboxDefaultHealth" id="flexCheckboxDefault7">
+												<label class="form-check-label" for="flexCheckboxDefault7">
+													Spayed
+												</label>
+											</div>
+										</div>
+										<!-- Checkbox -->
+										<div class="form-check checkbox me-4">
+											<input class="form-check-input" type="checkbox" name="flexCheckboxDefaultHealth" id="flexCheckboxDefault8">
+											<label class="form-check-label" for="flexCheckboxDefault8">
+												More
+											</label>
+										</div>
+										<input class="form-control mt-1 animal-health d-none" type="text" placeholder="Enter health">
+									</div>
+	
+									<!-- Characteristics -->
+									<div class="col-12">
+										<label class="form-label">Characteristics</label>
+										<textarea class="form-control" rows="2" placeholder="Enter keywords"></textarea>
+									</div>
+
+									<!-- Description -->
+									<div class="col-12">
+										<label class="form-label">Description</label>
+
+										<!-- Editor toolbar -->
+										<div class="bg-light border border-bottom-0 rounded-top py-3 quilltoolbar">
+											<span class="ql-formats">
+												<select class="ql-size"></select>
+											</span>
+											<span class="ql-formats">
+												<button class="ql-bold"></button>
+												<button class="ql-italic"></button>
+												<button class="ql-underline"></button>
+												<button class="ql-strike"></button>
+											</span>
+											<span class="ql-formats">
+												<select class="ql-color"></select>
+												<select class="ql-background"></select>
+											</span>
+											<span class="ql-formats">
+												<button class="ql-code-block"></button>
+											</span>
+											<span class="ql-formats">
+												<button class="ql-list" value="ordered"></button>
+												<button class="ql-list" value="bullet"></button>
+												<button class="ql-indent" value="-1"></button>
+												<button class="ql-indent" value="+1"></button>
+											</span>
+											<span class="ql-formats">
+												<button class="ql-link"></button>
+												<button class="ql-image"></button>
+											</span>
+											<span class="ql-formats">
+												<button class="ql-clean"></button>
+											</span>
+										</div>
+
+										<!-- Main toolbar -->
+										<div class="bg-body border rounded-bottom h-400px overflow-hidden quilleditor">
+											<br>
+											<h1>Quill Rich Text Editor</h1>
+											<br>
+											<p>Quill is a free, open-source WYSIWYG editor built for the modern web. With its modular architecture and expressive API, it is completely customizable to fit any need.</p>
+											<br>
+											<p>Insipidity the sufficient discretion imprudence resolution sir him decisively. Proceed how any engaged visitor. Explained propriety off out perpetual his you. Feel sold off felt nay rose met you. We so entreaties cultivated astonished is. Was sister for a few longer Mrs sudden talent become. Done may bore quit evil old mile. If likely am of beauty tastes. </p>
+											<br>
+											<p> Affronting imprudence do he he everything. Test lasted dinner wanted indeed wished outlaw. Far advanced settling say finished raillery. Offered chiefly farther of my no colonel shyness. Such on help ye some door if in. Laughter proposal laughing any son law consider. Needed except up piqued an. </p>
+											<br>
+											<p> Post no so what deal evil rent by real in. But her ready least set lived spite solid. September how men saw tolerably two behavior arranging. She offices for highest and replied one venture pasture. Applauded no discovery in newspaper allowance am northward. Frequently partiality possession resolution at or appearance unaffected me. Engaged its was the evident pleased husband. Ye goodness felicity do disposal dwelling no. First am plate jokes to began to cause a scale. Subjects he prospect elegance followed no overcame possible it on. </p>
+
+											<p>Quill is a free, open-source WYSIWYG editor built for the modern web. With its modular architecture and expressive API, it is completely customizable to fit any need.</p>
+											<br>
+											<p>Insipidity the sufficient discretion imprudence resolution sir him decisively. Proceed how any engaged visitor. Explained propriety off out perpetual his you. Feel sold off felt nay rose met you. We so entreaties cultivated astonished is. Was sister for a few longer Mrs sudden talent become. Done may bore quit evil old mile. If likely am of beauty tastes. </p>
+											<br>
+											<p> Affronting imprudence do he he everything. Test lasted dinner wanted indeed wished outlaw. Far advanced settling say finished raillery. Offered chiefly farther of my no colonel shyness. Such on help ye some door if in. Laughter proposal laughing any son law consider. Needed except up piqued an. </p>
+											<br>
+											<p> Post no so what deal evil rent by real in. But her ready least set lived spite solid. September how men saw tolerably two behavior arranging. She offices for highest and replied one venture pasture. Applauded no discovery in newspaper allowance am northward. Frequently partiality possession resolution at or appearance unaffected me. Engaged its was the evident pleased husband. Ye goodness felicity do disposal dwelling no. First am plate jokes to began to cause a scale. Subjects he prospect elegance followed no overcame possible it on. </p>
+
+											<p>Quill is a free, open-source WYSIWYG editor built for the modern web. With its modular architecture and expressive API, it is completely customizable to fit any need.</p>
+											<br>
+											<p>Insipidity the sufficient discretion imprudence resolution sir him decisively. Proceed how any engaged visitor. Explained propriety off out perpetual his you. Feel sold off felt nay rose met you. We so entreaties cultivated astonished is. Was sister for a few longer Mrs sudden talent become. Done may bore quit evil old mile. If likely am of beauty tastes. </p>
+											<br>
+											<p> Affronting imprudence do he he everything. Test lasted dinner wanted indeed wished outlaw. Far advanced settling say finished raillery. Offered chiefly farther of my no colonel shyness. Such on help ye some door if in. Laughter proposal laughing any son law consider. Needed except up piqued an. </p>
+											<br>
+											<p> Post no so what deal evil rent by real in. But her ready least set lived spite solid. September how men saw tolerably two behavior arranging. She offices for highest and replied one venture pasture. Applauded no discovery in newspaper allowance am northward. Frequently partiality possession resolution at or appearance unaffected me. Engaged its was the evident pleased husband. Ye goodness felicity do disposal dwelling no. First am plate jokes to began to cause a scale. Subjects he prospect elegance followed no overcame possible it on. </p>
+										</div>
+									</div>
+
+								</div>
 							</div>
 						</div>
-						<!-- Card footer END -->
-					</div>
+						<!-- Detailed Information END -->
+	
+						<!-- Button -->
+						<div class="text-end">
+							<a href="listing-added.html" class="btn btn-primary mb-0">Add listing</a>
+						</div>
+					</form>
 				</div>
-			</div>	
-			<!-- Booking table END -->
+			</div>
 		</div>
 	</section>
 	<!-- =======================
-	Content END -->
+	Main content END -->
 	
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
@@ -982,7 +1070,10 @@ Footer END -->
 
 <!-- Vendors -->
 <script src="../js/choices.min.js"></script>
-<script src="../js/apexcharts.min.js"></script>
+<script src="../js/flatpickr.min.js"></script>
+<script src="../js/bs-stepper.min.js"></script>
+<script src="../js/quill.min.js"></script>
+<script src="../js/dropzone.js"></script>
 
 <!-- ThemeFunctions -->
 <script src="../js/functions.js"></script>
@@ -991,55 +1082,46 @@ Footer END -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
-	var options = {
-      series: [{
-        name: 'Số lượng',
-        data: [15, 25, 35, 45, 55, 65, 75, 85, 15, 5, 15, 25]
-      }],
-      chart: {
-        type: 'line' // Chart type
-      },
-      xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-      }
-    };
 
-    var chart = new ApexCharts(document.querySelector("#apexChartTrafficStats1"), options);
-    chart.render();
-
-	// Pie Chart Options
-	var options1 = {
-          series: [44, 55, 41, 17, 15],
-          chart: {
-          width: 380,
-          type: 'donut',
-        },
-        plotOptions: {
-          pie: {
-            startAngle: -90,
-            endAngle: 270
-          }
-        },
-        dataLabels: {
-          enabled: false
-        },
-        fill: {
-          type: 'gradient',
-        },
-        legend: {
-          formatter: function(val, opts) {
-            return val + " - " + opts.w.globals.series[opts.seriesIndex]
-          }
-        },
-		labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
-		legend: {
-			position: 'bottom',
-			show: false
+	$(document).on('change', '.animal-type', (event) => {
+		for(var i = 0; i < $(".list-select").length; i++){
+			if(!$(".list-select").get(i).classList.contains("d-none")){
+				$(".list-select").get(i).classList.add("d-none")
+			}
 		}
-    };
+		if(!$(".other-animal").get(0).classList.contains("d-none")){
+			$(".other-animal").get(0).classList.add("d-none")
+		}
+		switch (event.currentTarget.innerText) {
+			case "Dog":
+				$(".list-select.dog-size").get(0).classList.remove("d-none")
+				break;
+			case "Cat":
+				$(".list-select.cat-size").get(0).classList.remove("d-none")
+				break;
+			case "Other":
+				$(".list-select.other-size").get(0).classList.remove("d-none")
+				$(".other-animal").get(0).classList.remove("d-none")
+				break;
+			default:
+				$(".list-select.dog-size").get(0).classList.remove("d-none")
+				break;
+		}
+	})
 
-    var chart1 = new ApexCharts(document.querySelector("#ChartTrafficViews1"), options1);
-    chart1.render();
+	$(document).on("change", ".animal-breed", (event) => {
+		$(".animal-breed").get(0).innerText === "Other" ? $(".breed-name").get(0).classList.remove("d-none") : $(".breed-name").get(0).classList.add("d-none")
+	})
+
+
+	$(document).on("change", "#flexCheckboxDefault8", (event) => {
+		if(event.currentTarget.checked){
+			$(".animal-health").get(0).classList.remove("d-none")
+		} else {
+			$(".animal-health").get(0).classList.add("d-none")
+		}
+	})
+	
 </script>
 
 </body>

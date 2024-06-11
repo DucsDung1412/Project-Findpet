@@ -43,7 +43,15 @@ public class MySecurities {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests(config ->
-                        config.requestMatchers("/**").permitAll())
+                        config.requestMatchers("/account-profile").hasAnyRole("USER", "MANAGER", "ADMIN")
+                                .requestMatchers("/change-info-user").hasAnyRole("USER", "MANAGER", "ADMIN")
+                                .requestMatchers("/change-password-user").hasAnyRole("USER", "MANAGER", "ADMIN")
+                                .requestMatchers("/account-wishlist").hasAnyRole("USER", "MANAGER", "ADMIN")
+                                .requestMatchers("/delete-favorite-detail").hasAnyRole("USER", "MANAGER", "ADMIN")
+                                .requestMatchers("/delete-all-favorites").hasAnyRole("USER", "MANAGER", "ADMIN")
+                                .requestMatchers("/agent-dashboard").hasAnyRole("MANAGER", "ADMIN")
+                                .requestMatchers("/agent-listings").hasAnyRole("MANAGER", "ADMIN")
+                                .requestMatchers("/**").permitAll())
                 .formLogin(login -> {
                     login.loginPage("/sign-in").loginProcessingUrl("/authenticateTheUser").defaultSuccessUrl("/index").permitAll();
                 })

@@ -14,7 +14,7 @@ public class FavoritesService {
     private FavoritesDAO favoritesDAO;
 
     @Autowired
-    public FavoritesService(FavoritesDAO favoritesDAO) {
+    public FavoritesService(FavoritesDAO favoritesDAO, UsersService usersService) {
         this.favoritesDAO = favoritesDAO;
     }
 
