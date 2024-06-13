@@ -51,6 +51,7 @@ public class MySecurities {
                                 .requestMatchers("/delete-all-favorites").hasAnyRole("USER", "MANAGER", "ADMIN")
                                 .requestMatchers("/agent-dashboard").hasAnyRole("MANAGER", "ADMIN")
                                 .requestMatchers("/agent-listings").hasAnyRole("MANAGER", "ADMIN")
+                                .requestMatchers("/agent-bookings").hasAnyRole("MANAGER", "ADMIN")
                                 .requestMatchers("/**").permitAll())
                 .formLogin(login -> {
                     login.loginPage("/sign-in").loginProcessingUrl("/authenticateTheUser").defaultSuccessUrl("/index").permitAll();

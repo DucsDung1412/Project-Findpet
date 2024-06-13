@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
 	<title>Booking - Multipurpose Online Booking Theme</title>
 
@@ -189,9 +189,9 @@
 
                     <!-- Nav item Cats -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="accounntMenu" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" href="#" id="accounntMenu1" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Cats & Kittens</a>
-                        <ul class="dropdown-menu" aria-labelledby="accounntMenu">
+                        <ul class="dropdown-menu" aria-labelledby="accounntMenu1">
                             <!-- Dropdown submenu -->
                             <li class="dropdown-submenu dropend">
                                 <a class="dropdown-item dropdown-toggle" href="#">Breed</a>
@@ -544,7 +544,7 @@
 					<div class="card border">
 						<!-- Card header START -->
 						<div class="card-header border-bottom">
-							<h5 class="card-header-title">Bookings<span class="badge bg-primary bg-opacity-10 text-primary ms-2">20 Requets</span></h5>
+							<h5 class="card-header-title">Bookings<span class="badge bg-primary bg-opacity-10 text-primary ms-2" th:text="${listAdopt.stream().toList().size()} + ' Requets'">20 Requets</span></h5>
 						</div>
 						<!-- Card header END -->
 	
@@ -594,108 +594,24 @@
 									<!-- Table body START -->
 									<tbody class="border-top-0">
 										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">01</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Deluxe Pool View</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
-											<td> <h6 class="mb-0 fw-light">Nov 22 - 25</h6> </td>
-											<td> <div class="badge text-bg-success">Adpoted</div> </td>
-											<td> <a href="#" class="btn btn-sm btn-light mb-0">Xem chi tiết</a> </td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">02</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Deluxe Pool View with Breakfast</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
-											<td> <h6 class="mb-0 fw-light">Nov 24 - 28</h6> </td>
-											<td> <div class="badge text-bg-success">Adpoted</div> </td>
-											<td> <a href="#" class="btn btn-sm btn-light mb-0">Xem chi tiết</a> </td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">03</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Luxury Room with Balcony</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
-											<td> <h6 class="mb-0 fw-light">Nov 24 - 28</h6> </td>
-											<td> <div class="badge text-bg-info">Reserved</div> </td>
-											<td> <a href="#" class="btn btn-sm btn-light mb-0">Xem chi tiết</a> </td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">04</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Deluxe Room Twin Bed With Balcony</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
-											<td> <h6 class="mb-0 fw-light">Nov 28 - 30</h6> </td>
-											<td> <div class="badge text-bg-success">Adpoted</div> </td>
-											<td> <a href="#" class="btn btn-sm btn-light mb-0">Xem chi tiết</a> </td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">05</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Deluxe Room Twin Bed With Balcony</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
-											<td> - </td>
-											<td> <div class="badge text-bg-warning">Awaiting</div> </td>
-											<td> 
-												<div class="d-flex flex-column">	
-														<a href="#" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
-														<a href="#" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
-													</div>	
-												</td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">06</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Premium Room With Balcony</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
-											<td> <h6 class="mb-0 fw-light">Nov 14 - 18</h6> </td>
-											<td> <div class="badge text-bg-danger">Cancel</div> </td>
-											<td> <a href="#" class="btn btn-sm btn-light mb-0">Xem chi tiết</a> </td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">07</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Deluxe Room King Bed with Balcony</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
-											<td> <h6 class="mb-0 fw-light">Nov 28 - 30</h6> </td>
-											<td> <div class="badge text-bg-info">Reserved</div> </td>
-											<td> <a href="#" class="btn btn-sm btn-light mb-0">Xem chi tiết</a> </td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">08</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Superior Room</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
-											<td> <h6 class="mb-0 fw-light">Nov 22 - 25</h6> </td>
-											<td> <div class="badge text-bg-success">Adpoted</div> </td>
-											<td> <a href="#" class="btn btn-sm btn-light mb-0">Xem chi tiết</a> </td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">09</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Studio Suite King</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
-											<td> <h6 class="mb-0 fw-light">Nov 21 - 24</h6> </td>
-											<td> <div class="badge text-bg-info">Reserved</div> </td>
-											<td> <a href="#" class="btn btn-sm btn-light mb-0">Xem chi tiết</a> </td>
-										</tr>
-	
-										<!-- Table item -->
-										<tr>
-											<td> <h6 class="mb-0">10</h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Rock Family Suite</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
-											<td> <h6 class="mb-0 fw-light">Dec 02 - 06</h6> </td>
-											<td> <div class="badge text-bg-success">Adpoted</div> </td>
-											<td> <a href="#" class="btn btn-sm btn-light mb-0">Xem chi tiết</a> </td>
+										<tr th:each="adopt, stat : ${listAdopt}">
+											<td> <h6 class="mb-0" th:text="${stat.count} < 10 ? '0'+${stat.count} : ${stat.count}">01</h6> </td>
+											<td> <h6 class="mb-0"><a href="#" th:text="${adopt.getUsers().getUserName()}">Deluxe Pool View</a></h6> </td>
+											<td> <h6 class="mb-0"><a href="#" th:text="${adopt.getAnimals().getAnimalName()}">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
+											<td> <h6 class="mb-0 fw-light" th:text="${adopt.getAdoptDate()}">Nov 22 - 25</h6> </td>
+											<td>
+                                                <div th:if="${adopt.getAdopt_status().equals('Adopted')}" class="badge text-bg-success">Adopted</div>
+                                                <div th:if="${adopt.getAdopt_status().equals('Reserved')}" class="badge text-bg-info">Reserved</div>
+                                                <div th:if="${adopt.getAdopt_status().equals('Awaiting')}" class="badge text-bg-warning">Awaiting</div>
+                                                <div th:if="${adopt.getAdopt_status().equals('Cancel')}" class="badge text-bg-danger">Cancel</div>
+                                            </td>
+											<td>
+                                                <a href="#" class="btn btn-sm btn-light mb-0 w-100" th:if="${!adopt.getAdopt_status().equals('Awaiting')}">Xem chi tiết</a>
+                                                <div class="d-flex flex-column" th:if="${adopt.getAdopt_status().equals('Awaiting')}">
+                                                    <a th:href="@{/disable-pet-bookings(id=${adopt.getAnimals().id})}" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
+                                                    <a th:href="@{/enable-pet-bookings(id=${adopt.getAnimals().id})}" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
+                                                </div>
+                                            </td>
 										</tr>
 									</tbody>
 									<!-- Table body END -->
@@ -710,17 +626,17 @@
 							<!-- Pagination and content -->
 							<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
 								<!-- Content -->
-								<p class="mb-sm-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
+								<p class="mb-sm-0 text-center text-sm-start">Showing <span th:text="${listAdopt.number} * ${listAdopt.size} == 0 ? 1 : (${listAdopt.number} * ${listAdopt.size}) + 1">1</span> to <span th:text="${listAdopt.totalElements} - (${listAdopt.number} * ${listAdopt.size} + ${listAdopt.size}) < 0 ? ${listAdopt.totalElements} : (${listAdopt.number} * ${listAdopt.size} + ${listAdopt.size})">10</span> of <span th:text="${listAdopt.totalElements}">57</span> entries</p>
 								<!-- Pagination -->
-								<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
+								<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation" th:if="${listAdopt.totalPages} >= 2">
 									<ul class="pagination pagination-sm pagination-primary-soft mb-0">
 										<li class="page-item disabled">
 											<a class="page-link" href="#" tabindex="-1">Prev</a>
 										</li>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item active"><a class="page-link" href="#">2</a></li>
-										<li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-										<li class="page-item"><a class="page-link" href="#">15</a></li>
+                                        <li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listAdopt.totalPages - 1)}"
+                                            th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
+                                            <a th:href="@{'/changePage-agentBooking?page='+${pageIndex.index}}" th:text="${pageIndex.index + 1}" class="page-link"></a>
+                                        </li>
 										<li class="page-item">
 											<a class="page-link" href="#">Next</a>
 										</li>

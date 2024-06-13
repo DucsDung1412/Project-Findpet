@@ -620,8 +620,8 @@
 													<!-- dropdown button -->
 													<ul class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownAction2">
 														<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle me-1"></i>Report</a></li>
-														<li><a class="dropdown-item" href="#"><i class="bi bi-slash-circle me-1"></i>Disable</a></li>
-													</ul>
+														<li><a class="dropdown-item btn-dis-en" th:href="@{/disable-pet(id=${animals.id})}"><i class="bi bi-slash-circle me-1"></i>Disable</a></li>
+                                                    </ul>
 												</div>
 											</div>
 
@@ -660,8 +660,8 @@
 								<ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
 									<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fa-solid fa-angle-left"></i></a></li>
                                     <li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listAnimals.totalPages - 1)}"
-                                        th:class="${pageIndex.index + 1} == 1 ? 'page-item active' : 'page-item'">
-                                        <a href="#" th:text="${pageIndex.index + 1}" class="page-link"></a>
+                                        th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
+                                        <a th:href="@{'/changePage-agentListings?page='+${pageIndex.index}}" th:text="${pageIndex.index + 1}" class="page-link"></a>
                                     </li>
 									<li class="page-item mb-0"><a class="page-link" href="#"><i class="fa-solid fa-angle-right"></i></a></li>
 								</ul>
@@ -841,6 +841,8 @@ Footer END -->
         $('#' + event + ' .card-title').get(0).classList.remove('text-success')
         $('#' + event + ' .card-title').get(0).classList.add('text-secondary')
         $('#' + event + ' .card-title').get(0).innerText = 'Disable'
+        $('#' + event + ' .btn-dis-en').get(0).innerHTML = `<i class="bi bi-slash-circle me-1"></i>Enable`
+        $('#' + event + ' .btn-dis-en').get(0).href = `/enable-pet?id=${event}`
     })
 </script>
 </body>

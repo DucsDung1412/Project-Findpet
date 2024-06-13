@@ -726,8 +726,8 @@
 											<td> <div class="badge text-bg-warning">Awaiting</div> </td>
 											<td> 
 												<div class="d-flex flex-column">	
-													<a href="#" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
-													<a href="#" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
+													<a th:href="@{/disable-pet-dashboard(id=${awaiting.getAnimals().id})}" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
+													<a th:href="@{/enable-pet-dashboard(id=${awaiting.getAnimals().id})}" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
 												</div>
 											</td>
 										</tr>
@@ -752,8 +752,8 @@
 											<a class="page-link" href="#" tabindex="-1">Prev</a>
 										</li>
                                         <li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listAwaiting.totalPages - 1)}"
-                                            th:class="${pageIndex.index + 1} == 1 ? 'page-item active' : 'page-item'">
-                                            <a href="#" th:text="${pageIndex.index + 1}" class="page-link"></a>
+                                            th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
+                                            <a th:href="@{'/changePage-agentDashboard?page='+${pageIndex.index}}" th:text="${pageIndex.index + 1}" class="page-link"></a>
                                         </li>
 										<li class="page-item">
 											<a class="page-link" href="#">Next</a>
