@@ -2,21 +2,46 @@ package vn.finder.pet.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.web.bind.annotation.*;
 import vn.finder.pet.entity.AnimalInfoRequest;
+import vn.finder.pet.entity.Users;
 import vn.finder.pet.service.AnimalsService;
+import vn.finder.pet.service.FavoritesService;
+import vn.finder.pet.service.UsersService;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 public class MyRestController {
     private AnimalsService animalsService;
+    private UsersService usersService;
+    private FavoritesService favoritesService;
 
     @Autowired
-    public MyRestController(AnimalsService animalsService) {
+    public MyRestController(AnimalsService animalsService, UsersService usersService, FavoritesService favoritesService) {
         this.animalsService = animalsService;
+        this.usersService = usersService;
+        this.favoritesService = favoritesService;
+    }
+
+    public String getEmailLogin(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = "";
+        if (authentication != null && !authentication.getName().equals("anonymousUser")) {
+            if(this.usersService.findById(authentication.getName()).isEmpty()){
+                OAuth2User principal = (OAuth2User) authentication.getPrincipal();
+                email = principal.getAttribute("email");
+            } else {
+                email = authentication.getName();
+            }
+        } else {
+            return null;
+        }
+        return email;
     }
 
     @PostMapping("/remove-session-user")
@@ -40,16 +65,13 @@ public class MyRestController {
         animalInfoRequest.setName(((Map<String, String>)hashMap).get("name").isEmpty() ? "%" : ((String)((Map<String, String>)hashMap).get("name")).trim());
         animalInfoRequest.setBreedType(((List<String>) ((HashMap<?, ?>) hashMap).get("breedType")).isEmpty() ? Arrays.asList("") : (List<String>) ((HashMap<?, ?>) hashMap).get("breedType"));
 
-
-        System.out.println(animalInfoRequest.getBreedType());
-        System.out.println(animalInfoRequest.getBreed());
-        System.out.println(animalInfoRequest.getLocation());
-        System.out.println(animalInfoRequest.getAge());
-        System.out.println(animalInfoRequest.getGender());
-        System.out.println(animalInfoRequest.getSize());
-        System.out.println(animalInfoRequest.getName());
-        System.out.println(animalInfoRequest.getPageNumber());
-        System.out.println(animalInfoRequest.getSizePage());
+        ArrayList<Long> listFavorites = new ArrayList<>();
+        if(this.getEmailLogin() != null){
+            Users users = this.usersService.findById(this.getEmailLogin()).get();
+            users.getListFavorites().forEach(e -> {
+                listFavorites.add(e.getAnimals().getId());
+            });
+        }
 
         this.animalsService.searchAnimals(animalInfoRequest.getBreedType(), animalInfoRequest.getBreed(), animalInfoRequest.getLocation(), animalInfoRequest.getAge(), animalInfoRequest.getGender(), animalInfoRequest.getSize(), animalInfoRequest.getName(), animalInfoRequest.getPageNumber(), animalInfoRequest.getSizePage()).stream().toList().forEach(e -> {
             Map<String, Object> map = new HashMap<>();
@@ -60,11 +82,51 @@ public class MyRestController {
             map.put("age", e.getAnimalAge());
             map.put("size", e.getAnimalSize());
             map.put("gender", e.getAnimalGender());
-            System.out.println(e.getId());
             listSearch.add(map);
         });
 
+        Map<String, Object> mapFavorite = new HashMap<>();
+        mapFavorite.put("listFavorite", listFavorites);
+        listSearch.add(mapFavorite);
+
         return listSearch;
+    }
+
+    @GetMapping("/removeFavorite")
+    public String removeFavorite(@RequestParam(value = "id") Long id){
+        Users users = this.usersService.findById(this.getEmailLogin()).get();
+        if(users != null){
+            AtomicInteger i = new AtomicInteger();
+            users.getListFavorites().forEach(e -> {
+               if(e.getAnimals().getId() == id){
+                   i.getAndIncrement();
+                   System.out.println(e.getId());
+                   this.favoritesService.removeOne(e.getId());
+               }
+            });
+            if(i.get() > 0){
+                return "removeFavorite";
+            }
+        }
+        return "false";
+    }
+
+    @GetMapping("/addFavorite")
+    public String addFavorite(@RequestParam(value = "id") Long id){
+        Users users = this.usersService.findById(this.getEmailLogin()).get();
+        if(users != null){
+            AtomicInteger i = new AtomicInteger();
+            users.getListFavorites().forEach(e -> {
+                if(e.getAnimals().getId() == id){
+                    i.getAndIncrement();
+                }
+            });
+            if(i.get() == 0){
+                this.favoritesService.save(id, users);
+                return "addFavorite";
+            }
+        }
+        return "false";
     }
 }
 

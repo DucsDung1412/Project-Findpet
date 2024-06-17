@@ -3,11 +3,16 @@ package vn.finder.pet.controller;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import vn.finder.pet.entity.Animals;
+import vn.finder.pet.entity.Users;
 import vn.finder.pet.service.AnimalsService;
+import vn.finder.pet.service.UsersService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,10 +23,28 @@ import java.util.stream.Collectors;
 @Controller
 public class PetController {
     private AnimalsService animalsService;
+    private UsersService usersService;
 
     @Autowired
-    public PetController(AnimalsService animalsService) {
+    public PetController(AnimalsService animalsService, UsersService usersService) {
         this.animalsService = animalsService;
+        this.usersService = usersService;
+    }
+
+    public String getEmailLogin(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = "";
+        if (authentication != null && !authentication.getName().equals("anonymousUser")) {
+            if(this.usersService.findById(authentication.getName()).isEmpty()){
+                OAuth2User principal = (OAuth2User) authentication.getPrincipal();
+                email = principal.getAttribute("email");
+            } else {
+                email = authentication.getName();
+            }
+        } else {
+            return null;
+        }
+        return email;
     }
 
     @GetMapping("/pet-grid/{breed_type}")
@@ -30,6 +53,16 @@ public class PetController {
         Page<Animals> listAnimal = this.animalsService.searchAnimals(Arrays.asList(breed_type), "", "", Arrays.asList("Puppy", "Young", "Adult", "Senior"), Arrays.asList(true, false), "", "", 0, 12);
         model.addAttribute("listAnimal", listAnimal);
         model.addAttribute("breed_type", breed_type);
+
+        ArrayList<Long> listFavorites = new ArrayList<>();
+        if(this.getEmailLogin() != null){
+            Users users = this.usersService.findById(this.getEmailLogin()).get();
+            users.getListFavorites().forEach(e -> {
+                listFavorites.add(e.getAnimals().getId());
+            });
+        }
+        model.addAttribute("listFavorites", listFavorites);
+
         return "/pet-grid";
     }
 

@@ -4,20 +4,26 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.finder.pet.dao.FavoritesDAO;
+import vn.finder.pet.entity.Animals;
 import vn.finder.pet.entity.Favorites;
 import vn.finder.pet.entity.Users;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
 public class FavoritesService {
     private FavoritesDAO favoritesDAO;
+    private AnimalsService animalsService;
 
     @Autowired
-    public FavoritesService(FavoritesDAO favoritesDAO, UsersService usersService) {
+    public FavoritesService(FavoritesDAO favoritesDAO, AnimalsService animalsService) {
         this.favoritesDAO = favoritesDAO;
+        this.animalsService = animalsService;
     }
 
+    @Transactional
     public Boolean removeOne(Long id) {
         Optional<Favorites> favoriteOptional = this.favoritesDAO.findById(id);
         if (favoriteOptional.isPresent()) {
@@ -35,5 +41,12 @@ public class FavoritesService {
         }
 
         return false;
+    }
+
+    @Transactional
+    public Favorites save(Long id, Users users){
+        Animals animals = this.animalsService.findById(id);
+        Favorites favorites = new Favorites(null, Date.valueOf(LocalDate.now()), users ,animals);
+        return this.favoritesDAO.save(favorites);
     }
 }

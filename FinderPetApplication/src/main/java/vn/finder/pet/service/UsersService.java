@@ -72,7 +72,6 @@ public class UsersService {
         return false;
     }
 
-    @Transactional
     public boolean deleteFavorite(Long id) {
         if(this.favoritesService.removeOne(id)){
             return true;
@@ -80,7 +79,6 @@ public class UsersService {
         return false;
     }
 
-    @Transactional
     public boolean deleteAllFavorite(String email) {
         Optional<Users> usersOptional = this.usersDAO.findById(email);
         if (usersOptional.isPresent()) {

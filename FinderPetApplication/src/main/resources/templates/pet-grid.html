@@ -351,7 +351,7 @@
             <!-- Contains -->
             <div class="show-card-info row g-4">
                 <!-- Card item START -->
-                <div class="col-md-6 col-xl-4" th:each="animal : ${listAnimal}">
+                <div class="col-md-6 col-xl-4" th:each="animal : ${listAnimal}" th:id="${animal.id}">
                     <div class="card shadow p-2 pb-0 h-100">
                         <!-- Image -->
                         <img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080" class="rounded-2" alt="Card image">
@@ -361,7 +361,7 @@
                             <!-- Rating and cart -->
                             <div class="d-flex justify-content-between mb-3">
                                 <a href="#" class="badge bg-dark text-white"><i class="bi fa-fw bi-star-fill me-2 text-warning"></i><span th:text="${animal.breed.breed_name}"></span></a>
-                                <a href="#" class="h6 mb-0 z-index-2"><i class="bi fa-fw bi-bookmark"></i></a>
+                                <a th:href="@{/addFavorite(id=${animal.id})}" class="h6 mb-0 z-index-2 favorites"><i class="bi fa-fw bi-bookmark"></i></a>
                             </div>
 
                             <!-- Title -->
@@ -423,7 +423,7 @@
 
 <!-- =======================
 Footer START -->
-<footer th:insert="~{fragments/viewers/_footer :: footer}"><footer>
+<footer th:insert="~{fragments/viewers/_footer :: footer}"></footer>
 <!-- =======================
 Footer END -->
 
@@ -548,7 +548,7 @@ Footer END -->
                 response.forEach((event) => {
                     $(".show-card-info").get(0).innerHTML += `
                         <!-- Card item START -->
-                        <div class="col-md-6 col-xl-4">
+                        <div class="col-md-6 col-xl-4" id="${event.id}">
                             <div class="card shadow p-2 pb-0 h-100">
                                 <!-- Image -->
                                 <img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080" class="rounded-2" alt="Card image">
@@ -558,7 +558,7 @@ Footer END -->
                                     <!-- Rating and cart -->
                                     <div class="d-flex justify-content-between mb-3">
                                         <a href="#" class="badge bg-dark text-white"><i class="bi fa-fw bi-star-fill me-2 text-warning"></i>${event.breed}</a>
-                                        <a href="#" class="h6 mb-0 z-index-2"><i class="bi fa-fw bi-bookmark"></i></a>
+                                        <a href="/addFavorite?id=${event.id}" class="h6 mb-0 z-index-2 favorites"><i class="bi fa-fw bi-bookmark"></i></a>
                                     </div>
 
                                     <!-- Title -->
@@ -589,12 +589,57 @@ Footer END -->
                         <!-- Card item END -->
                     `
                 })
+
+                response[response.length - 1].listFavorite.forEach(e => {
+                    if($("div #" + e).get(0) !== undefined) {
+                        $("div #" + e + " a.h6.mb-0.z-index-2 i").get(0).classList.remove("bi-bookmark")
+                        $("div #" + e + " a.h6.mb-0.z-index-2 i").get(0).classList.add("bi-bookmark-fill")
+                        $("div #" + e + " a.h6.mb-0.z-index-2 i").get(0).classList.add("text-danger")
+                        $("div #" + e + " a.h6.mb-0.z-index-2").get(0).href = "/removeFavorite?id=" + e;
+                    }
+                })
             },
             error: function() {
                 console.log(1);
             }
         });
     });
+
+    var favorite = [[${listFavorites}]];
+    favorite.forEach(e => {
+        if($("div #" + e).get(0) !== undefined) {
+            $("div #" + e + " a.h6.mb-0.z-index-2 i").get(0).classList.remove("bi-bookmark")
+            $("div #" + e + " a.h6.mb-0.z-index-2 i").get(0).classList.add("bi-bookmark-fill")
+            $("div #" + e + " a.h6.mb-0.z-index-2 i").get(0).classList.add("text-danger")
+            $("div #" + e + " a.h6.mb-0.z-index-2").get(0).href = "/removeFavorite?id=" + e;
+        }
+    })
+
+    $(document).on('click', ".favorites", e => {
+		e.preventDefault();
+		var id = e.currentTarget.href.substring(e.currentTarget.href.indexOf("id="));
+		 $.ajax({
+            type: "GET",
+            url: e.currentTarget.href,
+            success: function(response) {
+                if(response === "addFavorite"){
+                    e.currentTarget.querySelector("i").classList.remove("bi-bookmark")
+                    e.currentTarget.querySelector("i").classList.add("bi-bookmark-fill")
+                    e.currentTarget.querySelector("i").classList.add("text-danger")
+                    e.currentTarget.href = "/removeFavorite?" + id;
+                } else if(response === "removeFavorite") {
+                    e.currentTarget.querySelector("i").classList.remove("bi-bookmark-fill")
+                    e.currentTarget.querySelector("i").classList.remove("text-danger")
+                    e.currentTarget.querySelector("i").classList.add("bi-bookmark")
+                    e.currentTarget.href = "/addFavorite?" + id;
+                }
+
+            },
+            error: function() {
+                console.log(1);
+            }
+        });
+	})
 </script>
 
 </body>

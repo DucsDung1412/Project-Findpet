@@ -49,6 +49,8 @@ public class MySecurities {
                                 .requestMatchers("/account-wishlist").hasAnyRole("USER", "MANAGER", "ADMIN")
                                 .requestMatchers("/delete-favorite-detail").hasAnyRole("USER", "MANAGER", "ADMIN")
                                 .requestMatchers("/delete-all-favorites").hasAnyRole("USER", "MANAGER", "ADMIN")
+                                .requestMatchers("/removeFavorite").hasAnyRole("USER", "MANAGER", "ADMIN")
+                                .requestMatchers("/addFavorite").hasAnyRole("USER", "MANAGER", "ADMIN")
                                 .requestMatchers("/agent-dashboard").hasAnyRole("MANAGER", "ADMIN")
                                 .requestMatchers("/agent-listings").hasAnyRole("MANAGER", "ADMIN")
                                 .requestMatchers("/agent-bookings").hasAnyRole("MANAGER", "ADMIN")
