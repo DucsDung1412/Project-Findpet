@@ -202,7 +202,7 @@ Main Banner START -->
 				<h6 class="d-none d-xl-block mb-3">Check Availability</h6>
 
 				<!-- Booking from START -->
-				<form class="card shadow rounded-3 position-relative p-4 pe-md-5 pb-5 pb-md-4">
+				<form action="/pet-grid" method="get" class="card shadow rounded-3 position-relative p-4 pe-md-5 pb-5 pb-md-4">
 					<div class="row g-4 align-items-center">
 						<!-- Location -->
 						<div class="col-lg-6">
@@ -212,11 +212,71 @@ Main Banner START -->
 								<!-- Select input -->
 								<div class="flex-grow-1">
 									<label class="form-label">Location</label>
-									<select class="form-select js-choice" data-search-enabled="true">
-										<option value="">Select location</option>
-										<option>San Jacinto, USA</option>
-										<option>North Dakota, Canada</option>
-										<option>West Virginia, Paris</option>
+									<select name="location" class="form-select js-choice" data-search-enabled="true">
+										<option value="" selected>Select location</option>
+										<option>An Giang</option>
+										<option>Bà Rịa - Vũng Tàu</option>
+										<option>Bắc Giang</option>
+										<option>Bắc Kạn</option>
+										<option>Bạc Liêu</option>
+										<option>Bắc Ninh</option>
+										<option>Bến Tre</option>
+										<option>Bình Dương</option>
+										<option>Bình Định</option>
+										<option>Bình Phước</option>
+										<option>Bình Thuận</option>
+										<option>Cà Mau</option>
+										<option>Cần Thơ</option>
+										<option>Cao Bằng</option>
+										<option>Đà Nẵng</option>
+										<option>Đắk Lắk</option>
+										<option>Đắk Nông</option>
+										<option>Điện Biên</option>
+										<option>Đồng Nai</option>
+										<option>Đồng Tháp</option>
+										<option>Gia Lai</option>
+										<option>Hà Giang</option>
+										<option>Hà Nam</option>
+										<option>Hà Nội</option>
+										<option>Hà Tĩnh</option>
+										<option>Hải Dương</option>
+										<option>Hải Phòng</option>
+										<option>Hậu Giang</option>
+										<option>Hồ Chí Minh</option>
+										<option>Hoà Bình</option>
+										<option>Hưng Yên</option>
+										<option>Khánh Hòa</option>
+										<option>Kiên Giang</option>
+										<option>Kon Tum</option>
+										<option>Lai Châu</option>
+										<option>Lâm Đồng</option>
+										<option>Lạng Sơn</option>
+										<option>Lào Cai</option>
+										<option>Long An</option>
+										<option>Nam Định</option>
+										<option>Nghệ An</option>
+										<option>Ninh Bình</option>
+										<option>Ninh Thuận</option>
+										<option>Phú Thọ</option>
+										<option>Phú Yên</option>
+										<option>Quảng Bình</option>
+										<option>Quảng Nam</option>
+										<option>Quảng Ngãi</option>
+										<option>Quảng Ninh</option>
+										<option>Quảng Trị</option>
+										<option>Sóc Trăng</option>
+										<option>Sơn La</option>
+										<option>Tây Ninh</option>
+										<option>Thái Bình</option>
+										<option>Thái Nguyên</option>
+										<option>Thanh Hóa</option>
+										<option>Thừa Thiên Huế</option>
+										<option>Tiền Giang</option>
+										<option>Trà Vinh</option>
+										<option>Tuyên Quang</option>
+										<option>Vĩnh Long</option>
+										<option>Vĩnh Phúc</option>
+										<option>Yên Bái</option>
 									</select>
 								</div>
 							</div>
@@ -229,31 +289,22 @@ Main Banner START -->
 								<i class="bi bi-search fs-3 me-2 mt-2"></i>
 								<!-- Dropdown input -->
 								<div class="flex-grow-1">
-									<label class="form-label">Animal Breed</label>
-									<div class="choices is-open is-flipped is-focused form-input-dropdown position-relative" aria-expanded="false">
-										<input class="form-control form-control-lg me-1 ps-5" type="text" data-bs-toggle="dropdown"
-											placeholder="What are you looking for.." aria-expanded="false" style="
-												padding-left: 24px !important;
-												border-radius: 8px !important;
-											">
-										<!-- dropdown button -->
-										<ul class="dropdown-menu input-dropdown shadow rounded-0 rounded-bottom w-100" style="">
-											<li><a class="dropdown-item" href="#"><i class="bi bi-egg-fried fa-fw text-primary me-2"></i>Puppies and young dogs</a></li>
-											<li><a class="dropdown-item" href="#"><i class="bi bi-egg-fried fa-fw text-primary me-2"></i>Large dogs</a></li>
-											<li><a class="dropdown-item" href="#"><i class="bi bi-egg-fried fa-fw text-primary me-2"></i>Kettens and young cats</a></li>
-											<li><a class="dropdown-item" href="#"><i class="bi bi-egg-fried fa-fw text-primary me-2"></i>Cats who are good with other cats</a></li>
-											<li><a class="dropdown-item" href="#"><i class="bi bi-egg-fried fa-fw text-primary me-2"></i>Small dogs that are good with other kids</a></li>
-										</ul>
-										<!-- Icon -->
-									
-									</div>
+									<label class="form-label">Animal Type</label>
+									<select class="form-select js-choice" name="breed_type">
+										<option selected value="">Select type</option>
+										<option>Dog</option>
+										<option>Cat</option>
+										<option>Birds</option>
+										<option>Rabbits</option>
+										<option>Furry</option>
+									</select>
 								</div>
 							</div>
 						</div>
 					</div>
 					<!-- Button -->
 					<div class="btn-position-md-middle">
-						<a class="icon-lg btn btn-round btn-primary mb-0" href="#"><i class="bi bi-search fa-fw"></i></a>
+						<button type="submit" class="icon-lg btn btn-round btn-primary mb-0"><i class="bi bi-search fa-fw"></i></button>
 					</div>
 				</form>
 				<!-- Booking from END -->
@@ -284,7 +335,7 @@ Best Find START -->
 							<!-- Title and content -->
 							<div class="col-sm-6">
 								<div class="card-body px-3">
-									<h6 class="card-title"><a href="#" class="stretched-link">Dogs</a></h6>
+									<h6 class="card-title"><a href="/pet-grid/Dog" class="stretched-link">Dogs</a></h6>
 									<p class="mb-0">Search for Dogs quickly</p>
 								</div>
 							</div>
@@ -304,7 +355,7 @@ Best Find START -->
 							<!-- Title and content -->
 							<div class="col-sm-6">
 								<div class="card-body px-3">
-									<h6 class="card-title"><a href="#" class="stretched-link">Cats</a></h6>
+									<h6 class="card-title"><a href="/pet-grid/Cat" class="stretched-link">Cats</a></h6>
 									<p class="mb-0">Search for Cats quickly</p>
 								</div>
 							</div>

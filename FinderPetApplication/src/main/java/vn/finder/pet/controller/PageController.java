@@ -1,19 +1,48 @@
 package vn.finder.pet.controller;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import vn.finder.pet.entity.Users;
+import vn.finder.pet.service.UsersService;
+
+import java.util.Optional;
 
 @Controller
 public class PageController {
+    private UsersService usersService;
+
+    @Autowired
+    public PageController(UsersService userService) {
+        this.usersService = userService;
+    }
+
+    public String getEmailLogin(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = "";
+        if (authentication != null && !authentication.getName().equals("anonymousUser")) {
+            if(this.usersService.findById(authentication.getName()).isEmpty()){
+                OAuth2User principal = (OAuth2User) authentication.getPrincipal();
+                email = principal.getAttribute("email");
+            } else {
+                email = authentication.getName();
+            }
+        } else {
+            return null;
+        }
+        return email;
+    }
+
     @GetMapping("/index")
-    public String index(HttpSession session){
+    public String index(HttpSession session, Model model){
         session.removeAttribute("emailUs");
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         return "/index";
     }
 

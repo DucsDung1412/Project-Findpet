@@ -36,13 +36,15 @@ public class ManagerController {
     public String getEmailLogin(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = "";
-        if (authentication != null) {
+        if (authentication != null && !authentication.getName().equals("anonymousUser")) {
             if(this.usersService.findById(authentication.getName()).isEmpty()){
                 OAuth2User principal = (OAuth2User) authentication.getPrincipal();
                 email = principal.getAttribute("email");
             } else {
                 email = authentication.getName();
             }
+        } else {
+            return null;
         }
         return email;
     }
@@ -59,6 +61,7 @@ public class ManagerController {
         model.addAttribute("totalInteractions", this.animalsService.findCountAdopt(this.getEmailLogin()) + this.animalsService.findCountFavorite(this.getEmailLogin()));
         model.addAttribute("listAwaiting", this.animalsService.findByStatus(this.getEmailLogin(), "Awaiting",  pg == 0 ? 0 : pg - 1, 6));
         model.addAttribute("page", pg == 0 ? 1 : pg);
+        model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
         return "/agent-dashboard";
     }
 
@@ -104,6 +107,7 @@ public class ManagerController {
         model.addAttribute("listAdopt", l);
         model.addAttribute("listAnimals", listAnimals);
         model.addAttribute("page", pg == 0 ? 1 : pg);
+        model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
         return "/agent-listings";
     }
 
@@ -136,6 +140,7 @@ public class ManagerController {
         }
         model.addAttribute("listAdopt", this.animalsService.findByStatus(this.getEmailLogin(), status, pg == 0 ? 0 : pg - 1, 10));
         model.addAttribute("page", pg == 0 ? 1 : pg);
+        model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
         return "/agent-bookings";
     }
 
@@ -155,5 +160,11 @@ public class ManagerController {
     public String enablePetBookings(@RequestParam(value = "id") Long id){
         this.adoptService.enablePet(id);
         return "redirect:/agent-bookings";
+    }
+
+    @GetMapping("/add-listing-minimal")
+    public String addListingMinimal(Model model){
+        model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
+        return "/add-listing-minimal";
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.finder.pet.entity.Animals;
 import vn.finder.pet.entity.Users;
 import vn.finder.pet.service.AnimalsService;
@@ -47,13 +48,29 @@ public class PetController {
         return email;
     }
 
+    @GetMapping("/pet-grid")
+    public String petGetTemp(RedirectAttributes redirectAttributes, @RequestParam(value = "location") String location, @RequestParam(value = "breed_type") String breed_type){
+        redirectAttributes.addAttribute("breed_type", breed_type);
+        redirectAttributes.addAttribute("location", location);
+        return "redirect:/pet-grid/" + breed_type;
+    }
+
     @GetMapping("/pet-grid/{breed_type}")
-    public String petGrid(HttpSession session, Model model, @PathVariable String breed_type){
+    public String petGrid(HttpSession session, Model model, @PathVariable String breed_type
+                            , @RequestParam(value = "breed", required = false) String breed
+                            , @RequestParam(value = "age", required = false) String age
+                            , @RequestParam(value = "size", required = false) String size
+                            , @RequestParam(value = "gender", required = false) Boolean gender
+                            , @RequestParam(value = "location", required = false) String location) {
         session.removeAttribute("emailUs");
-        Page<Animals> listAnimal = this.animalsService.searchAnimals(Arrays.asList(breed_type), "", "", Arrays.asList("Puppy", "Young", "Adult", "Senior"), Arrays.asList(true, false), "", "", 0, 12);
+        Page<Animals> listAnimal = this.animalsService.searchAnimals(Arrays.asList(breed_type), breed == null ? "" : breed, location == null ? "" : location, age == null ? Arrays.asList("Puppy", "Young", "Adult", "Senior") : Arrays.asList(age), gender == null ? Arrays.asList(true, false) : Arrays.asList(gender), size == null ? "" : size, "", 0, 12);
         model.addAttribute("listAnimal", listAnimal);
         model.addAttribute("breed_type", breed_type);
-
+        if(breed_type.equals("Cat")){
+            model.addAttribute("age_type", "Kitten");
+        } else {
+            model.addAttribute("age_type", "Puppy");
+        }
         ArrayList<Long> listFavorites = new ArrayList<>();
         if(this.getEmailLogin() != null){
             Users users = this.usersService.findById(this.getEmailLogin()).get();
@@ -62,13 +79,14 @@ public class PetController {
             });
         }
         model.addAttribute("listFavorites", listFavorites);
-
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         return "/pet-grid";
     }
 
     @GetMapping("/pet-detail")
-    public String getPetDetail(@RequestParam String id){
+    public String getPetDetail(@RequestParam String id, Model model){
         System.out.println(id);
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         return "/pet-detail";
     }
 

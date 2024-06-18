@@ -43,13 +43,15 @@ public class AccountController {
     public String getEmailLogin(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = "";
-        if (authentication != null) {
+        if (authentication != null && !authentication.getName().equals("anonymousUser")) {
             if(this.userService.findById(authentication.getName()).isEmpty()){
                 OAuth2User principal = (OAuth2User) authentication.getPrincipal();
                 email = principal.getAttribute("email");
             } else {
                 email = authentication.getName();
             }
+        } else {
+            return null;
         }
         return email;
     }
@@ -335,6 +337,7 @@ public class AccountController {
     @GetMapping("/account-wishlist")
     public String accountWishlist(Model model){
         model.addAttribute("listFavorite", this.userService.findById(getEmailLogin()).get().getListFavorites());
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.userService.findById(this.getEmailLogin()).get());
         return "/account-wishlist";
     }
 
@@ -348,5 +351,11 @@ public class AccountController {
     public String deleteAllFavorites(){
         this.userService.deleteAllFavorite(getEmailLogin());
         return "redirect:/account-wishlist";
+    }
+
+    @GetMapping("/account-delete")
+    public String accountDelete(Model model){
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.userService.findById(this.getEmailLogin()).get());
+        return "/account-delete";
     }
 }

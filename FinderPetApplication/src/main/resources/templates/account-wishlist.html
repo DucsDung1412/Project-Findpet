@@ -100,7 +100,7 @@
 <body class="dashboard">
 
     <!-- Header START -->
-    <header th:insert="~{fragments/userlogin/_headeruser:: headeruser}"></header>
+    <header class="navbar-light header-sticky" th:insert="~{fragments/viewers/_header :: header}"></header>
     <!-- Header END -->
 
     <!-- **************** MAIN CONTENT START **************** -->
@@ -128,7 +128,7 @@ Content START -->
 
                                     <!-- Edit profile button -->
                                     <div class="position-absolute top-0 end-0 p-3">
-                                        <a href="#" class="text-primary-hover" data-bs-toggle="tooltip"
+                                        <a href="/account-profile" class="text-primary-hover" data-bs-toggle="tooltip"
                                             data-bs-title="Edit profile">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
@@ -144,8 +144,8 @@ Content START -->
                                                     src="https://booking.webestica.com/assets/images/avatar/01.jpg"
                                                     alt="">
                                             </div>
-                                            <h6 class="mb-0">Jacqueline Miller</h6>
-                                            <a href="#" class="text-reset text-primary-hover small">hello@gmail.com</a>
+                                            <h6 class="mb-0" th:text="${user.firstName} + ' ' + ${user.lastName}">Jacqueline Miller</h6>
+                                            <a href="#" class="text-reset text-primary-hover small" th:text="${user.userName}">hello@gmail.com</a>
                                             <hr>
                                         </div>
 
@@ -172,7 +172,7 @@ Content START -->
                                                         class="bi bi-trash fa-fw me-2"></i>Delete Profile</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link text-danger bg-danger-soft-hover" href="#"><i
+                                                <a class="nav-link text-danger bg-danger-soft-hover" th:href="@{/logout}"><i
                                                         class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
                                             </li>
                                         </ul>
