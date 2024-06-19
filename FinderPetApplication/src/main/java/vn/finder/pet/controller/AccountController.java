@@ -264,25 +264,56 @@ public class AccountController {
     }
 
     @GetMapping("/account-profile")
-    public String accessAccountProfile(Model model){
+    public String accessAccountProfile(Model model
+            , @RequestParam(value = "firstNameInValid", required = false) String firstNameInValid
+            , @RequestParam(value = "lastNameInValid", required = false) String lastNameInValid
+            , @RequestParam(value = "locationInValid", required = false) String locationInValid
+            , @RequestParam(value = "errorMessagePasswordOld", required = false) String errorMessagePasswordOld
+            , @RequestParam(value = "errorMessagePasswordNew", required = false) String errorMessagePasswordNew
+            , @RequestParam(value = "errorMessageConfirmPassword", required = false) String errorMessageConfirmPassword
+            , @RequestParam(value = "messageComplete", required = false) String messageComplete){
         Users users = this.userService.findById(getEmailLogin()).get();
         users.setPassword("");
         model.addAttribute("user", users);
+        model.addAttribute("firstNameInValid", firstNameInValid);
+        model.addAttribute("lastNameInValid", lastNameInValid);
+        model.addAttribute("locationInValid", locationInValid);
+        model.addAttribute("errorMessagePasswordOld", errorMessagePasswordOld);
+        model.addAttribute("errorMessagePasswordNew", errorMessagePasswordNew);
+        model.addAttribute("errorMessageConfirmPassword", errorMessageConfirmPassword);
+        model.addAttribute("messageComplete", messageComplete);
         return "/account-profile";
     }
 
     @GetMapping("/change-info-user")
     public String changeInfoUser(RedirectAttributes redirectAttributes, @RequestParam(value = "country") String country, @ModelAttribute(value = "user") Users user){
         user.setUserName(getEmailLogin());
-        if(!this.userService.findById(user.getUserName()).isEmpty()){
-            user.setCountry(country);
-            user.setCreatedDate(this.userService.findById(user.getUserName()).get().getCreatedDate());
-            user.setEnabled(this.userService.findById(user.getUserName()).get().getEnabled());
-            user.setPassword(this.userService.findById(user.getUserName()).get().getPassword());
-            user.setAvatar(this.userService.findById(user.getUserName()).get().getAvatar());
-            this.userService.changeInfoUser(user);
+        int i = 0;
+        if(user.getFirstName() == null){
+            redirectAttributes.addAttribute("firstNameInValid", "Không được để trống");
+            i++;
         }
-
+        if(user.getLastName() == null){
+            redirectAttributes.addAttribute("lastNameInValid", "Không được để trống");
+            i++;
+        }
+        if(country == null){
+            redirectAttributes.addAttribute("locationInValid", "Không được để trống");
+            i++;
+        }
+        if(i == 0){
+            if(!this.userService.findById(user.getUserName()).isEmpty()){
+                user.setCountry(country);
+                user.setCreatedDate(this.userService.findById(user.getUserName()).get().getCreatedDate());
+                user.setEnabled(this.userService.findById(user.getUserName()).get().getEnabled());
+                user.setPassword(this.userService.findById(user.getUserName()).get().getPassword());
+                user.setAvatar(this.userService.findById(user.getUserName()).get().getAvatar());
+                this.userService.changeInfoUser(user);
+                redirectAttributes.addAttribute("messageComplete", "Đổi thông tin thành công");
+            }
+        } else {
+            redirectAttributes.addAttribute("messageComplete", "Đổi thông tin thất bại");
+        }
         return "redirect:/account-profile";
     }
 
@@ -329,6 +360,8 @@ public class AccountController {
             if (valid == 3) {
                 redirectAttributes.addAttribute("messageComplete", "Đổi password thành công");
                 this.twoFactorAuthPasswordsService.updatePassword(getEmailLogin(), passNew.trim());
+            } else {
+                redirectAttributes.addAttribute("messageComplete", "Đổi password thất bại");
             }
         }
         return "redirect:/account-profile";

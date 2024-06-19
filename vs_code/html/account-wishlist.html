@@ -81,6 +81,8 @@
 
     <!-- Bootstrap Font Icon CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 
     <!-- Font-Awesome -->
     <link rel="stylesheet" type="text/css" href="//use.fontawesome.com/releases/v5.7.2/css/all.css">
@@ -587,8 +589,7 @@ Content START -->
                                         </select>
                                     </div>
                                     <!-- Button -->
-                                    <button class="btn btn-danger-soft mb-0"><i class="fas fa-trash me-2"></i>Remove
-                                        all</button>
+                                    <a href="#" class="btn-modal btn trigger-btn btn-danger-soft mb-0"><i class="fas fa-trash me-2"></i>Remove all</a>
                                 </form>
 
                                 <!-- Wishlist item START -->
@@ -809,6 +810,27 @@ Footer END -->
         </svg>
     </div>
 
+    <div id="myModal" class="modal d-none align-items-center justify-content-center" style="background-color: rgba(1,1,1,0.6);">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header flex-column">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                    </div>						
+                    <h4 class="modal-title w-100">Are you sure?</h4>	
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you really want to delete these records? This process cannot be undone.</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a href="#" class="btn text-light btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div> 
+
     <!-- Bootstrap JS -->
     <script src="../js/bootstrap.bundle.min.js"></script>
 
@@ -820,6 +842,20 @@ Footer END -->
     <!-- ThemeFunctions -->
     <script src="../js/functions.js"></script>
 
+    <script>
+        document.querySelector("#myModal .modal-header button").onclick = (event) => {
+            document.querySelector("#myModal").classList.remove("d-flex")
+            document.querySelector("#myModal").classList.add("d-none")
+        }
+        document.querySelector("#myModal .modal-footer .btn-secondary").onclick = (event) => {
+            document.querySelector("#myModal").classList.remove("d-flex")
+            document.querySelector("#myModal").classList.add("d-none")
+        }
+        document.querySelector(".btn-modal").onclick = (event) => {
+            document.querySelector("#myModal").classList.add("d-flex")
+            document.querySelector("#myModal").classList.remove("d-none")
+        }
+    </script>
 </body>
 
 </html>

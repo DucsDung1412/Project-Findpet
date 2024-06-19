@@ -26,28 +26,29 @@ function Validator(job) {
 
 		try {
 			try {
-				var pass = document.querySelector("input[type='password'].password").value;
+				var pass = workplace.querySelector("input[type='password'].password").value;
 			} catch (error) {
-				var pass = document.querySelector("input[type='text'].password").value;
+				var pass = workplace.querySelector("input[type='text'].password").value;
 			}
-			if(document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText === ""){
-				document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = pass.trim() === "" ? "This value should not be empty." : ``
+
+			if(getParentElement(document.querySelector(".password"), ".form-group").querySelector(".invalid-feedback").innerText === ""){
+				getParentElement(password, ".form-group").querySelector(".invalid-feedback").innerText = pass.trim() === "" ? "This value should not be empty." : ``
 			}
-			
-			if(document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText === ""){
-				document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = (pass.trim().length < 21 && pass.trim().length > 7) ? "" : `Mật khẩu phải từ 8 đến 20 ký tự.`
+
+			if(getParentElement(document.querySelector(".password"), ".form-group").querySelector(".invalid-feedback").innerText === ""){
+				getParentElement(document.querySelector(".password"), ".form-group").querySelector(".invalid-feedback").innerText = (pass.trim().length < 21 && pass.trim().length > 7) ? "" : `Mật khẩu phải từ 8 đến 20 ký tự.`
 			}
-	
-			if(document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText === ""){
-				document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = checkPasswordRequirements(pass) ? "" : `Mật khảu phải chứa ít nhất 3 trong 4 điều sau: \n1. Ký tự viết thường\n2. Ký tự viết hoa\n3. Ký tự đặc biệt\n4. Ký tự số`
+
+			if(getParentElement(document.querySelector(".password"), ".form-group").querySelector(".invalid-feedback").innerText === ""){
+				getParentElement(document.querySelector(".password"), ".form-group").querySelector(".invalid-feedback").innerText = checkPasswordRequirements(pass) ? "" : `Mật khảu phải chứa ít nhất 3 trong 4 điều sau: \n1. Ký tự viết thường\n2. Ký tự viết hoa\n3. Ký tự đặc biệt\n4. Ký tự số`
 			}
-			if(document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText !== ""){
+			if(getParentElement(document.querySelector(".password"), ".form-group").querySelector(".invalid-feedback").innerText !== ""){
 				validPassword = true;
 			}
 		} catch (error) {
-			
+
 		}
-		
+
 		var i = 0;
 		error.forEach(e => {
 			if(e){
@@ -59,9 +60,9 @@ function Validator(job) {
 			if(!validPassword){
 				workplace.submit();
 			}
-		}	
+		}
 	}
-	
+
 	function getParent(workplaceElement, parent) {
 		while(workplaceElement.parentElement){
 			if(workplaceElement.parentElement.matches(parent)) {
@@ -70,7 +71,7 @@ function Validator(job) {
 			workplaceElement = workplaceElement.parentElement;
 		}
 	}
-	
+
 	function validate(workplaceElement, rule) {
 		var errorMessage = "";
 		for(var i = 0; i < listRule[rule.select].length; i++){
@@ -78,36 +79,36 @@ function Validator(job) {
 					case "radio":
 					case "checkbox":
 						errorMessage = listRule[rule.select][i](workplace.querySelector(rule.select + ":checked") ? workplace.querySelector(rule.select + ":checked").value : undefined)
-						break; 
+						break;
 					default:
 						errorMessage = listRule[rule.select][i](workplaceElement.value)
 						break;
-					
+
 			};
 			if(errorMessage){
 				break;
 			}
 		}
-		
+
 		if(errorMessage){
 			getParent(workplaceElement, job.formGroupSelector).querySelector(".invalid-feedback").innerHTML = errorMessage;
 			getParent(workplaceElement, job.formGroupSelector).querySelector(".invalid-feedback").style.color = "red";
 		} else {
 			getParent(workplaceElement, job.formGroupSelector).querySelector(".invalid-feedback").innerHTML = "";
 		}
-		
+
 		return errorMessage;
 	}
-	
+
 	job.rules.forEach(function(rule) {
 		var workplaceElements = workplace.querySelectorAll(rule.select);
-		
+
 		if(Array.isArray(listRule[rule.select])){
 			listRule[rule.select].push(rule.test)
 		} else {
 			listRule[rule.select] = [rule.test];
 		}
-		
+
 		Array.from(workplaceElements).forEach(function(workplaceElement){
 			workplaceElement.onblur = function() {
 				validate(workplaceElement, rule);
@@ -116,11 +117,11 @@ function Validator(job) {
                     element.classList.add("d-block")
                 })
 			};
-            
+
             workplaceElement.oninput = function () {
                 var errorElement = getParent(workplaceElement, job.formGroupSelector).querySelector(".invalid-feedback");
                 errorElement.innerText = "";
-            }       
+            }
 		})
 	})
 }
@@ -165,6 +166,16 @@ Validator.isConfirm = function(select, confirm, message) {
 	}
 }
 
+Validator.isPhoneNumber = function(select, message){
+	return {
+		select: select,
+		test: function(value) {
+			var regex =  /^(0|\+84)[1-9][0-9]{8}$/;
+			return regex.test(value) ? undefined :  message || 'Số điện thoại sai định dạng';
+		}
+	}
+}
+
 
 /*
 
@@ -182,49 +193,60 @@ function checkPasswordRequirements(password) {
 	return requirementsMet >= 3;
 }
 
+function getParentElement(workplaceElement, parent) {
+	while(workplaceElement.parentElement){
+		if(workplaceElement.parentElement.matches(parent)) {
+			return workplaceElement.parentElement;
+		}
+		workplaceElement = workplaceElement.parentElement;
+	}
+}
+
 var password = document.querySelector('.password');
 if(password != null){
+
+	console.log()
 
 	document.querySelector('.password').onfocus = function (params) {
 		document.querySelector(".valid-password").classList.remove("d-none");
 	}
-	
+
 	document.querySelector('.password').onblur = function (params) {
 		document.querySelector(".valid-password").classList.add("d-none");
-	
+
 		var errorMessage = false;
 		try {
 			var pass = document.querySelector("input[type='password'].password").value;
 		} catch (error) {
 			var pass = document.querySelector("input[type='text'].password").value;
 		}
-	
+
 		if(pass.trim() === ""){
-			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = "This value should not be empty."; 
+			getParentElement(password, ".form-group").querySelector(".invalid-feedback").innerText = "This value should not be empty.";
 			errorMessage = true;
 		} else {
-			document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = ``; 
+			getParentElement(password, ".form-group").querySelector(".invalid-feedback").innerText = ``;
 			errorMessage = false;
 		}
-		document.querySelector(".password").parentElement.querySelector(".invalid-feedback").classList.add('d-block');
-	
-	
+		getParentElement(password, ".form-group").querySelector(".invalid-feedback").classList.add('d-block');
+
+
 		if(!errorMessage){
 			if(pass.trim().length > 7 && pass.trim().length < 21){
-				document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = ``;
+				getParentElement(password, ".form-group").querySelector(".invalid-feedback").innerText = ``;
 				errorMessage = false;
 			} else {
-				document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = `Mật khẩu phải từ 8 đến 20 ký tự.`;
+				getParentElement(password, ".form-group").querySelector(".invalid-feedback").innerText = `Mật khẩu phải từ 8 đến 20 ký tự.`;
 				errorMessage = true;
 			}
-		} 
-	
+		}
+
 		if(!errorMessage){
 			if(checkPasswordRequirements(pass)){
-				document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = ``;
+				getParentElement(password, ".form-group").querySelector(".invalid-feedback").innerText = ``;
 				errorMessage = false;
 			} else {
-				document.querySelector(".password").parentElement.querySelector(".invalid-feedback").innerText = `Mật khảu phải chứa ít nhất 3 trong 4 điều sau: \n1. Ký tự viết thường\n2. Ký tự viết hoa\n3. Ký tự đặc biệt\n4. Ký tự số`;
+				getParentElement(password, ".form-group").querySelector(".invalid-feedback").innerText = `Mật khảu phải chứa ít nhất 3 trong 4 điều sau: \n1. Ký tự viết thường\n2. Ký tự viết hoa\n3. Ký tự đặc biệt\n4. Ký tự số`;
 				errorMessage = true;
 			}
 		}

@@ -79,6 +79,7 @@ public class UsersService {
         return false;
     }
 
+    @Transactional
     public boolean deleteAllFavorite(String email) {
         Optional<Users> usersOptional = this.usersDAO.findById(email);
         if (usersOptional.isPresent()) {
