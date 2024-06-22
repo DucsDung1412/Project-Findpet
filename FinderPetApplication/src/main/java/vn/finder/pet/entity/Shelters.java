@@ -33,6 +33,9 @@ public class Shelters {
     @Column(name = "shelter_date", nullable = false)
     private Date shelterDate;
 
+    @Column(name = "shelter_status", nullable = false)
+    private String shelterStatus;
+
     @Column(name = "shelter_info_mission", nullable = false, columnDefinition = "LONGTEXT")
     private String shelterInfoMission;
 
@@ -58,7 +61,7 @@ public class Shelters {
     @OneToMany(mappedBy = "shelters", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Spons> listSpons;
 
-    public Shelters(Long id, String shelterAvatar, String shelterName, String shelterEmail, String shelterAddress, String shelterPhone, Date shelterDate, Users users, String shelterInfoMission, String shelterInfoPolicy, String shelterInfoOperatingTime, String shelterInfoFacebook, String shelterInfoInstagram) {
+    public Shelters(Long id, String shelterAvatar, String shelterName, String shelterEmail, String shelterAddress, String shelterPhone, Date shelterDate, String shelterStatus, Users users, String shelterInfoMission, String shelterInfoPolicy, String shelterInfoOperatingTime, String shelterInfoFacebook, String shelterInfoInstagram) {
         this.id = id;
         this.shelterAvatar = shelterAvatar;
         this.shelterName = shelterName;
@@ -72,6 +75,7 @@ public class Shelters {
         this.shelterInfoOperatingTime = shelterInfoOperatingTime;
         this.shelterInfoFacebook = shelterInfoFacebook;
         this.shelterInfoInstagram = shelterInfoInstagram;
+        this.shelterStatus = shelterStatus;
     }
 
     public Shelters() {
@@ -196,5 +200,33 @@ public class Shelters {
 
     public void setShelterInfoInstagram(String shelterInfoInstagram) {
         this.shelterInfoInstagram = shelterInfoInstagram;
+    }
+
+    public String getShelterStatus() {
+        return shelterStatus;
+    }
+
+    public void setShelterStatus(String shelterStatus) {
+        this.shelterStatus = shelterStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "Shelters{" +
+                "id=" + id +
+                ", shelterAvatar='" + shelterAvatar + '\'' +
+                ", shelterName='" + shelterName + '\'' +
+                ", shelterEmail='" + shelterEmail + '\'' +
+                ", shelterAddress='" + shelterAddress + '\'' +
+                ", shelterPhone='" + shelterPhone + '\'' +
+                ", shelterDate=" + shelterDate +
+                ", shelterStatus='" + shelterStatus + '\'' +
+                ", shelterInfoMission='" + shelterInfoMission + '\'' +
+                ", shelterInfoPolicy='" + shelterInfoPolicy + '\'' +
+                ", shelterInfoOperatingTime='" + shelterInfoOperatingTime + '\'' +
+                ", shelterInfoFacebook='" + shelterInfoFacebook + '\'' +
+                ", shelterInfoInstagram='" + shelterInfoInstagram + '\'' +
+                ", users=" + users +
+                '}';
     }
 }

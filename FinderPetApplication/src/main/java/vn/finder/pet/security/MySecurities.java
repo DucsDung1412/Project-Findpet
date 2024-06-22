@@ -54,6 +54,8 @@ public class MySecurities {
                                 .requestMatchers("/agent-dashboard").hasAnyRole("MANAGER", "ADMIN")
                                 .requestMatchers("/agent-listings").hasAnyRole("MANAGER", "ADMIN")
                                 .requestMatchers("/agent-bookings").hasAnyRole("MANAGER", "ADMIN")
+                                .requestMatchers("/admin-dashboard").hasRole("ADMIN")
+                                .requestMatchers("/admin-shelter-list").hasRole("ADMIN")
                                 .requestMatchers("/**").permitAll())
                 .formLogin(login -> {
                     login.loginPage("/sign-in").loginProcessingUrl("/authenticateTheUser").defaultSuccessUrl("/index").permitAll();

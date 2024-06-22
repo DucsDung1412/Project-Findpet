@@ -3,6 +3,9 @@ package vn.finder.pet.service;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import vn.finder.pet.dao.AuthoritiesDAO;
 import vn.finder.pet.dao.UsersDAO;
@@ -10,6 +13,7 @@ import vn.finder.pet.entity.Authorities;
 import vn.finder.pet.entity.Favorites;
 import vn.finder.pet.entity.Users;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -96,5 +100,10 @@ public class UsersService {
             return true;
         }
         return false;
+    }
+
+    public Page<Users> findAll(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return this.usersDAO.findAll(pageable);
     }
 }
