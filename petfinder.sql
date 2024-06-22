@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.4.27-MariaDB - mariadb.org binary distribution
+-- Server version:               10.4.32-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
 -- HeidiSQL Version:             12.6.0.6765
 -- --------------------------------------------------------
@@ -25,7 +25,6 @@ DROP TABLE IF EXISTS `adopt`;
 CREATE TABLE IF NOT EXISTS `adopt` (
   `adopt_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `adopt_date` date NOT NULL,
-  `adopt_fee` double NOT NULL,
   `adopt_status` varchar(255) NOT NULL,
   `animals_id` bigint(20) NOT NULL,
   `username` varchar(255) NOT NULL,
@@ -34,15 +33,16 @@ CREATE TABLE IF NOT EXISTS `adopt` (
   KEY `FKgaveljy9xmib0wm6aly8m9qu8` (`username`),
   CONSTRAINT `FK6ra331pqfosb5sle4rdqxfgc4` FOREIGN KEY (`animals_id`) REFERENCES `animals` (`animals_id`),
   CONSTRAINT `FKgaveljy9xmib0wm6aly8m9qu8` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.adopt: ~4 rows (approximately)
-REPLACE INTO `adopt` (`adopt_id`, `adopt_date`, `adopt_fee`, `adopt_status`, `animals_id`, `username`) VALUES
-	(2, '2024-05-22', 500000, 'đã nhân', 3, 'nguyenhoahung1007@gmail.com'),
-	(3, '2024-05-20', 300000, 'chưa nhận', 4, 'nguyenhoahung1007@gmail.com'),
-	(4, '2024-05-10', 500000, 'đã nhận', 6, 'nguyenhoahung1007@gmail.com'),
-	(5, '2024-05-21', 100000, 'đã nhận', 14, 'daoducdung2000@gmail.com'),
-	(6, '2024-05-18', 400000, 'đã nhân', 16, 'daoducdung2000@gmail.com');
+-- Dumping data for table petfinder.adopt: ~6 rows (approximately)
+REPLACE INTO `adopt` (`adopt_id`, `adopt_date`, `adopt_status`, `animals_id`, `username`) VALUES
+	(1, '2024-06-10', 'Awaiting', 13, 'daoducdung2000@gmail.com'),
+	(2, '2024-06-10', 'Adopted', 16, 'dungddps26188@fpt.edu.vn'),
+	(3, '2024-06-10', 'Adopted', 31, 'daoducdung2000@gmail.com'),
+	(5, '2024-06-10', 'Adopted', 3, 'dungddps26188@fpt.edu.vn'),
+	(8, '2024-06-13', 'Cancel', 36, 'daoducdung2000@gmail.com'),
+	(9, '2024-06-13', 'Awaiting', 1, 'dungddps26188@fpt.edu.vn');
 
 -- Dumping structure for table petfinder.adopter_profile
 DROP TABLE IF EXISTS `adopter_profile`;
@@ -61,13 +61,9 @@ CREATE TABLE IF NOT EXISTS `adopter_profile` (
   PRIMARY KEY (`profile_id`),
   UNIQUE KEY `UK_h5b3yw2obiwujmn9yny2mk2eo` (`username`),
   CONSTRAINT `FKd3ix6ntwho74p9244667i4k07` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.adopter_profile: ~3 rows (approximately)
-REPLACE INTO `adopter_profile` (`profile_id`, `profile_age_of_pet`, `profile_breed_of_pet`, `profile_desired`, `profile_experience`, `profile_gender_of_pet`, `profile_need`, `profile_outdoor`, `profile_pets_at_home`, `profile_size_of_pet`, `username`) VALUES
-	(0, '2', 'Mèo Anh', '2', b'1', b'0', '1', b'0', '1', 'nhỏ', 'nguyenhoahung1007@gmail.com'),
-	(2, '3', 'Mèo Mỹ', '1', b'1', b'1', '1', b'1', '1', 'nhỏ', 'daoducdung2000@gmail.com'),
-	(3, '1', 'Chó Phốc', '2', b'1', b'1', '1', b'1', '1', 'nhỏ', 'admin');
+-- Dumping data for table petfinder.adopter_profile: ~0 rows (approximately)
 
 -- Dumping structure for table petfinder.animals
 DROP TABLE IF EXISTS `animals`;
@@ -82,34 +78,44 @@ CREATE TABLE IF NOT EXISTS `animals` (
   `breed_id` bigint(20) NOT NULL,
   `shelter_id` bigint(20) NOT NULL,
   PRIMARY KEY (`animals_id`),
-  UNIQUE KEY `UK_5vkomwnfb04e0pqjrahduar15` (`breed_id`),
+  KEY `FKdwdlcloh1grxeqasi88bqdth2` (`breed_id`),
   KEY `FK7fmlpw3o4ourhtv3qy8gl6cn5` (`shelter_id`),
   CONSTRAINT `FK7fmlpw3o4ourhtv3qy8gl6cn5` FOREIGN KEY (`shelter_id`) REFERENCES `shelters` (`shelters_id`),
   CONSTRAINT `FKdwdlcloh1grxeqasi88bqdth2` FOREIGN KEY (`breed_id`) REFERENCES `breed` (`breed_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.animals: ~20 rows (approximately)
+-- Dumping data for table petfinder.animals: ~30 rows (approximately)
 REPLACE INTO `animals` (`animals_id`, `animal_age`, `animal_avatar`, `animal_date`, `animal_gender`, `animal_name`, `animal_size`, `breed_id`, `shelter_id`) VALUES
-	(3, '2', '', '2024-05-21', b'1', 'đen', 'vừa', 1, 1),
-	(4, '2', '', '2024-04-15', b'0', 'xám', 'nhỏ', 2, 1),
-	(5, '1', '', '2024-04-20', b'1', 'trắng', 'nhỏ', 3, 1),
-	(6, '3', '', '2024-05-10', b'1', 'xám', 'nhỏ', 4, 1),
-	(7, '2', '', '2024-05-05', b'0', 'xám', 'nhỏ', 5, 1),
-	(9, '4', '', '2024-05-08', b'1', 'đen', 'nhỏ', 6, 1),
-	(10, '3', '', '2024-05-18', b'0', 'nâu, trắng', 'nhỏ', 7, 1),
-	(11, '4', '', '2024-03-28', b'0', 'trắng, đen', 'nhỏ', 8, 1),
-	(12, '4', '', '2024-04-28', b'0', 'đen', 'nhỏ', 9, 1),
-	(13, '3', '', '2024-04-25', b'1', 'xám, trắng', 'nhỏ', 10, 1),
-	(14, '2', '', '2024-04-18', b'1', 'trắng', 'vừa', 11, 2),
-	(15, '3', '', '2024-03-20', b'0', 'vàng, trắng', 'nhỏ', 12, 2),
-	(16, '2', '', '2024-03-15', b'0', 'vàng', 'nhỏ', 13, 2),
-	(19, '1', '', '2024-03-19', b'0', 'đen', 'nhỏ', 14, 2),
-	(20, '5', '', '2024-04-05', b'1', 'đen', 'nhỏ', 15, 2),
-	(21, '3', '', '2024-04-22', b'1', 'trắng,đen', 'vừa', 16, 2),
-	(22, '3', '', '2024-04-08', b'1', 'trắng,đen', 'vừa', 17, 2),
-	(23, '5', '', '2024-05-03', b'0', 'vàng', 'to', 18, 2),
-	(25, '4', '', '2024-05-10', b'0', 'vàng,đen', 'to', 19, 2),
-	(26, '3', '', '2024-04-22', b'1', 'nâu', 'nhỏ', 20, 2);
+	(1, 'Kitten', 'avatar13.jpg', '2023-02-12', b'1', 'Toby', 'Small', 3, 2),
+	(2, 'Senior', 'avatar12.jpg', '2019-10-05', b'0', 'Sadie', 'Large', 2, 2),
+	(3, 'Senior', 'avatar20.jpg', '2020-04-18', b'0', 'Ruby', 'Extra Large', 10, 2),
+	(4, 'Kitten', 'avatar9.jpg', '2023-03-14', b'0', 'Rocky', 'Small', 9, 2),
+	(5, 'Adult', 'avatar15.jpg', '2021-09-18', b'1', 'Riley', 'Large', 5, 2),
+	(6, 'Senior', 'avatar16.jpg', '2020-01-20', b'0', 'Oscar', 'Extra Large', 6, 2),
+	(7, 'Young', 'avatar6.jpg', '2022-09-18', b'1', 'Molly', 'Medium', 6, 2),
+	(8, 'Puppy', 'avatar1.jpg', '2023-01-10', b'0', 'Max', 'Small', 1, 2),
+	(9, 'Young', 'avatar14.jpg', '2022-08-15', b'0', 'Maggie', 'Medium', 4, 2),
+	(10, 'Young', 'avatar10.jpg', '2022-07-22', b'1', 'Luna', 'Medium', 10, 2),
+	(11, 'Senior', 'avatar4.jpg', '2019-03-25', b'1', 'Lucy', 'Extra Large', 4, 2),
+	(12, 'Young', 'avatar2.jpg', '2022-05-15', b'1', 'Bella', 'Medium', 2, 2),
+	(13, 'Adult', 'avatar3.jpg', '2021-11-20', b'0', 'Charlie', 'Large', 3, 4),
+	(14, 'Young', 'avatar18.jpg', '2022-11-25', b'0', 'Harley', 'Medium', 8, 2),
+	(15, 'Puppy', 'avatar5.jpg', '2023-04-10', b'0', 'Cooper', 'Small', 5, 2),
+	(16, 'Adult', 'avatar19.jpg', '2021-07-14', b'1', 'Duke', 'Large', 9, 4),
+	(17, 'Adult', 'avatar7.jpg', '2021-06-05', b'0', 'Buddy', 'Large', 7, 2),
+	(18, 'Senior', 'avatar8.jpg', '2018-12-30', b'1', 'Daisy', 'Extra Large', 8, 2),
+	(19, 'Kitten', 'avatar17.jpg', '2023-03-22', b'1', 'Coco', 'Small', 7, 2),
+	(20, 'Adult', 'avatar11.jpg', '2021-08-10', b'1', 'Bailey', 'Medium', 1, 2),
+	(31, 'Adult', 'avatar12.jpg', '2021-08-10', b'1', 'Bailey', 'Medium', 1, 2),
+	(32, 'Senior', 'avatar12.jpg', '2019-10-05', b'0', 'Sadie', 'Large', 2, 2),
+	(33, 'Puppy', 'avatar13.jpg', '2023-02-12', b'1', 'Toby', 'Small', 1, 2),
+	(34, 'Young', 'avatar14.jpg', '2022-08-15', b'0', 'Maggie', 'Medium', 4, 2),
+	(35, 'Adult', 'avatar15.jpg', '2021-09-18', b'1', 'Riley', 'Large', 5, 2),
+	(36, 'Senior', 'avatar16.jpg', '2020-01-20', b'0', 'Oscar', 'Extra Large', 2, 2),
+	(37, 'Kitten', 'avatar15.jpg', '2023-03-22', b'1', 'Coco', 'Small', 7, 2),
+	(38, 'Young', 'avatar18.jpg', '2022-11-25', b'0', 'Harley', 'Medium', 8, 2),
+	(39, 'Adult', 'avatar19.jpg', '2021-07-14', b'1', 'Duke', 'Large', 10, 2),
+	(40, 'Senior', 'avatar20.jpg', '2020-04-18', b'0', 'Ruby', 'Extra Large', 1, 2);
 
 -- Dumping structure for table petfinder.animal_info
 DROP TABLE IF EXISTS `animal_info`;
@@ -125,12 +131,9 @@ CREATE TABLE IF NOT EXISTS `animal_info` (
   PRIMARY KEY (`animal_info_id`),
   UNIQUE KEY `UK_4hm1c1u7ue99do9436mbr0p0s` (`animal_id`),
   CONSTRAINT `FKtidvsoxsb0fldq9v5vj17fbug` FOREIGN KEY (`animal_id`) REFERENCES `animals` (`animals_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.animal_info: ~2 rows (approximately)
-REPLACE INTO `animal_info` (`animal_info_id`, `animal_info_characteristics`, `animal_info_color`, `animal_info_description`, `animal_info_harmony`, `animal_info_health`, `animal_info_leg`, `animal_id`) VALUES
-	(1, 'Lông ngắn', 'Trắng', '', '', '', 'Chân ngắn', 5),
-	(2, '', 'Đen', '', '', '', '', 9);
+-- Dumping data for table petfinder.animal_info: ~0 rows (approximately)
 
 -- Dumping structure for table petfinder.authorities
 DROP TABLE IF EXISTS `authorities`;
@@ -142,13 +145,27 @@ CREATE TABLE IF NOT EXISTS `authorities` (
   UNIQUE KEY `UK2uf74smucdwf9qal2n67m2343` (`username`,`authority`),
   UNIQUE KEY `UK_baahryprcge2u172egph1qwur` (`username`),
   CONSTRAINT `FKhjuy9y4fd8v5m3klig05ktofg` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.authorities: ~2 rows (approximately)
+-- Dumping data for table petfinder.authorities: ~3 rows (approximately)
 REPLACE INTO `authorities` (`id`, `authority`, `username`) VALUES
-	(1, 'admin', 'admin'),
-	(3, 'dung', 'daoducdung2000@gmail.com'),
-	(2, 'hung', 'nguyenhoahung1007@gmail.com');
+	(1, 'ROLE_ADMIN', 'admin'),
+	(3, 'ROLE_USER', 'daoducdung2000@gmail.com'),
+	(2, 'ROLE_MANAGER', 'dungddps26188@fpt.edu.vn'),
+	(4, 'ROLE_USER', 'zekoxpop@gmail.com');
+
+-- Dumping structure for table petfinder.avatar
+DROP TABLE IF EXISTS `avatar`;
+CREATE TABLE IF NOT EXISTS `avatar` (
+  `avatar_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `avatar_name` varchar(255) NOT NULL,
+  `animals_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`avatar_id`),
+  KEY `FKhbmg7ivfo7x23myc9ryt5n2bq` (`animals_id`),
+  CONSTRAINT `FKhbmg7ivfo7x23myc9ryt5n2bq` FOREIGN KEY (`animals_id`) REFERENCES `animals` (`animals_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Dumping data for table petfinder.avatar: ~0 rows (approximately)
 
 -- Dumping structure for table petfinder.breed
 DROP TABLE IF EXISTS `breed`;
@@ -157,30 +174,20 @@ CREATE TABLE IF NOT EXISTS `breed` (
   `breed_name` varchar(50) NOT NULL,
   `breed_type` varchar(50) NOT NULL,
   PRIMARY KEY (`breed_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.breed: ~17 rows (approximately)
+-- Dumping data for table petfinder.breed: ~10 rows (approximately)
 REPLACE INTO `breed` (`breed_id`, `breed_name`, `breed_type`) VALUES
-	(1, 'Chó Việt', ''),
-	(2, 'Mèo Anh', 'Lông ngắn'),
-	(3, 'Mèo Anh', 'Lông dài'),
-	(4, 'Mèo Mỹ', 'Lông ngắn'),
-	(5, 'Mèo Mỹ', 'Lông dài'),
-	(6, 'Mèo Bombay', ''),
-	(7, 'Mèo Manx', ''),
-	(8, 'Mèo Mau Ai cập', ''),
-	(9, 'Mèo Sphynx', ''),
-	(10, 'Mèo Mucnhkin', ''),
-	(11, 'Chó Samoyed', ''),
-	(12, 'Chỏ Corgi', ''),
-	(13, 'Chó Shiba', ''),
-	(14, 'Chó Phốc', ''),
-	(15, 'Chó Chihuahua', ''),
-	(16, 'Chó Alaska', ''),
-	(17, 'Chó Husky', ''),
-	(18, 'Chó Golden', ''),
-	(19, 'Chó Becgie Đức', ''),
-	(20, 'Chó Dachshund', '');
+	(1, 'Labrador Retriever', 'Dog'),
+	(2, 'Persian', 'Cat'),
+	(3, 'Siamese', 'Cat'),
+	(4, 'German Shepherd', 'Dog'),
+	(5, 'Bulldog', 'Dog'),
+	(6, 'Poodle', 'Dog'),
+	(7, 'Bengal', 'Cat'),
+	(8, 'Golden Retriever', 'Dog'),
+	(9, 'Ragdoll', 'Cat'),
+	(10, 'Maine Coon', 'Cat');
 
 -- Dumping structure for table petfinder.favorites
 DROP TABLE IF EXISTS `favorites`;
@@ -194,9 +201,11 @@ CREATE TABLE IF NOT EXISTS `favorites` (
   KEY `FKgun9e0l2253lebhqp387fxq1m` (`username`),
   CONSTRAINT `FKgun9e0l2253lebhqp387fxq1m` FOREIGN KEY (`username`) REFERENCES `users` (`username`),
   CONSTRAINT `FKshxity0xxlmf9yhehp162898y` FOREIGN KEY (`animals_id`) REFERENCES `animals` (`animals_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.favorites: ~0 rows (approximately)
+-- Dumping data for table petfinder.favorites: ~1 rows (approximately)
+REPLACE INTO `favorites` (`favorites_id`, `favorites_date`, `animals_id`, `username`) VALUES
+	(16, '2024-06-19', 8, 'dungddps26188@fpt.edu.vn');
 
 -- Dumping structure for table petfinder.shares
 DROP TABLE IF EXISTS `shares`;
@@ -223,23 +232,23 @@ CREATE TABLE IF NOT EXISTS `shelters` (
   `shelter_avatar` varchar(255) NOT NULL,
   `shelter_date` date NOT NULL,
   `shelter_email` varchar(255) NOT NULL,
+  `shelter_info_facebook` varchar(255) NOT NULL,
+  `shelter_info_instagram` varchar(255) NOT NULL,
   `shelter_info_mission` longtext NOT NULL,
   `shelter_info_operating_time` varchar(255) NOT NULL,
   `shelter_info_policy` longtext NOT NULL,
   `shelter_name` varchar(50) NOT NULL,
   `shelter_phone` varchar(15) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `shelter_info_facebook` varchar(255) NOT NULL,
-  `shelter_info_instagram` varchar(255) NOT NULL,
   PRIMARY KEY (`shelters_id`),
   UNIQUE KEY `UK_2v8ty367ef8fjw8fgkrc35h9j` (`username`),
   CONSTRAINT `FKftq7te7nf7es314smvjd05a64` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.shelters: ~1 rows (approximately)
-REPLACE INTO `shelters` (`shelters_id`, `shelter_address`, `shelter_avatar`, `shelter_date`, `shelter_email`, `shelter_info_mission`, `shelter_info_operating_time`, `shelter_info_policy`, `shelter_name`, `shelter_phone`, `username`, `shelter_info_facebook`, `shelter_info_instagram`) VALUES
-	(1, 'Quận 12, Thành Phố Hồ Chí Minh', 'shelter_a1', '2022-04-22', 'hoahung@gmail.com', 'Trao những động vật vô chủ ', 'Hoạt động từ 8 giờ sáng tới 6 giờ chiều', 'Nếu bạn không thương chúng, hãy trao về chúng tôi', 'Trại cứu hộ động vật Hoà Hưng', '0358718634', 'nguyenhoahung1007@gmail.com', '', ''),
-	(2, 'Quận Thủ Đức, Thành Phố Hồ Chí Minh', 'shelter_a2', '2022-05-10', 'ducdung@gmail.com', 'Gửi những động vật không có chỗ ở về với người chủ thương nó', 'Hoạt động từ 9 giờ sáng tới 6 giờ chiều', 'Nếu bạn không thương chúng, hãy trao về chúng tôi', 'Trại cứu hộ động vật Đức Dũng', '0238374434', 'daoducdung2000@gmail.com', '', '');
+-- Dumping data for table petfinder.shelters: ~2 rows (approximately)
+REPLACE INTO `shelters` (`shelters_id`, `shelter_address`, `shelter_avatar`, `shelter_date`, `shelter_email`, `shelter_info_facebook`, `shelter_info_instagram`, `shelter_info_mission`, `shelter_info_operating_time`, `shelter_info_policy`, `shelter_name`, `shelter_phone`, `username`) VALUES
+	(2, '66/11 Tam Châu, Tam Phú, Thủ Đức, TP.Hồ Chí Minh', 'shelter1.png', '2024-06-08', 'zekoxpop@gmail.com', '...', '...', '...', '...', '...', 'Humane Society of Dover - Stewart County', '0609876999', 'dungddps26188@fpt.edu.vn'),
+	(4, 'asd', 'z', '2024-06-11', 'zc', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'admin');
 
 -- Dumping structure for table petfinder.spons
 DROP TABLE IF EXISTS `spons`;
@@ -275,11 +284,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.users: ~2 rows (approximately)
+-- Dumping data for table petfinder.users: ~3 rows (approximately)
 REPLACE INTO `users` (`username`, `info_address`, `info_avatar`, `info_country`, `info_date`, `enabled`, `info_firstname`, `info_lastname`, `password`, `info_phone`) VALUES
-	('admin', NULL, NULL, 'Việt Nam', '2000-02-20', b'0', 'admin', 'admin', 'admin', '0334947434'),
-	('daoducdung2000@gmail.com', 'Quận Thủ Đức, Thành Phố Hồ Chí Minh', '', 'Việt Nam', '2000-12-09', b'0', 'Dũng', 'Đào', '123789', '0238374434'),
-	('nguyenhoahung1007@gmail.com', 'Quận 12, Thành phố Hồ Chí Minh', NULL, 'Việt Nam', '2002-07-10', b'0', 'Hưng', 'Nguyễn', '123456', '0358718643');
+	('admin', 'zxc', 'https://booking.webestica.com/assets/images/avatar/01.jpg', 'Hồ Chí Minh', '2000-12-14', b'1', 'Admin', 'VipPro', '{noop}admin', '123'),
+	('daoducdung2000@gmail.com', 'Không biết', 'https://booking.webestica.com/assets/images/avatar/01.jpg', 'Hồ Chí Minh', '2024-06-08', b'1', 'Đức', 'Dũng', '{noop}DungVipPro1412', '1111111'),
+	('dungddps26188@fpt.edu.vn', NULL, 'https://booking.webestica.com/assets/images/avatar/01.jpg', 'Hồ Chí Minh', '2024-06-08', b'1', 'Đức', 'Dũng', '{noop}1', NULL),
+	('zekoxpop@gmail.com', '74/11', NULL, 'Nam Định', '2024-06-19', b'1', 'Ronaldo', 'Messi', '{bcrypt}$2a$10$ChyYPe73irCFTDNls9vF5ueZyu22wCLlGB8edbrjfpXice60feGiG', '0906786902');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
