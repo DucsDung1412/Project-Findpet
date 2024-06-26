@@ -2,6 +2,9 @@ package vn.finder.pet.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import vn.finder.pet.dao.FavoritesDAO;
 import vn.finder.pet.entity.Animals;
@@ -36,7 +39,6 @@ public class FavoritesService {
     @Transactional
     public boolean removeAll(Users users) {
         for(int i = 0; i < users.getListFavorites().size(); i++){
-            System.out.println(users.getListFavorites().get(i).getId());
             this.favoritesDAO.delete(this.favoritesDAO.findById(users.getListFavorites().get(i).getId()).get());
         }
 
@@ -49,4 +51,14 @@ public class FavoritesService {
         Favorites favorites = new Favorites(null, Date.valueOf(LocalDate.now()), users ,animals);
         return this.favoritesDAO.save(favorites);
     }
+
+    public Page<Animals> findAll(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return this.animalsService.filterFavorite(page, size);
+    }
+
+    public Integer findByMonthAndShelter(int date, String userName){
+        return this.favoritesDAO.findByMonthAndShelter(date, userName);
+    }
+
 }

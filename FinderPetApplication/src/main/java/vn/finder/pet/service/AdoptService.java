@@ -60,4 +60,8 @@ public class AdoptService {
         }
         return false;
     }
+
+    public Integer findByMonthAndShelter(int date, String userName){
+        return this.adoptDAO.findByMonthAndShelter(date, userName);
+    }
 }

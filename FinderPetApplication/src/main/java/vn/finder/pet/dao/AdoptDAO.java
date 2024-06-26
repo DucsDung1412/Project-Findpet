@@ -10,5 +10,10 @@ import vn.finder.pet.entity.Adopt;
 
 @RepositoryRestResource(path = "adopt")
 public interface AdoptDAO extends JpaRepository<Adopt, Long> {
-
+    @Query("SELECT COUNT(ad.id) "
+            + "FROM Animals a "
+            + "INNER JOIN a.listAdopt ad "
+            + "INNER JOIN a.shelters s "
+            + "WHERE MONTH(ad.adoptDate) = :date AND s.users.userName LIKE %:userName%")
+    Integer findByMonthAndShelter(@Param("date") int date, @Param("userName") String userName);
 }

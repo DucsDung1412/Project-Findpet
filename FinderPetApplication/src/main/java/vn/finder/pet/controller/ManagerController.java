@@ -62,6 +62,22 @@ public class ManagerController {
         model.addAttribute("listAwaiting", this.animalsService.findByStatus(this.getEmailLogin(), "Awaiting",  pg == 0 ? 0 : pg - 1, 6));
         model.addAttribute("page", pg == 0 ? 1 : pg);
         model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
+
+        ArrayList<Integer> listInteraction = new ArrayList<>();
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(1, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(1, this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(2, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(2, this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(3, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(3, this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(4, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(4, this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(5, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(5, this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(6, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(6, this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(7, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(7, this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(8, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(8, this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(9, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(9, this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(10, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(10, this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(11, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(11, this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(12, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(12, this.getEmailLogin()));
+
+        model.addAttribute("listInteraction", listInteraction);
         return "/agent-dashboard";
     }
 

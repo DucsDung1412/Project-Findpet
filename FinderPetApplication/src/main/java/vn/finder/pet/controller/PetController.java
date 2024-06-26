@@ -63,7 +63,7 @@ public class PetController {
                             , @RequestParam(value = "gender", required = false) Boolean gender
                             , @RequestParam(value = "location", required = false) String location) {
         session.removeAttribute("emailUs");
-        Page<Animals> listAnimal = this.animalsService.searchAnimals(Arrays.asList(breed_type), breed == null ? "" : breed, location == null ? "" : location, age == null ? Arrays.asList("Puppy", "Young", "Adult", "Senior") : Arrays.asList(age), gender == null ? Arrays.asList(true, false) : Arrays.asList(gender), size == null ? "" : size, "", 0, 12);
+        Page<Animals> listAnimal = this.animalsService.searchAnimals(Arrays.asList(breed_type), breed == null ? "" : breed, location == null ? "" : location, breed_type.equals("Cat") ? (age == null ? Arrays.asList("Kitten", "Young", "Adult", "Senior") : Arrays.asList(age)) : (age == null ? Arrays.asList("Puppy", "Young", "Adult", "Senior") : Arrays.asList(age)), gender == null ? Arrays.asList(true, false) : Arrays.asList(gender), size == null ? "" : size, "", 0, 12);
         model.addAttribute("listAnimal", listAnimal);
         model.addAttribute("breed_type", breed_type);
         if(breed_type.equals("Cat")){
@@ -84,16 +84,20 @@ public class PetController {
     }
 
     @GetMapping("/pet-detail")
-    public String getPetDetail(@RequestParam String id, Model model){
+    public String getPetDetail(@RequestParam Long id, Model model){
         System.out.println(id);
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
+        Animals animals = this.animalsService.findById(id);
+        System.out.println(animals.getBreed().getBreed_type());
+        System.out.println(animals.getBreed().getBreed_name());
+        model.addAttribute("listSameAnimal", this.animalsService.findByBreedOrderByCustom(animals.getBreed().getBreed_name(), animals.getBreed().getBreed_type(), 0, 4).stream().toList());
         return "/pet-detail";
     }
 
     @RequestMapping("/filter-pet")
     public String processSelection(@RequestBody Map<String ,String> value) {
         String keyword=value.get("filterPet");
-        // lựa chọn trong pet-gird để thực hiển tải thông tin cần filter
+//         lựa chọn trong pet-gird để thực hiển tải thông tin cần filter
         switch (keyword) {
             case "All":
                 // hiển thị tất cả các con pet

@@ -52,4 +52,17 @@ public interface AnimalsDAO extends JpaRepository<Animals, Long> {
 
     @Query("SELECT a FROM Animals a WHERE a.shelters.id = :id")
     Page<Animals> findAllPet(Pageable pageable, @Param("id") Long id);
+
+    @Query(value = "SELECT a FROM Animals a ORDER BY function('RAND')")
+    Page<Animals> findRandom(Pageable pageable);
+
+    @Query("SELECT a FROM Animals a INNER JOIN a.shelters s " +
+            "ORDER BY CASE WHEN s.shelterAddress LIKE %:shelterAddress% THEN 1 ELSE 2 END, " +
+            "s.shelterAddress")
+    Page<Animals> findByShelterAddressOrderByCustom(@Param("shelterAddress") String shelterAddress, Pageable pageable);
+
+    @Query("SELECT a FROM Animals a INNER JOIN a.breed b WHERE b.breed_type LIKE %:breedType% " +
+            "ORDER BY CASE WHEN b.breed_name LIKE %:breedName% THEN 1 ELSE 2 END, " +
+            "b.breed_type")
+    Page<Animals> findByBreedOrderByCustom(@Param("breedName") String breedName, @Param("breedType") String breedType, Pageable pageable);
 }

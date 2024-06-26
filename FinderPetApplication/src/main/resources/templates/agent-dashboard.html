@@ -435,12 +435,12 @@ Footer END -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
-    var test = [[${availablePets}]];
+    var test = [[${listInteraction}]];
     console.log(test);
     var options = {
       series: [{
         name: 'Số lượng',
-        data: [test, 15, 35, 45, 55, 65, 75, 85, 15, 5, 15, 25]
+        data: test
       }],
       chart: {
         type: 'line' // Chart type

@@ -93,4 +93,19 @@ public class AnimalsService {
         Users users = this.usersService.findById(email).get();
         return this.animalsDAO.findAllPet(pageable, users.getShelters().getId());
     }
+
+    public Page<Animals> findRandom(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return this.animalsDAO.findRandom(pageable);
+    }
+
+    public Page<Animals> findByShelterAddressOrderByCustom(int page, int size, String shelterAddress){
+        Pageable pageable = PageRequest.of(page, size);
+        return this.animalsDAO.findByShelterAddressOrderByCustom(shelterAddress, pageable);
+    }
+
+    public Page<Animals> findByBreedOrderByCustom(String breedName, String breedType, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return this.animalsDAO.findByBreedOrderByCustom(breedName, breedType, pageable);
+    }
 }

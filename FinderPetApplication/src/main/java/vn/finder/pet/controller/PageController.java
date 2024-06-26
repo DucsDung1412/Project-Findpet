@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import vn.finder.pet.entity.Users;
+import vn.finder.pet.service.AnimalsService;
+import vn.finder.pet.service.FavoritesService;
 import vn.finder.pet.service.UsersService;
 
 import java.util.Optional;
@@ -17,10 +19,14 @@ import java.util.Optional;
 @Controller
 public class PageController {
     private UsersService usersService;
+    private FavoritesService favoritesService;
+    private AnimalsService animalsService;
 
     @Autowired
-    public PageController(UsersService userService) {
+    public PageController(UsersService userService, FavoritesService favoritesService, AnimalsService animalsService) {
         this.usersService = userService;
+        this.favoritesService = favoritesService;
+        this.animalsService = animalsService;
     }
 
     public String getEmailLogin(){
@@ -43,6 +49,13 @@ public class PageController {
     public String index(HttpSession session, Model model){
         session.removeAttribute("emailUs");
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("listFavorite", this.favoritesService.findAll(0,4).stream().toList());
+        if(this.getEmailLogin() == null){
+            model.addAttribute("listExplore", this.animalsService.findRandom(0, 12).stream().toList());
+        } else {
+            Users users = this.usersService.findById(this.getEmailLogin()).get();
+            model.addAttribute("listExplore", this.animalsService.findByShelterAddressOrderByCustom(0, 12, users.getCountry()).stream().toList());
+        }
         return "/index";
     }
 
