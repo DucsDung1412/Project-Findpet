@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import vn.finder.pet.entity.AnimalInfoRequest;
 import vn.finder.pet.entity.Users;
+import vn.finder.pet.service.AdoptService;
 import vn.finder.pet.service.AnimalsService;
 import vn.finder.pet.service.FavoritesService;
 import vn.finder.pet.service.UsersService;
@@ -20,12 +21,14 @@ public class MyRestController {
     private AnimalsService animalsService;
     private UsersService usersService;
     private FavoritesService favoritesService;
+    private AdoptService adoptService;
 
     @Autowired
-    public MyRestController(AnimalsService animalsService, UsersService usersService, FavoritesService favoritesService) {
+    public MyRestController(AnimalsService animalsService, UsersService usersService, FavoritesService favoritesService, AdoptService adoptService) {
         this.animalsService = animalsService;
         this.usersService = usersService;
         this.favoritesService = favoritesService;
+        this.adoptService = adoptService;
     }
 
     public String getEmailLogin(){
@@ -73,7 +76,12 @@ public class MyRestController {
             });
         }
 
-        this.animalsService.searchAnimals(animalInfoRequest.getBreedType(), animalInfoRequest.getBreed(), animalInfoRequest.getLocation(), animalInfoRequest.getAge(), animalInfoRequest.getGender(), animalInfoRequest.getSize(), animalInfoRequest.getName(), animalInfoRequest.getPageNumber(), animalInfoRequest.getSizePage()).stream().toList().forEach(e -> {
+        List<Long> listAdoptId = new ArrayList<>();
+        this.adoptService.findAllNotContains("Cancel").forEach(e -> {
+            listAdoptId.add(e.getAnimals().getId());
+        });
+
+        this.animalsService.searchAnimals(animalInfoRequest.getBreedType(), animalInfoRequest.getBreed(), animalInfoRequest.getLocation(), animalInfoRequest.getAge(), animalInfoRequest.getGender(), animalInfoRequest.getSize(), animalInfoRequest.getName(), listAdoptId, animalInfoRequest.getPageNumber(), animalInfoRequest.getSizePage()).stream().toList().forEach(e -> {
             Map<String, Object> map = new HashMap<>();
             map.put("id", e.getId());
             map.put("avatar", e.getAnimalAvatar());

@@ -13,6 +13,7 @@ import vn.finder.pet.entity.Users;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class AdoptService {
@@ -61,7 +62,11 @@ public class AdoptService {
         return false;
     }
 
-    public Integer findByMonthAndShelter(int date, String userName){
-        return this.adoptDAO.findByMonthAndShelter(date, userName);
+    public Integer findByMonthAndShelter(int date, int year, String userName){
+        return this.adoptDAO.findByMonthAndShelter(date, year, userName);
+    }
+
+    public List<Adopt> findAllNotContains(String status){
+        return this.adoptDAO.findAllNotContains(status);
     }
 }

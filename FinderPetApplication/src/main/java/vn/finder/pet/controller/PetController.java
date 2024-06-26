@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.finder.pet.entity.Animals;
 import vn.finder.pet.entity.Users;
+import vn.finder.pet.service.AdoptService;
 import vn.finder.pet.service.AnimalsService;
 import vn.finder.pet.service.UsersService;
 
@@ -25,11 +26,13 @@ import java.util.stream.Collectors;
 public class PetController {
     private AnimalsService animalsService;
     private UsersService usersService;
+    private AdoptService adoptService;
 
     @Autowired
-    public PetController(AnimalsService animalsService, UsersService usersService) {
+    public PetController(AnimalsService animalsService, UsersService usersService, AdoptService adoptService) {
         this.animalsService = animalsService;
         this.usersService = usersService;
+        this.adoptService = adoptService;
     }
 
     public String getEmailLogin(){
@@ -63,7 +66,13 @@ public class PetController {
                             , @RequestParam(value = "gender", required = false) Boolean gender
                             , @RequestParam(value = "location", required = false) String location) {
         session.removeAttribute("emailUs");
-        Page<Animals> listAnimal = this.animalsService.searchAnimals(Arrays.asList(breed_type), breed == null ? "" : breed, location == null ? "" : location, breed_type.equals("Cat") ? (age == null ? Arrays.asList("Kitten", "Young", "Adult", "Senior") : Arrays.asList(age)) : (age == null ? Arrays.asList("Puppy", "Young", "Adult", "Senior") : Arrays.asList(age)), gender == null ? Arrays.asList(true, false) : Arrays.asList(gender), size == null ? "" : size, "", 0, 12);
+
+        List<Long> listAdoptId = new ArrayList<>();
+        this.adoptService.findAllNotContains("Cancel").forEach(e -> {
+            listAdoptId.add(e.getAnimals().getId());
+        });
+
+        Page<Animals> listAnimal = this.animalsService.searchAnimals(Arrays.asList(breed_type), breed == null ? "" : breed, location == null ? "" : location, breed_type.equals("Cat") ? (age == null ? Arrays.asList("Kitten", "Young", "Adult", "Senior") : Arrays.asList(age)) : (age == null ? Arrays.asList("Puppy", "Young", "Adult", "Senior") : Arrays.asList(age)), gender == null ? Arrays.asList(true, false) : Arrays.asList(gender), size == null ? "" : size, "", listAdoptId, 0, 12);
         model.addAttribute("listAnimal", listAnimal);
         model.addAttribute("breed_type", breed_type);
         if(breed_type.equals("Cat")){

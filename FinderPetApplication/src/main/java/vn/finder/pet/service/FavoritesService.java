@@ -57,8 +57,8 @@ public class FavoritesService {
         return this.animalsService.filterFavorite(page, size);
     }
 
-    public Integer findByMonthAndShelter(int date, String userName){
-        return this.favoritesDAO.findByMonthAndShelter(date, userName);
+    public Integer findByMonthAndShelter(int date, int year, String userName){
+        return this.favoritesDAO.findByMonthAndShelter(date, year, userName);
     }
 
 }

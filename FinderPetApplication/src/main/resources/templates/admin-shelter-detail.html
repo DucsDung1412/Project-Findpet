@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
 	<title>Booking - Multipurpose Online Booking Theme</title>
 
@@ -350,7 +350,7 @@
 				<div class="col-12 mb-4 mb-sm-5">
 					<div class="d-sm-flex justify-content-between align-items-center">
 						<h1 class="h3 mb-2 mb-sm-0">Premium Room With Balcony</h1>
-						<a href="#" class="btn btn-primary-soft text-nowrap mb-0"><i class="bi bi-pencil-square fa-fw"></i> Delete Shelter</a>						
+						<a href="#" class="btn btn-danger-soft text-nowrap mb-0"><i class="bi bi-pencil-square fa-fw"></i> Delete Shelter</a>
 					</div>
 				</div>
 			</div>
@@ -377,8 +377,8 @@
 
 				<!-- Content -->
 				<div class="col-xxl-6">
-					<h4><span class="fw-light">Shelter: </span>Courtyard by Marriott New York</h4>
-					<p class="fw-bold"><i class="bi bi-geo-alt me-2"></i>5855 W Century Blvd, Los Angeles - 90045 </p>
+					<h4><span class="fw-light">Shelter: </span><span th:text="${shelter.shelterName}">Courtyard by Marriott New York</span></h4>
+					<p class="fw-bold"><i class="bi bi-geo-alt me-2"></i><span th:text="${shelter.shelterAddress}">5855 W Century Blvd, Los Angeles - 90045</span></p>
 
 					<p class="mb-4">Tolerably behavior may admit daughters offending her ask own. Praise effect wishes to change way and any wanted. Lively use looked latter regard had. Does he part last</p>
 
@@ -389,7 +389,7 @@
 								<div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-2"><i class="fa-solid fa-bed"></i></div>
 								<div class="ms-2">
 									<small>Phone</small>
-									<h6 class="mb-0 mt-1">0906786999</h6>
+									<h6 class="mb-0 mt-1" th:text="${shelter.shelterPhone}">0906786999</h6>
 								</div>
 							</div>
 						</div>
@@ -399,7 +399,7 @@
 								<div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-2"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
 								<div class="ms-2">
 									<small>Email</small>
-									<h6 class="mb-0 mt-1">0906786999</h6>
+									<h6 class="mb-0 mt-1" th:text="${shelter.shelterEmail}">0906786999</h6>
 								</div>
 							</div>
 						</div>
@@ -407,9 +407,9 @@
 						<div class="col-sm-6 col-md-6">
 							<div class="d-flex align-items-center">
 								<div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-2"><i class="fa-solid fa-stairs"></i></div>
-								<div class="ms-2">
+								<div class="ms-2 d-flex flex-column">
 									<small>Facebook</small>
-									<h6 class="mb-0 mt-1">3rd Floor (T5)</h6>
+									<a th:href="@{${shelter.shelterInfoFacebook}}" class="h6 mb-0 mt-1">Click Me!</a>
 								</div>
 							</div>
 						</div>
@@ -417,9 +417,9 @@
 						<div class="col-sm-6 col-md-6">
 							<div class="d-flex align-items-center">
 								<div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-2"><i class="fa-solid fa-mountain-sun"></i></div>
-								<div class="ms-2">
+								<div class="ms-2 d-flex flex-column">
 									<small>Instagram</small>
-									<h6 class="mb-0 mt-1">Sea View</h6>
+									<a th:href="@{${shelter.shelterInfoInstagram}}" class="h6 mb-0 mt-1">Click Me!</a>
 								</div>
 							</div>
 						</div>
@@ -435,21 +435,21 @@
 								<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="avatar">
 							</div>
 							<!-- Info -->
-							<h6 class="mb-0 ms-2">Lori Stevens</h6>
+							<h6 class="mb-0 ms-2" th:text="${shelter.users.firstName} + ' ' + ${shelter.users.lastName}">Lori Stevens</h6>
 						</div>
 						<!-- Info -->
 						<div class="hstack gap-4 gap-md-5 flex-wrap mt-2">
 							<div>
 								<small>Date:</small>
-								<h6 class="fw-normal mb-0" style="font-size: 15px;">18 Dec 2022</h6>
+								<h6 class="fw-normal mb-0" style="font-size: 15px;" th:text="${shelter.shelterDate}">18 Dec 2022</h6>
 							</div>
 							<div>
 								<small>Email:</small>
-								<h6 class="fw-normal mb-0" style="font-size: 15px;">daoducdung2000@gmail.com</h6>
+								<h6 class="fw-normal mb-0" style="font-size: 15px;" th:text="${shelter.users.userName}">daoducdung2000@gmail.com</h6>
 							</div>
 							<div>
 								<small>Location:</small>
-								<h6 class="fw-normal mb-0" style="font-size: 15px;">Hồ Chí Minh</h6>
+								<h6 class="fw-normal mb-0" style="font-size: 15px;" th:text="${shelter.users.country}">Hồ Chí Minh</h6>
 							</div>
 						</div>
 					</div>
@@ -474,45 +474,21 @@
 							<!-- Name -->
 							<div class="mb-3">
 								<label class="form-label">Mission</label>
-								<textarea class="form-control" rows="3" spellcheck="false">2119 N Division Ave, New Hampshire, York, United States</textarea>
+								<textarea class="form-control" rows="3" spellcheck="false" th:text="${shelter.shelterInfoMission}">2119 N Division Ave, New Hampshire, York, United States</textarea>
 							</div>
 
 							<!-- Name -->
 							<div class="mb-3">
 								<label class="form-label">Policy</label>
-								<textarea class="form-control" rows="3" spellcheck="false">2119 N Division Ave, New Hampshire, York, United States</textarea>
+								<textarea class="form-control" rows="3" spellcheck="false" th:text="${shelter.shelterInfoPolicy}">2119 N Division Ave, New Hampshire, York, United States</textarea>
 							</div>
 
-							<!-- Birth day -->
+							<!-- Operating -->
 							<div>
 								<label class="form-label">Operating</label>
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" value="Monday" placeholder="Day">
-									<input type="text" class="form-control" value="10:00 - 21:00" placeholder="Time">
-								</div>
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" value="Monday" placeholder="Day">
-									<input type="text" class="form-control" value="10:00 - 21:00" placeholder="Time">
-								</div>
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" value="Monday" placeholder="Day">
-									<input type="text" class="form-control" value="10:00 - 21:00" placeholder="Time">
-								</div>
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" value="Monday" placeholder="Day">
-									<input type="text" class="form-control" value="10:00 - 21:00" placeholder="Time">
-								</div>
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" value="Monday" placeholder="Day">
-									<input type="text" class="form-control" value="10:00 - 21:00" placeholder="Time">
-								</div>
-								<div class="input-group mb-3">
-									<input type="text" class="form-control" value="Monday" placeholder="Day">
-									<input type="text" class="form-control" value="10:00 - 21:00" placeholder="Time">
-								</div>
-								<div class="input-group mb-2">
-									<input type="text" class="form-control" value="Monday" placeholder="Day">
-									<input type="text" class="form-control" value="10:00 - 21:00" placeholder="Time">
+								<div class="input-group mb-3" th:each="open : ${listOpen}">
+									<input type="text" class="form-control" th:value="${open[0]}" placeholder="Day">
+									<input type="text" class="form-control" th:value="${open[1]}" placeholder="Time">
 								</div>
 							</div>
 						</form>
@@ -545,7 +521,7 @@
 						</div>
 					</div>
 					<!-- Table data -->
-					<div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4">
+					<div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4" th:each="animal : ${listAnimal}">
 						<!-- Data item -->
 						<div class="col">
 							<small class="d-block d-lg-none">Booked by:</small>
@@ -556,7 +532,7 @@
 								</div>
 								<!-- Info -->
 								<div class="ms-2">
-									<h6 class="mb-0 fw-light">Lori Stevens</h6>
+									<h6 class="mb-0 fw-light" th:text="${animal.animalName}">Lori Stevens</h6>
 								</div>
 							</div>
 						</div>	
@@ -564,343 +540,37 @@
 						<!-- Data item -->
 						<div class="col">
 							<small class="d-block d-lg-none">Check-in:</small>
-							<h6 class="mb-0 fw-normal">18 Dec 2022</h6>
+							<h6 class="mb-0 fw-normal" th:text="${animal.animalDate}">18 Dec 2022</h6>
 						</div>
 
 						<!-- Data item -->
 						<div class="col">
 							<small class="d-block d-lg-none">Check-out:</small>
-							<h6 class="mb-0 fw-normal">22 Dec 2022</h6>
+							<h6 class="mb-0 fw-normal" th:text="${animal.breed.breed_name}">22 Dec 2022</h6>
 						</div>
 
 						<!-- Data item -->
 						<div class="col">
 							<small class="d-block d-lg-none">Guests:</small>
-							<h6 class="mb-0 fw-normal">04</h6>
+							<h6 class="mb-0 fw-normal" th:text="${animal.animalAge}">04</h6>
 						</div>
 
 						<!-- Data item -->
 						<div class="col">
 							<small class="d-block d-lg-none">Amount:</small>
-							<h6 class="text-success mb-0">$1025</h6>
+							<h6 class="mb-0 fw-normal" th:text="${animal.animalGender ? 'Female' : 'Male'}">$1025</h6>
 						</div>
 
 						<!-- Data item -->
 						<div class="col">
 							<small class="d-block d-lg-none">Payment:</small>
-							<div class="badge bg-success bg-opacity-10 text-success">Full payment</div>
+							<h6 class="mb-0 fw-normal" th:text="${animal.animalSize}">Full payment</h6>
 						</div>
 
 						<!-- Data item -->
 						<div class="col">
-							<a href="#" class="btn btn-sm btn-light mb-0">View</a>
+							<a th:href="@{/view-animal(id=${animal.id})}" class="btn btn-sm btn-light mb-0">View</a>
 						</div>
-					</div>
-
-					<!-- Table data -->
-					<div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4">
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Booked by:</small>
-							<div class="d-flex align-items-center">
-								<!-- Avatar -->
-								<div class="avatar avatar-xs flex-shrink-0">
-									<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/02.jpg" alt="avatar">
-								</div>
-								<!-- Info -->
-								<div class="ms-2">
-									<h6 class="mb-0 fw-light">Billy Vasquez</h6>
-								</div>
-							</div>
-						</div>	
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-in:</small>
-							<h6 class="mb-0 fw-normal">23 Dec 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-out:</small>
-							<h6 class="mb-0 fw-normal">26 Dec 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Guests:</small>
-							<h6 class="mb-0 fw-normal">03</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Amount:</small>
-							<h6 class="text-success mb-0">$847</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Payment:</small>
-							<div class="badge bg-info bg-opacity-10 text-info">Half payment</div>
-						</div>
-
-						<!-- Data item -->
-						<div class="col"><a href="#" class="btn btn-sm btn-light mb-0">View</a></div>
-					</div>
-
-					<!-- Table data -->
-					<div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4">
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Booked by:</small>
-							<div class="d-flex align-items-center">
-								<!-- Avatar -->
-								<div class="avatar avatar-xs flex-shrink-0">
-									<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/01.jpg" alt="avatar">
-								</div>
-								<!-- Info -->
-								<div class="ms-2">
-									<h6 class="mb-0 fw-light">Carolyn Ortiz</h6>
-								</div>
-							</div>
-						</div>	
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-in:</small>
-							<h6 class="mb-0 fw-normal">2 Jan 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-out:</small>
-							<h6 class="mb-0 fw-normal">5 Jan 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Guests:</small>
-							<h6 class="mb-0 fw-normal">02</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Amount:</small>
-							<h6 class="text-success mb-0">$900</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Payment:</small>
-							<div class="badge bg-orange bg-opacity-10 text-orange">On Property</div>
-						</div>
-
-						<!-- Data item -->
-						<div class="col"><a href="#" class="btn btn-sm btn-light mb-0">View</a></div>
-					</div>
-
-					<!-- Table data -->
-					<div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4">
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Booked by:</small>
-							<div class="d-flex align-items-center">
-								<!-- Avatar -->
-								<div class="avatar avatar-xs flex-shrink-0">
-									<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/03.jpg" alt="avatar">
-								</div>
-								<!-- Info -->
-								<div class="ms-2">
-									<h6 class="mb-0 fw-light">Louis Ferguson</h6>
-								</div>
-							</div>
-						</div>	
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-in:</small>
-							<h6 class="mb-0 fw-normal">6 Jan 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-out:</small>
-							<h6 class="mb-0 fw-normal">10 Jan 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Guests:</small>
-							<h6 class="mb-0 fw-normal">05</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Amount:</small>
-							<h6 class="text-success mb-0">$1458</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Payment:</small>
-							<div class="badge bg-success bg-opacity-10 text-success">Full payment</div>
-						</div>
-
-						<!-- Data item -->
-						<div class="col"><a href="#" class="btn btn-sm btn-light mb-0">View</a></div>
-					</div>
-
-					<!-- Table data -->
-					<div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4">
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Booked by:</small>
-							<div class="d-flex align-items-center">
-								<!-- Avatar -->
-								<div class="avatar avatar-xs flex-shrink-0">
-									<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/04.jpg" alt="avatar">
-								</div>
-								<!-- Info -->
-								<div class="ms-2">
-									<h6 class="mb-0 fw-light">Dennis Barrett</h6>
-								</div>
-							</div>
-						</div>	
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-in:</small>
-							<h6 class="mb-0 fw-normal">11 Jan 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-out:</small>
-							<h6 class="mb-0 fw-normal">14 Jan 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Guests:</small>
-							<h6 class="mb-0 fw-normal">02</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Amount:</small>
-							<h6 class="text-success mb-0">$879</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Payment:</small>
-							<div class="badge bg-info bg-opacity-10 text-info">Half payment</div>
-						</div>
-
-						<!-- Data item -->
-						<div class="col"><a href="#" class="btn btn-sm btn-light mb-0">View</a></div>
-					</div>
-
-					<!-- Table data -->
-					<div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4">
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Booked by:</small>
-							<div class="d-flex align-items-center">
-								<!-- Avatar -->
-								<div class="avatar avatar-xs flex-shrink-0">
-									<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/05.jpg" alt="avatar">
-								</div>
-								<!-- Info -->
-								<div class="ms-2">
-									<h6 class="mb-0 fw-light">Frances Guerrero</h6>
-								</div>
-							</div>
-						</div>	
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-in:</small>
-							<h6 class="mb-0 fw-normal">15 Jan 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-out:</small>
-							<h6 class="mb-0 fw-normal">19 Jan 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Guests:</small>
-							<h6 class="mb-0 fw-normal">04</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Amount:</small>
-							<h6 class="text-success mb-0">$1254</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Payment:</small>
-							<div class="badge bg-success bg-opacity-10 text-success">Full payment</div>
-						</div>
-
-						<!-- Data item -->
-						<div class="col"><a href="#" class="btn btn-sm btn-light mb-0">View</a></div>
-					</div>
-
-					<!-- Table data -->
-					<div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4">
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Booked by:</small>
-							<div class="d-flex align-items-center">
-								<!-- Avatar -->
-								<div class="avatar avatar-xs flex-shrink-0">
-									<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/06.jpg" alt="avatar">
-								</div>
-								<!-- Info -->
-								<div class="ms-2">
-									<h6 class="mb-0 fw-light">Carolyn Ortiz</h6>
-								</div>
-							</div>
-						</div>	
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-in:</small>
-							<h6 class="mb-0 fw-normal">20 Jan 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-out:</small>
-							<h6 class="mb-0 fw-normal">25 Jan 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Guests:</small>
-							<h6 class="mb-0 fw-normal">03</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Amount:</small>
-							<h6 class="text-success mb-0">$1080</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Payment:</small>
-							<div class="badge bg-success bg-opacity-10 text-success">Full payment</div>
-						</div>
-
-						<!-- Data item -->
-						<div class="col"><a href="#" class="btn btn-sm btn-light mb-0">View</a></div>
 					</div>
 				</div>
 				<!-- Card body END -->
@@ -910,17 +580,17 @@
 					<!-- Pagination and content -->
 					<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
 						<!-- Content -->
-						<p class="mb-sm-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
+						<p class="mb-sm-0 text-center text-sm-start">Showing <span th:text="${listAnimal.number} * ${listAnimal.size} == 0 ? 1 : (${listAnimal.number} * ${listAnimal.size}) + 1">1</span> to <span th:text="${listAnimal.totalElements} - (${listAnimal.number} * ${listAnimal.size} + ${listAnimal.size}) < 0 ? ${listAnimal.totalElements} : (${listAnimal.number} * ${listAnimal.size} + ${listAnimal.size})">10</span> of <span th:text="${listAnimal.totalElements}">57</span> entries</p>
 						<!-- Pagination -->
 						<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
 							<ul class="pagination pagination-sm pagination-primary-soft mb-0">
 								<li class="page-item disabled">
 									<a class="page-link" href="#" tabindex="-1">Prev</a>
 								</li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item active"><a class="page-link" href="#">2</a></li>
-								<li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-								<li class="page-item"><a class="page-link" href="#">15</a></li>
+								<li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listAnimal.totalPages - 1)}"
+									th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
+									<a th:href="@{'/changePage-adminShelterDetail?page='+${pageIndex.index}}" th:text="${pageIndex.index + 1}" class="page-link"></a>
+								</li>
 								<li class="page-item">
 									<a class="page-link" href="#">Next</a>
 								</li>

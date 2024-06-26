@@ -27,4 +27,8 @@ public class SheltersService {
         Pageable pageable = PageRequest.of(page, sizePage);
         return this.shelterDAO.findSheltersByStatusNotContaining(pageable, "Awaiting");
     }
+
+    public Shelters findById(Long id){
+        return this.shelterDAO.findById(id).get();
+    }
 }

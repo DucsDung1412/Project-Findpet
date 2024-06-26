@@ -17,6 +17,7 @@ import vn.finder.pet.service.FavoritesService;
 import vn.finder.pet.service.UsersService;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 @Controller
 public class ManagerController {
@@ -64,20 +65,22 @@ public class ManagerController {
         model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
 
         ArrayList<Integer> listInteraction = new ArrayList<>();
-        listInteraction.add(this.favoritesService.findByMonthAndShelter(1, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(1, this.getEmailLogin()));
-        listInteraction.add(this.favoritesService.findByMonthAndShelter(2, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(2, this.getEmailLogin()));
-        listInteraction.add(this.favoritesService.findByMonthAndShelter(3, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(3, this.getEmailLogin()));
-        listInteraction.add(this.favoritesService.findByMonthAndShelter(4, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(4, this.getEmailLogin()));
-        listInteraction.add(this.favoritesService.findByMonthAndShelter(5, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(5, this.getEmailLogin()));
-        listInteraction.add(this.favoritesService.findByMonthAndShelter(6, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(6, this.getEmailLogin()));
-        listInteraction.add(this.favoritesService.findByMonthAndShelter(7, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(7, this.getEmailLogin()));
-        listInteraction.add(this.favoritesService.findByMonthAndShelter(8, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(8, this.getEmailLogin()));
-        listInteraction.add(this.favoritesService.findByMonthAndShelter(9, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(9, this.getEmailLogin()));
-        listInteraction.add(this.favoritesService.findByMonthAndShelter(10, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(10, this.getEmailLogin()));
-        listInteraction.add(this.favoritesService.findByMonthAndShelter(11, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(11, this.getEmailLogin()));
-        listInteraction.add(this.favoritesService.findByMonthAndShelter(12, this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(12, this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(1, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(1, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(2, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(2, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(3, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(3, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(4, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(4, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(5, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(5, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(6, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(6, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(7, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(7, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(8, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(8, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(9, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(9, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(10, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(10, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(11, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(11, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()));
+        listInteraction.add(this.favoritesService.findByMonthAndShelter(12, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(12, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()));
 
         model.addAttribute("listInteraction", listInteraction);
+
+        System.out.println(Calendar.getInstance().get(Calendar.YEAR));
         return "/agent-dashboard";
     }
 

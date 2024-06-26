@@ -16,6 +16,6 @@ public interface FavoritesDAO extends JpaRepository<Favorites, Long> {
             + "FROM Animals a "
             + "INNER JOIN a.listFavorites f "
             + "INNER JOIN a.shelters s "
-            + "WHERE MONTH(f.likeDate) = :date AND s.users.userName LIKE %:userName%")
-    Integer findByMonthAndShelter(@Param("date") int date, @Param("userName") String userName);
+            + "WHERE MONTH(f.likeDate) = :date AND YEAR(f.likeDate) = :year AND s.users.userName LIKE %:userName%")
+    Integer findByMonthAndShelter(@Param("date") int date, @Param("year") int year, @Param("userName") String userName);
 }

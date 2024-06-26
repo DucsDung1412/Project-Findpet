@@ -27,9 +27,9 @@ public class AnimalsService {
         return this.animalsDAO.findById(id).get();
     }
 
-    public Page<Animals> searchAnimals(List<String> breedType, String breedName, String shelterAddress, List<String> ages, List<Boolean> genders, String size, String name, int page, int sizePage) {
+    public Page<Animals> searchAnimals(List<String> breedType, String breedName, String shelterAddress, List<String> ages, List<Boolean> genders, String size, String name, List<Long> adopt, int page, int sizePage) {
         Pageable pageable = PageRequest.of(page, sizePage);
-        return animalsDAO.findByBreedNameContains(breedType, breedName, shelterAddress, ages, genders, size, name, pageable);
+        return animalsDAO.findByBreedNameContains(breedType, breedName, shelterAddress, ages, genders, size, name, adopt, pageable);
     }
 
     public Page<Animals> findAll(int page, int sizePage) {

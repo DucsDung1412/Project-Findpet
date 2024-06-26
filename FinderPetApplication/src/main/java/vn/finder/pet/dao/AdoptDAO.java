@@ -8,12 +8,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import vn.finder.pet.entity.Adopt;
 
+import java.util.List;
+
 @RepositoryRestResource(path = "adopt")
 public interface AdoptDAO extends JpaRepository<Adopt, Long> {
     @Query("SELECT COUNT(ad.id) "
             + "FROM Animals a "
             + "INNER JOIN a.listAdopt ad "
             + "INNER JOIN a.shelters s "
-            + "WHERE MONTH(ad.adoptDate) = :date AND s.users.userName LIKE %:userName%")
-    Integer findByMonthAndShelter(@Param("date") int date, @Param("userName") String userName);
+            + "WHERE MONTH(ad.adoptDate) = :date AND YEAR(ad.adoptDate) = :year AND s.users.userName LIKE %:userName%")
+    Integer findByMonthAndShelter(@Param("date") int date, @Param("year") int year, @Param("userName") String userName);
+
+    @Query("SELECT a FROM Adopt a WHERE a.adopt_status NOT LIKE :status")
+    List<Adopt> findAllNotContains(String status);
 }
