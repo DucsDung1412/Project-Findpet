@@ -10,12 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import vn.finder.pet.entity.Adopt;
 import vn.finder.pet.entity.Animals;
 import vn.finder.pet.entity.Users;
 import vn.finder.pet.service.AdoptService;
 import vn.finder.pet.service.AnimalsService;
 import vn.finder.pet.service.UsersService;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -94,13 +97,24 @@ public class PetController {
 
     @GetMapping("/pet-detail")
     public String getPetDetail(@RequestParam Long id, Model model){
-        System.out.println(id);
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         Animals animals = this.animalsService.findById(id);
-        System.out.println(animals.getBreed().getBreed_type());
-        System.out.println(animals.getBreed().getBreed_name());
         model.addAttribute("listSameAnimal", this.animalsService.findByBreedOrderByCustom(animals.getBreed().getBreed_name(), animals.getBreed().getBreed_type(), 0, 4).stream().toList());
+        model.addAttribute("animal", animals);
         return "/pet-detail";
+    }
+
+    @GetMapping("/booking-confirm")
+    public String getBookingConfirm(@RequestParam Long id, Model model){
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
+        Animals animals = this.animalsService.findById(id);
+        Users users = this.usersService.findById(this.getEmailLogin()).get();
+        Adopt adopt = new Adopt(null, Date.valueOf(LocalDate.now()), "Awaiting", users, animals);
+        if(this.adoptService.save(adopt)){
+            model.addAttribute("adopt", adopt);
+            return "/booking-confirm";
+        }
+        return "";
     }
 
     @RequestMapping("/filter-pet")

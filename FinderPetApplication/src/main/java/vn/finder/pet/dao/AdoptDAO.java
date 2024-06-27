@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import vn.finder.pet.entity.Adopt;
+import vn.finder.pet.entity.Animals;
+import vn.finder.pet.entity.Users;
 
 import java.util.List;
 
@@ -21,4 +23,6 @@ public interface AdoptDAO extends JpaRepository<Adopt, Long> {
 
     @Query("SELECT a FROM Adopt a WHERE a.adopt_status NOT LIKE :status")
     List<Adopt> findAllNotContains(String status);
+
+    Adopt findByAnimalsAndUsers(Animals animals, Users users);
 }

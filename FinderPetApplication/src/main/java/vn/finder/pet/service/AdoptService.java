@@ -69,4 +69,15 @@ public class AdoptService {
     public List<Adopt> findAllNotContains(String status){
         return this.adoptDAO.findAllNotContains(status);
     }
+
+    @Transactional
+    public Boolean save(Adopt adopt){
+        if(adopt != null){
+            if(this.adoptDAO.findByAnimalsAndUsers(adopt.getAnimals(), adopt.getUsers()) == null){
+                this.adoptDAO.save(adopt);
+            }
+            return true;
+        }
+        return  false;
+    }
 }

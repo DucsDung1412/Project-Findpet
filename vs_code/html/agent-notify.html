@@ -93,12 +93,6 @@
 	<!-- Theme CSS -->
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 
-	<style>
-		.background-disable{
-			background: #d9d9d9;
-		}
-	</style>
-
 </head>
 
 <body>
@@ -514,11 +508,11 @@
 	
 								<li class="nav-item"> <a class="nav-link" href="agent-dashboard.html"><i class="bi bi-house-door fa-fw me-1"></i>Dashboard</a>	</li>
 	
-								<li class="nav-item mx-2"> <a class="nav-link active" href="agent-listings.html"><i class="bi bi-journals fa-fw me-1"></i>Listings</a> </li>
+								<li class="nav-item mx-2"> <a class="nav-link" href="agent-listings.html"><i class="bi bi-journals fa-fw me-1"></i>Listings</a> </li>
 	
 								<li class="nav-item mx-2"> <a class="nav-link" href="agent-bookings.html"><i class="bi bi-bookmark-heart fa-fw me-1"></i>Bookings</a> </li>
 	
-								<li class="nav-item mx-2"> <a class="nav-link" href="agent-activities.html"><i class="bi bi-bell fa-fw me-1"></i>Activities</a> </li>
+								<li class="nav-item mx-2"> <a class="nav-link active" href="agent-activities.html"><i class="bi bi-bell fa-fw me-1"></i>Activities</a> </li>
 			
 								<li class="nav-item mx-2"> <a class="nav-link" href="agent-settings.html"><i class="bi bi-gear fa-fw me-1"></i>Settings</a></li>
 							</ul>
@@ -532,6 +526,7 @@
 	<!-- =======================
 	Menu item END -->
 		
+	
 	<!-- =======================
 	Content START -->
 	<section class="pt-0">
@@ -539,393 +534,247 @@
 			<!-- Title START -->
 			<div class="row">
 				<div class="col-12">
-					<h1 class="fs-4 mb-0"><i class="bi bi-journals fa-fw me-1"></i>Listings</h1>
+					<h1 class="fs-4 mb-0"><i class="bi bi-bell fa-fw me-1"></i>Activities</h1>
 				</div>
-			</div>
+			 </div> 
 			<!-- Title END -->
 	
-			<!-- Counter START -->
-			<div class="row g-4">
-				
-				<!-- All Pets -->
-				<div class="col-6 col-lg-3">
-					<div class="card card-body border p-4 h-100">
-						<h6>All Pets</h6>
-						<h2 class="text-primary">100</h2>
-						<div class="mt-auto text-primary-hover"><a href="#" class="text-decoration-underline p-0 mb-0">View statement</a></div>
-					</div>
-				</div>
-
-				<div class="col-6 col-lg-3">
-					<div class="card card-body border p-4 h-100">
-						<h6>Awaiting Pets</h6>
-						<h2 class="text-warning">100</h2>
-						<div class="mt-auto text-primary-hover"><a href="#" class="text-decoration-underline p-0 mb-0">View statement</a></div>
-					</div>
-				</div>
-	
-				<!-- Adpoted Pets item -->
-				<div class="col-6 col-lg-3">
-					<div class="card card-body border p-4 h-100">
-						<h6>Adpoted Pets</h6>
-						<h2 class="text-info">58</h2>
-						<div class="mt-auto text-primary-hover"><a href="#" class="text-decoration-underline p-0 mb-0">View Bookings</a></div>
-					</div>
-				</div>
-	
-				<!-- Available Pets item -->
-				<div class="col-6 col-lg-3">
-					<div class="card card-body border p-4 h-100">
-						<h6>Available Pets</h6>
-						<h2 class="text-success">42</h2>
-						<div class="mt-auto text-primary-hover"><a href="#" class="text-decoration-underline p-0 mb-0">View Pets</a></div>
-					</div>
-				</div>
-	
-			</div>
-			<!-- Counter END -->
-	
-			<!-- Listing table START -->
+			<!-- Activities START -->
 			<div class="row">
 				<div class="col-12">
 	
 					<div class="card border">
 						<!-- Card header -->
 						<div class="card-header border-bottom">
-							<h5 class="card-header-title">My Listings <span class="badge bg-primary bg-opacity-10 text-primary ms-2">6 Items</span></h5>
+							<h5 class="card-header-title">Recent Activities</h5>
 						</div>
 	
 						<!-- Card body START -->
-						<div class="card-body vstack gap-3">
-							<!-- Listing item START -->
-							<div class="card border p-2">
-								<div class="row g-4">
-									<!-- Card img -->
-									<div class="col-md-3 col-lg-2">
-										<img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080s" class="card-img rounded-2" alt="Card image">
+						<div class="card-body">
+							
+							<!-- Activity item START -->
+							<div class="d-sm-flex justify-content-between align-items-center">
+								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
+									<!-- Avatar -->
+									<div class="avatar flex-shrink-0">
+										<div class="avatar-img rounded-circle text-bg-success">
+											<span class="position-absolute top-50 start-50 translate-middle fw-bold"><i class="bi bi-check-lg fs-5"></i></span>
+										</div>
 									</div>
-		
-									<!-- Card body -->
-									<div class="col-md-9 col-lg-10">
-										<div class="card-body position-relative d-flex flex-column p-0 h-100">
-		
-											<!-- Buttons -->
-											<div class="position-absolute top-0 end-0 d-flex align-items-center">
-												<h6 class="card-title mb-0 me-2 text-success pb-1">Available</h6>
-												<div class="list-inline-item dropdown">
-													<!-- Share button -->
-													<a href="#" class="btn btn-sm btn-round btn-light" role="button" id="dropdownAction2" data-bs-toggle="dropdown" aria-expanded="false">
-														<i class="bi bi-three-dots-vertical"></i>
-													</a>
-													<!-- dropdown button -->
-													<ul class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownAction2">
-														<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle me-1"></i>Report</a></li>
-														<li><a class="dropdown-item" href="#"><i class="bi bi-slash-circle me-1"></i>Disable</a></li>
-													</ul>
-												</div>
-											</div>
+									<!-- Title -->
+									<div class="ms-3">
+										<h6 class="fw-light m-0">Your listing <a href="#" class="text-primary">Courtyard by Marriott New York </a>has been approved</h6>
+										<small>2 Days ago</small>
+									</div>
+								</div>
+								<!-- Buttons -->
+								<div class="d-flex gap-2 mt-2 mt-sm-0">
+									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
+								</div>
+							</div>
+							<!-- Activity item END -->
+	
+							<hr> <!-- Divider -->
+	
+							<!-- Activity item START -->
+							<div class="d-sm-flex justify-content-between align-items-center">
+								<!-- Avatar image -->
+								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
+									<div class="avatar flex-shrink-0">
+										<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/04.jpg" alt="">
+									</div>
+									<!-- Title -->
+									<div class="ms-3">
+										<h6 class="fw-light m-0">Louis Ferguson booked your <span class="fw-bold">Hotel Baljees Regency </span>Hotel room</h6>
+										<small class="me-3">15 Nov 2022</small>
+									</div>
+								</div>
+								<!-- Buttons -->
+								<div class="d-flex gap-2 mt-2 mt-sm-0">
+									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
+								</div>
+							</div>
+							<!-- Activity item END -->
+	
+							<hr> <!-- Divider -->
+	
+							<!-- Activity item START -->
+							<div class="d-sm-flex justify-content-between align-items-center">
+								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
+									<!-- Avatar -->
+									<div class="avatar flex-shrink-0">
+										<div class="avatar-img rounded-circle text-bg-info">
+											<span class="position-absolute top-50 start-50 translate-middle fw-bold"><i class="bi bi-chat fs-5"></i></span>
+										</div>
+									</div>
+									<!-- Title -->
+									<div class="ms-3">
+										<h6 class="fw-light m-0">Someone left a review on <span class="fw-bold">Park Plaza Lodge Hotel </span> listing</h6>
+										<small class="me-3">13 Nov 2022</small>
+									</div>
+								</div>
+								<!-- Buttons -->
+								<div class="d-flex gap-2 mt-2 mt-sm-0">
+									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
+								</div>
+							</div>
+							<!-- Activity item END -->
+	
+							<hr> <!-- Divider -->
+	
+							<!-- Activity item START -->
+							<div class="d-sm-flex justify-content-between align-items-center">
+								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
+									<!-- Avatar -->
+									<div class="avatar flex-shrink-0">
+										<div class="avatar-img rounded-circle text-bg-success">
+											<span class="position-absolute top-50 start-50 translate-middle fw-bold"><i class="bi bi-check-lg fs-5"></i></span>
+										</div>
+									</div>
+									<!-- Title -->
+									<div class="ms-3">
+										<h6 class="fw-light m-0">Your payment received successfully</h6>
+										<small class="me-3">13 Nov 2022</small>
+									</div>
+								</div>
+								<!-- Buttons -->
+								<div class="d-flex gap-2 mt-2 mt-sm-0">
+									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
+								</div>
+							</div>
+							<!-- Activity item END -->
+	
+							<hr> <!-- Divider -->
+	
+							<!-- Activity item START -->
+							<div class="d-sm-flex justify-content-between align-items-center">
+								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
+									<!-- Avatar image -->
+									<div class="avatar flex-shrink-0">
+										<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/05.jpg" alt="">
+									</div>
+									<!-- Title -->
+									<div class="ms-3">
+										<h6 class="fw-light m-0">Amanda Reed Cancel booking in <a href="#" class="text-primary">Courtyard by Marriott New York </a>hotel</h6>
+										<small class="me-3">11 Nov 2022</small>
+									</div>
+								</div>
+								<!-- Buttons -->
+								<div class="d-flex gap-2 mt-2 mt-sm-0">
+									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
+								</div>
+							</div>
+							<!-- Activity item END -->
+	
+							<hr> <!-- Divider -->
+	
+							<!-- Activity item START -->
+							<div class="d-sm-flex justify-content-between align-items-center">
+								<!-- Avatar image -->
+								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
+									<div class="avatar flex-shrink-0">
+										<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="">
+									</div>
+									<!-- Title -->
+									<div class="ms-3">
+										<h6 class="fw-light m-0">Lori Stevens booked your <span class="fw-bold">Pride moon Village Resort & Spa </span>Hotel room</h6>
+										<small class="me-3">10 Nov 2022</small>
+									</div>
+								</div>
+								<!-- Buttons -->
+								<div class="d-flex gap-2 mt-2 mt-sm-0">
+									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
+								</div>
+							</div>
+							<!-- Activity item END -->
+	
+							<hr> <!-- Divider -->
+	
+							<!-- Activity item START -->
+							<div class="d-sm-flex justify-content-between align-items-center">
+								<!-- Avatar image -->
+								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
+									<div class="avatar flex-shrink-0">
+										<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="">
+									</div>
+									<!-- Title -->
+									<div class="ms-3">
+										<h6 class="fw-light m-0">Lori Stevens booked your <span class="fw-bold">Pride moon Village Resort & Spa </span>Hotel room</h6>
+										<small class="me-3">10 Nov 2022</small>
+									</div>
+								</div>
+								<!-- Buttons -->
+								<div class="d-flex gap-2 mt-2 mt-sm-0">
+									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
+								</div>
+							</div>
+							<!-- Activity item END -->
 
-											<!-- Title -->
-											<h5 class="card-title mb-0 me-5"><a href="hotel-detail.html">Cole</a></h5>
-											<ul class="nav nav-divider mb-2 mb-sm-3">
-												<i class="bi bi-info-square-fill me-2"></i>
-												<li class="nav-item">Young</li>
-												<li class="nav-item">Medium</li>
-												<li class="nav-item">Male</li>
-											</ul>
+							<hr> <!-- Divider -->
 	
-											<!-- Breed and Button -->
-											<div class="d-sm-flex justify-content-sm-between align-items-center mt-3 mt-md-auto">
-												<!-- Breed -->
-												<div class="d-flex align-items-center">
-													<h5 class="fw-bold mb-0 me-1">Husky Mix</h5>
-												</div>
-												<!-- Button -->
-												<div class="hstack gap-2 mt-3 mt-sm-0">
-													<a href="#" class="btn btn-sm btn-primary mb-0"><i class="bi bi-pencil-square fa-fw me-1"></i>Edit</a>    
-													<a href="#" class="btn btn-sm btn-danger mb-0"><i class="fa-solid fa-trash-can fa-fw me-1"></i>Delete</a>    
-												</div>                  
-											</div>
-										</div>
+							<!-- Activity item START -->
+							<div class="d-sm-flex justify-content-between align-items-center">
+								<!-- Avatar image -->
+								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
+									<div class="avatar flex-shrink-0">
+										<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="">
+									</div>
+									<!-- Title -->
+									<div class="ms-3">
+										<h6 class="fw-light m-0">Lori Stevens booked your <span class="fw-bold">Pride moon Village Resort & Spa </span>Hotel room</h6>
+										<small class="me-3">10 Nov 2022</small>
 									</div>
 								</div>
-							</div>
-							<!-- Listing item END -->
-	
-							<!-- Listing item START -->
-							<div class="card border p-2 background-disable">
-								<div class="row g-4">
-									<!-- Card img -->
-									<div class="col-md-3 col-lg-2">
-										<img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080s" class="card-img rounded-2" alt="Card image">
-									</div>
-		
-									<!-- Card body -->
-									<div class="col-md-9 col-lg-10">
-										<div class="card-body position-relative d-flex flex-column p-0 h-100">
-		
-											<!-- Buttons -->
-											<div class="position-absolute top-0 end-0 d-flex align-items-center">
-												<h6 class="card-title mb-0 me-2 text-secondary pb-1">Disable</h6>
-												<div class="list-inline-item dropdown">
-													<!-- Share button -->
-													<a href="#" class="btn btn-sm btn-round btn-light" role="button" id="dropdownAction2" data-bs-toggle="dropdown" aria-expanded="false">
-														<i class="bi bi-three-dots-vertical"></i>
-													</a>
-													<!-- dropdown button -->
-													<ul class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownAction2">
-														<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle me-1"></i>Report</a></li>
-														<li><a class="dropdown-item" href="#"><i class="bi bi-slash-circle me-1"></i>Disable</a></li>
-													</ul>
-												</div>
-											</div>
-		
-											<!-- Title -->
-											<h5 class="card-title mb-0 me-5"><a href="hotel-detail.html">Baga Comfort</a></h5>
-											<ul class="nav nav-divider mb-2 mb-sm-3">
-												<i class="bi bi-info-square-fill me-2"></i>
-												<li class="nav-item">Young</li>
-												<li class="nav-item">Medium</li>
-												<li class="nav-item">Female</li>
-											</ul>
-	
-											<!-- Breed and Button -->
-											<div class="d-sm-flex justify-content-sm-between align-items-center mt-3 mt-md-auto">
-												<!-- Breed -->
-												<div class="d-flex align-items-center">
-													<h5 class="fw-bold mb-0 me-1">Shiba</h5>
-												</div>
-												<!-- Button -->
-												<div class="hstack gap-2 mt-3 mt-sm-0">
-													<a href="#" class="btn btn-sm btn-primary mb-0"><i class="bi bi-pencil-square fa-fw me-1"></i>Edit</a>    
-													<a href="#" class="btn btn-sm btn-danger mb-0"><i class="fa-solid fa-trash-can fa-fw me-1"></i>Delete</a>    
-												</div>                  
-											</div>
-										</div>
-									</div>
+								<!-- Buttons -->
+								<div class="d-flex gap-2 mt-2 mt-sm-0">
+									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
 								</div>
 							</div>
-							<!-- Listing item END -->
-	
-							<!-- Listing item START -->
-							<div class="card border p-2">
-								<div class="row g-4">
-									<!-- Card img -->
-									<div class="col-md-3 col-lg-2">
-										<img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080s" class="card-img rounded-2" alt="Card image">
-									</div>
-		
-									<!-- Card body -->
-									<div class="col-md-9 col-lg-10">
-										<div class="card-body position-relative d-flex flex-column p-0 h-100">
-		
-											<!-- Buttons -->
-											<div class="position-absolute top-0 end-0 d-flex align-items-center">
-												<h6 class="card-title mb-0 me-2 text-success pb-1">Available</h6>
-												<div class="list-inline-item dropdown">
-													<!-- Share button -->
-													<a href="#" class="btn btn-sm btn-round btn-light" role="button" id="dropdownAction2" data-bs-toggle="dropdown" aria-expanded="false">
-														<i class="bi bi-three-dots-vertical"></i>
-													</a>
-													<!-- dropdown button -->
-													<ul class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownAction2">
-														<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle me-1"></i>Report</a></li>
-														<li><a class="dropdown-item" href="#"><i class="bi bi-slash-circle me-1"></i>Disable</a></li>
-													</ul>
-												</div>
-											</div>
-		
-											<!-- Title -->
-											<h5 class="card-title mb-0 me-5"><a href="hotel-detail.html">Cole</a></h5>
-											<ul class="nav nav-divider mb-2 mb-sm-3">
-												<i class="bi bi-info-square-fill me-2"></i>
-												<li class="nav-item">Young</li>
-												<li class="nav-item">Medium</li>
-												<li class="nav-item">Male</li>
-											</ul>
-	
-											<!-- Breed and Button -->
-											<div class="d-sm-flex justify-content-sm-between align-items-center mt-3 mt-md-auto">
-												<!-- Breed -->
-												<div class="d-flex align-items-center">
-													<h5 class="fw-bold mb-0 me-1">Husky Mix</h5>
-												</div>
-												<!-- Button -->
-												<div class="hstack gap-2 mt-3 mt-sm-0">
-													<a href="#" class="btn btn-sm btn-primary mb-0"><i class="bi bi-pencil-square fa-fw me-1"></i>Edit</a>    
-													<a href="#" class="btn btn-sm btn-danger mb-0"><i class="fa-solid fa-trash-can fa-fw me-1"></i>Delete</a>    
-												</div>                  
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Listing item END -->
-	
-							<!-- Listing item START -->
-							<div class="card border p-2">
-								<div class="row g-4">
-									<!-- Card img -->
-									<div class="col-md-3 col-lg-2">
-										<img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080s" class="card-img rounded-2" alt="Card image">
-									</div>
-		
-									<!-- Card body -->
-									<div class="col-md-9 col-lg-10">
-										<div class="card-body position-relative d-flex flex-column p-0 h-100">
-		
-											<!-- Buttons -->
-											<div class="position-absolute top-0 end-0 d-flex align-items-center">
-												<h6 class="card-title mb-0 me-2 text-success pb-1">Available</h6>
-												<div class="list-inline-item dropdown">
-													<!-- Share button -->
-													<a href="#" class="btn btn-sm btn-round btn-light" role="button" id="dropdownAction2" data-bs-toggle="dropdown" aria-expanded="false">
-														<i class="bi bi-three-dots-vertical"></i>
-													</a>
-													<!-- dropdown button -->
-													<ul class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownAction2">
-														<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle me-1"></i>Report</a></li>
-														<li><a class="dropdown-item" href="#"><i class="bi bi-slash-circle me-1"></i>Disable</a></li>
-													</ul>
-												</div>
-											</div>
-		
-											<!-- Title -->
-											<h5 class="card-title mb-0 me-5"><a href="hotel-detail.html">Baga Comfort</a></h5>
-											<ul class="nav nav-divider mb-2 mb-sm-3">
-												<i class="bi bi-info-square-fill me-2"></i>
-												<li class="nav-item">Young</li>
-												<li class="nav-item">Medium</li>
-												<li class="nav-item">Female</li>
-											</ul>
-	
-											<!-- Breed and Button -->
-											<div class="d-sm-flex justify-content-sm-between align-items-center mt-3 mt-md-auto">
-												<!-- Breed -->
-												<div class="d-flex align-items-center">
-													<h5 class="fw-bold mb-0 me-1">Shiba</h5>
-												</div>
-												<!-- Button -->
-												<div class="hstack gap-2 mt-3 mt-sm-0">
-													<a href="#" class="btn btn-sm btn-primary mb-0"><i class="bi bi-pencil-square fa-fw me-1"></i>Edit</a>    
-													<a href="#" class="btn btn-sm btn-danger mb-0"><i class="fa-solid fa-trash-can fa-fw me-1"></i>Delete</a>    
-												</div>                  
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Listing item END -->
+							<!-- Activity item END -->
 
-							<!-- Listing item START -->
-							<div class="card border p-2">
-								<div class="row g-4">
-									<!-- Card img -->
-									<div class="col-md-3 col-lg-2">
-										<img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080s" class="card-img rounded-2" alt="Card image">
-									</div>
-		
-									<!-- Card body -->
-									<div class="col-md-9 col-lg-10">
-										<div class="card-body position-relative d-flex flex-column p-0 h-100">
-		
-											<!-- Buttons -->
-											<div class="position-absolute top-0 end-0 d-flex align-items-center">
-												<h6 class="card-title mb-0 me-2 text-success pb-1">Available</h6>
-												<div class="list-inline-item dropdown">
-													<!-- Share button -->
-													<a href="#" class="btn btn-sm btn-round btn-light" role="button" id="dropdownAction2" data-bs-toggle="dropdown" aria-expanded="false">
-														<i class="bi bi-three-dots-vertical"></i>
-													</a>
-													<!-- dropdown button -->
-													<ul class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownAction2">
-														<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle me-1"></i>Report</a></li>
-														<li><a class="dropdown-item" href="#"><i class="bi bi-slash-circle me-1"></i>Disable</a></li>
-													</ul>
-												</div>
-											</div>
-		
-											<!-- Title -->
-											<h5 class="card-title mb-0 me-5"><a href="hotel-detail.html">Cole</a></h5>
-											<ul class="nav nav-divider mb-2 mb-sm-3">
-												<i class="bi bi-info-square-fill me-2"></i>
-												<li class="nav-item">Young</li>
-												<li class="nav-item">Medium</li>
-												<li class="nav-item">Male</li>
-											</ul>
+							<hr> <!-- Divider -->
 	
-											<!-- Breed and Button -->
-											<div class="d-sm-flex justify-content-sm-between align-items-center mt-3 mt-md-auto">
-												<!-- Breed -->
-												<div class="d-flex align-items-center">
-													<h5 class="fw-bold mb-0 me-1">Husky Mix</h5>
-												</div>
-												<!-- Button -->
-												<div class="hstack gap-2 mt-3 mt-sm-0">
-													<a href="#" class="btn btn-sm btn-primary mb-0"><i class="bi bi-pencil-square fa-fw me-1"></i>Edit</a>    
-													<a href="#" class="btn btn-sm btn-danger mb-0"><i class="fa-solid fa-trash-can fa-fw me-1"></i>Delete</a>    
-												</div>                  
-											</div>
-										</div>
+							<!-- Activity item START -->
+							<div class="d-sm-flex justify-content-between align-items-center">
+								<!-- Avatar image -->
+								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
+									<div class="avatar flex-shrink-0">
+										<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="">
+									</div>
+									<!-- Title -->
+									<div class="ms-3">
+										<h6 class="fw-light m-0">Lori Stevens booked your <span class="fw-bold">Pride moon Village Resort & Spa </span>Hotel room</h6>
+										<small class="me-3">10 Nov 2022</small>
 									</div>
 								</div>
-							</div>
-							<!-- Listing item END -->
-	
-							<!-- Listing item START -->
-							<div class="card border p-2">
-								<div class="row g-4">
-									<!-- Card img -->
-									<div class="col-md-3 col-lg-2">
-										<img src="https://dbw3zep4prcju.cloudfront.net/animal/2fdc1350-21be-406b-9dd7-921504f6900c/image/f9d2d717-bcde-4921-9368-bdd29d2eb2a4.jpeg?versionId=7loAc3d770vRZUsP4RRoZ.3OQmm2.X8P&bust=1715152401&width=1080s" class="card-img rounded-2" alt="Card image">
-									</div>
-		
-									<!-- Card body -->
-									<div class="col-md-9 col-lg-10">
-										<div class="card-body position-relative d-flex flex-column p-0 h-100">
-		
-											<!-- Buttons -->
-											<div class="position-absolute top-0 end-0 d-flex align-items-center">
-												<h6 class="card-title mb-0 me-2 text-success pb-1">Available</h6>
-												<div class="list-inline-item dropdown">
-													<!-- Share button -->
-													<a href="#" class="btn btn-sm btn-round btn-light" role="button" id="dropdownAction2" data-bs-toggle="dropdown" aria-expanded="false">
-														<i class="bi bi-three-dots-vertical"></i>
-													</a>
-													<!-- dropdown button -->
-													<ul class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownAction2">
-														<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle me-1"></i>Report</a></li>
-														<li><a class="dropdown-item" href="#"><i class="bi bi-slash-circle me-1"></i>Disable</a></li>
-													</ul>
-												</div>
-											</div>
-		
-											<!-- Title -->
-											<h5 class="card-title mb-0 me-5"><a href="hotel-detail.html">Baga Comfort</a></h5>
-											<ul class="nav nav-divider mb-2 mb-sm-3">
-												<i class="bi bi-info-square-fill me-2"></i>
-												<li class="nav-item">Young</li>
-												<li class="nav-item">Medium</li>
-												<li class="nav-item">Female</li>
-											</ul>
-	
-											<!-- Breed and Button -->
-											<div class="d-sm-flex justify-content-sm-between align-items-center mt-3 mt-md-auto">
-												<!-- Breed -->
-												<div class="d-flex align-items-center">
-													<h5 class="fw-bold mb-0 me-1">Shiba</h5>
-												</div>
-												<!-- Button -->
-												<div class="hstack gap-2 mt-3 mt-sm-0">
-													<a href="#" class="btn btn-sm btn-primary mb-0"><i class="bi bi-pencil-square fa-fw me-1"></i>Edit</a>    
-													<a href="#" class="btn btn-sm btn-danger mb-0"><i class="fa-solid fa-trash-can fa-fw me-1"></i>Delete</a>    
-												</div>                  
-											</div>
-										</div>
-									</div>
+								<!-- Buttons -->
+								<div class="d-flex gap-2 mt-2 mt-sm-0">
+									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
 								</div>
 							</div>
-							<!-- Listing item END -->
+							<!-- Activity item END -->
+
+							<hr> <!-- Divider -->
+	
+							<!-- Activity item START -->
+							<div class="d-sm-flex justify-content-between align-items-center">
+								<!-- Avatar image -->
+								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
+									<div class="avatar flex-shrink-0">
+										<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="">
+									</div>
+									<!-- Title -->
+									<div class="ms-3">
+										<h6 class="fw-light m-0">Lori Stevens booked your <span class="fw-bold">Pride moon Village Resort & Spa </span>Hotel room</h6>
+										<small class="me-3">10 Nov 2022</small>
+									</div>
+								</div>
+								<!-- Buttons -->
+								<div class="d-flex gap-2 mt-2 mt-sm-0">
+									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
+								</div>
+							</div>
+							<!-- Activity item END -->
 						</div>
 						<!-- Card body END -->
 
@@ -945,7 +794,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- Listing table END -->
+			<!-- Activities END -->
 		</div>
 	</section>
 	<!-- =======================
