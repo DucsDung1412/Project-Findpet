@@ -19,11 +19,13 @@ import java.util.List;
 public class AdoptService {
     private AdoptDAO adoptDAO;
     private AnimalsService animalsService;
+    private UsersService usersService;
 
     @Autowired
-    public AdoptService(AdoptDAO adoptDAO, AnimalsService animalsService) {
+    public AdoptService(AdoptDAO adoptDAO, AnimalsService animalsService, UsersService usersService) {
         this.adoptDAO = adoptDAO;
         this.animalsService = animalsService;
+        this.usersService = usersService;
     }
 
     @Transactional
@@ -37,6 +39,7 @@ public class AdoptService {
             } else {
                 Adopt adopt = animals.getListAdopt().get(0);
                 adopt.setAdopt_status("Adopted");
+                adopt.setAdoptDate(Date.valueOf(LocalDate.now()));
                 this.adoptDAO.save(adopt);
                 return true;
             }
@@ -53,6 +56,7 @@ public class AdoptService {
             if(!animals.getListAdopt().isEmpty()){
                 Adopt adopt = animals.getListAdopt().get(0);
                 adopt.setAdopt_status("Cancel");
+                adopt.setAdoptDate(Date.valueOf(LocalDate.now()));
                 this.adoptDAO.save(adopt);
                 return true;
             }
@@ -79,5 +83,17 @@ public class AdoptService {
             return true;
         }
         return  false;
+    }
+
+    public Page<Adopt> findAllAdoptOfShelter(String email, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        Users users = this.usersService.findById(email).get();
+        return this.adoptDAO.findAllAdoptOfShelter(users.getShelters().getId(), pageable);
+    }
+
+    public Page<Adopt> findByUsers(String email, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        Users users = this.usersService.findById(email).get();
+        return this.adoptDAO.findByUsers(users, pageable);
     }
 }

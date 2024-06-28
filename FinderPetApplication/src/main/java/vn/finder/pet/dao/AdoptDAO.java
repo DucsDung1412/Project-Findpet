@@ -25,4 +25,9 @@ public interface AdoptDAO extends JpaRepository<Adopt, Long> {
     List<Adopt> findAllNotContains(String status);
 
     Adopt findByAnimalsAndUsers(Animals animals, Users users);
+
+    @Query("SELECT a FROM Adopt a INNER JOIN a.animals am INNER JOIN am.shelters s WHERE s.id = :id")
+    Page<Adopt> findAllAdoptOfShelter(@Param(value = "id") Long id, Pageable pageable);
+
+    Page<Adopt> findByUsers(Users users, Pageable pageable);
 }

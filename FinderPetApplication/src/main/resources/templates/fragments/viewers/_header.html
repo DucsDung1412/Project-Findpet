@@ -265,7 +265,7 @@
                         <div class="card bg-transparent">
                             <!-- Card header -->
                             <div class="card-header bg-transparent d-flex justify-content-between align-items-center border-bottom">
-                                <h6 class="m-0">Notifications <span class="badge bg-danger bg-opacity-10 text-danger ms-2">4 new</span></h6>
+                                <h6 class="m-0">Notifications</h6>
                                 <a class="small" href="#">Clear all</a>
                             </div>
 
@@ -273,18 +273,10 @@
                             <div class="card-body p-0">
                                 <ul class="list-group list-group-flush list-unstyled p-2">
                                     <!-- Notification item -->
-                                    <li>
+                                    <li th:each="item, iterStat : ${user.listAdopt}" th:if="${iterStat.index < 3}">
                                         <a href="#" class="list-group-item list-group-item-action rounded notif-unread border-0 mb-1 p-3">
-                                            <h6 class="mb-2">New! Booking flights from New York ✈️</h6>
-                                            <p class="mb-0 small">Find the flexible ticket on flights around the world. Start searching today</p>
-                                            <span>Wednesday</span>
-                                        </a>
-                                    </li>
-                                    <!-- Notification item -->
-                                    <li>
-                                        <a href="#" class="list-group-item list-group-item-action rounded border-0 mb-1 p-3">
-                                            <h6 class="mb-2">Sunshine saving are here 🌞 save 30% or more on a stay</h6>
-                                            <span>15 Nov 2022</span>
+                                            <h6 class="mb-2">Yêu cầu nhận <span th:text="${item.animals.breed.breed_type} + ' ' + ${item.animals.animalName}"></span> của bạn <span class="fw-bold" th:text="${item.adopt_status} != 'Awaiting' ? (${item.adopt_status} == 'Adopted' ? ' Đã nhận thành công ' : (${item.adopt_status} == 'Cancel' ? ' Đã bị từ chối ' : ' Đã được duyệt ') ) : ' Đang chờ xử lý '">Courtyard by Marriott New York </span></h6>
+                                            <span th:text="${item.adoptDate}">Wednesday</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -293,7 +285,7 @@
 
                             <!-- Card footer -->
                             <div class="card-footer bg-transparent text-center border-top">
-                                <a href="#" class="btn btn-sm btn-link mb-0 p-0">See all incoming activity</a>
+                                <a href="/account-notify" class="btn btn-sm btn-link mb-0 p-0">See all incoming activity</a>
                             </div>
                         </div>
                     </div>

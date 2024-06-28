@@ -10,10 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.finder.pet.entity.Users;
-import vn.finder.pet.service.MailService;
-import vn.finder.pet.service.OtpService;
-import vn.finder.pet.service.TwoFactorAuthPasswordsService;
-import vn.finder.pet.service.UsersService;
+import vn.finder.pet.service.*;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.sql.Date;
@@ -28,16 +25,18 @@ public class AccountController {
     private OtpService otpService;
     private MailService mailService;
     private UsersService userService;
+    private AdoptService adoptService;
     private TwoFactorAuthPasswordsService twoFactorAuthPasswordsService;
     private static final String EMAIL_PATTERN = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
     private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 
     @Autowired
-    public AccountController(OtpService otpService, MailService mailService, UsersService userService, TwoFactorAuthPasswordsService twoFactorAuthPasswordsService) {
+    public AccountController(OtpService otpService, MailService mailService, UsersService userService, TwoFactorAuthPasswordsService twoFactorAuthPasswordsService, AdoptService adoptService) {
         this.otpService = otpService;
         this.mailService = mailService;
         this.userService = userService;
         this.twoFactorAuthPasswordsService = twoFactorAuthPasswordsService;
+        this.adoptService = adoptService;
     }
 
     public String getEmailLogin(){
@@ -390,5 +389,23 @@ public class AccountController {
     public String accountDelete(Model model){
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.userService.findById(this.getEmailLogin()).get());
         return "/account-delete";
+    }
+
+    @GetMapping("/account-notify")
+    public String accountNotify(Model model, @RequestParam(value = "page", required = false) String page){
+        if(page == null){
+            page = "0";
+        }
+        int pg = Integer.valueOf(page);
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.userService.findById(this.getEmailLogin()).get());
+        model.addAttribute("listNotify", this.adoptService.findByUsers(this.getEmailLogin(), pg == 0 ? 0 : pg - 1, 10));
+        model.addAttribute("page", pg == 0 ? 1 : pg);
+        return "/account-notify";
+    }
+
+    @GetMapping("/changePage-accountNotify")
+    public String changePageAccountNotify(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("page", page + 1);
+        return "redirect:/account-notify";
     }
 }

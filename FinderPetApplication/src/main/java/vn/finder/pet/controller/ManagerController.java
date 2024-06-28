@@ -186,4 +186,22 @@ public class ManagerController {
         model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
         return "/add-listing-minimal";
     }
+
+    @GetMapping("/agent-notify")
+    public String agentNotify(Model model, @RequestParam(value = "page", required = false) String page){
+        if(page == null){
+            page = "0";
+        }
+        int pg = Integer.valueOf(page);
+        model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("listNotify", this.adoptService.findAllAdoptOfShelter(this.getEmailLogin(), pg == 0 ? 0 : pg - 1, 10));
+        model.addAttribute("page", pg == 0 ? 1 : pg);
+        return "/agent-notify";
+    }
+
+    @GetMapping("/changePage-agentNotify")
+    public String changePageAgentNotify(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("page", page + 1);
+        return "redirect:/agent-notify";
+    }
 }

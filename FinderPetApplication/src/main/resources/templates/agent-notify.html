@@ -114,8 +114,8 @@
 					<div class="avatar avatar-xl mb-2 mb-sm-0">
 						<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/01.jpg" alt="">
 					</div>
-					<h4 class="mb-2 mb-sm-0 ms-sm-3"><span class="fw-light">Hi</span> Jacqueline Miller</h4>
-					<a href="add-listing-minimal.html" class="btn btn-sm btn-primary-soft mb-0 ms-auto flex-shrink-0"><i class="bi bi-plus-lg fa-fw me-2"></i>Add New Listing</a>
+					<h4 class="mb-2 mb-sm-0 ms-sm-3"><span class="fw-light">Hi</span> <span th:text="${user.firstName} + ' ' + ${user.lastName}">Jacqueline Miller</span></h4>
+					<a href="/add-listing-minimal" class="btn btn-sm btn-primary-soft mb-0 ms-auto flex-shrink-0"><i class="bi bi-plus-lg fa-fw me-2"></i>Add New Listing</a>
 				</div>
 				<!-- Avatar and info START -->
 				
@@ -181,242 +181,41 @@
 	
 						<!-- Card body START -->
 						<div class="card-body">
-							
-							<!-- Activity item START -->
-							<div class="d-sm-flex justify-content-between align-items-center">
-								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
-									<!-- Avatar -->
-									<div class="avatar flex-shrink-0">
-										<div class="avatar-img rounded-circle text-bg-success">
-											<span class="position-absolute top-50 start-50 translate-middle fw-bold"><i class="bi bi-check-lg fs-5"></i></span>
-										</div>
-									</div>
-									<!-- Title -->
-									<div class="ms-3">
-										<h6 class="fw-light m-0">Your listing <a href="#" class="text-primary">Courtyard by Marriott New York </a>has been approved</h6>
-										<small>2 Days ago</small>
-									</div>
-								</div>
-								<!-- Buttons -->
-								<div class="d-flex gap-2 mt-2 mt-sm-0">
-									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
-								</div>
-							</div>
-							<!-- Activity item END -->
-	
-							<hr> <!-- Divider -->
-	
-							<!-- Activity item START -->
-							<div class="d-sm-flex justify-content-between align-items-center">
-								<!-- Avatar image -->
-								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
-									<div class="avatar flex-shrink-0">
-										<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/04.jpg" alt="">
-									</div>
-									<!-- Title -->
-									<div class="ms-3">
-										<h6 class="fw-light m-0">Louis Ferguson booked your <span class="fw-bold">Hotel Baljees Regency </span>Hotel room</h6>
-										<small class="me-3">15 Nov 2022</small>
-									</div>
-								</div>
-								<!-- Buttons -->
-								<div class="d-flex gap-2 mt-2 mt-sm-0">
-									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
-								</div>
-							</div>
-							<!-- Activity item END -->
-	
-							<hr> <!-- Divider -->
-	
-							<!-- Activity item START -->
-							<div class="d-sm-flex justify-content-between align-items-center">
-								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
-									<!-- Avatar -->
-									<div class="avatar flex-shrink-0">
-										<div class="avatar-img rounded-circle text-bg-info">
-											<span class="position-absolute top-50 start-50 translate-middle fw-bold"><i class="bi bi-chat fs-5"></i></span>
-										</div>
-									</div>
-									<!-- Title -->
-									<div class="ms-3">
-										<h6 class="fw-light m-0">Someone left a review on <span class="fw-bold">Park Plaza Lodge Hotel </span> listing</h6>
-										<small class="me-3">13 Nov 2022</small>
-									</div>
-								</div>
-								<!-- Buttons -->
-								<div class="d-flex gap-2 mt-2 mt-sm-0">
-									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
-								</div>
-							</div>
-							<!-- Activity item END -->
-	
-							<hr> <!-- Divider -->
-	
-							<!-- Activity item START -->
-							<div class="d-sm-flex justify-content-between align-items-center">
-								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
-									<!-- Avatar -->
-									<div class="avatar flex-shrink-0">
-										<div class="avatar-img rounded-circle text-bg-success">
-											<span class="position-absolute top-50 start-50 translate-middle fw-bold"><i class="bi bi-check-lg fs-5"></i></span>
-										</div>
-									</div>
-									<!-- Title -->
-									<div class="ms-3">
-										<h6 class="fw-light m-0">Your payment received successfully</h6>
-										<small class="me-3">13 Nov 2022</small>
-									</div>
-								</div>
-								<!-- Buttons -->
-								<div class="d-flex gap-2 mt-2 mt-sm-0">
-									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
-								</div>
-							</div>
-							<!-- Activity item END -->
-	
-							<hr> <!-- Divider -->
-	
-							<!-- Activity item START -->
-							<div class="d-sm-flex justify-content-between align-items-center">
-								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
+							<div th:each="notify : ${listNotify}">
+								<!-- Activity item START -->
+								<div class="d-sm-flex justify-content-between align-items-center">
 									<!-- Avatar image -->
-									<div class="avatar flex-shrink-0">
-										<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/05.jpg" alt="">
+									<div class="d-flex align-items-sm-center me-4 ms-sm-0">
+										<div class="avatar flex-shrink-0">
+											<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/04.jpg" alt="">
+										</div>
+										<!-- Title -->
+										<div class="ms-3">
+											<h6 class="fw-light m-0"><span th:text="${notify.users.firstName} + ' ' + ${notify.users.lastName}">Louis Ferguson booked your </span><span class="fw-bold" th:text="${notify.adopt_status} != 'Awaiting' ? (${notify.adopt_status} == 'Adopted' ? ' Đã nhận ' : (${notify.adopt_status} == 'Cancel' ? ' Đã bị từ chối đơn nhận ' : ' Đã được duyệt đơn nhận ') ) : ' Đang chờ duyệt đơn nhận '">Hotel Baljees Regency </span><span th:text="${notify.animals.breed.breed_type} + ' ' + ${notify.animals.animalName}">Hotel room</span></h6>
+											<small class="me-3" th:text="${notify.adoptDate}">15 Nov 2022</small>
+										</div>
 									</div>
-									<!-- Title -->
-									<div class="ms-3">
-										<h6 class="fw-light m-0">Amanda Reed Cancel booking in <a href="#" class="text-primary">Courtyard by Marriott New York </a>hotel</h6>
-										<small class="me-3">11 Nov 2022</small>
-									</div>
-								</div>
-								<!-- Buttons -->
-								<div class="d-flex gap-2 mt-2 mt-sm-0">
-									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
-								</div>
-							</div>
-							<!-- Activity item END -->
-	
-							<hr> <!-- Divider -->
-	
-							<!-- Activity item START -->
-							<div class="d-sm-flex justify-content-between align-items-center">
-								<!-- Avatar image -->
-								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
-									<div class="avatar flex-shrink-0">
-										<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="">
-									</div>
-									<!-- Title -->
-									<div class="ms-3">
-										<h6 class="fw-light m-0">Lori Stevens booked your <span class="fw-bold">Pride moon Village Resort & Spa </span>Hotel room</h6>
-										<small class="me-3">10 Nov 2022</small>
+									<!-- Buttons -->
+									<div class="d-flex gap-2 mt-2 mt-sm-0">
+										<a th:href="@{/view-adopt(id=${notify.id})}" class="btn btn-sm btn-primary-soft">View</a>
 									</div>
 								</div>
-								<!-- Buttons -->
-								<div class="d-flex gap-2 mt-2 mt-sm-0">
-									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
-								</div>
-							</div>
-							<!-- Activity item END -->
-	
-							<hr> <!-- Divider -->
-	
-							<!-- Activity item START -->
-							<div class="d-sm-flex justify-content-between align-items-center">
-								<!-- Avatar image -->
-								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
-									<div class="avatar flex-shrink-0">
-										<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="">
-									</div>
-									<!-- Title -->
-									<div class="ms-3">
-										<h6 class="fw-light m-0">Lori Stevens booked your <span class="fw-bold">Pride moon Village Resort & Spa </span>Hotel room</h6>
-										<small class="me-3">10 Nov 2022</small>
-									</div>
-								</div>
-								<!-- Buttons -->
-								<div class="d-flex gap-2 mt-2 mt-sm-0">
-									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
-								</div>
-							</div>
-							<!-- Activity item END -->
+								<!-- Activity item END -->
 
-							<hr> <!-- Divider -->
-	
-							<!-- Activity item START -->
-							<div class="d-sm-flex justify-content-between align-items-center">
-								<!-- Avatar image -->
-								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
-									<div class="avatar flex-shrink-0">
-										<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="">
-									</div>
-									<!-- Title -->
-									<div class="ms-3">
-										<h6 class="fw-light m-0">Lori Stevens booked your <span class="fw-bold">Pride moon Village Resort & Spa </span>Hotel room</h6>
-										<small class="me-3">10 Nov 2022</small>
-									</div>
-								</div>
-								<!-- Buttons -->
-								<div class="d-flex gap-2 mt-2 mt-sm-0">
-									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
-								</div>
+								<hr> <!-- Divider -->
 							</div>
-							<!-- Activity item END -->
-
-							<hr> <!-- Divider -->
-	
-							<!-- Activity item START -->
-							<div class="d-sm-flex justify-content-between align-items-center">
-								<!-- Avatar image -->
-								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
-									<div class="avatar flex-shrink-0">
-										<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="">
-									</div>
-									<!-- Title -->
-									<div class="ms-3">
-										<h6 class="fw-light m-0">Lori Stevens booked your <span class="fw-bold">Pride moon Village Resort & Spa </span>Hotel room</h6>
-										<small class="me-3">10 Nov 2022</small>
-									</div>
-								</div>
-								<!-- Buttons -->
-								<div class="d-flex gap-2 mt-2 mt-sm-0">
-									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
-								</div>
-							</div>
-							<!-- Activity item END -->
-
-							<hr> <!-- Divider -->
-	
-							<!-- Activity item START -->
-							<div class="d-sm-flex justify-content-between align-items-center">
-								<!-- Avatar image -->
-								<div class="d-flex align-items-sm-center me-4 ms-sm-0">
-									<div class="avatar flex-shrink-0">
-										<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="">
-									</div>
-									<!-- Title -->
-									<div class="ms-3">
-										<h6 class="fw-light m-0">Lori Stevens booked your <span class="fw-bold">Pride moon Village Resort & Spa </span>Hotel room</h6>
-										<small class="me-3">10 Nov 2022</small>
-									</div>
-								</div>
-								<!-- Buttons -->
-								<div class="d-flex gap-2 mt-2 mt-sm-0">
-									<a href="#" class="btn btn-sm btn-primary-soft">View</a>
-								</div>
-							</div>
-							<!-- Activity item END -->
 						</div>
 						<!-- Card body END -->
 
 						<!-- Card footer -->
-						<div class="card-footer">
+						<div class="card-footer pt-0" th:if="${listNotify.totalPages} >= 2">
 							<nav class="d-flex justify-content-center" aria-label="navigation">
 								<ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
 									<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fa-solid fa-angle-left"></i></a></li>
-									<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-									<li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
-									<li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
-									<li class="page-item mb-0"><a class="page-link" href="#">6</a></li>
+									<li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listNotify.totalPages - 1)}"
+										th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
+										<a th:href="@{'/changePage-agentNotify?page='+${pageIndex.index}}" th:text="${pageIndex.index + 1}" class="page-link"></a>
+									</li>
 									<li class="page-item mb-0"><a class="page-link" href="#"><i class="fa-solid fa-angle-right"></i></a></li>
 								</ul>
 							</nav>
