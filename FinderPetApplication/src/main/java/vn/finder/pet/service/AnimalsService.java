@@ -1,5 +1,6 @@
 package vn.finder.pet.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -107,5 +108,21 @@ public class AnimalsService {
     public Page<Animals> findByBreedOrderByCustom(String breedName, String breedType, int page, int size){
         Pageable pageable = PageRequest.of(page, size);
         return this.animalsDAO.findByBreedOrderByCustom(breedName, breedType, pageable);
+    }
+
+    public Boolean checkAnimal(String breedName, String breedType,String animalName,boolean animalGender,String animalSize,String animalAge){
+        List<Animals> animals = animalsDAO.findAnimalsByCriteria(breedName,breedType,animalName,animalGender,animalSize,animalAge);
+        return animals.isEmpty();
+    }
+
+    @Transactional
+    public Boolean save(Animals animal){
+        try {
+            this.animalsDAO.save(animal);
+            return true;
+        } catch (Exception e){
+
+        }
+        return false;
     }
 }

@@ -91,9 +91,8 @@ public class AdoptService {
         return this.adoptDAO.findAllAdoptOfShelter(users.getShelters().getId(), pageable);
     }
 
-    public Page<Adopt> findByUsers(String email, int page, int size){
+    public Page<Adopt> findByUsers(String email, String status, int page, int size){
         Pageable pageable = PageRequest.of(page, size);
-        Users users = this.usersService.findById(email).get();
-        return this.adoptDAO.findByUsers(users, pageable);
+        return this.adoptDAO.findByUsersAndAdoptStatus(email, status, pageable);
     }
 }

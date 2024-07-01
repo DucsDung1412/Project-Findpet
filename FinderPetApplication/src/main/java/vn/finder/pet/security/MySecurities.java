@@ -43,7 +43,7 @@ public class MySecurities {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests(config ->
-                        config.requestMatchers("/account-profile").hasAnyRole("USER", "MANAGER", "ADMIN")
+                        config.requestMatchers("/account-profile").hasAnyAuthority("OAUTH2_USER", "ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN")
                                 .requestMatchers("/change-info-user").hasAnyRole("USER", "MANAGER", "ADMIN")
                                 .requestMatchers("/change-password-user").hasAnyRole("USER", "MANAGER", "ADMIN")
                                 .requestMatchers("/account-wishlist").hasAnyRole("USER", "MANAGER", "ADMIN")

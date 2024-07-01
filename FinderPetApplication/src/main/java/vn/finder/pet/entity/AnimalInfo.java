@@ -45,6 +45,10 @@ public class AnimalInfo {
         this.animals = animals;
     }
 
+    public AnimalInfo() {
+
+    }
+
     public Long getId() {
         return id;
     }

@@ -8,13 +8,13 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.finder.pet.entity.Animals;
-import vn.finder.pet.service.AdoptService;
-import vn.finder.pet.service.AnimalsService;
-import vn.finder.pet.service.FavoritesService;
-import vn.finder.pet.service.UsersService;
+import vn.finder.pet.entity.DtoPetShelters;
+import vn.finder.pet.service.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,13 +25,15 @@ public class ManagerController {
     private AdoptService adoptService;
     private FavoritesService favoritesService;
     private UsersService usersService;
+    private SheltersService sheltersService;
 
     @Autowired
-    public ManagerController(AnimalsService animalsService, AdoptService adoptService, FavoritesService favoritesService, UsersService usersService) {
+    public ManagerController(AnimalsService animalsService, AdoptService adoptService, FavoritesService favoritesService, UsersService usersService, SheltersService sheltersService) {
         this.animalsService = animalsService;
         this.adoptService = adoptService;
         this.favoritesService = favoritesService;
         this.usersService = usersService;
+        this.sheltersService = sheltersService;
     }
 
     public String getEmailLogin(){
@@ -203,5 +205,39 @@ public class ManagerController {
     public String changePageAgentNotify(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
         return "redirect:/agent-notify";
+    }
+
+    @PostMapping("/uploadpet")
+    public String auto1(@RequestBody DtoPetShelters bd, RedirectAttributes atr) {
+
+        int flag = 0;
+        if (bd.getAnimalName().isEmpty()) {
+            atr.addAttribute("message", "Chưa nhập tên thằng lồn");
+            flag++;
+        }
+        if (bd.getAnimal_info_characteristics().isEmpty()) {
+            flag++;
+        }
+        if (bd.getAnimalAvatar().isEmpty()) {
+            flag++;
+        }
+        if (bd.getBreed_name().isEmpty()) {
+            flag++;
+        }
+        if (bd.getAnimal_info_description().isEmpty()) {
+            flag++;
+        }
+        if (flag == 0) {
+            if(animalsService.checkAnimal(bd.getBreed_name(),
+                    bd.getBreed_type(),
+                    bd.getAnimalName(),
+                    bd.isAnimalGender(),
+                    bd.getAnimalSize(),
+                    bd.getAnimalAge())){
+                sheltersService.createShelter(bd, this.getEmailLogin());
+            };
+
+        }
+        return "redirect:/add-listing-minimal";
     }
 }

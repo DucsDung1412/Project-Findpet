@@ -29,5 +29,6 @@ public interface AdoptDAO extends JpaRepository<Adopt, Long> {
     @Query("SELECT a FROM Adopt a INNER JOIN a.animals am INNER JOIN am.shelters s WHERE s.id = :id")
     Page<Adopt> findAllAdoptOfShelter(@Param(value = "id") Long id, Pageable pageable);
 
-    Page<Adopt> findByUsers(Users users, Pageable pageable);
+    @Query("SELECT a FROM Adopt a WHERE a.adopt_status LIKE %:adopt_status% AND a.users.userName = :users")
+    Page<Adopt> findByUsersAndAdoptStatus(@Param(value = "users") String users, @Param(value = "adopt_status") String adopt_status, Pageable pageable);
 }

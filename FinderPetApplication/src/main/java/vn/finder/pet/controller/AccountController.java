@@ -391,21 +391,23 @@ public class AccountController {
         return "/account-delete";
     }
 
-    @GetMapping("/account-notify")
+    @GetMapping("/account-history")
     public String accountNotify(Model model, @RequestParam(value = "page", required = false) String page){
         if(page == null){
             page = "0";
         }
         int pg = Integer.valueOf(page);
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.userService.findById(this.getEmailLogin()).get());
-        model.addAttribute("listNotify", this.adoptService.findByUsers(this.getEmailLogin(), pg == 0 ? 0 : pg - 1, 10));
+        model.addAttribute("listNotify", this.adoptService.findByUsers(this.getEmailLogin(), "%", pg == 0 ? 0 : pg - 1, 6));
+        model.addAttribute("listNotifyCancel", this.adoptService.findByUsers(this.getEmailLogin(), "Cancel", pg == 0 ? 0 : pg - 1, 6));
+        model.addAttribute("listNotifyAwaiting", this.adoptService.findByUsers(this.getEmailLogin(), "Awaiting", pg == 0 ? 0 : pg - 1, 6));
         model.addAttribute("page", pg == 0 ? 1 : pg);
-        return "/account-notify";
+        return "/account-history";
     }
 
-    @GetMapping("/changePage-accountNotify")
+    @GetMapping("/changePage-accountHistory")
     public String changePageAccountNotify(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
-        return "redirect:/account-notify";
+        return "redirect:/account-history";
     }
 }
