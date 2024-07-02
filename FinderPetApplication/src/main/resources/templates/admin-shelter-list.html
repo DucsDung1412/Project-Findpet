@@ -422,7 +422,7 @@
 										<h6 class="fw-normal mb-0">Date: </h6>
 										<small th:text="${totalShelters.shelterDate}">14/12/2000</small>
 									</div>
-									<a href="admin-booking-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View detail</a>
+									<a th:href="@{/admin-shelter-detail(id=${totalShelters.id})}" class="btn btn-sm btn-primary-soft mb-0 w-100">View detail</a>
 								</div>
 							</div>
 						</div>

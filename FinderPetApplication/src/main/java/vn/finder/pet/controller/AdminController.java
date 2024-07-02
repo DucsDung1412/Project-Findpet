@@ -45,34 +45,61 @@ public class AdminController {
     }
 
     @GetMapping("/admin-shelter-list")
-    public String adminShelterList(Model model){
-        model.addAttribute("listTotalShelters", this.sheltersService.findAll(0, 10));
-        this.sheltersService.findAll(0, 10).stream().forEach(e -> {
-            System.out.println(e.getListAnimals().size());
-        });
+    public String adminShelterList(Model model, @RequestParam(value = "page", required = false) String page){
+        if(page == null){
+            page = "0";
+        }
+        int pg = Integer.valueOf(page);
+        model.addAttribute("page", pg == 0 ? 1 : pg);
+        model.addAttribute("listTotalShelters", this.sheltersService.findAll(pg == 0 ? 0 : pg - 1, 10));
         return "/admin-shelter-list";
     }
 
+    @GetMapping("/changePage-adminShelter")
+    public String changePageAdminShelter(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("page", page + 1);
+        return "redirect:/admin-shelter-list";
+    }
+
     @GetMapping("/admin-shelter-detail")
-    public String adminShelterDetail(Model model, @RequestParam(value = "page", required = false) String page){
+    public String adminShelterDetail(Model model, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "id") Long id){
         if(page == null){
             page = "0";
         }
         int pg = Integer.valueOf(page);
 
         ArrayList<List<String>> listOpen = new ArrayList<>();
-        Arrays.stream(this.sheltersService.findById(2L).getShelterInfoOperatingTime().split(", ")).forEach(e -> {
+        Arrays.stream(this.sheltersService.findById(id).getShelterInfoOperatingTime().split(", ")).forEach(e -> {
             listOpen.add(Arrays.stream(e.split(": ")).toList());
         });
         model.addAttribute("listOpen", listOpen);
-        model.addAttribute("shelter", this.sheltersService.findById(2L));
-        model.addAttribute("listAnimal", this.animalsService.findAllPet(this.sheltersService.findById(2L).getUsers().getUserName(), pg == 0 ? 0 : pg - 1, 8));
+        model.addAttribute("shelter", this.sheltersService.findById(id));
+        model.addAttribute("listAnimal", this.animalsService.findAllPet(this.sheltersService.findById(id).getUsers().getUserName(), pg == 0 ? 0 : pg - 1, 8));
+        model.addAttribute("page", pg == 0 ? 1 : pg);
         return "/admin-shelter-detail";
     }
 
     @GetMapping("/changePage-adminShelterDetail")
-    public String changePageAdminShelterDetail(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
+    public String changePageAdminShelterDetail(@RequestParam("page") int page, @RequestParam("id") Long id, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
+        redirectAttributes.addAttribute("id", id);
         return "redirect:/admin-shelter-detail";
+    }
+
+    @GetMapping("/admin-user-list")
+    public String adminUserList(Model model, @RequestParam(value = "page", required = false) String page){
+        if(page == null){
+            page = "0";
+        }
+        int pg = Integer.valueOf(page);
+        model.addAttribute("page", pg == 0 ? 1 : pg);
+        model.addAttribute("listTotalUsers", this.usersService.findAll(pg == 0 ? 0 : pg - 1, 12));
+        return "/admin-user-list";
+    }
+
+    @GetMapping("/changePage-adminUser")
+    public String changePageAdminUser(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("page", page + 1);
+        return "redirect:/admin-user-list";
     }
 }

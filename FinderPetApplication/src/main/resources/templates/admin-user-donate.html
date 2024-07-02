@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
 <head>
 	<title>Booking - Multipurpose Online Booking Theme</title>
 
@@ -89,7 +89,6 @@
 	<link rel="stylesheet" type="text/css" href="../css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/overlayscrollbars.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/choices.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/glightbox.css">
 
 	<!-- Theme CSS -->
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
@@ -124,10 +123,10 @@
 					<li class="nav-item ms-2 my-2">Pages</li>
 
                     <!-- Menu item -->
-					<li class="nav-item"> <a class="nav-link active" href="#">Shelters</a></li>
+					<li class="nav-item"> <a class="nav-link" href="#">Shelters</a></li>
 
                     <!-- Menu item -->
-					<li class="nav-item"> <a class="nav-link" href="#">Users</a></li>
+					<li class="nav-item"> <a class="nav-link active" href="#">Users</a></li>
 
                     <!-- Menu item -->
 					<li class="nav-item"> <a class="nav-link" href="#">Pending Approval</a></li>
@@ -349,258 +348,132 @@
 			<div class="row">
 				<div class="col-12 mb-4 mb-sm-5">
 					<div class="d-sm-flex justify-content-between align-items-center">
-						<h1 class="h3 mb-2 mb-sm-0">Premium Room With Balcony</h1>
-						<a href="#" class="btn btn-danger-soft text-nowrap mb-0"><i class="bi bi-pencil-square fa-fw"></i> Delete Shelter</a>
+						<h1 class="h3 mb-3 mb-sm-0">Donate List</h1>			
 					</div>
 				</div>
 			</div>
 
-			<!-- Booking detail START -->
-			<div class="row g-4 g-xl-5">
-				<!-- Image -->
-				<div class="col-xxl-6">
-					<div class="row g-2 g-sm-4">
-						<div class="col-12">
-							<a data-glightbox data-gallery="gallery" href="https://booking.webestica.com/assets/images/category/hotel/4by3/02.jpg">
-								<div class="card card-element-hover card-overlay-hover overflow-hidden">
-									<!-- Image -->
-									<img src="https://booking.webestica.com/assets/images/category/hotel/4by3/02.jpg" class="rounded-3" alt="">
-									<!-- Full screen button -->
-									<div class="hover-element w-100 h-100">
-										<i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
-									</div>
-								</div>
-							</a>
-						</div>
-					</div>
+			<!-- Search and select START -->
+			<div class="row g-3 align-items-center justify-content-between mb-5">
+				<!-- Search -->
+				<div class="col-md-8">
+					<form class="rounded position-relative">
+						<input class="form-control pe-5" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn border-0 px-3 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6"></i></button>
+					</form>
 				</div>
 
-				<!-- Content -->
-				<div class="col-xxl-6">
-					<h4><span class="fw-light">Shelter: </span><span th:text="${shelter.shelterName}">Courtyard by Marriott New York</span></h4>
-					<p class="fw-bold"><i class="bi bi-geo-alt me-2"></i><span th:text="${shelter.shelterAddress}">5855 W Century Blvd, Los Angeles - 90045</span></p>
+				<!-- Select option -->
+				<div class="col-md-3">
+					<!-- Short by filter -->
+					<form>
+						<select class="form-select js-choice" aria-label=".form-select-sm">
+							<option value="">Sort by</option>
+							<option>Name (A - Z)</option>
+							<option>Name (Z - A)</option>
+							<option>Date</option>
+						</select>
+					</form>
+				</div>
+			</div>
+			<!-- Search and select END -->
 
-					<p class="mb-4">Tolerably behavior may admit daughters offending her ask own. Praise effect wishes to change way and any wanted. Lively use looked latter regard had. Does he part last</p>
+			<!-- Invoice history START -->
+			<div class="row">
+				<div class="col-12">
+					<div class="card border rounded-3">
+						<!-- Card body START -->
+						<div class="card-body">
+							<!-- Hotel room list START -->
+							<div class="table-responsive border-0">
+								<table class="table align-middle p-4 mb-0 table-hover table-shrink">
+									<!-- Table head -->
+									<thead class="table-light">
+										<tr>
+											<th scope="col" class="border-0 rounded-start">Email</th>
+											<th scope="col" class="border-0">Date</th>
+											<th scope="col" class="border-0">Amount</th>
+											<th scope="col" class="border-0 rounded-end">Action</th>
+										</tr>
+									</thead>
 
-					<!-- Feature -->
-					<div class="row g-4">
-						<div class="col-sm-6 col-md-6">
-							<div class="d-flex align-items-center">
-								<div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-2"><i class="fa-solid fa-bed"></i></div>
-								<div class="ms-2">
-									<small>Phone</small>
-									<h6 class="mb-0 mt-1" th:text="${shelter.shelterPhone}">0906786999</h6>
-								</div>
+									<!-- Table body START -->
+									<tbody class="border-top-0">
+										<!-- Table item -->
+										<tr>
+											<td> daoducdung2000@gmail.com </td>
+											<td> 29 Aug 2022 </td>
+											<td>$3,999</td>
+											<td> <div class="col"><a href="#" class="btn btn-sm btn-primary mb-0">View More</a></div> </td>
+										</tr>
+
+										<!-- Table item -->
+										<tr>
+											<td> #158468 </td>
+											<td> 02 Sep 2022 </td>
+											<td>$3,000</td>
+											<td> <div class="col"><a href="#" class="btn btn-sm btn-primary mb-0">View More</a></div> </td>
+										</tr>
+
+										<!-- Table item -->
+										<tr>
+											<td> #245778 </td>
+											<td> 05 Sep 2022 </td>
+											<td>$4,258</td>
+											<td> <div class="col"><a href="#" class="btn btn-sm btn-primary mb-0">View More</a></div> </td>
+										</tr>
+
+										<!-- Table item -->
+										<tr>
+											<td> #245778 </td>
+											<td> 07 Sep 2022 </td>
+											<td>$1,225</td>
+											<td> <div class="col"><a href="#" class="btn btn-sm btn-primary mb-0">View More</a></div> </td>
+										</tr>
+
+										<!-- Table item -->
+										<tr>
+											<td> #254896 </td>
+											<td> 10 Sep 2022 </td>
+											<td>$2,588</td>
+											<td> <div class="col"><a href="#" class="btn btn-sm btn-primary mb-0">View More</a></div> </td>
+										</tr>
+									</tbody>
+									<!-- Table body END -->
+								</table>
+							</div>
+							<!-- Hotel room list END -->
+						</div>
+						<!-- Card body END -->
+
+						<!-- Card footer START -->
+						<div class="card-footer pt-0">
+							<!-- Pagination and content -->
+							<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+								<!-- Content -->
+								<p class="mb-sm-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
+								<!-- Pagination -->
+								<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
+									<ul class="pagination pagination-sm pagination-primary-soft mb-0">
+										<li class="page-item disabled">
+											<a class="page-link" href="#" tabindex="-1">Prev</a>
+										</li>
+										<li class="page-item"><a class="page-link" href="#">1</a></li>
+										<li class="page-item active"><a class="page-link" href="#">2</a></li>
+										<li class="page-item disabled"><a class="page-link" href="#">..</a></li>
+										<li class="page-item"><a class="page-link" href="#">15</a></li>
+										<li class="page-item">
+											<a class="page-link" href="#">Next</a>
+										</li>
+									</ul>
+								</nav>
 							</div>
 						</div>
-
-						<div class="col-sm-6 col-md-6">
-							<div class="d-flex align-items-center">
-								<div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-2"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
-								<div class="ms-2">
-									<small>Email</small>
-									<h6 class="mb-0 mt-1" th:text="${shelter.shelterEmail}">0906786999</h6>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-6 col-md-6">
-							<div class="d-flex align-items-center">
-								<div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-2"><i class="fa-solid fa-stairs"></i></div>
-								<div class="ms-2 d-flex flex-column">
-									<small>Facebook</small>
-									<a th:href="@{${shelter.shelterInfoFacebook}}" class="h6 mb-0 mt-1">Click Me!</a>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-6 col-md-6">
-							<div class="d-flex align-items-center">
-								<div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-2"><i class="fa-solid fa-mountain-sun"></i></div>
-								<div class="ms-2 d-flex flex-column">
-									<small>Instagram</small>
-									<a th:href="@{${shelter.shelterInfoInstagram}}" class="h6 mb-0 mt-1">Click Me!</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<!-- Booking info -->
-					<div class="bg-light border border-secondary border-opacity-25 p-3 rounded d-inline-block mt-4 w-100">
-						<h6 class="small">Current Reservation:</h6>
-						<!-- Avatar -->
-						<div class="d-sm-flex align-items-center">
-							<!-- Avatar -->
-							<div class="avatar avatar-xs flex-shrink-0">
-								<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="avatar">
-							</div>
-							<!-- Info -->
-							<h6 class="mb-0 ms-2" th:text="${shelter.users.firstName} + ' ' + ${shelter.users.lastName}">Lori Stevens</h6>
-						</div>
-						<!-- Info -->
-						<div class="hstack gap-4 gap-md-5 flex-wrap mt-2">
-							<div>
-								<small>Date:</small>
-								<h6 class="fw-normal mb-0" style="font-size: 15px;" th:text="${shelter.shelterDate}">18 Dec 2022</h6>
-							</div>
-							<div>
-								<small>Email:</small>
-								<h6 class="fw-normal mb-0" style="font-size: 15px;" th:text="${shelter.users.userName}">daoducdung2000@gmail.com</h6>
-							</div>
-							<div>
-								<small>Location:</small>
-								<h6 class="fw-normal mb-0" style="font-size: 15px;" th:text="${shelter.users.country}">Hồ Chí Minh</h6>
-							</div>
-						</div>
+						<!-- Card footer END -->
 					</div>
 				</div>
 			</div>
-			<!-- Booking detail END -->
-
-			<!-- Booking table START -->
-			<div class="card shadow mt-5">
-				<!-- Card header START -->
-				<div class="card-header border-bottom">
-					<h5 class="card-header-title">Infomation Detail</h5>
-				</div>
-				<!-- Card header END -->
-
-				<!-- Card body START -->
-				<div class="card-body">
-					<!-- Traveler item START -->
-					<div class="card">
-						<!-- card body -->
-						<form class="p-0">
-							<!-- Name -->
-							<div class="mb-3">
-								<label class="form-label">Mission</label>
-								<textarea class="form-control" rows="3" spellcheck="false" th:text="${shelter.shelterInfoMission}">2119 N Division Ave, New Hampshire, York, United States</textarea>
-							</div>
-
-							<!-- Name -->
-							<div class="mb-3">
-								<label class="form-label">Policy</label>
-								<textarea class="form-control" rows="3" spellcheck="false" th:text="${shelter.shelterInfoPolicy}">2119 N Division Ave, New Hampshire, York, United States</textarea>
-							</div>
-
-							<!-- Operating -->
-							<div>
-								<label class="form-label">Operating</label>
-								<div class="input-group mb-3" th:each="open : ${listOpen}">
-									<input type="text" class="form-control" th:value="${open[0]}" placeholder="Day">
-									<input type="text" class="form-control" th:value="${open[1]}" placeholder="Time">
-								</div>
-							</div>
-						</form>
-					</div>
-					<!-- Traveler item END -->
-				</div>
-				<!-- Booking table END -->
-			</div>
-			<!-- Booking table START -->
-			<div class="card shadow mt-5">
-				<!-- Card header START -->
-				<div class="card-header border-bottom">
-					<h5 class="card-header-title">Infomation Detail</h5>
-				</div>
-				<!-- Card header END -->
-
-				<!-- Card body START -->
-				<div class="card-body">
-
-					<!-- Table head -->
-					<div class="bg-light rounded p-3 d-none d-lg-block">
-						<div class="row row-cols-7 g-4">
-							<div class="col"><h6 class="mb-0">Name</h6></div>
-							<div class="col"><h6 class="mb-0">Date</h6></div>
-							<div class="col"><h6 class="mb-0">Breed</h6></div>
-							<div class="col"><h6 class="mb-0">Age</h6></div>
-							<div class="col"><h6 class="mb-0">Gender</h6></div>
-							<div class="col"><h6 class="mb-0">Size</h6></div>
-							<div class="col"><h6 class="mb-0">Action</h6></div>
-						</div>
-					</div>
-					<!-- Table data -->
-					<div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4" th:each="animal : ${listAnimal}">
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Booked by:</small>
-							<div class="d-flex align-items-center">
-								<!-- Avatar -->
-								<div class="avatar avatar-xs flex-shrink-0">
-									<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="avatar">
-								</div>
-								<!-- Info -->
-								<div class="ms-2">
-									<h6 class="mb-0 fw-light" th:text="${animal.animalName}">Lori Stevens</h6>
-								</div>
-							</div>
-						</div>	
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-in:</small>
-							<h6 class="mb-0 fw-normal" th:text="${animal.animalDate}">18 Dec 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-out:</small>
-							<h6 class="mb-0 fw-normal" th:text="${animal.breed.breed_name}">22 Dec 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Guests:</small>
-							<h6 class="mb-0 fw-normal" th:text="${animal.animalAge}">04</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Amount:</small>
-							<h6 class="mb-0 fw-normal" th:text="${animal.animalGender ? 'Female' : 'Male'}">$1025</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Payment:</small>
-							<h6 class="mb-0 fw-normal" th:text="${animal.animalSize}">Full payment</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<a th:href="@{/view-animal(id=${animal.id})}" class="btn btn-sm btn-light mb-0">View</a>
-						</div>
-					</div>
-				</div>
-				<!-- Card body END -->
-
-				<!-- Card footer START -->
-				<div class="card-footer pt-0">
-					<!-- Pagination and content -->
-					<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
-						<!-- Content -->
-						<p class="mb-sm-0 text-center text-sm-start">Showing <span th:text="${listAnimal.number} * ${listAnimal.size} == 0 ? 1 : (${listAnimal.number} * ${listAnimal.size}) + 1">1</span> to <span th:text="${listAnimal.totalElements} - (${listAnimal.number} * ${listAnimal.size} + ${listAnimal.size}) < 0 ? ${listAnimal.totalElements} : (${listAnimal.number} * ${listAnimal.size} + ${listAnimal.size})">10</span> of <span th:text="${listAnimal.totalElements}">57</span> entries</p>
-						<!-- Pagination -->
-						<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation" th:if="${listAnimal.totalPages} >= 2">
-							<ul class="pagination pagination-sm pagination-primary-soft mb-0">
-								<li class="page-item disabled">
-									<a class="page-link" href="#" tabindex="-1">Prev</a>
-								</li>
-								<li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listAnimal.totalPages - 1)}"
-									th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
-									<a th:href="@{/changePage-adminShelterDetail(page=${pageIndex.index}, id=${shelter.id})}" th:text="${pageIndex.index + 1}" class="page-link"></a>
-								</li>
-								<li class="page-item">
-									<a class="page-link" href="#">Next</a>
-								</li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-				<!-- Card footer END -->
-			</div>
-			<!-- Booking table END -->
+			<!-- Invoice history END -->
 
 		</div>
 		<!-- Page main content END -->
@@ -610,13 +483,13 @@
 	</main>
 <!-- **************** MAIN CONTENT END **************** -->
 
+
 <!-- Bootstrap JS -->
 <script src="../js/bootstrap.bundle.min.js"></script>
 
 <!-- Vendor -->
 <script src="../js/overlayscrollbars.min.js"></script>
 <script src="../js/choices.min.js"></script>
-<script src="../js/glightbox.js"></script>
 
 <!-- ThemeFunctions -->
 <script src="../js/functions.js"></script>

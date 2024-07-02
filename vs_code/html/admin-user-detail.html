@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
 <head>
 	<title>Booking - Multipurpose Online Booking Theme</title>
 
@@ -89,7 +89,6 @@
 	<link rel="stylesheet" type="text/css" href="../css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/overlayscrollbars.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/choices.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/glightbox.css">
 
 	<!-- Theme CSS -->
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
@@ -124,10 +123,10 @@
 					<li class="nav-item ms-2 my-2">Pages</li>
 
                     <!-- Menu item -->
-					<li class="nav-item"> <a class="nav-link active" href="#">Shelters</a></li>
+					<li class="nav-item"> <a class="nav-link" href="#">Shelters</a></li>
 
                     <!-- Menu item -->
-					<li class="nav-item"> <a class="nav-link" href="#">Users</a></li>
+					<li class="nav-item"> <a class="nav-link active" href="#">Users</a></li>
 
                     <!-- Menu item -->
 					<li class="nav-item"> <a class="nav-link" href="#">Pending Approval</a></li>
@@ -344,271 +343,251 @@
 	
 		<!-- Page main content START -->
 		<div class="page-content-wrapper p-xxl-4">
-	
-			<!-- Title -->
-			<div class="row">
-				<div class="col-12 mb-4 mb-sm-5">
-					<div class="d-sm-flex justify-content-between align-items-center">
-						<h1 class="h3 mb-2 mb-sm-0">Premium Room With Balcony</h1>
-						<a href="#" class="btn btn-danger-soft text-nowrap mb-0"><i class="bi bi-pencil-square fa-fw"></i> Delete Shelter</a>
-					</div>
-				</div>
-			</div>
-
-			<!-- Booking detail START -->
-			<div class="row g-4 g-xl-5">
-				<!-- Image -->
-				<div class="col-xxl-6">
-					<div class="row g-2 g-sm-4">
-						<div class="col-12">
-							<a data-glightbox data-gallery="gallery" href="https://booking.webestica.com/assets/images/category/hotel/4by3/02.jpg">
-								<div class="card card-element-hover card-overlay-hover overflow-hidden">
-									<!-- Image -->
-									<img src="https://booking.webestica.com/assets/images/category/hotel/4by3/02.jpg" class="rounded-3" alt="">
-									<!-- Full screen button -->
-									<div class="hover-element w-100 h-100">
-										<i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
-									</div>
-								</div>
-							</a>
+			
+			<!-- Counter START -->
+			<div class="row g-4 mb-4">
+				<!-- Counter item -->
+				<div class="col-lg-4">
+					<div class="card card-body border border-primary bg-primary bg-opacity-10 border-opacity-25 p-4 h-100">
+						<div class="d-flex justify-content-between align-items-center">
+							<!-- Digit -->
+							<div>
+								<h3 class="mb-0 fw-bold">04</h3>
+								<span class="mb-0 h6 fw-light">Total Adopts</span>
+							</div>
+							<!-- Icon -->
+							<div class="icon-lg rounded-circle flex-shrink-0 bg-primary text-white mb-0"><i class="fa-solid fa-hotel fa-fw"></i></div>
 						</div>
 					</div>
 				</div>
 
-				<!-- Content -->
-				<div class="col-xxl-6">
-					<h4><span class="fw-light">Shelter: </span><span th:text="${shelter.shelterName}">Courtyard by Marriott New York</span></h4>
-					<p class="fw-bold"><i class="bi bi-geo-alt me-2"></i><span th:text="${shelter.shelterAddress}">5855 W Century Blvd, Los Angeles - 90045</span></p>
+				<!-- Counter item -->
+				<div class="col-lg-4">
+					<div class="card card-body border border-success bg-success bg-opacity-10 border-opacity-25 p-4 h-100">
+						<div class="d-flex justify-content-between align-items-center">
+							<!-- Digit -->
+							<div>
+								<h3 class="mb-0 fw-bold">$2486.95</h3>
+								<span class="mb-0 h6 fw-light">Total Donate</span>
+							</div>
+							<!-- Icon -->
+							<div class="icon-lg rounded-circle flex-shrink-0 bg-success text-white mb-0"><i class="fa-regular fa-calendar-days fa-fw"></i></div>
+						</div>
+					</div>
+				</div>
 
-					<p class="mb-4">Tolerably behavior may admit daughters offending her ask own. Praise effect wishes to change way and any wanted. Lively use looked latter regard had. Does he part last</p>
+				<!-- Counter item -->
+				<div class="col-lg-4">
+					<div class="card card-body border border-warning bg-warning bg-opacity-10 border-opacity-25 p-4 h-100">
+						<div class="d-flex justify-content-between align-items-center">
+							<!-- Digit -->
+							<div>
+								<h3 class="mb-0 fw-bold">01</h3>
+								<span class="mb-0 h6 fw-light">Total Canced</span>
+							</div>
+							<!-- Icon -->
+							<div class="icon-lg rounded-circle flex-shrink-0 bg-warning text-white mb-0"><i class="fa-solid fa-money-bill-trend-up fa-fw"></i></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Counter END -->
 
-					<!-- Feature -->
-					<div class="row g-4">
-						<div class="col-sm-6 col-md-6">
-							<div class="d-flex align-items-center">
-								<div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-2"><i class="fa-solid fa-bed"></i></div>
+			<div class="row g-4 mb-5">
+				<!-- Agent info START -->
+				<div class="col-md-4 col-xxl-3">
+					<div class="card bg-light">
+						<!-- Dropdown button -->
+						<div class="dropdown position-absolute top-0 end-0 m-3">
+							<a href="#" class="btn btn-sm btn-white btn-round lh-lg mb-0" role="button" id="dropdownShare1" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="bi bi-three-dots fa-fw"></i>
+							</a>
+							<!-- dropdown button -->
+							<ul class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownShare1">
+								<li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit</a></li>
+								<li><a class="dropdown-item" href="#"><i class="bi bi-trash fa-fw me-2"></i>Remove</a></li>
+							</ul>
+						</div>
+						<!-- Card body -->
+						<div class="card-body text-center">
+							<!-- Avatar Image -->
+							<div class="avatar avatar-xl flex-shrink-0 mb-3">
+								<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/05.jpg" alt="avatar">
+							</div>
+							<!-- Title -->
+							<h5 class="mb-2">Jacqueline Miller</h5>
+						</div>
+						<!-- Card footer -->
+						<div class="card-footer bg-light border-top">
+							<h6 class="mb-3">Contact Details</h6>
+							<!-- Email id -->
+							<div class="d-flex align-items-center mb-3">
+								<div class="icon-md bg-mode h6 mb-0 rounded-circle flex-shrink-0"><i class="bi bi-envelope-fill"></i></div>
+								<div class="ms-2">
+									<small>Email id</small>
+									<h6 class="fw-normal small mb-0"><a href="#">hello@gmail.com</a></h6>
+								</div>
+							</div>
+
+							<!-- Phone -->
+							<div class="d-flex align-items-center mb-3">
+								<div class="icon-md bg-mode h6 mb-0 rounded-circle flex-shrink-0"><i class="bi bi-telephone-fill"></i></div>
 								<div class="ms-2">
 									<small>Phone</small>
-									<h6 class="mb-0 mt-1" th:text="${shelter.shelterPhone}">0906786999</h6>
+									<h6 class="fw-normal small mb-0"><a href="#">+1(404) 586-854</a></h6>
 								</div>
 							</div>
-						</div>
 
-						<div class="col-sm-6 col-md-6">
-							<div class="d-flex align-items-center">
-								<div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-2"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+							<!-- Phone -->
+							<div class="d-flex align-items-center mb-3">
+								<div class="icon-md bg-mode h6 mb-0 rounded-circle flex-shrink-0"><i class="bi bi-geo-alt-fill"></i></div>
 								<div class="ms-2">
-									<small>Email</small>
-									<h6 class="mb-0 mt-1" th:text="${shelter.shelterEmail}">0906786999</h6>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-6 col-md-6">
-							<div class="d-flex align-items-center">
-								<div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-2"><i class="fa-solid fa-stairs"></i></div>
-								<div class="ms-2 d-flex flex-column">
-									<small>Facebook</small>
-									<a th:href="@{${shelter.shelterInfoFacebook}}" class="h6 mb-0 mt-1">Click Me!</a>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-6 col-md-6">
-							<div class="d-flex align-items-center">
-								<div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-2"><i class="fa-solid fa-mountain-sun"></i></div>
-								<div class="ms-2 d-flex flex-column">
-									<small>Instagram</small>
-									<a th:href="@{${shelter.shelterInfoInstagram}}" class="h6 mb-0 mt-1">Click Me!</a>
+									<small>Address</small>
+									<h6 class="fw-normal small mb-0">225 Cherry Street #56, New York</h6>
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
+				<!-- Agent info END -->
 
-					<!-- Booking info -->
-					<div class="bg-light border border-secondary border-opacity-25 p-3 rounded d-inline-block mt-4 w-100">
-						<h6 class="small">Current Reservation:</h6>
-						<!-- Avatar -->
-						<div class="d-sm-flex align-items-center">
-							<!-- Avatar -->
-							<div class="avatar avatar-xs flex-shrink-0">
-								<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="avatar">
-							</div>
-							<!-- Info -->
-							<h6 class="mb-0 ms-2" th:text="${shelter.users.firstName} + ' ' + ${shelter.users.lastName}">Lori Stevens</h6>
+				<div class="col-md-8 col-xxl-9">
+					<!-- Personal info START -->
+					<div class="card shadow">
+						<!-- Card header -->
+						<div class="card-header border-bottom">
+							<h5 class="mb-0">Personal Information</h5>
 						</div>
-						<!-- Info -->
-						<div class="hstack gap-4 gap-md-5 flex-wrap mt-2">
-							<div>
-								<small>Date:</small>
-								<h6 class="fw-normal mb-0" style="font-size: 15px;" th:text="${shelter.shelterDate}">18 Dec 2022</h6>
+						<!-- Card body -->
+						<div class="card-body">
+							<div class="row">
+								<!-- Information item -->
+								<div class="col-md-6">
+									<ul class="list-group list-group-borderless">
+										<li class="list-group-item mb-3">
+											<span>First Name:</span>
+											<span class="h6 fw-normal ms-1 mb-0">Jacqueline Miller</span>
+										</li>
+	
+										<li class="list-group-item mb-3">
+											<span>Last Name:</span>
+											<span class="h6 fw-normal ms-1 mb-0">Lucifer</span>
+										</li>
+	
+										<li class="list-group-item mb-3">
+											<span>Mobile Number:</span>
+											<span class="h6 fw-normal ms-1 mb-0">+1(404) 586-854</span>
+										</li>
+
+										<li class="list-group-item mb-3">
+											<span>Joining Date:</span>
+											<span class="h6 fw-normal ms-1 mb-0">29 Aug 2019</span>
+										</li>
+									</ul>
+								</div>
+	
+								<!-- Information item -->
+								<div class="col-md-6">
+									<ul class="list-group list-group-borderless">
+										<li class="list-group-item mb-3">
+											<span>Email ID:</span>
+											<span class="h6 fw-normal ms-1 mb-0">hello@gmail.com</span>
+										</li>
+
+										<li class="list-group-item mb-3">
+											<span>Gender:</span>
+											<span class="h6 fw-normal ms-1 mb-0">Female</span>
+										</li>
+	
+										<li class="list-group-item mb-3">
+											<span>Location:</span>
+											<span class="h6 fw-normal ms-1 mb-0">New York</span>
+										</li>
+
+										<li class="list-group-item mb-3">
+											<span>Address:</span>
+											<span class="h6 fw-normal ms-1 mb-0">2119 N Division Ave, New Hampshire, York, United States</span>
+										</li>
+									</ul>
+								</div>
+	
+								<!-- Information item -->
+								<div class="col-12">
+									<span>Password:</span>
+									<div class="d-flex justify-content-between">
+										<input type="password" class="form-control me-4">
+										<a href="#" class="btn btn-primary mb-0" style="width: 330px;">Reset Password</a>
+									</div>
+								</div>
 							</div>
-							<div>
-								<small>Email:</small>
-								<h6 class="fw-normal mb-0" style="font-size: 15px;" th:text="${shelter.users.userName}">daoducdung2000@gmail.com</h6>
+						</div>
+					</div>
+					<!-- Personal info END -->
+				</div>
+			</div> <!-- Row END -->
+
+			<!-- Hotel list START -->
+			<div class="row g-4">
+				<!-- Title -->
+				<div class="col-12">
+					<h4 class="mb-0">Adopt list</h4>
+				</div>
+	
+				<!-- Hotel item -->
+				<div class="col-lg-6">
+					<div class="card shadow p-3">
+						<div class="row g-4">
+							<!-- Card img -->
+							<div class="col-sm-3">
+								<img src="https://booking.webestica.com/assets/images/category/hotel/4by3/10.jpg" class="rounded-2" alt="Card image">
 							</div>
-							<div>
-								<small>Location:</small>
-								<h6 class="fw-normal mb-0" style="font-size: 15px;" th:text="${shelter.users.country}">Hồ Chí Minh</h6>
+	
+							<!-- Card body -->
+							<div class="col-sm-9">
+								<div class="card-body position-relative d-flex flex-column p-0 h-100">
+	
+									<!-- Buttons -->
+									<div class="list-inline-item dropdown position-absolute top-0 end-0">
+										<!-- Share button -->
+										<a href="#" class="btn btn-sm btn-round btn-light" role="button" id="dropdownAction1" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="bi bi-three-dots-vertical"></i>
+										</a>
+										<!-- dropdown button -->
+										<ul class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownAction1">
+											<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle me-1"></i>Report</a></li>
+											<li><a class="dropdown-item" href="#"><i class="bi bi-slash-circle me-1"></i>Disable</a></li>
+										</ul>
+									</div>
+	
+									<!-- Title -->
+									<h5 class="card-title mb-0 me-5"><a href="hotel-detail.html">Cole</a></h5>
+									<small class="mt-1 me-4 pe-2"><i class="bi bi-geo-alt me-2"></i>66/11 Tam Châu, Tam Phú, Thủ Đức, TP.Hồ Chí Minh</small>
+	
+									<!-- Price and Button -->
+									<div class="d-flex justify-content-between align-items-center mt-3 mt-md-auto">
+										<!-- Price -->
+										<div class="d-flex align-items-center">
+											<h6 class="fw-bold mb-0 me-1">2024-03-10</h6>
+											<span class="mb-0 me-2">/Awaiting</span>
+										</div>
+										<!-- Button -->
+										<a href="#" class="btn btn-sm btn-primary px-2 mb-0"><i class="bi bi-eye fa-fw me-1"></i>View</a>    
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- Booking detail END -->
-
-			<!-- Booking table START -->
-			<div class="card shadow mt-5">
-				<!-- Card header START -->
-				<div class="card-header border-bottom">
-					<h5 class="card-header-title">Infomation Detail</h5>
-				</div>
-				<!-- Card header END -->
-
-				<!-- Card body START -->
-				<div class="card-body">
-					<!-- Traveler item START -->
-					<div class="card">
-						<!-- card body -->
-						<form class="p-0">
-							<!-- Name -->
-							<div class="mb-3">
-								<label class="form-label">Mission</label>
-								<textarea class="form-control" rows="3" spellcheck="false" th:text="${shelter.shelterInfoMission}">2119 N Division Ave, New Hampshire, York, United States</textarea>
-							</div>
-
-							<!-- Name -->
-							<div class="mb-3">
-								<label class="form-label">Policy</label>
-								<textarea class="form-control" rows="3" spellcheck="false" th:text="${shelter.shelterInfoPolicy}">2119 N Division Ave, New Hampshire, York, United States</textarea>
-							</div>
-
-							<!-- Operating -->
-							<div>
-								<label class="form-label">Operating</label>
-								<div class="input-group mb-3" th:each="open : ${listOpen}">
-									<input type="text" class="form-control" th:value="${open[0]}" placeholder="Day">
-									<input type="text" class="form-control" th:value="${open[1]}" placeholder="Time">
-								</div>
-							</div>
-						</form>
-					</div>
-					<!-- Traveler item END -->
-				</div>
-				<!-- Booking table END -->
-			</div>
-			<!-- Booking table START -->
-			<div class="card shadow mt-5">
-				<!-- Card header START -->
-				<div class="card-header border-bottom">
-					<h5 class="card-header-title">Infomation Detail</h5>
-				</div>
-				<!-- Card header END -->
-
-				<!-- Card body START -->
-				<div class="card-body">
-
-					<!-- Table head -->
-					<div class="bg-light rounded p-3 d-none d-lg-block">
-						<div class="row row-cols-7 g-4">
-							<div class="col"><h6 class="mb-0">Name</h6></div>
-							<div class="col"><h6 class="mb-0">Date</h6></div>
-							<div class="col"><h6 class="mb-0">Breed</h6></div>
-							<div class="col"><h6 class="mb-0">Age</h6></div>
-							<div class="col"><h6 class="mb-0">Gender</h6></div>
-							<div class="col"><h6 class="mb-0">Size</h6></div>
-							<div class="col"><h6 class="mb-0">Action</h6></div>
-						</div>
-					</div>
-					<!-- Table data -->
-					<div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4" th:each="animal : ${listAnimal}">
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Booked by:</small>
-							<div class="d-flex align-items-center">
-								<!-- Avatar -->
-								<div class="avatar avatar-xs flex-shrink-0">
-									<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="avatar">
-								</div>
-								<!-- Info -->
-								<div class="ms-2">
-									<h6 class="mb-0 fw-light" th:text="${animal.animalName}">Lori Stevens</h6>
-								</div>
-							</div>
-						</div>	
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-in:</small>
-							<h6 class="mb-0 fw-normal" th:text="${animal.animalDate}">18 Dec 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-out:</small>
-							<h6 class="mb-0 fw-normal" th:text="${animal.breed.breed_name}">22 Dec 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Guests:</small>
-							<h6 class="mb-0 fw-normal" th:text="${animal.animalAge}">04</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Amount:</small>
-							<h6 class="mb-0 fw-normal" th:text="${animal.animalGender ? 'Female' : 'Male'}">$1025</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Payment:</small>
-							<h6 class="mb-0 fw-normal" th:text="${animal.animalSize}">Full payment</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<a th:href="@{/view-animal(id=${animal.id})}" class="btn btn-sm btn-light mb-0">View</a>
-						</div>
-					</div>
-				</div>
-				<!-- Card body END -->
-
-				<!-- Card footer START -->
-				<div class="card-footer pt-0">
-					<!-- Pagination and content -->
-					<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
-						<!-- Content -->
-						<p class="mb-sm-0 text-center text-sm-start">Showing <span th:text="${listAnimal.number} * ${listAnimal.size} == 0 ? 1 : (${listAnimal.number} * ${listAnimal.size}) + 1">1</span> to <span th:text="${listAnimal.totalElements} - (${listAnimal.number} * ${listAnimal.size} + ${listAnimal.size}) < 0 ? ${listAnimal.totalElements} : (${listAnimal.number} * ${listAnimal.size} + ${listAnimal.size})">10</span> of <span th:text="${listAnimal.totalElements}">57</span> entries</p>
-						<!-- Pagination -->
-						<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation" th:if="${listAnimal.totalPages} >= 2">
-							<ul class="pagination pagination-sm pagination-primary-soft mb-0">
-								<li class="page-item disabled">
-									<a class="page-link" href="#" tabindex="-1">Prev</a>
-								</li>
-								<li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listAnimal.totalPages - 1)}"
-									th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
-									<a th:href="@{/changePage-adminShelterDetail(page=${pageIndex.index}, id=${shelter.id})}" th:text="${pageIndex.index + 1}" class="page-link"></a>
-								</li>
-								<li class="page-item">
-									<a class="page-link" href="#">Next</a>
-								</li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-				<!-- Card footer END -->
-			</div>
-			<!-- Booking table END -->
-
+			<!-- Hotel list END -->
 		</div>
 		<!-- Page main content END -->
 	</div>
 	<!-- Page content END -->
 	
-	</main>
+</main>
 <!-- **************** MAIN CONTENT END **************** -->
+
 
 <!-- Bootstrap JS -->
 <script src="../js/bootstrap.bundle.min.js"></script>
@@ -616,7 +595,6 @@
 <!-- Vendor -->
 <script src="../js/overlayscrollbars.min.js"></script>
 <script src="../js/choices.min.js"></script>
-<script src="../js/glightbox.js"></script>
 
 <!-- ThemeFunctions -->
 <script src="../js/functions.js"></script>
