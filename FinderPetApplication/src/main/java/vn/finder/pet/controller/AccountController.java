@@ -1,5 +1,6 @@
 package vn.finder.pet.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -9,12 +10,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import vn.finder.pet.entity.Shelters;
+import vn.finder.pet.entity.Spons;
 import vn.finder.pet.entity.Users;
 import vn.finder.pet.service.*;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import vn.finder.pet.config.VNPayService;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
@@ -26,17 +32,23 @@ public class AccountController {
     private MailService mailService;
     private UsersService userService;
     private AdoptService adoptService;
+    private VNPayService vnPayService;
+    private SheltersService sheltersService;
+    private SponsService sponsService;
     private TwoFactorAuthPasswordsService twoFactorAuthPasswordsService;
     private static final String EMAIL_PATTERN = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
     private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 
     @Autowired
-    public AccountController(OtpService otpService, MailService mailService, UsersService userService, TwoFactorAuthPasswordsService twoFactorAuthPasswordsService, AdoptService adoptService) {
+    public AccountController(OtpService otpService, MailService mailService, UsersService userService, TwoFactorAuthPasswordsService twoFactorAuthPasswordsService, AdoptService adoptService, VNPayService vnPayService, SheltersService sheltersService, SponsService sponsService) {
         this.otpService = otpService;
         this.mailService = mailService;
         this.userService = userService;
         this.twoFactorAuthPasswordsService = twoFactorAuthPasswordsService;
         this.adoptService = adoptService;
+        this.vnPayService = vnPayService;
+        this.sheltersService = sheltersService;
+        this.sponsService = sponsService;
     }
 
     public String getEmailLogin(){
@@ -410,4 +422,89 @@ public class AccountController {
         redirectAttributes.addAttribute("page", page + 1);
         return "redirect:/account-history";
     }
+
+    @GetMapping("/account-donate")
+    public String accountDonate(Model model){
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.userService.findById(this.getEmailLogin()).get());
+        model.addAttribute("listShelter", this.sheltersService.findAll(0, Integer.MAX_VALUE));
+        return "/account-donate";
+    }
+
+    @GetMapping("/donate-confirm")
+    public String donateConfirm(Model model){
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.userService.findById(this.getEmailLogin()).get());
+        return "/donate-confirm";
+    }
+
+    @PostMapping("/submitOrder")
+    public String submidOrder(@RequestParam("amount") int orderTotal,
+                              @RequestParam("orderInfo") String orderInfo,
+                              @RequestParam("usage") String usage,
+                              @RequestParam("name") String idShelter,
+                              HttpServletRequest request){
+        String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
+        Users users = this.userService.findById(this.getEmailLogin()).get();
+        Long id = 0L;
+        if(usage.equals("center")){
+            id = Long.valueOf(idShelter);
+        }
+        Shelters shelters = this.sheltersService.findById(id);
+        Spons spons = new Spons(null, (double) orderTotal, orderInfo, Date.valueOf(LocalDate.now()), users, shelters);
+        this.sponsService.save(spons);
+        return "redirect:" + vnpayUrl;
+    }
+
+    @GetMapping("/vnpay-payment")
+    public String GetMapping(HttpServletRequest request, Model model){
+        int paymentStatus =vnPayService.orderReturn(request);
+
+        String orderInfo = request.getParameter("vnp_OrderInfo");
+        String paymentTime = request.getParameter("vnp_PayDate");
+        String transactionId = request.getParameter("vnp_TransactionNo");
+        String totalPrice = request.getParameter("vnp_Amount");
+
+        model.addAttribute("orderId", orderInfo);
+        model.addAttribute("transactionId", transactionId);
+
+        String trimmedInput = totalPrice.substring(0, totalPrice.length() - 2);
+        StringBuilder formattedString = new StringBuilder(trimmedInput);
+        for (int i = trimmedInput.length() - 3; i > 0; i -= 3) {
+            formattedString.insert(i, '.');
+        }
+        model.addAttribute("totalPrice", formattedString.append(".00").toString());
+
+
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        LocalDateTime dateTime = LocalDateTime.parse(paymentTime, inputFormatter);
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        model.addAttribute("paymentTime", dateTime.format(outputFormatter));
+
+        if(paymentStatus == 1){
+            model.addAttribute("status", "thành công");
+        } else {
+            model.addAttribute("status", "thất bại");
+        }
+
+        return "redirect:/donate-confirm";
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -261,7 +261,7 @@
                                 <!-- Card body START -->
                                 <div class="card-body mt-4">
                                     <!-- Form START -->
-                                    <form action="/change-info-user" method="get" class="row g-3 tab-changeProfile" th:object="${user}">
+                                    <form th:action="@{/submitOrder}" method="post" class="row g-3 tab-changeProfile">
                                         <!-- Current Status -->
                                         <div class="row form-group d-flex justify-content-between">
                                             <label class="form-label col-lg-3 col-md-12">Current Status</label>
@@ -325,12 +325,9 @@
                                         <div id="manage-budget" class="row form-group d-none mt-3 mb-2">
                                             <label class="form-label col-lg-3 col-md-12">Shelter Name</label>
                                             <div class="col-lg-9 col-md-12">
-                                                <select class="form-select js-choice" data-search-enabled="true">
+                                                <select class="form-select js-choice" name="name" data-search-enabled="true">
                                                     <option value="">Select your country</option>
-                                                    <option>USA</option>
-                                                    <option selected>Paris</option>
-                                                    <option>India</option>
-                                                    <option>UK</option>
+                                                    <option th:each="shelter, iterStat : ${listShelter}" th:if="${iterStat.index > 0}" th:text="${shelter.shelterName}" th:value="${shelter.id}">USA</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -339,7 +336,7 @@
                                         <!-- Budget Notes -->
                                         <div class="custom-budget-notes form-group d-flex mb-3 mt-3">
                                             <label class="form-label col-lg-3 col-md-12" style="margin-left: 7px;">Budget Notes</label>
-                                            <textarea class="form-control" rows="3" spellcheck="false" style="margin-left: -4px; margin-right: 38px;"></textarea>
+                                            <textarea class="form-control" rows="3" id="orderInfo" name="orderInfo" spellcheck="false" style="margin-left: -4px; margin-right: 38px;"></textarea>
                                         </div>
 
                                         <!-- Manage Budget -->
@@ -347,7 +344,7 @@
                                             <label class="form-label col-lg-3 col-md-12">Manage Budget</label>
                                             <div class="col-lg-9 col-md-12">
                                                 <div class="input-group has-validation">
-                                                    <input type="number" class="form-control"  style="border-radius: 8px 0 0 8px;">
+                                                    <input type="number" class="form-control" id="amount" name="amount" style="border-radius: 8px 0 0 8px;">
                                                     <span class="input-group-text">VND</span>
                                                 </div>
                                             </div>
@@ -372,7 +369,7 @@
                                         </div>
                                         <!-- Button -->
                                         <div class="col-12 text-end mt-3">
-                                            <button class="btn btn-primary mb-0">Donate</button>
+                                            <button type="submit" class="btn btn-primary mb-0">Donate</button>
                                         </div>
                                     </form>
                                     <!-- Form END -->
