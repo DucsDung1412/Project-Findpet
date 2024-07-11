@@ -482,11 +482,17 @@ public class AccountController {
 
         if(paymentStatus == 1){
             model.addAttribute("status", "thành công");
+            Spons s = new Spons();
+            for (int i = 0; i < this.sponsService.findAll().size(); i++){
+                s = this.sponsService.findAll().get(i);
+            }
+            model.addAttribute("spon", s);
         } else {
             model.addAttribute("status", "thất bại");
         }
 
-        return "redirect:/donate-confirm";
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.userService.findById(this.getEmailLogin()).get());
+        return "donate-confirm";
     }
 }
 

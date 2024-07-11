@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import vn.finder.pet.dao.SponsDAO;
 import vn.finder.pet.entity.Spons;
 
+import java.util.List;
+
 @Service
 public class SponsService {
     private SponsDAO sponsDAO;
@@ -23,5 +25,13 @@ public class SponsService {
             return false;
         }
         return true;
+    }
+
+    public Spons findById(Long id){
+        return this.sponsDAO.findById(id).get();
+    }
+
+    public List<Spons> findAll(){
+        return this.sponsDAO.findAll();
     }
 }

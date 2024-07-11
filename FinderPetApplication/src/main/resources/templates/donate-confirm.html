@@ -116,7 +116,7 @@ Main Content START -->
 						<!-- Card header -->
 						<div class="card-header border-bottom p-4 d-flex justify-content-between">
 							<h1 class="mb-0 fs-3">Donate summary</h1>
-                            <button class="btn btn-primary mb-0">Back To Home</button>
+                            <a href="/index" class="btn btn-primary mb-0">Back To Home</a>
 						</div>
 
 						<!-- Card body START -->
@@ -132,25 +132,32 @@ Main Content START -->
 								<!-- Card and address detail -->
 								<div class="col-md-9">
 									<!-- Title -->
-									<h5 class="card-title mb-2">Đức Dũng</h5>
+									<h5 class="card-title mb-4 mt-2 text-success">Thanh toán <span th:text="${status}">thành công</span></h5>
+									<h6 class="card-title mb-2" th:text="${spon.users.firstName} + ' ' + ${spon.users.lastName} ">Đức Dũng</h6>
 
 									<!-- Pick up and drop address -->
 									<div class="row">
 										<div class="col-md-6">
 											<small>Email</small>
-											<p class="h6 fw-light mb-md-0">daoducdung2000@gmail.com</p>
+											<p class="h6 fw-light mb-md-0" th:text="${spon.users.userName}">daoducdung2000@gmail.com</p>
 										</div>
 
 										<div class="col-md-6">
 											<small>Location</small>
-											<p class="h6 fw-light mb-0">Thành phố Hồ Chí Minh</p>
+											<p class="h6 fw-light mb-0" th:text="${spon.users.country}">Thành phố Hồ Chí Minh</p>
 										</div>
 									</div>
 								</div>
 
 								<div class="col-md-6">
 									<ul class="list-group list-group-borderless">
-										<li class="list-group-item">Journey Date:<span class="h6 fw-normal mb-0 ms-1">25 Nov 2022</span></li>
+										<li class="list-group-item">Journey Date:<span class="h6 fw-normal mb-0 ms-1" th:text="${paymentTime}">25 Nov 2022</span></li>
+									</ul>
+								</div>
+
+								<div class="col-md-6">
+									<ul class="list-group list-group-borderless">
+										<li class="list-group-item">Transaction Id:<span class="h6 fw-normal mb-0 ms-1" th:text="${transactionId}">25 Nov 2022</span></li>
 									</ul>
 								</div>
 							</div>
@@ -160,18 +167,18 @@ Main Content START -->
 
 							<div class="row">
 								<!-- List -->
-								<div class="col-sm-8">
+								<div class="col-sm-5">
 									<ul class="list-group list-group-borderless mb-0">
-										<li class="list-group-item">Passenger Name:<span class="h6 mb-0 fw-normal ms-1">Shelter</span></li>
-										<li class="list-group-item">Passenger Number:<span class="h6 mb-0 fw-normal ms-1">Hasaki</span></li>
-										<li class="list-group-item">Passenger Email:<span class="h6 mb-0 fw-normal ms-1">Em donate để giúp cho bé cún Hưng có cuộc sống ổn hơn, mong số tiền này có để đem đến ít hạnh phúc cho bé</span></li>
+										<li class="list-group-item">Passenger Name:<span class="h6 mb-0 fw-normal ms-1" th:text="${spon.shelters.id} != 0 ? 'Shelter' : 'Website'">Shelter</span></li>
+										<li th:if="${spon.shelters.id} != 0" class="list-group-item">Passenger Number:<span class="h6 mb-0 fw-normal ms-1" th:text="${spon.shelters.shelterName}">Hasaki</span></li>
+										<li class="list-group-item">Passenger Email:<span class="h6 mb-0 fw-normal ms-1" th:text="${orderId}">Em donate để giúp cho bé cún Hưng có cuộc sống ổn hơn, mong số tiền này có để đem đến ít hạnh phúc cho bé</span></li>
 									</ul>
 								</div>
 
 								<!-- Price -->
-								<div class="col-sm-4 text-sm-end mt-3 mt-sm-auto">
+								<div class="col-sm-7 text-sm-end mt-3 mt-sm-auto">
 									<h6 class="mb-1 fw-normal">Total Amount</h6>
-									<h2 class="mb-0 text-success">$458</h2>
+									<h3 class="mb-0 text-success" th:text="${totalPrice} + ' VND'">$458</h3>
 								</div>
 							</div>
 						</div>	

@@ -261,7 +261,7 @@
                                 <!-- Card body START -->
                                 <div class="card-body mt-4">
                                     <!-- Form START -->
-                                    <form th:action="@{/submitOrder}" method="post" class="row g-3 tab-changeProfile">
+                                    <form th:action="@{/submitOrder}" method="post" class="row g-3 tab-changeProfile tab-donate">
                                         <!-- Current Status -->
                                         <div class="row form-group d-flex justify-content-between">
                                             <label class="form-label col-lg-3 col-md-12">Current Status</label>
@@ -347,6 +347,7 @@
                                                     <input type="number" class="form-control" id="amount" name="amount" style="border-radius: 8px 0 0 8px;">
                                                     <span class="input-group-text">VND</span>
                                                 </div>
+                                                <div class="invalid-feedback">  </div>
                                             </div>
                                         </div>
 
@@ -358,11 +359,12 @@
                                             <div class="col-xl-9">
                                                 <!--begin::Switch-->
                                                 <div class="form-check form-switch form-check-custom form-check-solid">
-                                                    <input class="form-check-input" type="checkbox" value="" id="allowchanges" checked="checked">
+                                                    <input class="form-check-input" type="checkbox" id="allowchanges" checked="checked">
                                                     <label class="form-check-label  fw-semibold text-gray-500 ms-3" for="allowchanges">
                                                         Accpeted
                                                     </label>
                                                 </div>
+                                                <div class="invalid-feedback">  </div>
                                                 <!--end::Switch-->
                                             </div>
                                             <!--end::Col-->
@@ -444,6 +446,14 @@ Footer END -->
             });
         });
 
+         Validator({
+				workplace: ".tab-donate",
+				formGroupSelector: '.form-group',
+				rules: [
+                    Validator.isRequired("#amount", "Please fill."),
+					Validator.isRequired("#allowchanges", "Please fill."),
+				]
+			});
     </script>
 </body>
 
