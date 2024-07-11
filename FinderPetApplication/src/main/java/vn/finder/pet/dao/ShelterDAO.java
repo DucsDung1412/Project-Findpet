@@ -14,5 +14,8 @@ public interface ShelterDAO extends JpaRepository<Shelters, Long> {
     List<Shelters> findByShelterStatus(String status);
 
     @Query("SELECT s FROM Shelters s WHERE s.shelterStatus NOT LIKE %?1%")
-    Page<Shelters> findSheltersByStatusNotContaining(Pageable pageable, String status);;
+    Page<Shelters> findSheltersByStatusNotContaining(Pageable pageable, String status);
+
+    @Query("SELECT s FROM Shelters s WHERE s.shelterStatus LIKE %?1%")
+    Page<Shelters> findSheltersByStatusContaining(Pageable pageable, String status);;
 }

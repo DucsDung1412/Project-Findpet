@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
 	<title>Booking - Multipurpose Online Booking Theme</title>
 
@@ -360,16 +360,16 @@
 				<div class="col-lg-6">
 					<ul class="nav nav-pills-shadow nav-responsive">
 						<li class="nav-item"> 
-							<a class="nav-link mb-0 active" data-bs-toggle="tab" href="#tab-1">All Regist</a> 
+							<a th:class="${status} == null ? 'nav-link mb-0 active' : 'nav-link mb-0'" href="/admin-regist-list">All Regist</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-2">Accpeted</a>
+							<a th:class="${status} == 'Opening' ? 'nav-link mb-0 active' : 'nav-link mb-0'" th:href="@{/admin-regist-list(status='Opening')}">Accpeted</a>
 						</li>
 						<li class="nav-item"> 
-							<a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-3">Canceled</a> 
+							<a th:class="${status} == 'Canceled' ? 'nav-link mb-0 active' : 'nav-link mb-0'" th:href="@{/admin-regist-list(status='Canceled')}">Canceled</a>
 						</li>
 						<li class="nav-item"> 
-							<a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-4">Waiting</a> 
+							<a th:class="${status} == 'Awaiting' ? 'nav-link mb-0 active' : 'nav-link mb-0'" th:href="@{/admin-regist-list(status='Awaiting')}">Waiting</a>
 						</li>
 					</ul>
 				</div>
@@ -412,7 +412,7 @@
 					</div>
 
 					<!-- Table data -->
-					<div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4">
+					<div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4" th:each="list : ${listTotalShelters}">
 						<!-- Data item -->
 						<div class="col">
 							<small class="d-block d-lg-none">Booked by:</small>
@@ -423,7 +423,7 @@
 								</div>
 								<!-- Info -->
 								<div class="ms-2">
-									<h6 class="mb-0 fw-light">Lori Stevens</h6>
+									<h6 class="mb-0 fw-light" th:text="${list.users.firstName} + ' ' + ${list.users.lastName}">Lori Stevens</h6>
 								</div>
 							</div>
 						</div>	
@@ -431,104 +431,31 @@
 						<!-- Data item -->
 						<div class="col">
 							<small class="d-block d-lg-none">Booking date:</small>
-							<h6 class="mb-0 fw-normal">Humane Society of Dover - Stewart County</h6>
+							<h6 class="mb-0 fw-normal" th:text="${list.shelterName}">Humane Society of Dover - Stewart County</h6>
 						</div>
 
 						<!-- Data item -->
 						<div class="col">
 							<small class="d-block d-lg-none">Check-in:</small>
-							<h6 class="mb-0 fw-normal">18 Dec 2022</h6>
+							<h6 class="mb-0 fw-normal" th:text="${list.shelterDate}">18 Dec 2022</h6>
 						</div>
 
 						<!-- Data item -->
 						<div class="col">
 							<small class="d-block d-lg-none">Payment:</small>
-							<div class="badge bg-success bg-opacity-10 text-success">Booked</div>
+							<div class="badge bg-success bg-opacity-10 text-success" th:text="${list.shelterStatus}" th:if="${list.shelterStatus} == 'Opening'">Opening</div>
+							<div class="badge bg-orange bg-opacity-10 text-orange" th:text="${list.shelterStatus}" th:if="${list.shelterStatus} == 'Awaiting'">Awaiting</div>
+							<div class="badge bg-danger bg-opacity-10 text-danger" th:text="${list.shelterStatus}" th:if="${list.shelterStatus} == 'Canceled'">Canceled</div>
 						</div>
 
 						<!-- Data item -->
-						<div class="col"><a href="admin-guest-detail.html" class="btn btn-sm btn-light mb-0">View</a></div>
-					</div>
-
-					<!-- Table data -->
-					<div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4">
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Booked by:</small>
-							<div class="d-flex align-items-center">
-								<!-- Avatar -->
-								<div class="avatar avatar-xs flex-shrink-0">
-									<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="avatar">
-								</div>
-								<!-- Info -->
-								<div class="ms-2">
-									<h6 class="mb-0 fw-light">Lori Stevens</h6>
-								</div>
-							</div>
-						</div>	
+						<div class="col" th:if="${list.shelterStatus} != 'Awaiting'"><a th:href="@{/admin-shelter-detail(id=${list.id})}" class="btn btn-sm btn-light mb-0">View</a></div>
 
 						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Booking date:</small>
-							<h6 class="mb-0 fw-normal">Humane Society of Dover - Stewart County</h6>
+						<div class="col" th:if="${list.shelterStatus} == 'Awaiting'">
+							<a th:href="@{/accept-shelter(id=${list.id})}" class="btn btn-sm btn-primary mb-0">Đồng ý</a>
+							<a th:href="@{/refuse-shelter(id=${list.id})}" class="btn btn-sm btn-danger mb-0 ms-2">Từ chối</a>
 						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-in:</small>
-							<h6 class="mb-0 fw-normal">18 Dec 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Payment:</small>
-							<div class="badge bg-orange bg-opacity-10 text-orange">Waiting</div>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<a href="admin-guest-detail.html" class="btn btn-sm btn-primary mb-0">Đồng ý</a>
-							<a href="admin-guest-detail.html" class="btn btn-sm btn-danger mb-0 ms-2">Từ chối</a>
-						</div>
-					</div>
-
-					<!-- Table data -->
-					<div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4">
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Booked by:</small>
-							<div class="d-flex align-items-center">
-								<!-- Avatar -->
-								<div class="avatar avatar-xs flex-shrink-0">
-									<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/09.jpg" alt="avatar">
-								</div>
-								<!-- Info -->
-								<div class="ms-2">
-									<h6 class="mb-0 fw-light">Lori Stevens</h6>
-								</div>
-							</div>
-						</div>	
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Booking date:</small>
-							<h6 class="mb-0 fw-normal">Humane Society of Dover - Stewart County</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Check-in:</small>
-							<h6 class="mb-0 fw-normal">18 Dec 2022</h6>
-						</div>
-
-						<!-- Data item -->
-						<div class="col">
-							<small class="d-block d-lg-none">Payment:</small>
-							<div class="badge bg-danger bg-opacity-10 text-danger">Canceled</div>
-						</div>
-
-						<!-- Data item -->
-						<div class="col"><a href="admin-guest-detail.html" class="btn btn-sm btn-light mb-0">View</a></div>
 					</div>
 				</div>
 				<!-- Card body END -->
@@ -538,17 +465,17 @@
 					<!-- Pagination and content -->
 					<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
 						<!-- Content -->
-						<p class="mb-sm-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
+						<p class="mb-sm-0 text-center text-sm-start">Showing <span th:text="${listTotalShelters.number} * ${listTotalShelters.size} == 0 ? 1 : (${listTotalShelters.number} * ${listTotalShelters.size}) + 1">1</span> to <span th:text="${listTotalShelters.totalElements} - (${listTotalShelters.number} * ${listTotalShelters.size} + ${listTotalShelters.size}) < 0 ? ${listTotalShelters.totalElements} : (${listTotalShelters.number} * ${listTotalShelters.size} + ${listTotalShelters.size})">10</span> of <span th:text="${listTotalShelters.totalElements}">57</span> entries</p>
 						<!-- Pagination -->
-						<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
+						<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation" th:if="${listTotalShelters.totalPages} >= 2">
 							<ul class="pagination pagination-sm pagination-primary-soft mb-0">
 								<li class="page-item disabled">
 									<a class="page-link" href="#" tabindex="-1">Prev</a>
 								</li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item active"><a class="page-link" href="#">2</a></li>
-								<li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-								<li class="page-item"><a class="page-link" href="#">15</a></li>
+								<li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listTotalShelters.totalPages - 1)}"
+									th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
+									<a th:href="@{'/changePage-adminRegistList?page='+${pageIndex.index}}" th:text="${pageIndex.index + 1}" class="page-link"></a>
+								</li>
 								<li class="page-item">
 									<a class="page-link" href="#">Next</a>
 								</li>

@@ -1,9 +1,6 @@
 package vn.finder.pet.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,8 +32,8 @@ public class AdminController {
         model.addAttribute("totalPending", this.sheltersService.findByShelterStatus("Awaiting").size());
         model.addAttribute("listTotalPending", this.sheltersService.findByShelterStatus("Awaiting"));
 
-        model.addAttribute("totalShelters", this.sheltersService.findAll(0, Integer.MAX_VALUE).getTotalElements());
-        model.addAttribute("listTotalShelters", this.sheltersService.findAll(0, 6).stream());
+        model.addAttribute("totalShelters", this.sheltersService.findSheltersByStatusContaining("Opening", 0, Integer.MAX_VALUE).getTotalElements());
+        model.addAttribute("listTotalShelters", this.sheltersService.findSheltersByStatusContaining("Opening", 0, 6).stream());
 
         model.addAttribute("totalUsers", this.usersService.findAll(0, Integer.MAX_VALUE).getTotalElements());
         model.addAttribute("listTotalUsers", this.usersService.findAll(0, 7).stream());
@@ -51,7 +48,7 @@ public class AdminController {
         }
         int pg = Integer.valueOf(page);
         model.addAttribute("page", pg == 0 ? 1 : pg);
-        model.addAttribute("listTotalShelters", this.sheltersService.findAll(pg == 0 ? 0 : pg - 1, 10));
+        model.addAttribute("listTotalShelters", this.sheltersService.findSheltersByStatusContaining("Opening", pg == 0 ? 0 : pg - 1, 10));
         return "/admin-shelter-list";
     }
 
@@ -101,5 +98,42 @@ public class AdminController {
     public String changePageAdminUser(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
         return "redirect:/admin-user-list";
+    }
+
+    @GetMapping("/admin-regist-list")
+    public String adminRegistList(Model model, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "status", required = false) String status){
+        if(page == null){
+            page = "0";
+        }
+        int pg = Integer.valueOf(page);
+
+        if(status == null){
+            model.addAttribute("listTotalShelters", this.sheltersService.findSheltersByStatusContaining("%",  pg == 0 ? 0 : pg - 1, 6));
+        } else {
+            model.addAttribute("listTotalShelters", this.sheltersService.findSheltersByStatusContaining(status,  pg == 0 ? 0 : pg - 1, 6));
+        }
+        model.addAttribute("page", pg == 0 ? 1 : pg);
+        model.addAttribute("status", status);
+        return "/admin-regist-list";
+    }
+
+    @GetMapping("/changePage-adminRegistList")
+    public String changePageAdminRegistList(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("page", page + 1);
+        return "redirect:/admin-regist-list";
+    }
+
+    @GetMapping("/accept-shelter")
+    public String acceptShelter(@RequestParam("id") Long id, RedirectAttributes redirectAttributes){
+        this.sheltersService.updateShelter(id, "Opening");
+        redirectAttributes.addAttribute("page", 0);
+        return "redirect:/admin-regist-list";
+    }
+
+    @GetMapping("/refuse-shelter")
+    public String refuseShelter(@RequestParam("id") Long id, RedirectAttributes redirectAttributes){
+        this.sheltersService.updateShelter(id, "Canceled");
+        redirectAttributes.addAttribute("page", 0);
+        return "redirect:/admin-regist-list";
     }
 }

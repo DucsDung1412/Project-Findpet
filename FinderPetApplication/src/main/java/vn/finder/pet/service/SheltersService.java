@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SheltersService {
@@ -39,6 +40,11 @@ public class SheltersService {
     public Page<Shelters> findAll(int page, int sizePage){
         Pageable pageable = PageRequest.of(page, sizePage);
         return this.shelterDAO.findSheltersByStatusNotContaining(pageable, "Awaiting");
+    }
+
+    public Page<Shelters> findSheltersByStatusContaining(String status, int page, int sizePage){
+        Pageable pageable = PageRequest.of(page, sizePage);
+        return this.shelterDAO.findSheltersByStatusContaining(pageable, status);
     }
 
     public Shelters findById(Long id){
@@ -82,5 +88,15 @@ public class SheltersService {
         info.setAnimalInfoDescription(dto.getAnimal_info_description());
         info.setAnimals(animals);
         this.animalInfoService.save(info);
+    }
+
+    public Boolean updateShelter(Long id, String status){
+        Optional<Shelters> shelters = this.shelterDAO.findById(id);
+        if(!shelters.isEmpty()){
+            shelters.get().setShelterStatus(status);
+            this.shelterDAO.save(shelters.get());
+            return true;
+        }
+        return false;
     }
 }
