@@ -1,11 +1,16 @@
 package vn.finder.pet.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import vn.finder.pet.entity.Adopt;
+import vn.finder.pet.entity.Users;
+import vn.finder.pet.service.AdoptService;
 import vn.finder.pet.service.AnimalsService;
 import vn.finder.pet.service.SheltersService;
 import vn.finder.pet.service.UsersService;
@@ -19,12 +24,14 @@ public class AdminController {
     private SheltersService sheltersService;
     private UsersService usersService;
     private AnimalsService animalsService;
+    private AdoptService adoptService;
 
     @Autowired
-    public AdminController(SheltersService sheltersService, UsersService usersService, AnimalsService animalsService) {
+    public AdminController(SheltersService sheltersService, UsersService usersService, AnimalsService animalsService, AdoptService adoptService) {
         this.sheltersService = sheltersService;
         this.usersService = usersService;
         this.animalsService = animalsService;
+        this.adoptService = adoptService;
     }
 
     @GetMapping("/admin-dashboard")
@@ -135,5 +142,45 @@ public class AdminController {
         this.sheltersService.updateShelter(id, "Canceled");
         redirectAttributes.addAttribute("page", 0);
         return "redirect:/admin-regist-list";
+    }
+
+    @GetMapping("/admin-user-detail")
+    public String adminUserDetail(Model model, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "changePassword", required = false) Boolean changePassword, @RequestParam(value = "id") String userName){
+        if(page == null){
+            page = "0";
+        }
+        int pg = Integer.valueOf(page);
+        model.addAttribute("userDetail", this.usersService.findById(userName).get());
+        model.addAttribute("page", pg == 0 ? 1 : pg);
+        int i = 0;
+        for(Adopt a : this.usersService.findById(userName).get().getListAdopt()){
+            if(a.getAdopt_status().equals("Cancel")){
+                i++;
+            }
+        }
+        model.addAttribute("totalCanceled", i);
+        model.addAttribute("listAdopt", this.adoptService.findByUsers(userName, "%", pg == 0 ? 0 : pg - 1, 8));
+        if(changePassword != null){
+            model.addAttribute("changePassword", changePassword ? "thành công" : "thất bại");
+        }
+        return "/admin-user-detail";
+    }
+
+    @GetMapping("/changePage-adminUserDetail")
+    public String changePageAdminUserDetail(@RequestParam("page") int page, @RequestParam("id") String id, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("page", page + 1);
+        redirectAttributes.addAttribute("id", id);
+        return "redirect:/admin-user-detail";
+    }
+
+    @PostMapping("/resetPassword")
+    public String resetPassword(@RequestParam("id") String id, RedirectAttributes redirectAttributes, @RequestParam("password") String password){
+        redirectAttributes.addAttribute("id", id);
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String enCode = bCryptPasswordEncoder.encode(password);
+        Users users = this.usersService.findById(id).get();
+        users.setPassword("{bcrypt}"+enCode);
+        redirectAttributes.addAttribute("changePassword", this.usersService.changeInfoUser(users));
+        return "redirect:/admin-user-detail";
     }
 }

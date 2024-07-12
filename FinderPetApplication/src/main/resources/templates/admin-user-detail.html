@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
 	<title>Booking - Multipurpose Online Booking Theme</title>
 
@@ -318,8 +318,8 @@
 											<img class="avatar-img rounded-circle shadow" src="https://booking.webestica.com/assets/images/avatar/01.jpg" alt="avatar">
 										</div>
 										<div>
-											<a class="h6 mt-2 mt-sm-0" href="#">Lori Ferguson</a>
-											<p class="small m-0">example@gmail.com</p>
+											<a class="h6 mt-2 mt-sm-0" href="#" th:text="${userDetail.firstName} + ' ' + ${userDetail.lastName}">Lori Ferguson</a>
+											<p class="small m-0" th:text="${userDetail.userName}">example@gmail.com</p>
 										</div>
 									</div>
 								</li>
@@ -352,7 +352,7 @@
 						<div class="d-flex justify-content-between align-items-center">
 							<!-- Digit -->
 							<div>
-								<h3 class="mb-0 fw-bold">04</h3>
+								<h3 class="mb-0 fw-bold" th:text="${userDetail.listAdopt.size()}">04</h3>
 								<span class="mb-0 h6 fw-light">Total Adopts</span>
 							</div>
 							<!-- Icon -->
@@ -367,7 +367,7 @@
 						<div class="d-flex justify-content-between align-items-center">
 							<!-- Digit -->
 							<div>
-								<h3 class="mb-0 fw-bold">$2486.95</h3>
+								<h3 class="mb-0 fw-bold" th:text="${userDetail.listSpons.size()}">$2486.95</h3>
 								<span class="mb-0 h6 fw-light">Total Donate</span>
 							</div>
 							<!-- Icon -->
@@ -382,7 +382,7 @@
 						<div class="d-flex justify-content-between align-items-center">
 							<!-- Digit -->
 							<div>
-								<h3 class="mb-0 fw-bold">01</h3>
+								<h3 class="mb-0 fw-bold" th:text="${totalCanceled}">01</h3>
 								<span class="mb-0 h6 fw-light">Total Canced</span>
 							</div>
 							<!-- Icon -->
@@ -415,7 +415,7 @@
 								<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/05.jpg" alt="avatar">
 							</div>
 							<!-- Title -->
-							<h5 class="mb-2">Jacqueline Miller</h5>
+							<h5 class="mb-2" th:text="${userDetail.firstName} + ' ' + ${userDetail.lastName}">Jacqueline Miller</h5>
 						</div>
 						<!-- Card footer -->
 						<div class="card-footer bg-light border-top">
@@ -425,7 +425,7 @@
 								<div class="icon-md bg-mode h6 mb-0 rounded-circle flex-shrink-0"><i class="bi bi-envelope-fill"></i></div>
 								<div class="ms-2">
 									<small>Email id</small>
-									<h6 class="fw-normal small mb-0"><a href="#">hello@gmail.com</a></h6>
+									<h6 class="fw-normal small mb-0"><a href="#" th:text="${userDetail.userName}">hello@gmail.com</a></h6>
 								</div>
 							</div>
 
@@ -434,7 +434,7 @@
 								<div class="icon-md bg-mode h6 mb-0 rounded-circle flex-shrink-0"><i class="bi bi-telephone-fill"></i></div>
 								<div class="ms-2">
 									<small>Phone</small>
-									<h6 class="fw-normal small mb-0"><a href="#">+1(404) 586-854</a></h6>
+									<h6 class="fw-normal small mb-0"><a href="#" th:text="${userDetail.phone}">+1(404) 586-854</a></h6>
 								</div>
 							</div>
 
@@ -443,7 +443,7 @@
 								<div class="icon-md bg-mode h6 mb-0 rounded-circle flex-shrink-0"><i class="bi bi-geo-alt-fill"></i></div>
 								<div class="ms-2">
 									<small>Address</small>
-									<h6 class="fw-normal small mb-0">225 Cherry Street #56, New York</h6>
+									<h6 class="fw-normal small mb-0" th:text="${userDetail.address}">225 Cherry Street #56, New York</h6>
 								</div>
 							</div>
 						</div>
@@ -466,22 +466,22 @@
 									<ul class="list-group list-group-borderless">
 										<li class="list-group-item mb-3">
 											<span>First Name:</span>
-											<span class="h6 fw-normal ms-1 mb-0">Jacqueline Miller</span>
+											<span class="h6 fw-normal ms-1 mb-0" th:text="${userDetail.firstName}">Jacqueline Miller</span>
 										</li>
 	
 										<li class="list-group-item mb-3">
 											<span>Last Name:</span>
-											<span class="h6 fw-normal ms-1 mb-0">Lucifer</span>
+											<span class="h6 fw-normal ms-1 mb-0" th:text="${userDetail.lastName}">Lucifer</span>
 										</li>
 	
 										<li class="list-group-item mb-3">
 											<span>Mobile Number:</span>
-											<span class="h6 fw-normal ms-1 mb-0">+1(404) 586-854</span>
+											<span class="h6 fw-normal ms-1 mb-0" th:text="${userDetail.phone}">+1(404) 586-854</span>
 										</li>
 
 										<li class="list-group-item mb-3">
 											<span>Joining Date:</span>
-											<span class="h6 fw-normal ms-1 mb-0">29 Aug 2019</span>
+											<span class="h6 fw-normal ms-1 mb-0" th:text="${userDetail.createdDate}">29 Aug 2019</span>
 										</li>
 									</ul>
 								</div>
@@ -491,22 +491,22 @@
 									<ul class="list-group list-group-borderless">
 										<li class="list-group-item mb-3">
 											<span>Email ID:</span>
-											<span class="h6 fw-normal ms-1 mb-0">hello@gmail.com</span>
+											<span class="h6 fw-normal ms-1 mb-0" th:text="${userDetail.userName}">hello@gmail.com</span>
 										</li>
 
 										<li class="list-group-item mb-3">
-											<span>Gender:</span>
-											<span class="h6 fw-normal ms-1 mb-0">Female</span>
+											<span>Role:</span>
+											<span class="h6 fw-normal ms-1 mb-0" th:text="${userDetail.authorities.authority}">Female</span>
 										</li>
 	
 										<li class="list-group-item mb-3">
 											<span>Location:</span>
-											<span class="h6 fw-normal ms-1 mb-0">New York</span>
+											<span class="h6 fw-normal ms-1 mb-0" th:text="${userDetail.country}">New York</span>
 										</li>
 
 										<li class="list-group-item mb-3">
 											<span>Address:</span>
-											<span class="h6 fw-normal ms-1 mb-0">2119 N Division Ave, New Hampshire, York, United States</span>
+											<span class="h6 fw-normal ms-1 mb-0" th:text="${userDetail.address}">2119 N Division Ave, New Hampshire, York, United States</span>
 										</li>
 									</ul>
 								</div>
@@ -514,10 +514,11 @@
 								<!-- Information item -->
 								<div class="col-12">
 									<span>Password:</span>
-									<div class="d-flex justify-content-between">
-										<input type="password" class="form-control me-4">
-										<a href="#" class="btn btn-primary mb-0" style="width: 330px;">Reset Password</a>
-									</div>
+									<form method="post" action="resetPassword" class="d-flex justify-content-between">
+										<input type="password" name="password" class="form-control me-4">
+										<input type="text" name="id" class="form-control me-4 d-none" th:value="${userDetail.userName}">
+										<button type="submit" class="btn btn-primary mb-0" style="width: 330px;">Reset Password</button>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -534,7 +535,7 @@
 				</div>
 	
 				<!-- Hotel item -->
-				<div class="col-lg-6">
+				<div class="col-lg-6" th:each="adopt : ${listAdopt}">
 					<div class="card shadow p-3">
 						<div class="row g-4">
 							<!-- Card img -->
@@ -560,15 +561,15 @@
 									</div>
 	
 									<!-- Title -->
-									<h5 class="card-title mb-0 me-5"><a href="hotel-detail.html">Cole</a></h5>
-									<small class="mt-1 me-4 pe-2"><i class="bi bi-geo-alt me-2"></i>66/11 Tam Châu, Tam Phú, Thủ Đức, TP.Hồ Chí Minh</small>
+									<h5 class="card-title mb-0 me-5"><a href="hotel-detail.html" th:text="${adopt.animals.animalName}">Cole</a></h5>
+									<small class="mt-1 me-4 pe-2"><i class="bi bi-geo-alt me-2"></i><span th:text="${adopt.animals.shelters.shelterAddress}">66/11 Tam Châu, Tam Phú, Thủ Đức, TP.Hồ Chí Minh</span></small>
 	
 									<!-- Price and Button -->
 									<div class="d-flex justify-content-between align-items-center mt-3 mt-md-auto">
 										<!-- Price -->
 										<div class="d-flex align-items-center">
-											<h6 class="fw-bold mb-0 me-1">2024-03-10</h6>
-											<span class="mb-0 me-2">/Awaiting</span>
+											<h6 class="fw-bold mb-0 me-1" th:text="${adopt.adoptDate}">2024-03-10</h6>
+											<span class="mb-0 me-2" th:text="${adopt.adopt_status}">/Awaiting</span>
 										</div>
 										<!-- Button -->
 										<a href="#" class="btn btn-sm btn-primary px-2 mb-0"><i class="bi bi-eye fa-fw me-1"></i>View</a>    
@@ -576,6 +577,28 @@
 								</div>
 							</div>
 						</div>
+					</div>
+				</div>
+
+				<div class="col-12">
+					<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+						<!-- Content -->
+						<p class="mb-sm-0 text-center text-sm-start">Showing <span th:text="${listAdopt.number} * ${listAdopt.size} == 0 ? 1 : (${listAdopt.number} * ${listAdopt.size}) + 1">1</span> to <span th:text="${listAdopt.totalElements} - (${listAdopt.number} * ${listAdopt.size} + ${listAdopt.size}) < 0 ? ${listAdopt.totalElements} : (${listAdopt.number} * ${listAdopt.size} + ${listAdopt.size})">10</span> of <span th:text="${listAdopt.totalElements}">57</span> entries</p>
+						<!-- Pagination -->
+						<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation" th:if="${listAdopt.totalPages} >= 2">
+							<ul class="pagination pagination-sm pagination-primary-soft mb-0">
+								<li class="page-item disabled">
+									<a class="page-link" href="#" tabindex="-1">Prev</a>
+								</li>
+								<li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listAdopt.totalPages - 1)}"
+									th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
+									<a th:href="@{/changePage-adminUserDetail(page=${pageIndex.index}, id=${userDetail.userName})}" th:text="${pageIndex.index + 1}" class="page-link"></a>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href="#">Next</a>
+								</li>
+							</ul>
+						</nav>
 					</div>
 				</div>
 			</div>
@@ -588,6 +611,25 @@
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
 
+<!-- Modal notice START -->
+<div class="modal d-flex" style="background-color: rgba(1,1,1,0.6);" th:if="${changePassword != null}">
+	<div class="cookiesContent align-items-center justify-content-center m-auto" id="cookiesPopup">
+		<button class="close">✖</button>
+		<img src="https://cdn-icons-png.flaticon.com/512/1047/1047711.png" alt="cookies-img" />
+		<p>Thay đổi mật khẩu <span th:text="${changePassword}">thành công</span></p>
+		<button class="accept">OK</button>
+	</div>
+</div>
+<!-- Modal notice END -->
+
+<script type="text/javascript" th:if="${changePassword != null}">
+	document.querySelector(".modal .close").onclick = function () {
+        document.querySelector(".modal").classList.add("d-none");
+    }
+    document.querySelector(".modal .accept").onclick = function() {
+        document.querySelector(".modal").classList.add("d-none");
+    }
+</script>
 
 <!-- Bootstrap JS -->
 <script src="../js/bootstrap.bundle.min.js"></script>
