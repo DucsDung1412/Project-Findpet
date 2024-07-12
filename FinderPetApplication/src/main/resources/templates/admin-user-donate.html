@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
 	<title>Booking - Multipurpose Online Booking Theme</title>
 
@@ -400,43 +400,11 @@
 									<!-- Table body START -->
 									<tbody class="border-top-0">
 										<!-- Table item -->
-										<tr>
-											<td> daoducdung2000@gmail.com </td>
-											<td> 29 Aug 2022 </td>
-											<td>$3,999</td>
-											<td> <div class="col"><a href="#" class="btn btn-sm btn-primary mb-0">View More</a></div> </td>
-										</tr>
-
-										<!-- Table item -->
-										<tr>
-											<td> #158468 </td>
-											<td> 02 Sep 2022 </td>
-											<td>$3,000</td>
-											<td> <div class="col"><a href="#" class="btn btn-sm btn-primary mb-0">View More</a></div> </td>
-										</tr>
-
-										<!-- Table item -->
-										<tr>
-											<td> #245778 </td>
-											<td> 05 Sep 2022 </td>
-											<td>$4,258</td>
-											<td> <div class="col"><a href="#" class="btn btn-sm btn-primary mb-0">View More</a></div> </td>
-										</tr>
-
-										<!-- Table item -->
-										<tr>
-											<td> #245778 </td>
-											<td> 07 Sep 2022 </td>
-											<td>$1,225</td>
-											<td> <div class="col"><a href="#" class="btn btn-sm btn-primary mb-0">View More</a></div> </td>
-										</tr>
-
-										<!-- Table item -->
-										<tr>
-											<td> #254896 </td>
-											<td> 10 Sep 2022 </td>
-											<td>$2,588</td>
-											<td> <div class="col"><a href="#" class="btn btn-sm btn-primary mb-0">View More</a></div> </td>
+										<tr th:each="spon : ${listSpon}">
+											<td th:text="${spon.users.userName}"> daoducdung2000@gmail.com </td>
+											<td th:text="${spon.sponsDate}"> 29 Aug 2022 </td>
+											<td th:text="${spon.sponsGift}">$3,999</td>
+											<td> <div class="col"><a th:href="@{/admin-donate-detail(id=${spon.id})}" class="btn btn-sm btn-primary mb-0">View More</a></div> </td>
 										</tr>
 									</tbody>
 									<!-- Table body END -->
@@ -451,17 +419,17 @@
 							<!-- Pagination and content -->
 							<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
 								<!-- Content -->
-								<p class="mb-sm-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
+								<p class="mb-sm-0 text-center text-sm-start">Showing <span th:text="${listSpon.number} * ${listSpon.size} == 0 ? 1 : (${listSpon.number} * ${listSpon.size}) + 1">1</span> to <span th:text="${listSpon.totalElements} - (${listSpon.number} * ${listSpon.size} + ${listSpon.size}) < 0 ? ${listSpon.totalElements} : (${listSpon.number} * ${listSpon.size} + ${listSpon.size})">10</span> of <span th:text="${listSpon.totalElements}">57</span> entries</p>
 								<!-- Pagination -->
-								<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
+								<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation" th:if="${listSpon.totalPages} >= 2">
 									<ul class="pagination pagination-sm pagination-primary-soft mb-0">
 										<li class="page-item disabled">
 											<a class="page-link" href="#" tabindex="-1">Prev</a>
 										</li>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item active"><a class="page-link" href="#">2</a></li>
-										<li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-										<li class="page-item"><a class="page-link" href="#">15</a></li>
+										<li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listSpon.totalPages - 1)}"
+											th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
+											<a th:href="@{/changePage-adminDonate(page=${pageIndex.index})}" th:text="${pageIndex.index + 1}" class="page-link"></a>
+										</li>
 										<li class="page-item">
 											<a class="page-link" href="#">Next</a>
 										</li>

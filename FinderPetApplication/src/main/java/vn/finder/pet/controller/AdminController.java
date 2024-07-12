@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.finder.pet.entity.Adopt;
 import vn.finder.pet.entity.Users;
-import vn.finder.pet.service.AdoptService;
-import vn.finder.pet.service.AnimalsService;
-import vn.finder.pet.service.SheltersService;
-import vn.finder.pet.service.UsersService;
+import vn.finder.pet.service.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,13 +22,15 @@ public class AdminController {
     private UsersService usersService;
     private AnimalsService animalsService;
     private AdoptService adoptService;
+    private SponsService sponsService;
 
     @Autowired
-    public AdminController(SheltersService sheltersService, UsersService usersService, AnimalsService animalsService, AdoptService adoptService) {
+    public AdminController(SheltersService sheltersService, UsersService usersService, AnimalsService animalsService, AdoptService adoptService, SponsService sponsService) {
         this.sheltersService = sheltersService;
         this.usersService = usersService;
         this.animalsService = animalsService;
         this.adoptService = adoptService;
+        this.sponsService = sponsService;
     }
 
     @GetMapping("/admin-dashboard")
@@ -182,5 +181,42 @@ public class AdminController {
         users.setPassword("{bcrypt}"+enCode);
         redirectAttributes.addAttribute("changePassword", this.usersService.changeInfoUser(users));
         return "redirect:/admin-user-detail";
+    }
+
+    @GetMapping("/admin-user-donate")
+    public String adminUserDonate(Model model, @RequestParam(value = "page", required = false) String page){
+        if(page == null){
+            page = "0";
+        }
+        int pg = Integer.valueOf(page);
+        model.addAttribute("page", pg == 0 ? 1 : pg);
+        model.addAttribute("listSpon", this.sponsService.findAllToPage(pg == 0 ? 0 : pg - 1, 10));
+        return "/admin-user-donate";
+    }
+
+    @GetMapping("/changePage-adminDonate")
+    public String changePageAdminDonate(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("page", page + 1);
+        return "redirect:/admin-user-donate";
+    }
+
+    @GetMapping("/admin-donate-detail")
+    public String adminUserDonateDetail(Model model, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "id") Long id){
+        if(page == null){
+            page = "0";
+        }
+        int pg = Integer.valueOf(page);
+        model.addAttribute("page", pg == 0 ? 1 : pg);
+        Users users = this.sponsService.findById(id).getUsers();
+        model.addAttribute("users", users);
+        model.addAttribute("listSpon", this.sponsService.findAllByUser(pg == 0 ? 0 : pg - 1, 10, users.getUserName()));
+        return "/admin-user-donate-detail";
+    }
+
+    @GetMapping("/changePage-adminDonateDetail")
+    public String changePageAdminDonateDetail(@RequestParam("page") int page, @RequestParam(value = "id") Long id, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("page", page + 1);
+        redirectAttributes.addAttribute("id", id);
+        return "redirect:/admin-donate-detail";
     }
 }
