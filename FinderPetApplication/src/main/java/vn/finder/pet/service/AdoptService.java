@@ -20,12 +20,14 @@ public class AdoptService {
     private AdoptDAO adoptDAO;
     private AnimalsService animalsService;
     private UsersService usersService;
+    private MailService mailService;
 
     @Autowired
-    public AdoptService(AdoptDAO adoptDAO, AnimalsService animalsService, UsersService usersService) {
+    public AdoptService(AdoptDAO adoptDAO, AnimalsService animalsService, UsersService usersService, MailService mailService) {
         this.adoptDAO = adoptDAO;
         this.animalsService = animalsService;
         this.usersService = usersService;
+        this.mailService = mailService;
     }
 
     @Transactional
@@ -41,6 +43,7 @@ public class AdoptService {
                 adopt.setAdopt_status("Adopted");
                 adopt.setAdoptDate(Date.valueOf(LocalDate.now()));
                 this.adoptDAO.save(adopt);
+                mailService.agreePet(this.getUserAdopt(idAnimals),this.getNamePet(idAnimals));
                 return true;
             }
         } catch (Exception e){
@@ -58,6 +61,7 @@ public class AdoptService {
                 adopt.setAdopt_status("Cancel");
                 adopt.setAdoptDate(Date.valueOf(LocalDate.now()));
                 this.adoptDAO.save(adopt);
+                mailService.disablePet(this.getUserAdopt(idAnimals),this.getNamePet(idAnimals));
                 return true;
             }
         } catch (Exception e){
@@ -94,5 +98,29 @@ public class AdoptService {
     public Page<Adopt> findByUsers(String email, String status, int page, int size){
         Pageable pageable = PageRequest.of(page, size);
         return this.adoptDAO.findByUsersAndAdoptStatus(email, status, pageable);
+    }
+
+    public String getUserAdopt(Long id) {
+        String email="";
+        Animals animals = this.animalsService.findById(id);
+        if(!animals.getListAdopt().isEmpty()){
+            Adopt adopt = animals.getListAdopt().get(0);
+            email = adopt.getUsers().getUserName();
+        }else {
+            email = "0";
+        }
+        return email;
+    }
+
+    public String getNamePet(Long id) {
+        String animalName = "";
+        Animals animals = this.animalsService.findById(id);
+        if(!animals.getListAdopt().isEmpty()){
+            Adopt adopt = animals.getListAdopt().get(0);
+            animalName = adopt.getAnimals().getAnimalName();
+        }else {
+            animalName = "0";
+        }
+        return animalName;
     }
 }

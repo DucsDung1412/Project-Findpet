@@ -68,4 +68,12 @@ public class MailService {
 		ml.setTo(mailto);
 		mailsender.send(ml);
 	}
+
+	public void agreePet(String email,String namepet){
+		sendmail(send,"Finder Pet Support","Đơn Xin Nhận Nuôi: "+namepet+" Của Bạn Đã Được Chấp Nhận",email);
+	}
+
+	public void disablePet(String email,String namepet){
+		sendmail(send,"Finder Pet Support","Bạn không đủ điều kiện để nhận nuôi: "+namepet,email);
+	}
 }
