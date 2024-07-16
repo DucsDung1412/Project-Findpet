@@ -366,7 +366,7 @@
                             </div>
 
                             <!-- Title -->
-                            <h5 class="card-title"><a  th:href="@{'/pet-detail?id=' + ${animal.id}}" th:text="${animal.animalName}">Cole</a></h5>
+                            <h5 class="card-title"><a  th:href="@{'/pet-list/pet-detail?id=' + ${animal.id}}" th:text="${animal.animalName}">Cole</a></h5>
 
                             <!-- List -->
                             <ul class="nav nav-divider mb-2 mb-sm-3">
@@ -384,7 +384,7 @@
                             <div class="d-sm-flex justify-content-sm-center align-items-center">
                                 <!-- Button -->
                                 <div class="mt-2 mt-sm-0">
-                                    <a href="#" th:href="@{'/pet-detail?id=' + ${animal.id}}" class="btn btn-sm btn-primary-soft mb-0 w-100">View Detail<i class="bi bi-arrow-right ms-2"></i></a>
+                                    <a href="#" th:href="@{'/pet-list/pet-detail?id=' + ${animal.id}}" class="btn btn-sm btn-primary-soft mb-0 w-100">View Detail<i class="bi bi-arrow-right ms-2"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -569,7 +569,7 @@ Footer END -->
                                     </div>
 
                                     <!-- Title -->
-                                    <h5 class="card-title"><a href="/pet-detail?id=${response[i].id}">${response[i].name}</a></h5>
+                                    <h5 class="card-title"><a href="/pet-list/pet-detail?id=${response[i].id}">${response[i].name}</a></h5>
 
                                     <!-- List -->
                                     <ul class="nav nav-divider mb-2 mb-sm-3">
@@ -587,7 +587,7 @@ Footer END -->
                                     <div class="d-sm-flex justify-content-sm-center align-items-center">
                                         <!-- Button -->
                                         <div class="mt-2 mt-sm-0">
-                                            <a href="/pet-detail?id=${response[i].id}" class="btn btn-sm btn-primary-soft mb-0 w-100">View Detail<i class="bi bi-arrow-right ms-2"></i></a>
+                                            <a href="/pet-list/pet-detail?id=${response[i].id}" class="btn btn-sm btn-primary-soft mb-0 w-100">View Detail<i class="bi bi-arrow-right ms-2"></i></a>
                                         </div>
                                     </div>
                                 </div>

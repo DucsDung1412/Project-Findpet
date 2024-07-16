@@ -33,16 +33,18 @@ CREATE TABLE IF NOT EXISTS `adopt` (
   KEY `FKgaveljy9xmib0wm6aly8m9qu8` (`username`),
   CONSTRAINT `FK6ra331pqfosb5sle4rdqxfgc4` FOREIGN KEY (`animals_id`) REFERENCES `animals` (`animals_id`),
   CONSTRAINT `FKgaveljy9xmib0wm6aly8m9qu8` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.adopt: ~6 rows (approximately)
+-- Dumping data for table petfinder.adopt: ~7 rows (approximately)
 REPLACE INTO `adopt` (`adopt_id`, `adopt_date`, `adopt_status`, `animals_id`, `username`) VALUES
-	(1, '2024-06-10', 'Awaiting', 13, 'daoducdung2000@gmail.com'),
+	(1, '2024-03-10', 'Awaiting', 13, 'daoducdung2000@gmail.com'),
 	(2, '2024-06-10', 'Adopted', 16, 'dungddps26188@fpt.edu.vn'),
-	(3, '2024-06-10', 'Adopted', 31, 'daoducdung2000@gmail.com'),
+	(3, '2024-07-15', 'Cancel', 31, 'daoducdung2000@gmail.com'),
 	(5, '2024-06-10', 'Adopted', 3, 'dungddps26188@fpt.edu.vn'),
-	(8, '2024-06-13', 'Cancel', 36, 'daoducdung2000@gmail.com'),
-	(9, '2024-06-13', 'Awaiting', 1, 'dungddps26188@fpt.edu.vn');
+	(8, '2024-07-16', 'Adopted', 36, 'daoducdung2000@gmail.com'),
+	(9, '2024-07-16', 'Cancel', 1, 'dungddps26188@fpt.edu.vn'),
+	(16, '2024-07-15', 'Adopted', 46, 'daoducdung2000@gmail.com'),
+	(23, '2024-07-16', 'Cancel', 8, 'daoducdung2000@gmail.com');
 
 -- Dumping structure for table petfinder.adopter_profile
 DROP TABLE IF EXISTS `adopter_profile`;
@@ -82,9 +84,9 @@ CREATE TABLE IF NOT EXISTS `animals` (
   KEY `FK7fmlpw3o4ourhtv3qy8gl6cn5` (`shelter_id`),
   CONSTRAINT `FK7fmlpw3o4ourhtv3qy8gl6cn5` FOREIGN KEY (`shelter_id`) REFERENCES `shelters` (`shelters_id`),
   CONSTRAINT `FKdwdlcloh1grxeqasi88bqdth2` FOREIGN KEY (`breed_id`) REFERENCES `breed` (`breed_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.animals: ~30 rows (approximately)
+-- Dumping data for table petfinder.animals: ~33 rows (approximately)
 REPLACE INTO `animals` (`animals_id`, `animal_age`, `animal_avatar`, `animal_date`, `animal_gender`, `animal_name`, `animal_size`, `breed_id`, `shelter_id`) VALUES
 	(1, 'Kitten', 'avatar13.jpg', '2023-02-12', b'1', 'Toby', 'Small', 3, 2),
 	(2, 'Senior', 'avatar12.jpg', '2019-10-05', b'0', 'Sadie', 'Large', 2, 2),
@@ -98,10 +100,10 @@ REPLACE INTO `animals` (`animals_id`, `animal_age`, `animal_avatar`, `animal_dat
 	(10, 'Young', 'avatar10.jpg', '2022-07-22', b'1', 'Luna', 'Medium', 10, 2),
 	(11, 'Senior', 'avatar4.jpg', '2019-03-25', b'1', 'Lucy', 'Extra Large', 4, 2),
 	(12, 'Young', 'avatar2.jpg', '2022-05-15', b'1', 'Bella', 'Medium', 2, 2),
-	(13, 'Adult', 'avatar3.jpg', '2021-11-20', b'0', 'Charlie', 'Large', 3, 4),
+	(13, 'Adult', 'avatar3.jpg', '2021-11-20', b'0', 'Charlie', 'Large', 3, 0),
 	(14, 'Young', 'avatar18.jpg', '2022-11-25', b'0', 'Harley', 'Medium', 8, 2),
 	(15, 'Puppy', 'avatar5.jpg', '2023-04-10', b'0', 'Cooper', 'Small', 5, 2),
-	(16, 'Adult', 'avatar19.jpg', '2021-07-14', b'1', 'Duke', 'Large', 9, 4),
+	(16, 'Adult', 'avatar19.jpg', '2021-07-14', b'1', 'Duke', 'Large', 9, 0),
 	(17, 'Adult', 'avatar7.jpg', '2021-06-05', b'0', 'Buddy', 'Large', 7, 2),
 	(18, 'Senior', 'avatar8.jpg', '2018-12-30', b'1', 'Daisy', 'Extra Large', 8, 2),
 	(19, 'Kitten', 'avatar17.jpg', '2023-03-22', b'1', 'Coco', 'Small', 7, 2),
@@ -115,7 +117,10 @@ REPLACE INTO `animals` (`animals_id`, `animal_age`, `animal_avatar`, `animal_dat
 	(37, 'Kitten', 'avatar15.jpg', '2023-03-22', b'1', 'Coco', 'Small', 7, 2),
 	(38, 'Young', 'avatar18.jpg', '2022-11-25', b'0', 'Harley', 'Medium', 8, 2),
 	(39, 'Adult', 'avatar19.jpg', '2021-07-14', b'1', 'Duke', 'Large', 10, 2),
-	(40, 'Senior', 'avatar20.jpg', '2020-04-18', b'0', 'Ruby', 'Extra Large', 1, 2);
+	(40, 'Senior', 'avatar20.jpg', '2020-04-18', b'0', 'Ruby', 'Extra Large', 1, 2),
+	(45, 'Puppy', 'Screenshot (25).png', '2024-07-01', b'1', '1', 'Medium', 15, 2),
+	(46, 'Adult', 'Screenshot (12).png', '2024-07-14', b'1', 'Thuat', 'Small', 16, 2),
+	(47, 'Puppy', 'Screenshot (27).png', '2024-07-16', b'1', 'Hung', 'Small', 17, 2);
 
 -- Dumping structure for table petfinder.animal_info
 DROP TABLE IF EXISTS `animal_info`;
@@ -131,9 +136,13 @@ CREATE TABLE IF NOT EXISTS `animal_info` (
   PRIMARY KEY (`animal_info_id`),
   UNIQUE KEY `UK_4hm1c1u7ue99do9436mbr0p0s` (`animal_id`),
   CONSTRAINT `FKtidvsoxsb0fldq9v5vj17fbug` FOREIGN KEY (`animal_id`) REFERENCES `animals` (`animals_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.animal_info: ~0 rows (approximately)
+-- Dumping data for table petfinder.animal_info: ~1 rows (approximately)
+REPLACE INTO `animal_info` (`animal_info_id`, `animal_info_characteristics`, `animal_info_color`, `animal_info_description`, `animal_info_harmony`, `animal_info_health`, `animal_info_leg`, `animal_id`) VALUES
+	(5, '111', '1', '\n\n\nQuill Rich Text Editor\n\n\n\n\nQuill is a free, open-source WYSIWYG editor built for the modern web. With its modular architecture and expressive API, it is completely customizable to fit any need.\n\n\n\n\nInsipidity the sufficient discretion imprudence resolution sir him decisively. Proceed how any engaged visitor. Explained propriety off out perpetual his you. Feel sold off felt nay rose met you. We so entreaties cultivated astonished is. Was sister for a few longer Mrs sudden talent become. Done may bore quit evil old mile. If likely am of beauty tastes.\n\n\n\n\nAffronting imprudence do he he everything. Test lasted dinner wanted indeed wished outlaw. Far advanced settling say finished raillery. Offered chiefly farther of my no colonel shyness. Such on help ye some door if in. Laughter proposal laughing any son law consider. Needed except up piqued an.\n\n\n\n\nPost no so what deal evil rent by real in. But her ready least set lived spite solid. September how men saw tolerably two behavior arranging. She offices for highest and replied one venture pasture. Applauded no discovery in newspaper allowance am northward. Frequently partiality possession resolution at or appearance unaffected me. Engaged its was the evident pleased husband. Ye goodness felicity do disposal dwelling no. First am plate jokes to began to cause a scale. Subjects he prospect elegance followed no overcame possible it on.\n\nQuill is a free, open-source WYSIWYG editor built for the modern web. With its modular architecture and expressive API, it is completely customizable to fit any need.\n\n\n\n\nInsipidity the sufficient discretion imprudence resolution sir him decisively. Proceed how any engaged visitor. Explained propriety off out perpetual his you. Feel sold off felt nay rose met you. We so entreaties cultivated astonished is. Was sister for a few longer Mrs sudden talent become. Done may bore quit evil old mile. If likely am of beauty tastes.\n\n\n\n\nAffronting imprudence do he he everything. Test lasted dinner wanted indeed wished outlaw. Far advanced settling say finished raillery. Offered chiefly farther of my no colonel shyness. Such on help ye some door if in. Laughter proposal laughing any son law consider. Needed except up piqued an.\n\n\n\n\nPost no so what deal evil rent by real in. But her ready least set lived spite solid. September how men saw tolerably two behavior arranging. She offices for highest and replied one venture pasture. Applauded no discovery in newspaper allowance am northward. Frequently partiality possession resolution at or appearance unaffected me. Engaged its was the evident pleased husband. Ye goodness felicity do disposal dwelling no. First am plate jokes to began to cause a scale. Subjects he prospect elegance followed no overcame possible it on.\n\nQuill is a free, open-source WYSIWYG editor built for the modern web. With its modular architecture and expressive API, it is completely customizable to fit any need.\n\n\n\n\nInsipidity the sufficient discretion imprudence resolution sir him decisively. Proceed how any engaged visitor. Explained propriety off out perpetual his you. Feel sold off felt nay rose met you. We so entreaties cultivated astonished is. Was sister for a few longer Mrs sudden talent become. Done may bore quit evil old mile. If likely am of beauty tastes.\n\n\n\n\nAffronting imprudence do he he everything. Test lasted dinner wanted indeed wished outlaw. Far advanced settling say finished raillery. Offered chiefly farther of my no colonel shyness. Such on help ye some door if in. Laughter proposal laughing any son law consider. Needed except up piqued an.\n\n\n\n\nPost no so what deal evil rent by real in. But her ready least set lived spite solid. September how men saw tolerably two behavior arranging. She offices for highest and replied one venture pasture. Applauded no discovery in newspaper allowance am northward. Frequently partiality possession resolution at or appearance unaffected me. Engaged its was the evident pleased husband. Ye goodness felicity do disposal dwelling no. First am plate jokes to began to cause a scale. Subjects he prospect elegance followed no overcame possible it on.', 'Dog, Cat', 'Vaccinatedundefined, Dewormedundefined, Spayedundefined', 'Long', 45),
+	(6, 'Hello', 'White', '\n\n\nQuill Rich Text Editor\n\n\n\n\nQuill is a free, open-source WYSIWYG editor built for the modern web. With its modular architecture and expressive API, it is completely customizable to fit any need.\n\n\n\n\nInsipidity the sufficient discretion imprudence resolution sir him decisively. Proceed how any engaged visitor. Explained propriety off out perpetual his you. Feel sold off felt nay rose met you. We so entreaties cultivated astonished is. Was sister for a few longer Mrs sudden talent become. Done may bore quit evil old mile. If likely am of beauty tastes.\n\n\n\n\nAffronting imprudence do he he everything. Test lasted dinner wanted indeed wished outlaw. Far advanced settling say finished raillery. Offered chiefly farther of my no colonel shyness. Such on help ye some door if in. Laughter proposal laughing any son law consider. Needed except up piqued an.\n\n\n\n\nPost no so what deal evil rent by real in. But her ready least set lived spite solid. September how men saw tolerably two behavior arranging. She offices for highest and replied one venture pasture. Applauded no discovery in newspaper allowance am northward. Frequently partiality possession resolution at or appearance unaffected me. Engaged its was the evident pleased husband. Ye goodness felicity do disposal dwelling no. First am plate jokes to began to cause a scale. Subjects he prospect elegance followed no overcame possible it on.\n\nQuill is a free, open-source WYSIWYG editor built for the modern web. With its modular architecture and expressive API, it is completely customizable to fit any need.\n\n\n\n\nInsipidity the sufficient discretion imprudence resolution sir him decisively. Proceed how any engaged visitor. Explained propriety off out perpetual his you. Feel sold off felt nay rose met you. We so entreaties cultivated astonished is. Was sister for a few longer Mrs sudden talent become. Done may bore quit evil old mile. If likely am of beauty tastes.\n\n\n\n\nAffronting imprudence do he he everything. Test lasted dinner wanted indeed wished outlaw. Far advanced settling say finished raillery. Offered chiefly farther of my no colonel shyness. Such on help ye some door if in. Laughter proposal laughing any son law consider. Needed except up piqued an.\n\n\n\n\nPost no so what deal evil rent by real in. But her ready least set lived spite solid. September how men saw tolerably two behavior arranging. She offices for highest and replied one venture pasture. Applauded no discovery in newspaper allowance am northward. Frequently partiality possession resolution at or appearance unaffected me. Engaged its was the evident pleased husband. Ye goodness felicity do disposal dwelling no. First am plate jokes to began to cause a scale. Subjects he prospect elegance followed no overcame possible it on.\n\nQuill is a free, open-source WYSIWYG editor built for the modern web. With its modular architecture and expressive API, it is completely customizable to fit any need.\n\n\n\n\nInsipidity the sufficient discretion imprudence resolution sir him decisively. Proceed how any engaged visitor. Explained propriety off out perpetual his you. Feel sold off felt nay rose met you. We so entreaties cultivated astonished is. Was sister for a few longer Mrs sudden talent become. Done may bore quit evil old mile. If likely am of beauty tastes.\n\n\n\n\nAffronting imprudence do he he everything. Test lasted dinner wanted indeed wished outlaw. Far advanced settling say finished raillery. Offered chiefly farther of my no colonel shyness. Such on help ye some door if in. Laughter proposal laughing any son law consider. Needed except up piqued an.\n\n\n\n\nPost no so what deal evil rent by real in. But her ready least set lived spite solid. September how men saw tolerably two behavior arranging. She offices for highest and replied one venture pasture. Applauded no discovery in newspaper allowance am northward. Frequently partiality possession resolution at or appearance unaffected me. Engaged its was the evident pleased husband. Ye goodness felicity do disposal dwelling no. First am plate jokes to began to cause a scale. Subjects he prospect elegance followed no overcame possible it on.', 'Children, Dog', 'Vaccinatedundefined, Dewormedundefined, Spayedundefined', 'Long', 46),
+	(7, 'Hello', 'White', '\n\n\nQuill Rich Text Editor\n\n\n\n\nQuill is a free, open-source WYSIWYG editor built for the modern web. With its modular architecture and expressive API, it is completely customizable to fit any need.\n\n\n\n\nInsipidity the sufficient discretion imprudence resolution sir him decisively. Proceed how any engaged visitor. Explained propriety off out perpetual his you. Feel sold off felt nay rose met you. We so entreaties cultivated astonished is. Was sister for a few longer Mrs sudden talent become. Done may bore quit evil old mile. If likely am of beauty tastes.\n\n\n\n\nAffronting imprudence do he he everything. Test lasted dinner wanted indeed wished outlaw. Far advanced settling say finished raillery. Offered chiefly farther of my no colonel shyness. Such on help ye some door if in. Laughter proposal laughing any son law consider. Needed except up piqued an.\n\n\n\n\nPost no so what deal evil rent by real in. But her ready least set lived spite solid. September how men saw tolerably two behavior arranging. She offices for highest and replied one venture pasture. Applauded no discovery in newspaper allowance am northward. Frequently partiality possession resolution at or appearance unaffected me. Engaged its was the evident pleased husband. Ye goodness felicity do disposal dwelling no. First am plate jokes to began to cause a scale. Subjects he prospect elegance followed no overcame possible it on.\n\nQuill is a free, open-source WYSIWYG editor built for the modern web. With its modular architecture and expressive API, it is completely customizable to fit any need.\n\n\n\n\nInsipidity the sufficient discretion imprudence resolution sir him decisively. Proceed how any engaged visitor. Explained propriety off out perpetual his you. Feel sold off felt nay rose met you. We so entreaties cultivated astonished is. Was sister for a few longer Mrs sudden talent become. Done may bore quit evil old mile. If likely am of beauty tastes.\n\n\n\n\nAffronting imprudence do he he everything. Test lasted dinner wanted indeed wished outlaw. Far advanced settling say finished raillery. Offered chiefly farther of my no colonel shyness. Such on help ye some door if in. Laughter proposal laughing any son law consider. Needed except up piqued an.\n\n\n\n\nPost no so what deal evil rent by real in. But her ready least set lived spite solid. September how men saw tolerably two behavior arranging. She offices for highest and replied one venture pasture. Applauded no discovery in newspaper allowance am northward. Frequently partiality possession resolution at or appearance unaffected me. Engaged its was the evident pleased husband. Ye goodness felicity do disposal dwelling no. First am plate jokes to began to cause a scale. Subjects he prospect elegance followed no overcame possible it on.\n\nQuill is a free, open-source WYSIWYG editor built for the modern web. With its modular architecture and expressive API, it is completely customizable to fit any need.\n\n\n\n\nInsipidity the sufficient discretion imprudence resolution sir him decisively. Proceed how any engaged visitor. Explained propriety off out perpetual his you. Feel sold off felt nay rose met you. We so entreaties cultivated astonished is. Was sister for a few longer Mrs sudden talent become. Done may bore quit evil old mile. If likely am of beauty tastes.\n\n\n\n\nAffronting imprudence do he he everything. Test lasted dinner wanted indeed wished outlaw. Far advanced settling say finished raillery. Offered chiefly farther of my no colonel shyness. Such on help ye some door if in. Laughter proposal laughing any son law consider. Needed except up piqued an.\n\n\n\n\nPost no so what deal evil rent by real in. But her ready least set lived spite solid. September how men saw tolerably two behavior arranging. She offices for highest and replied one venture pasture. Applauded no discovery in newspaper allowance am northward. Frequently partiality possession resolution at or appearance unaffected me. Engaged its was the evident pleased husband. Ye goodness felicity do disposal dwelling no. First am plate jokes to began to cause a scale. Subjects he prospect elegance followed no overcame possible it on.', 'Dog, Cat', 'Vaccinatedundefined, Spayedundefined', 'Long', 47);
 
 -- Dumping structure for table petfinder.authorities
 DROP TABLE IF EXISTS `authorities`;
@@ -145,14 +154,14 @@ CREATE TABLE IF NOT EXISTS `authorities` (
   UNIQUE KEY `UK2uf74smucdwf9qal2n67m2343` (`username`,`authority`),
   UNIQUE KEY `UK_baahryprcge2u172egph1qwur` (`username`),
   CONSTRAINT `FKhjuy9y4fd8v5m3klig05ktofg` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.authorities: ~3 rows (approximately)
+-- Dumping data for table petfinder.authorities: ~4 rows (approximately)
 REPLACE INTO `authorities` (`id`, `authority`, `username`) VALUES
 	(1, 'ROLE_ADMIN', 'admin'),
 	(3, 'ROLE_USER', 'daoducdung2000@gmail.com'),
 	(2, 'ROLE_MANAGER', 'dungddps26188@fpt.edu.vn'),
-	(4, 'ROLE_USER', 'zekoxpop@gmail.com');
+	(5, 'ROLE_USER', 'zekoxpop@gmail.com');
 
 -- Dumping structure for table petfinder.avatar
 DROP TABLE IF EXISTS `avatar`;
@@ -163,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `avatar` (
   PRIMARY KEY (`avatar_id`),
   KEY `FKhbmg7ivfo7x23myc9ryt5n2bq` (`animals_id`),
   CONSTRAINT `FKhbmg7ivfo7x23myc9ryt5n2bq` FOREIGN KEY (`animals_id`) REFERENCES `animals` (`animals_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table petfinder.avatar: ~0 rows (approximately)
 
@@ -174,9 +183,9 @@ CREATE TABLE IF NOT EXISTS `breed` (
   `breed_name` varchar(50) NOT NULL,
   `breed_type` varchar(50) NOT NULL,
   PRIMARY KEY (`breed_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.breed: ~10 rows (approximately)
+-- Dumping data for table petfinder.breed: ~12 rows (approximately)
 REPLACE INTO `breed` (`breed_id`, `breed_name`, `breed_type`) VALUES
 	(1, 'Labrador Retriever', 'Dog'),
 	(2, 'Persian', 'Cat'),
@@ -187,7 +196,10 @@ REPLACE INTO `breed` (`breed_id`, `breed_name`, `breed_type`) VALUES
 	(7, 'Bengal', 'Cat'),
 	(8, 'Golden Retriever', 'Dog'),
 	(9, 'Ragdoll', 'Cat'),
-	(10, 'Maine Coon', 'Cat');
+	(10, 'Maine Coon', 'Cat'),
+	(15, '1', 'cat'),
+	(16, 'Thuat', 'cat'),
+	(17, 'Hung', 'dog');
 
 -- Dumping structure for table petfinder.favorites
 DROP TABLE IF EXISTS `favorites`;
@@ -201,11 +213,14 @@ CREATE TABLE IF NOT EXISTS `favorites` (
   KEY `FKgun9e0l2253lebhqp387fxq1m` (`username`),
   CONSTRAINT `FKgun9e0l2253lebhqp387fxq1m` FOREIGN KEY (`username`) REFERENCES `users` (`username`),
   CONSTRAINT `FKshxity0xxlmf9yhehp162898y` FOREIGN KEY (`animals_id`) REFERENCES `animals` (`animals_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.favorites: ~1 rows (approximately)
+-- Dumping data for table petfinder.favorites: ~4 rows (approximately)
 REPLACE INTO `favorites` (`favorites_id`, `favorites_date`, `animals_id`, `username`) VALUES
-	(16, '2024-06-19', 8, 'dungddps26188@fpt.edu.vn');
+	(17, '2024-05-23', 18, 'daoducdung2000@gmail.com'),
+	(18, '2024-05-23', 33, 'daoducdung2000@gmail.com'),
+	(19, '2024-06-23', 40, 'daoducdung2000@gmail.com'),
+	(22, '2024-07-16', 7, 'dungddps26188@fpt.edu.vn');
 
 -- Dumping structure for table petfinder.shares
 DROP TABLE IF EXISTS `shares`;
@@ -240,15 +255,20 @@ CREATE TABLE IF NOT EXISTS `shelters` (
   `shelter_name` varchar(50) NOT NULL,
   `shelter_phone` varchar(15) NOT NULL,
   `username` varchar(255) NOT NULL,
+  `shelter_status` varchar(255) NOT NULL,
+  `shelter_description` varchar(255) NOT NULL,
+  `shelter_latitude` varchar(255) NOT NULL,
+  `shelter_longitude` varchar(255) NOT NULL,
   PRIMARY KEY (`shelters_id`),
   UNIQUE KEY `UK_2v8ty367ef8fjw8fgkrc35h9j` (`username`),
   CONSTRAINT `FKftq7te7nf7es314smvjd05a64` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.shelters: ~2 rows (approximately)
-REPLACE INTO `shelters` (`shelters_id`, `shelter_address`, `shelter_avatar`, `shelter_date`, `shelter_email`, `shelter_info_facebook`, `shelter_info_instagram`, `shelter_info_mission`, `shelter_info_operating_time`, `shelter_info_policy`, `shelter_name`, `shelter_phone`, `username`) VALUES
-	(2, '66/11 Tam Châu, Tam Phú, Thủ Đức, TP.Hồ Chí Minh', 'shelter1.png', '2024-06-08', 'zekoxpop@gmail.com', '...', '...', '...', '...', '...', 'Humane Society of Dover - Stewart County', '0609876999', 'dungddps26188@fpt.edu.vn'),
-	(4, 'asd', 'z', '2024-06-11', 'zc', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'admin');
+-- Dumping data for table petfinder.shelters: ~3 rows (approximately)
+REPLACE INTO `shelters` (`shelters_id`, `shelter_address`, `shelter_avatar`, `shelter_date`, `shelter_email`, `shelter_info_facebook`, `shelter_info_instagram`, `shelter_info_mission`, `shelter_info_operating_time`, `shelter_info_policy`, `shelter_name`, `shelter_phone`, `username`, `shelter_status`, `shelter_description`, `shelter_latitude`, `shelter_longitude`) VALUES
+	(0, 'Hà Nội', 'z', '2024-06-11', 'zc', 'x', 'x', 'x', 'Thứ Hai: 10:00 - 21:00, Thứ Ba: 10:00 - 21:00, Thứ Tư: 10:00 - 21:00, Thứ Năm: Ngày Nghỉ, Thứ Sáu: Ngày Nghỉ, Thứ Bảy: Ngày Nghỉ, Chúa Nhật: 08:00 - 13:00', 'x', 'x', 'x', 'admin', 'Opening', 'Đây là trung tâm cứu trợ chuyên nghiệp', '10.863199611115137', '106.7459060823051'),
+	(2, '66/11 Tam Châu, Tam Phú, Thủ Đức, TP.Hồ Chí Minh', 'shelter1.png', '2024-06-08', 'zekoxpop@gmail.com', '...', '...', '2119 N Division Ave, New Hampshire, York, United States', 'Thứ Hai: 10:00 - 21:00, Thứ Ba: 10:00 - 21:00, Thứ Tư: 10:00 - 21:00, Thứ Năm: Ngày Nghỉ, Thứ Sáu: Ngày Nghỉ, Thứ Bảy: Ngày Nghỉ, Chúa Nhật: Ngày Nghỉ', '2119 N Division Ave, New Hampshire, York, United States', 'Humane Society of Dover - Stewart County', '0609876999', 'dungddps26188@fpt.edu.vn', 'Opening', 'Đây là trung tâm cứu trợ chuyên nghiệp', '10.863199611115137', '106.7459060823051'),
+	(7, 'asd', 'asd', '2024-07-11', 'asd', 'asd', 'asd', 'asd', 'Thứ Hai: 10:00 - 21:00, Thứ Ba: 10:00 - 21:00, Thứ Tư: 10:00 - 21:00, Thứ Năm: Ngày Nghỉ, Thứ Sáu: Ngày Nghỉ, Thứ Bảy: Ngày Nghỉ, Chúa Nhật: Ngày Nghỉ', 'asd', 'asd', 'asd', 'zekoxpop@gmail.com', 'Canceled', 'Đây là trung tâm cứu trợ chuyên nghiệp', '10.863199611115137', '106.7459060823051');
 
 -- Dumping structure for table petfinder.spons
 DROP TABLE IF EXISTS `spons`;
@@ -264,9 +284,13 @@ CREATE TABLE IF NOT EXISTS `spons` (
   KEY `FK3mtg69luh0np7s43lxgq62rh2` (`username`),
   CONSTRAINT `FK3mtg69luh0np7s43lxgq62rh2` FOREIGN KEY (`username`) REFERENCES `users` (`username`),
   CONSTRAINT `FK6rlootno48jdbevqxxqlvk3l8` FOREIGN KEY (`shelter_id`) REFERENCES `shelters` (`shelters_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table petfinder.spons: ~0 rows (approximately)
+-- Dumping data for table petfinder.spons: ~3 rows (approximately)
+REPLACE INTO `spons` (`spons_id`, `spons_date`, `spons_gift`, `spons_message`, `shelter_id`, `username`) VALUES
+	(2, '2024-07-10', 10000, 'zzz', 2, 'daoducdung2000@gmail.com'),
+	(3, '2024-07-11', 10000, 'hello', 0, 'daoducdung2000@gmail.com'),
+	(7, '2024-07-15', 100000, 'hello world', 0, 'dungddps26188@fpt.edu.vn');
 
 -- Dumping structure for table petfinder.users
 DROP TABLE IF EXISTS `users`;
@@ -286,10 +310,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Dumping data for table petfinder.users: ~3 rows (approximately)
 REPLACE INTO `users` (`username`, `info_address`, `info_avatar`, `info_country`, `info_date`, `enabled`, `info_firstname`, `info_lastname`, `password`, `info_phone`) VALUES
-	('admin', 'zxc', 'https://booking.webestica.com/assets/images/avatar/01.jpg', 'Hồ Chí Minh', '2000-12-14', b'1', 'Admin', 'VipPro', '{noop}admin', '123'),
-	('daoducdung2000@gmail.com', 'Không biết', 'https://booking.webestica.com/assets/images/avatar/01.jpg', 'Hồ Chí Minh', '2024-06-08', b'1', 'Đức', 'Dũng', '{noop}DungVipPro1412', '1111111'),
-	('dungddps26188@fpt.edu.vn', NULL, 'https://booking.webestica.com/assets/images/avatar/01.jpg', 'Hồ Chí Minh', '2024-06-08', b'1', 'Đức', 'Dũng', '{noop}1', NULL),
-	('zekoxpop@gmail.com', '74/11', NULL, 'Nam Định', '2024-06-19', b'1', 'Ronaldo', 'Messi', '{bcrypt}$2a$10$ChyYPe73irCFTDNls9vF5ueZyu22wCLlGB8edbrjfpXice60feGiG', '0906786902');
+	('admin', 'zxc', 'https://booking.webestica.com/assets/images/avatar/01.jpg', 'Hà Nội', '2000-12-14', b'1', 'Admin', 'VipPro', '{noop}1', '123'),
+	('daoducdung2000@gmail.com', 'Không biết', 'https://booking.webestica.com/assets/images/avatar/01.jpg', 'Hồ Chí Minh', '2024-06-08', b'1', 'Đức', 'Dũng', '{bcrypt}$2a$10$vlRP.dJkV3WJNbN5xCaSAebuhPNwJmo7QvKQT7XENgrLu9TtCsGoa', '1111111'),
+	('dungddps26188@fpt.edu.vn', '', 'https://booking.webestica.com/assets/images/avatar/01.jpg', 'Hồ Chí Minh', '2024-06-08', b'1', 'Đức', 'Dũng', '{noop}1', ''),
+	('zekoxpop@gmail.com', NULL, NULL, 'Hồ Chí Minh', '2024-06-28', b'1', 'Dũng', 'Đức', '{bcrypt}$2a$10$n3uOt6c3J1XbQiv7MaPVCe3GwV3pds.5q1ex150CuxV0/7G2vL2BO', NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

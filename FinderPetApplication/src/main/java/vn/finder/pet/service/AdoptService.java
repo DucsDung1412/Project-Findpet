@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import vn.finder.pet.dao.AdoptDAO;
 import vn.finder.pet.entity.Adopt;
 import vn.finder.pet.entity.Animals;
+import vn.finder.pet.entity.Shelters;
 import vn.finder.pet.entity.Users;
 
 import java.sql.Date;
@@ -21,13 +22,15 @@ public class AdoptService {
     private AnimalsService animalsService;
     private UsersService usersService;
     private MailService mailService;
+    private SheltersService sheltersService;
 
     @Autowired
-    public AdoptService(AdoptDAO adoptDAO, AnimalsService animalsService, UsersService usersService, MailService mailService) {
+    public AdoptService(AdoptDAO adoptDAO, AnimalsService animalsService, UsersService usersService, MailService mailService, SheltersService sheltersService) {
         this.adoptDAO = adoptDAO;
         this.animalsService = animalsService;
         this.usersService = usersService;
         this.mailService = mailService;
+        this.sheltersService = sheltersService;
     }
 
     @Transactional
@@ -122,5 +125,41 @@ public class AdoptService {
             animalName = "0";
         }
         return animalName;
+    }
+
+    public String getShelterEmail(Long id) {
+        String email="";
+        Animals animals = this.animalsService.findById(id);
+        if(!animals.getShelters().getShelterEmail().isEmpty()){
+            email=animals.getShelters().getShelterEmail();
+        }else {
+            email="0";
+        }
+        return email;
+    }
+
+    public String getUserShelters(Long id) {
+        String email="";
+        Shelters shelters = this.sheltersService.findById(id);
+        if(!shelters.getUsers().getUserName().isEmpty()){
+            email=shelters.getUsers().getUserName();
+            System.out.println(email);
+        }else {
+            email="0";
+
+        }
+        return email;
+    }
+
+    public void sendMailToShelters(Long id){
+        mailService.sendMailToShelters(getShelterEmail(id),getUserAdopt(id),getNamePet(id));
+    }
+
+    public void sendMailToAgree(Long id){
+        mailService.sendMailToAdminAgree(getUserShelters(id),getUserShelters(id));
+    }
+
+    public void sendMailToDisable(Long id){
+        mailService.sendMailToAdminDisable(getUserShelters(id),getUserShelters(id));
     }
 }

@@ -242,39 +242,28 @@ Steps START -->
 													<label class="form-label">Country/Region <span style="color: red; font-weight: 600;">*</span></label>
 													<select class="form-select js-choice">
 														<option value="">Select Country</option>
-														<option>India</option>
-														<option>Usa</option>
-														<option>Japan</option>
-														<option>United Kingdom</option>
+														<option selected>Việt Nam</option>
 													</select>
 												</div>
 
 												<!-- State -->
 												<div class="col-md-6">
-													<label class="form-label">State <span style="color: red; font-weight: 600;">*</span></label>
-													<select class="form-select js-choice" data-search-enabled="true">
-														<option value="">Select state</option>
-														<option>India</option>
-														<option>Usa</option>
-														<option>Japan</option>
-														<option>United Kingdom</option>
+													<label class="form-label">Tỉnh Thành <span style="color: red; font-weight: 600;">*</span></label>
+													<select class="form-select " data-search-enabled="true" id="tinh">
+														<option value="">Chọn Tỉnh Thành</option>
 													</select>
 												</div>
 
 												<!-- City -->
 												<div class="col-md-6">
-													<label class="form-label">City <span style="color: red; font-weight: 600;">*</span></label>
-													<input class="form-control" type="text" placeholder="Enter city">
-												</div>
-
-												<!-- Postal number -->
-												<div class="col-md-6">
-													<label class="form-label">Postal number <span style="color: red; font-weight: 600;">*</span></label>
-													<input class="form-control" type="text" placeholder="Enter postal number">
+													<label class="form-label">Quận Huyện <span style="color: red; font-weight: 600;">*</span></label>
+													<select class="form-select " data-search-enabled="true" id="quan">
+														<option value="">Chọn Quận Huyện</option>
+													</select>
 												</div>
 
 												<!-- Street -->
-												<div class="col-12">
+												<div class="col-md-6">
 													<label class="form-label">Street <span style="color: red; font-weight: 600;">*</span></label>
 													<input class="form-control" type="text" placeholder="Enter street">
 												</div>
@@ -878,6 +867,7 @@ Footer END -->
 
 <!--  JQuery  -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://esgoo.net/scripts/jquery.js"></script>
 
 <script>
 	$(document).on('click', '.add-new-day', function(event) {
@@ -903,6 +893,40 @@ Footer END -->
 		getParent(event.currentTarget, ".row.mb-3").classList.add("d-none");
 	})
 	
+		$.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm',function(data_tinh){
+            if(data_tinh.error==0){
+               $.each(data_tinh.data, function (key_tinh,val_tinh) {
+                  $("#tinh").append('<option value="'+val_tinh.id+'">'+val_tinh.full_name+'</option>');
+               });
+               $("#tinh").change(function(e){
+                    var idtinh=$(this).val();
+                    //Lấy quận huyện
+                    $.getJSON('https://esgoo.net/api-tinhthanh/2/'+idtinh+'.htm',function(data_quan){
+                        if(data_quan.error==0){
+                           $("#quan").html('<option value="0">Quận Huyện</option>');
+                           $("#phuong").html('<option value="0">Phường Xã</option>');
+                           $.each(data_quan.data, function (key_quan,val_quan) {
+                              $("#quan").append('<option value="'+val_quan.id+'">'+val_quan.full_name+'</option>');
+                           });
+                           //Lấy phường xã
+                           $("#quan").change(function(e){
+                                var idquan=$(this).val();
+                                $.getJSON('https://esgoo.net/api-tinhthanh/3/'+idquan+'.htm',function(data_phuong){
+                                    if(data_phuong.error==0){
+                                       $("#phuong").html('<option value="0">Phường Xã</option>');
+                                       $.each(data_phuong.data, function (key_phuong,val_phuong) {
+                                          $("#phuong").append('<option value="'+val_phuong.id+'">'+val_phuong.full_name+'</option>');
+                                       });
+                                    }
+                                });
+                           });
+
+                        }
+                    });
+               });
+
+            }
+        });
 </script>
 
 </body>

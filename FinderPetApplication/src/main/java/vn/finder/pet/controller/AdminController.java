@@ -133,13 +133,15 @@ public class AdminController {
     public String acceptShelter(@RequestParam("id") Long id, RedirectAttributes redirectAttributes){
         this.sheltersService.updateShelter(id, "Opening");
         redirectAttributes.addAttribute("page", 0);
+        adoptService.sendMailToAgree(id);
         return "redirect:/admin-regist-list";
     }
 
-    @GetMapping("/refuse-shelter")
+    @GetMapping("/remove-shelter")
     public String refuseShelter(@RequestParam("id") Long id, RedirectAttributes redirectAttributes){
         this.sheltersService.updateShelter(id, "Canceled");
         redirectAttributes.addAttribute("page", 0);
+        adoptService.sendMailToDisable(id);
         return "redirect:/admin-regist-list";
     }
 

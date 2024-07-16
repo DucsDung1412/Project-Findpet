@@ -43,21 +43,8 @@ public class MySecurities {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests(config ->
-                        config.requestMatchers("/account-profile").hasAnyAuthority("OAUTH2_USER", "ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN")
-                                .requestMatchers("/change-info-user").hasAnyRole("USER", "MANAGER", "ADMIN")
-                                .requestMatchers("/change-password-user").hasAnyRole("USER", "MANAGER", "ADMIN")
-                                .requestMatchers("/account-wishlist").hasAnyRole("USER", "MANAGER", "ADMIN")
-                                .requestMatchers("/delete-favorite-detail").hasAnyRole("USER", "MANAGER", "ADMIN")
-                                .requestMatchers("/delete-all-favorites").hasAnyRole("USER", "MANAGER", "ADMIN")
-                                .requestMatchers("/removeFavorite").hasAnyRole("USER", "MANAGER", "ADMIN")
-                                .requestMatchers("/addFavorite").hasAnyRole("USER", "MANAGER", "ADMIN")
-                                .requestMatchers("/account-notify").hasAnyRole("USER", "MANAGER", "ADMIN")
-                                .requestMatchers("/agent-dashboard").hasAnyRole("MANAGER", "ADMIN")
-                                .requestMatchers("/agent-listings").hasAnyRole("MANAGER", "ADMIN")
-                                .requestMatchers("/agent-bookings").hasAnyRole("MANAGER", "ADMIN")
-                                .requestMatchers("/agent-notify").hasAnyRole("MANAGER", "ADMIN")
-                                .requestMatchers("/admin-dashboard").hasRole("ADMIN")
-                                .requestMatchers("/admin-shelter-list").hasRole("ADMIN")
+                        config.requestMatchers("/account/**").hasAnyAuthority("OAUTH2_USER", "ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN")
+                                .requestMatchers("/manager/**").hasAnyAuthority("ROLE_MANAGER", "ROLE_ADMIN")
                                 .requestMatchers("/**").permitAll())
                 .formLogin(login -> {
                     login.loginPage("/sign-in").loginProcessingUrl("/authenticateTheUser").defaultSuccessUrl("/index").permitAll();

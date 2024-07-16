@@ -108,7 +108,6 @@ public class MyRestController {
             users.getListFavorites().forEach(e -> {
                if(e.getAnimals().getId() == id){
                    i.getAndIncrement();
-                   System.out.println(e.getId());
                    this.favoritesService.removeOne(e.getId());
                }
             });

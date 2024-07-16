@@ -10,22 +10,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import vn.finder.pet.entity.Adopt;
 import vn.finder.pet.entity.Animals;
 import vn.finder.pet.entity.Users;
 import vn.finder.pet.service.AdoptService;
 import vn.finder.pet.service.AnimalsService;
 import vn.finder.pet.service.UsersService;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
+@RequestMapping("/pet-list")
 public class PetController {
     private AnimalsService animalsService;
     private UsersService usersService;
@@ -54,14 +51,14 @@ public class PetController {
         return email;
     }
 
-    @GetMapping("/pet-grid")
+    @GetMapping("/pet-search")
     public String petGetTemp(RedirectAttributes redirectAttributes, @RequestParam(value = "location") String location, @RequestParam(value = "breed_type") String breed_type){
         redirectAttributes.addAttribute("breed_type", breed_type);
         redirectAttributes.addAttribute("location", location);
-        return "redirect:/pet-grid/" + breed_type;
+        return "redirect:/pet-list/" + breed_type;
     }
 
-    @GetMapping("/pet-grid/{breed_type}")
+    @GetMapping("/{breed_type}")
     public String petGrid(HttpSession session, Model model, @PathVariable String breed_type
                             , @RequestParam(value = "breed", required = false) String breed
                             , @RequestParam(value = "age", required = false) String age
@@ -102,19 +99,6 @@ public class PetController {
         model.addAttribute("listSameAnimal", this.animalsService.findByBreedOrderByCustom(animals.getBreed().getBreed_name(), animals.getBreed().getBreed_type(), 0, 4).stream().toList());
         model.addAttribute("animal", animals);
         return "/pet-detail";
-    }
-
-    @GetMapping("/booking-confirm")
-    public String getBookingConfirm(@RequestParam Long id, Model model){
-        model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
-        Animals animals = this.animalsService.findById(id);
-        Users users = this.usersService.findById(this.getEmailLogin()).get();
-        Adopt adopt = new Adopt(null, Date.valueOf(LocalDate.now()), "Awaiting", users, animals);
-        if(this.adoptService.save(adopt)){
-            model.addAttribute("adopt", adopt);
-            return "/booking-confirm";
-        }
-        return "";
     }
 
     @RequestMapping("/filter-pet")

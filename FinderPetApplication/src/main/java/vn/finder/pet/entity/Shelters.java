@@ -51,6 +51,15 @@ public class Shelters {
     @Column(name = "shelter_info_Instagram", nullable = false)
     private String shelterInfoInstagram;
 
+    @Column(name = "shelter_description", nullable = false)
+    private String shelterDescription;
+
+    @Column(name = "shelter_latitude", nullable = false)
+    private String shelterLatitude;
+
+    @Column(name = "shelter_longitude", nullable = false)
+    private String shelterLongitude;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "username", nullable = false)
     private Users users;
@@ -76,6 +85,25 @@ public class Shelters {
         this.shelterInfoFacebook = shelterInfoFacebook;
         this.shelterInfoInstagram = shelterInfoInstagram;
         this.shelterStatus = shelterStatus;
+    }
+
+    public Shelters(Long id, String shelterAvatar, String shelterName, String shelterEmail, String shelterAddress, String shelterPhone, Date shelterDate, String shelterStatus, String shelterInfoMission, String shelterInfoPolicy, String shelterInfoOperatingTime, String shelterInfoFacebook, String shelterInfoInstagram, String shelterDescription, String shelterLatitude, String shelterLongitude) {
+        this.id = id;
+        this.shelterAvatar = shelterAvatar;
+        this.shelterName = shelterName;
+        this.shelterEmail = shelterEmail;
+        this.shelterAddress = shelterAddress;
+        this.shelterPhone = shelterPhone;
+        this.shelterDate = shelterDate;
+        this.shelterStatus = shelterStatus;
+        this.shelterInfoMission = shelterInfoMission;
+        this.shelterInfoPolicy = shelterInfoPolicy;
+        this.shelterInfoOperatingTime = shelterInfoOperatingTime;
+        this.shelterInfoFacebook = shelterInfoFacebook;
+        this.shelterInfoInstagram = shelterInfoInstagram;
+        this.shelterDescription = shelterDescription;
+        this.shelterLatitude = shelterLatitude;
+        this.shelterLongitude = shelterLongitude;
     }
 
     public Shelters() {
@@ -210,6 +238,30 @@ public class Shelters {
         this.shelterStatus = shelterStatus;
     }
 
+    public String getShelterDescription() {
+        return shelterDescription;
+    }
+
+    public void setShelterDescription(String shelterDescription) {
+        this.shelterDescription = shelterDescription;
+    }
+
+    public String getShelterLatitude() {
+        return shelterLatitude;
+    }
+
+    public void setShelterLatitude(String shelterLatitude) {
+        this.shelterLatitude = shelterLatitude;
+    }
+
+    public String getShelterLongitude() {
+        return shelterLongitude;
+    }
+
+    public void setShelterLongitude(String shelterLongitude) {
+        this.shelterLongitude = shelterLongitude;
+    }
+
     @Override
     public String toString() {
         return "Shelters{" +
@@ -226,6 +278,9 @@ public class Shelters {
                 ", shelterInfoOperatingTime='" + shelterInfoOperatingTime + '\'' +
                 ", shelterInfoFacebook='" + shelterInfoFacebook + '\'' +
                 ", shelterInfoInstagram='" + shelterInfoInstagram + '\'' +
+                ", shelterDescription='" + shelterDescription + '\'' +
+                ", shelterLatitude='" + shelterLatitude + '\'' +
+                ", shelterLongitude='" + shelterLongitude + '\'' +
                 ", users=" + users +
                 '}';
     }

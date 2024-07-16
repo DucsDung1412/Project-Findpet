@@ -7,10 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.finder.pet.entity.Animals;
 import vn.finder.pet.entity.DtoPetShelters;
@@ -20,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 @Controller
+@RequestMapping("/manager")
 public class ManagerController {
     private AnimalsService animalsService;
     private AdoptService adoptService;
@@ -52,7 +50,7 @@ public class ManagerController {
         return email;
     }
 
-    @GetMapping("/agent-dashboard")
+    @GetMapping("/dashboard")
     public String agentDashboard(Model model, @RequestParam(value = "page", required = false) String page){
         if(page == null){
             page = "0";
@@ -81,30 +79,31 @@ public class ManagerController {
         listInteraction.add(this.favoritesService.findByMonthAndShelter(12, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()) + this.adoptService.findByMonthAndShelter(12, Calendar.getInstance().get(Calendar.YEAR), this.getEmailLogin()));
 
         model.addAttribute("listInteraction", listInteraction);
+        model.addAttribute("statusActive", "dashboard");
 
         System.out.println(Calendar.getInstance().get(Calendar.YEAR));
         return "/agent-dashboard";
     }
 
-    @GetMapping("/changePage-agentDashboard")
+    @GetMapping("/dashboard/changePage")
     public String changePageAgentDashboard(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
-        return "redirect:/agent-dashboard";
+        return "redirect:/manager/dashboard";
     }
 
-    @GetMapping("/disable-pet-dashboard")
+    @GetMapping("/dashboard/disable-pet")
     public String disablePetDashboard(@RequestParam(value = "id") Long id){
         this.adoptService.disablePet(id);
-        return "redirect:/agent-dashboard";
+        return "redirect:/manager/dashboard";
     }
 
-    @GetMapping("/enable-pet-dashboard")
+    @GetMapping("/dashboard/enable-pet")
     public String enablePetDashboard(@RequestParam(value = "id") Long id){
         this.adoptService.enablePet(id);
-        return "redirect:/agent-dashboard";
+        return "redirect:/manager/dashboard";
     }
 
-    @GetMapping("/agent-listings")
+    @GetMapping("/listings")
     public String agentListings(Model model, @RequestParam(value = "page", required = false) String page){
         if(page == null){
             page = "0";
@@ -129,28 +128,30 @@ public class ManagerController {
         model.addAttribute("listAnimals", listAnimals);
         model.addAttribute("page", pg == 0 ? 1 : pg);
         model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("statusActive", "listings");
+
         return "/agent-listings";
     }
 
-    @GetMapping("/changePage-agentListings")
+    @GetMapping("/listings/changePage")
     public String changePageAgentListings(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
-        return "redirect:/agent-listings";
+        return "redirect:/manager/listings";
     }
 
-    @GetMapping("/disable-pet")
+    @GetMapping("/listings/disable-pet")
     public String disablePet(@RequestParam(value = "id") Long id){
         this.adoptService.disablePet(id);
-        return "redirect:/agent-listings";
+        return "redirect:/manager/listings";
     }
 
-    @GetMapping("/enable-pet")
+    @GetMapping("/listings/enable-pet")
     public String enablePet(@RequestParam(value = "id") Long id){
         this.adoptService.enablePet(id);
-        return "redirect:/agent-listings";
+        return "redirect:/manager/listings";
     }
 
-    @GetMapping("/agent-bookings")
+    @GetMapping("/bookings")
     public String agentBookings(Model model, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "status", required = false) String status){
         if(page == null){
             page = "0";
@@ -162,34 +163,30 @@ public class ManagerController {
         model.addAttribute("listAdopt", this.animalsService.findByStatus(this.getEmailLogin(), status, pg == 0 ? 0 : pg - 1, 10));
         model.addAttribute("page", pg == 0 ? 1 : pg);
         model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("statusActive", "bookings");
+
         return "/agent-bookings";
     }
 
-    @GetMapping("/changePage-agentBooking")
+    @GetMapping("/bookings/changePage")
     public String changePageAgentBooking(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
-        return "redirect:/agent-bookings";
+        return "redirect:/manager/bookings";
     }
 
-    @GetMapping("/disable-pet-bookings")
+    @GetMapping("/bookings/disable-pet")
     public String disablePetBookings(@RequestParam(value = "id") Long id){
         this.adoptService.disablePet(id);
-        return "redirect:/agent-bookings";
+        return "redirect:/manager/bookings";
     }
 
-    @GetMapping("/enable-pet-bookings")
+    @GetMapping("/bookings/enable-pet")
     public String enablePetBookings(@RequestParam(value = "id") Long id){
         this.adoptService.enablePet(id);
-        return "redirect:/agent-bookings";
+        return "redirect:/manager/bookings";
     }
 
-    @GetMapping("/add-listing-minimal")
-    public String addListingMinimal(Model model){
-        model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
-        return "/add-listing-minimal";
-    }
-
-    @GetMapping("/agent-notify")
+    @GetMapping("/notify")
     public String agentNotify(Model model, @RequestParam(value = "page", required = false) String page){
         if(page == null){
             page = "0";
@@ -198,13 +195,20 @@ public class ManagerController {
         model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
         model.addAttribute("listNotify", this.adoptService.findAllAdoptOfShelter(this.getEmailLogin(), pg == 0 ? 0 : pg - 1, 10));
         model.addAttribute("page", pg == 0 ? 1 : pg);
+        model.addAttribute("statusActive", "notify");
         return "/agent-notify";
     }
 
-    @GetMapping("/changePage-agentNotify")
+    @GetMapping("/notify/changePage")
     public String changePageAgentNotify(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
-        return "redirect:/agent-notify";
+        return "redirect:/manager/notify";
+    }
+
+    @GetMapping("/add-animal")
+    public String addListingMinimal(Model model){
+        model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
+        return "/add-listing-minimal";
     }
 
     @PostMapping("/uploadpet")
@@ -238,6 +242,6 @@ public class ManagerController {
             };
 
         }
-        return "redirect:/add-listing-minimal";
+        return "redirect:/manager/add-animal";
     }
 }

@@ -76,4 +76,16 @@ public class MailService {
 	public void disablePet(String email,String namepet){
 		sendmail(send,"Finder Pet Support","Bạn không đủ điều kiện để nhận nuôi: "+namepet,email);
 	}
+
+	public void sendMailToShelters(String email,String nameuser,String namepet){
+		sendmail(send,"Thông Báo ",nameuser+":"+"Đã Yêu Cầu Nhận Nuôi: "+namepet,email);
+	}
+
+	public void sendMailToAdminAgree(String email,String name){
+		sendmail(send,"Thông Báo Tới Từ Admin",":"+"Đơn Xin Chấp Thuận Từ :  "+name+  "/n"+" Đã Được Xác Nhận Là Shelters ",email);
+	}
+
+	public void sendMailToAdminDisable(String email,String name){
+		sendmail(send,"Thông Báo Tới Từ Admin "+name,"Yêu Xin Chấp Thuận ĐÃ Bị Từ Chối Vì Không Đủ Điều Kiện Thành Shelters: ",email);
+	}
 }

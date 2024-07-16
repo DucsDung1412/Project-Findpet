@@ -114,49 +114,7 @@
 	Menu item START -->
 	<section class="pt-4">
 		<div class="container">
-			<div class="card rounded-3 border p-3 pb-2">
-				<!-- Avatar and info START -->
-				<div class="d-sm-flex align-items-center">
-					<div class="avatar avatar-xl mb-2 mb-sm-0">
-						<img class="avatar-img rounded-circle" src="https://booking.webestica.com/assets/images/avatar/01.jpg" alt="">
-					</div>
-					<h4 class="mb-2 mb-sm-0 ms-sm-3"><span class="fw-light">Hi</span> <span th:text="${user.firstName} + ' ' + ${user.lastName}">Jacqueline Miller</span></h4>
-					<a href="/add-listing-minimal" class="btn btn-sm btn-primary-soft mb-0 ms-auto flex-shrink-0"><i class="bi bi-plus-lg fa-fw me-2"></i>Add New Listing</a>
-				</div>
-				<!-- Avatar and info START -->
-				
-				<!-- Responsive navbar toggler -->
-				<button class="btn btn-primary w-100 d-block d-xl-none mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#dashboardMenu" aria-controls="dashboardMenu">
-					<i class="bi bi-list"></i> Dashboard Menu
-				</button>
-	
-				<!-- Nav links START -->
-				<div class="offcanvas-xl offcanvas-end mt-xl-3" tabindex="-1" id="dashboardMenu">
-					<div class="offcanvas-header border-bottom p-3">
-						<h5 class="offcanvas-title">Menu</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#dashboardMenu" aria-label="Close"></button>
-					</div>
-					<!-- Offcanvas body -->
-					<div class="offcanvas-body p-3 p-xl-0">
-						<!-- Nav item -->
-						<div class="navbar navbar-expand-xl">
-							<ul class="navbar-nav navbar-offcanvas-menu">
-	
-								<li class="nav-item"> <a class="nav-link" href="/agent-dashboard"><i class="bi bi-house-door fa-fw me-1"></i>Dashboard</a>	</li>
-	
-								<li class="nav-item mx-2"> <a class="nav-link active" href="/agent-listings"><i class="bi bi-journals fa-fw me-1"></i>Listings</a> </li>
-	
-								<li class="nav-item mx-2"> <a class="nav-link" href="/agent-bookings"><i class="bi bi-bookmark-heart fa-fw me-1"></i>Bookings</a> </li>
-	
-								<li class="nav-item mx-2"> <a class="nav-link" href="/agent-activities"><i class="bi bi-bell fa-fw me-1"></i>Activities</a> </li>
-			
-								<li class="nav-item mx-2"> <a class="nav-link" href="/agent-settings"><i class="bi bi-gear fa-fw me-1"></i>Settings</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<!-- Nav links END -->
-			</div>
+			<div th:insert="~{fragments/viewers/_navbar-manager :: navbar-manager}"></div>
 		</div>
 	</section>
 	<!-- =======================
@@ -250,7 +208,7 @@
 													<!-- dropdown button -->
 													<ul class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownAction2">
 														<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle me-1"></i>Report</a></li>
-														<li><a class="dropdown-item btn-dis-en" th:href="@{/disable-pet(id=${animals.id})}"><i class="bi bi-slash-circle me-1"></i>Disable</a></li>
+														<li><a class="dropdown-item btn-dis-en" th:href="@{/manager/listings/disable-pet(id=${animals.id})}"><i class="bi bi-slash-circle me-1"></i>Disable</a></li>
                                                     </ul>
 												</div>
 											</div>
@@ -291,7 +249,7 @@
 									<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fa-solid fa-angle-left"></i></a></li>
                                     <li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listAnimals.totalPages - 1)}"
                                         th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
-                                        <a th:href="@{'/changePage-agentListings?page='+${pageIndex.index}}" th:text="${pageIndex.index + 1}" class="page-link"></a>
+                                        <a th:href="@{'/manager/listings/changePage?page='+${pageIndex.index}}" th:text="${pageIndex.index + 1}" class="page-link"></a>
                                     </li>
 									<li class="page-item mb-0"><a class="page-link" href="#"><i class="fa-solid fa-angle-right"></i></a></li>
 								</ul>
@@ -346,7 +304,7 @@ Footer END -->
         $('#' + event + ' .card-title').get(0).classList.add('text-secondary')
         $('#' + event + ' .card-title').get(0).innerText = 'Disable'
         $('#' + event + ' .btn-dis-en').get(0).innerHTML = `<i class="bi bi-slash-circle me-1"></i>Enable`
-        $('#' + event + ' .btn-dis-en').get(0).href = `/enable-pet?id=${event}`
+        $('#' + event + ' .btn-dis-en').get(0).href = `/manager/listings/enable-pet?id=${event}`
     })
 </script>
 </body>
