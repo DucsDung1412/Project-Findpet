@@ -589,7 +589,7 @@
 								</li>
 								<li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listAnimal.totalPages - 1)}"
 									th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
-									<a th:href="@{/changePage-adminShelterDetail(page=${pageIndex.index}, id=${shelter.id})}" th:text="${pageIndex.index + 1}" class="page-link"></a>
+									<a th:href="@{/admin/shelter-detail/changePage(page=${pageIndex.index}, id=${shelter.id})}" th:text="${pageIndex.index + 1}" class="page-link"></a>
 								</li>
 								<li class="page-item">
 									<a class="page-link" href="#">Next</a>

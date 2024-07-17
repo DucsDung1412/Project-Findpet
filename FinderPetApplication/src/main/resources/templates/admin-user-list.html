@@ -391,8 +391,8 @@
 							</a>
 							<!-- dropdown button -->
 							<ul class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownShare1">
-								<li><a class="dropdown-item" th:href="@{/admin-user-detail(id=${user.userName})}"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit</a></li>
-								<li><a class="dropdown-item" th:href="@{/delete-user(id=${user.userName})}"><i class="bi bi-trash fa-fw me-2"></i>Remove</a></li>
+								<li><a class="dropdown-item" th:href="@{/admin/user-detail(id=${user.userName})}"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit</a></li>
+								<li><a class="dropdown-item" th:href="@{/admin/delete-user(id=${user.userName})}"><i class="bi bi-trash fa-fw me-2"></i>Remove</a></li>
 							</ul>
 						</div>
 						<!-- Card body -->
@@ -411,7 +411,7 @@
 						</div>
 						<!-- card footer -->
 						<div class="card-footer d-flex gap-3 align-items-center">
-							<a th:href="@{/admin-user-detail(id=${user.userName})}" class="btn btn-sm btn-primary-soft mb-0 w-100">View detail</a>
+							<a th:href="@{/admin/user-detail(id=${user.userName})}" class="btn btn-sm btn-primary-soft mb-0 w-100">View detail</a>
 							<a href="#" class="btn btn-sm btn-light flex-shrink-0 mb-0"><i class="bi bi-envelope"></i></a>
 						</div>
 					</div>
@@ -432,7 +432,7 @@
 						</li>
 						<li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listTotalUsers.totalPages - 1)}"
 							th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
-							<a th:href="@{'/changePage-adminUser?page='+${pageIndex.index}}" th:text="${pageIndex.index + 1}" class="page-link"></a>
+							<a th:href="@{'/admin/user-list/changePage?page='+${pageIndex.index}}" th:text="${pageIndex.index + 1}" class="page-link"></a>
 						</li>
 						<li class="page-item">
 							<a class="page-link" href="#">Next</a>

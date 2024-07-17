@@ -404,7 +404,7 @@
 											<td th:text="${spon.users.userName}"> daoducdung2000@gmail.com </td>
 											<td th:text="${spon.sponsDate}"> 29 Aug 2022 </td>
 											<td th:text="${spon.sponsGift}">$3,999</td>
-											<td> <div class="col"><a th:href="@{/admin-donate-detail(id=${spon.id})}" class="btn btn-sm btn-primary mb-0">View More</a></div> </td>
+											<td> <div class="col"><a th:href="@{/admin/donate-detail(id=${spon.id})}" class="btn btn-sm btn-primary mb-0">View More</a></div> </td>
 										</tr>
 									</tbody>
 									<!-- Table body END -->
@@ -428,7 +428,7 @@
 										</li>
 										<li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listSpon.totalPages - 1)}"
 											th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
-											<a th:href="@{/changePage-adminDonate(page=${pageIndex.index})}" th:text="${pageIndex.index + 1}" class="page-link"></a>
+											<a th:href="@{/admin/user-donate/changePage(page=${pageIndex.index})}" th:text="${pageIndex.index + 1}" class="page-link"></a>
 										</li>
 										<li class="page-item">
 											<a class="page-link" href="#">Next</a>

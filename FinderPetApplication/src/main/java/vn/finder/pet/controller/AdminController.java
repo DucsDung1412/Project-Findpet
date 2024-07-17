@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.finder.pet.entity.Adopt;
@@ -17,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
     private SheltersService sheltersService;
     private UsersService usersService;
@@ -33,7 +35,7 @@ public class AdminController {
         this.sponsService = sponsService;
     }
 
-    @GetMapping("/admin-dashboard")
+    @GetMapping("/dashboard")
     public String adminDashboard(Model model){
         model.addAttribute("totalPending", this.sheltersService.findByShelterStatus("Awaiting").size());
         model.addAttribute("listTotalPending", this.sheltersService.findByShelterStatus("Awaiting"));
@@ -47,7 +49,23 @@ public class AdminController {
         return "/admin-dashboard";
     }
 
-    @GetMapping("/admin-shelter-list")
+    @GetMapping("/dashboard/accept-shelter")
+    public String dashboardAcceptShelter(@RequestParam("id") Long id, RedirectAttributes redirectAttributes){
+        this.sheltersService.updateShelter(id, "Opening");
+        redirectAttributes.addAttribute("page", 0);
+        adoptService.sendMailToAgree(id);
+        return "redirect:/admin/dashboard";
+    }
+
+    @GetMapping("/dashboard/remove-shelter")
+    public String dashboardRefuseShelter(@RequestParam("id") Long id, RedirectAttributes redirectAttributes){
+        this.sheltersService.updateShelter(id, "Canceled");
+        redirectAttributes.addAttribute("page", 0);
+        adoptService.sendMailToDisable(id);
+        return "redirect:/admin/dashboard";
+    }
+
+    @GetMapping("/shelter-list")
     public String adminShelterList(Model model, @RequestParam(value = "page", required = false) String page){
         if(page == null){
             page = "0";
@@ -58,13 +76,13 @@ public class AdminController {
         return "/admin-shelter-list";
     }
 
-    @GetMapping("/changePage-adminShelter")
+    @GetMapping("/shelter-list/changePage")
     public String changePageAdminShelter(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
-        return "redirect:/admin-shelter-list";
+        return "redirect:/admin/shelter-list";
     }
 
-    @GetMapping("/admin-shelter-detail")
+    @GetMapping("/shelter-detail")
     public String adminShelterDetail(Model model, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "id") Long id){
         if(page == null){
             page = "0";
@@ -82,31 +100,14 @@ public class AdminController {
         return "/admin-shelter-detail";
     }
 
-    @GetMapping("/changePage-adminShelterDetail")
+    @GetMapping("/shelter-detail/changePage")
     public String changePageAdminShelterDetail(@RequestParam("page") int page, @RequestParam("id") Long id, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
         redirectAttributes.addAttribute("id", id);
-        return "redirect:/admin-shelter-detail";
+        return "redirect:/admin/shelter-detail";
     }
 
-    @GetMapping("/admin-user-list")
-    public String adminUserList(Model model, @RequestParam(value = "page", required = false) String page){
-        if(page == null){
-            page = "0";
-        }
-        int pg = Integer.valueOf(page);
-        model.addAttribute("page", pg == 0 ? 1 : pg);
-        model.addAttribute("listTotalUsers", this.usersService.findAll(pg == 0 ? 0 : pg - 1, 12));
-        return "/admin-user-list";
-    }
-
-    @GetMapping("/changePage-adminUser")
-    public String changePageAdminUser(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
-        redirectAttributes.addAttribute("page", page + 1);
-        return "redirect:/admin-user-list";
-    }
-
-    @GetMapping("/admin-regist-list")
+    @GetMapping("/regist-list")
     public String adminRegistList(Model model, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "status", required = false) String status){
         if(page == null){
             page = "0";
@@ -123,29 +124,46 @@ public class AdminController {
         return "/admin-regist-list";
     }
 
-    @GetMapping("/changePage-adminRegistList")
+    @GetMapping("/regist-list/changePage")
     public String changePageAdminRegistList(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
-        return "redirect:/admin-regist-list";
+        return "redirect:/admin/regist-list";
     }
 
-    @GetMapping("/accept-shelter")
+    @GetMapping("/regist-list/accept-shelter")
     public String acceptShelter(@RequestParam("id") Long id, RedirectAttributes redirectAttributes){
         this.sheltersService.updateShelter(id, "Opening");
         redirectAttributes.addAttribute("page", 0);
         adoptService.sendMailToAgree(id);
-        return "redirect:/admin-regist-list";
+        return "redirect:/admin/regist-list";
     }
 
-    @GetMapping("/remove-shelter")
+    @GetMapping("/regist-list/remove-shelter")
     public String refuseShelter(@RequestParam("id") Long id, RedirectAttributes redirectAttributes){
         this.sheltersService.updateShelter(id, "Canceled");
         redirectAttributes.addAttribute("page", 0);
         adoptService.sendMailToDisable(id);
-        return "redirect:/admin-regist-list";
+        return "redirect:/admin/regist-list";
     }
 
-    @GetMapping("/admin-user-detail")
+    @GetMapping("/user-list")
+    public String adminUserList(Model model, @RequestParam(value = "page", required = false) String page){
+        if(page == null){
+            page = "0";
+        }
+        int pg = Integer.valueOf(page);
+        model.addAttribute("page", pg == 0 ? 1 : pg);
+        model.addAttribute("listTotalUsers", this.usersService.findAll(pg == 0 ? 0 : pg - 1, 12));
+        return "/admin-user-list";
+    }
+
+    @GetMapping("/user-list/changePage")
+    public String changePageAdminUser(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("page", page + 1);
+        return "redirect:/admin/user-list";
+    }
+
+    @GetMapping("/user-detail")
     public String adminUserDetail(Model model, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "changePassword", required = false) Boolean changePassword, @RequestParam(value = "id") String userName){
         if(page == null){
             page = "0";
@@ -160,21 +178,21 @@ public class AdminController {
             }
         }
         model.addAttribute("totalCanceled", i);
-        model.addAttribute("listAdopt", this.adoptService.findByUsers(userName, "%", pg == 0 ? 0 : pg - 1, 8));
+        model.addAttribute("listAdopt", this.adoptService.findByUsers(userName, "%", pg == 0 ? 0 : pg - 1, 1));
         if(changePassword != null){
             model.addAttribute("changePassword", changePassword ? "thành công" : "thất bại");
         }
         return "/admin-user-detail";
     }
 
-    @GetMapping("/changePage-adminUserDetail")
+    @GetMapping("/user-detail/changePage")
     public String changePageAdminUserDetail(@RequestParam("page") int page, @RequestParam("id") String id, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
         redirectAttributes.addAttribute("id", id);
-        return "redirect:/admin-user-detail";
+        return "redirect:/admin/user-detail";
     }
 
-    @PostMapping("/resetPassword")
+    @PostMapping("/user-detail/resetPassword")
     public String resetPassword(@RequestParam("id") String id, RedirectAttributes redirectAttributes, @RequestParam("password") String password){
         redirectAttributes.addAttribute("id", id);
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -182,10 +200,10 @@ public class AdminController {
         Users users = this.usersService.findById(id).get();
         users.setPassword("{bcrypt}"+enCode);
         redirectAttributes.addAttribute("changePassword", this.usersService.changeInfoUser(users));
-        return "redirect:/admin-user-detail";
+        return "redirect:/admin/user-detail";
     }
 
-    @GetMapping("/admin-user-donate")
+    @GetMapping("/user-donate")
     public String adminUserDonate(Model model, @RequestParam(value = "page", required = false) String page){
         if(page == null){
             page = "0";
@@ -196,13 +214,13 @@ public class AdminController {
         return "/admin-user-donate";
     }
 
-    @GetMapping("/changePage-adminDonate")
+    @GetMapping("/user-donate/changePage")
     public String changePageAdminDonate(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
-        return "redirect:/admin-user-donate";
+        return "redirect:/admin/user-donate";
     }
 
-    @GetMapping("/admin-donate-detail")
+    @GetMapping("/donate-detail")
     public String adminUserDonateDetail(Model model, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "id") Long id){
         if(page == null){
             page = "0";
@@ -211,14 +229,15 @@ public class AdminController {
         model.addAttribute("page", pg == 0 ? 1 : pg);
         Users users = this.sponsService.findById(id).getUsers();
         model.addAttribute("users", users);
+        model.addAttribute("id", id);
         model.addAttribute("listSpon", this.sponsService.findAllByUser(pg == 0 ? 0 : pg - 1, 10, users.getUserName()));
         return "/admin-user-donate-detail";
     }
 
-    @GetMapping("/changePage-adminDonateDetail")
+    @GetMapping("/donate-detail/changePage")
     public String changePageAdminDonateDetail(@RequestParam("page") int page, @RequestParam(value = "id") Long id, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
         redirectAttributes.addAttribute("id", id);
-        return "redirect:/admin-donate-detail";
+        return "redirect:/admin/donate-detail";
     }
 }

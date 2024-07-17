@@ -45,6 +45,7 @@ public class MySecurities {
         http.authorizeHttpRequests(config ->
                         config.requestMatchers("/account/**").hasAnyAuthority("OAUTH2_USER", "ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN")
                                 .requestMatchers("/manager/**").hasAnyAuthority("ROLE_MANAGER", "ROLE_ADMIN")
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/**").permitAll())
                 .formLogin(login -> {
                     login.loginPage("/sign-in").loginProcessingUrl("/authenticateTheUser").defaultSuccessUrl("/index").permitAll();

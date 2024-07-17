@@ -424,7 +424,7 @@
 				<div class="col-12">
 					<div class="d-flex justify-content-between">
 						<h4 class="mb-0">Pending Approval</h4>
-						<a href="#" class="btn btn-primary-soft mb-0">View All</a>
+						<a href="/admin/regist-list" class="btn btn-primary-soft mb-0">View All</a>
 					</div>	
 				</div>
 
@@ -452,8 +452,8 @@
 										</div>
 										<!-- Button -->
 										<div class="hstack gap-2 mt-3 mt-sm-0">
-											<a th:href="@{/accept-shelter(id=${totalPending.id})}" class="btn btn-sm btn-primary-soft px-2 mb-0"><i class="bi bi-check-square fa-fw"></i></a>
-											<a th:href="@{/remove-shelter(id=${totalPending.id})}" class="btn btn-sm btn-danger-soft px-2 mb-0"><i class="bi bi-slash-circle fa-fw"></i></a>
+											<a th:href="@{/admin/dashboard/accept-shelter(id=${totalPending.id})}" class="btn btn-sm btn-primary-soft px-2 mb-0"><i class="bi bi-check-square fa-fw"></i></a>
+											<a th:href="@{/admin/dashboard/remove-shelter(id=${totalPending.id})}" class="btn btn-sm btn-danger-soft px-2 mb-0"><i class="bi bi-slash-circle fa-fw"></i></a>
 										</div>                 
 									</div>
 								</div>
@@ -522,7 +522,7 @@
 						<!-- Card header -->
 						<div class="card-header border-bottom d-flex justify-content-between align-items-center">
 							<h5 class="card-header-title">Shelters</h5>
-							<a href="/admin-shelter-list" class="btn btn-link p-0 mb-0">View all</a>
+							<a href="/admin/shelter-list" class="btn btn-link p-0 mb-0">View all</a>
 						</div>
 
 						<!-- Card body START -->
@@ -545,7 +545,7 @@
 										</div>
 									</div>
 									<!-- Button -->
-									<a th:href="@{/admin-shelter-detail(id=${totalShelters.id})}" class="btn btn-sm btn-light flex-shrink-0 mb-0 ms-3">View</a>
+									<a th:href="@{/admin/shelter-detail(id=${totalShelters.id})}" class="btn btn-sm btn-light flex-shrink-0 mb-0 ms-3">View</a>
 								</div>
 								<!-- Shelters item END -->
 
@@ -563,7 +563,7 @@
 						<!-- Card header -->
 						<div class="card-header border-bottom d-flex justify-content-between align-items-center p-3">
 							<h5 class="card-header-title">Users</h5>
-							<a href="/admin-user-list" class="btn btn-link p-0 mb-0">View all</a>
+							<a href="/admin/user-list" class="btn btn-link p-0 mb-0">View all</a>
 						</div>
 
 						<!-- Card body START -->
@@ -586,7 +586,7 @@
 										</div>
 									</div>
 									<!-- Button -->
-									<a th:href="@{/admin-user-detail(id=${totalUsers.userName})}" class="btn btn-sm btn-light mb-0 ms-3 px-2"><i class="fa-solid fa-chevron-right fa-fw"></i></a>
+									<a th:href="@{/admin/user-detail(id=${totalUsers.userName})}" class="btn btn-sm btn-light mb-0 ms-3 px-2"><i class="fa-solid fa-chevron-right fa-fw"></i></a>
 								</div>
 
 								<hr><!-- Divider -->
@@ -603,7 +603,7 @@
 						<!-- Card header -->
 						<div class="card-header border-bottom d-flex justify-content-between align-items-center p-3">
 							<h5 class="card-header-title">Donate</h5>
-							<a href="#" class="btn btn-link p-0 mb-0">View all</a>
+							<a href="/admin/user-donate" class="btn btn-link p-0 mb-0">View all</a>
 						</div>
 
 						<!-- Card body START -->
@@ -629,7 +629,7 @@
 									</div>
 								</div>
 								<!-- Button -->
-								<a href="#" class="btn btn-sm btn-light flex-shrink-0 mb-0 ms-3">View</a>
+								<a href="/admin/donate-detail?id=2" class="btn btn-sm btn-light flex-shrink-0 mb-0 ms-3">View</a>
 							</div>
 							<!-- Shelters item END -->
 

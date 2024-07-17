@@ -403,7 +403,7 @@
 								<!-- Card body START -->
 								<div class="card-body px-3">
 									<!-- Title -->
-									<h5 class="card-title mb-1"><a href="admin-booking-detail.html" th:text="${totalShelters.shelterName}">Deluxe Pool View with Breakfast</a></h5>
+									<h5 class="card-title mb-1"><a th:href="@{/admin/shelter-detail(id=${totalShelters.id})}" th:text="${totalShelters.shelterName}">Deluxe Pool View with Breakfast</a></h5>
 									<ul class="list-group list-group-borderless small mt-2 mb-0">
 										<li class="list-group-item pb-0">
 											<i class="fa-solid fa-building fa-fw me-2"></i><span th:text="${totalShelters.users.firstName} + ' ' + ${totalShelters.users.lastName}">Dao Duc Dung</span>
@@ -422,7 +422,7 @@
 										<h6 class="fw-normal mb-0">Date: </h6>
 										<small th:text="${totalShelters.shelterDate}">14/12/2000</small>
 									</div>
-									<a th:href="@{/admin-shelter-detail(id=${totalShelters.id})}" class="btn btn-sm btn-primary-soft mb-0 w-100">View detail</a>
+									<a th:href="@{/admin/shelter-detail(id=${totalShelters.id})}" class="btn btn-sm btn-primary-soft mb-0 w-100">View detail</a>
 								</div>
 							</div>
 						</div>
@@ -441,7 +441,7 @@
 								</li>
 								<li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listTotalShelters.totalPages - 1)}"
 									th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
-									<a th:href="@{'/changePage-adminShelter?page='+${pageIndex.index}}" th:text="${pageIndex.index + 1}" class="page-link"></a>
+									<a th:href="@{'/admin/shelter-list/changePage?page='+${pageIndex.index}}" th:text="${pageIndex.index + 1}" class="page-link"></a>
 								</li>
 								<li class="page-item">
 									<a class="page-link" href="#">Next</a>
