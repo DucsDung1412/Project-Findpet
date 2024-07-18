@@ -201,7 +201,7 @@
             <!-- Nav category menu END -->
 
             <!-- Theme and Sign in START -->
-            <ul sec:authorize="!isAuthenticated()" class="nav flex-row align-items-center list-unstyled ms-xl-auto">
+            <ul sec:authorize="!isAuthenticated()" class="nav flex-row align-items-center list-unstyled ms-xl-auto" th:fragment="navbar-user-notLogin">
                 <!-- Dark mode options START -->
                 <li class="nav-item dropdown me-2" style="padding-bottom: 4px;">
                     <button class="btn btn-link text-warning p-0 mb-0" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static">
@@ -249,7 +249,7 @@
             <!-- Theme and Sign in END -->
 
             <!-- Profile and Notification START -->
-            <ul sec:authorize="isAuthenticated()" class="nav flex-row align-items-center list-unstyled ms-xl-auto">
+            <ul sec:authorize="isAuthenticated()" class="nav flex-row align-items-center list-unstyled ms-xl-auto" th:fragment="navbar-user-login">
 
                 <!-- Notification dropdown START -->
                 <li class="nav-item dropdown ms-0 ms-md-3">

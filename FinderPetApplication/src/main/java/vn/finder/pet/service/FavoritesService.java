@@ -53,7 +53,6 @@ public class FavoritesService {
     }
 
     public Page<Animals> findAll(int page, int size){
-        Pageable pageable = PageRequest.of(page, size);
         return this.animalsService.filterFavorite(page, size);
     }
 

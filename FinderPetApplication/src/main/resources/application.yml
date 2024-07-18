@@ -4,14 +4,14 @@ spring:
       client:
         registration:
           google:
-            clientId: 
-            clientSecret: 
+            clientId:
+            clientSecret:
             scope:
               - email
               - profile
           facebook:
-            clientId: 
-            clientSecret: 
+            clientId:
+            clientSecret:
             scope:
               - email
               - public_profile

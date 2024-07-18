@@ -1,7 +1,10 @@
 package vn.finder.pet.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +38,22 @@ public class AdminController {
         this.sponsService = sponsService;
     }
 
+    public String getEmailLogin(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = "";
+        if (authentication != null && !authentication.getName().equals("anonymousUser")) {
+            if(this.usersService.findById(authentication.getName()).isEmpty()){
+                OAuth2User principal = (OAuth2User) authentication.getPrincipal();
+                email = principal.getAttribute("email");
+            } else {
+                email = authentication.getName();
+            }
+        } else {
+            return null;
+        }
+        return email;
+    }
+
     @GetMapping("/dashboard")
     public String adminDashboard(Model model){
         model.addAttribute("totalPending", this.sheltersService.findByShelterStatus("Awaiting").size());
@@ -46,6 +65,10 @@ public class AdminController {
         model.addAttribute("totalUsers", this.usersService.findAll(0, Integer.MAX_VALUE).getTotalElements());
         model.addAttribute("listTotalUsers", this.usersService.findAll(0, 7).stream());
 
+        model.addAttribute("listSpon", this.sponsService.findAllToPage(0, 6));
+
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("statusActive", "dashboard");
         return "/admin-dashboard";
     }
 
@@ -73,6 +96,8 @@ public class AdminController {
         int pg = Integer.valueOf(page);
         model.addAttribute("page", pg == 0 ? 1 : pg);
         model.addAttribute("listTotalShelters", this.sheltersService.findSheltersByStatusContaining("Opening", pg == 0 ? 0 : pg - 1, 10));
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("statusActive", "shelter");
         return "/admin-shelter-list";
     }
 
@@ -97,6 +122,8 @@ public class AdminController {
         model.addAttribute("shelter", this.sheltersService.findById(id));
         model.addAttribute("listAnimal", this.animalsService.findAllPet(this.sheltersService.findById(id).getUsers().getUserName(), pg == 0 ? 0 : pg - 1, 8));
         model.addAttribute("page", pg == 0 ? 1 : pg);
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("statusActive", "shelter");
         return "/admin-shelter-detail";
     }
 
@@ -121,6 +148,8 @@ public class AdminController {
         }
         model.addAttribute("page", pg == 0 ? 1 : pg);
         model.addAttribute("status", status);
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("statusActive", "regist");
         return "/admin-regist-list";
     }
 
@@ -154,6 +183,8 @@ public class AdminController {
         int pg = Integer.valueOf(page);
         model.addAttribute("page", pg == 0 ? 1 : pg);
         model.addAttribute("listTotalUsers", this.usersService.findAll(pg == 0 ? 0 : pg - 1, 12));
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("statusActive", "user");
         return "/admin-user-list";
     }
 
@@ -182,6 +213,8 @@ public class AdminController {
         if(changePassword != null){
             model.addAttribute("changePassword", changePassword ? "thành công" : "thất bại");
         }
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("statusActive", "user");
         return "/admin-user-detail";
     }
 
@@ -211,6 +244,8 @@ public class AdminController {
         int pg = Integer.valueOf(page);
         model.addAttribute("page", pg == 0 ? 1 : pg);
         model.addAttribute("listSpon", this.sponsService.findAllToPage(pg == 0 ? 0 : pg - 1, 10));
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("statusActive", "donate");
         return "/admin-user-donate";
     }
 
@@ -231,6 +266,8 @@ public class AdminController {
         model.addAttribute("users", users);
         model.addAttribute("id", id);
         model.addAttribute("listSpon", this.sponsService.findAllByUser(pg == 0 ? 0 : pg - 1, 10, users.getUserName()));
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("statusActive", "donate");
         return "/admin-user-donate-detail";
     }
 
