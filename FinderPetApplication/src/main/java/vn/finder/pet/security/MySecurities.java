@@ -81,7 +81,10 @@ public class MySecurities {
                 })
                 .logout(
                         logout -> logout.permitAll()
-                );
+                )
+                .exceptionHandling(configures -> {
+                    configures.accessDeniedPage("/error/403");
+                });
         http.httpBasic(Customizer.withDefaults());
         http.csrf(csrf -> csrf.disable());
         return http.build();
