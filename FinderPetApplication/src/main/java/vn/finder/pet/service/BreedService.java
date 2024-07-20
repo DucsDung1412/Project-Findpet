@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import vn.finder.pet.dao.BreedDAO;
 import vn.finder.pet.entity.Breed;
 
+import java.util.List;
+
 @Service
 public class BreedService {
     private BreedDAO breedDAO;
@@ -24,5 +26,9 @@ public class BreedService {
 
         }
         return false;
+    }
+
+    public List<Breed> findByBreed_type(String breedType){
+        return this.breedDAO.findByBreed_type(breedType);
     }
 }

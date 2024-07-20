@@ -211,10 +211,7 @@
                                             <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
                                                 <select class="form-select js-choice sl-breed" data-search-enabled="true">
                                                     <option selected value="">Select type</option>
-                                                    <option>Adventure</option>
-                                                    <option>Beach</option>
-                                                    <option>Labrador Retriever</option>
-                                                    <option>History</option>
+                                                    <option th:each="breedType : ${listBreedType}" th:text="${breedType.breed_name}">Adventure</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -496,6 +493,12 @@ Footer END -->
         }
 
         switch(document.querySelector(".banner-title").innerText) {
+            case "dog":
+                listBreedType.push("Dog");
+                break;
+            case "cat":
+                listBreedType.push("Cat");
+                break;
             case "Dog":
                 listBreedType.push("Dog");
                 break;
@@ -552,7 +555,7 @@ Footer END -->
             success: function(response) {
                 console.log(response)
                 $(".show-card-info").get(0).innerHTML = ``
-                for(var i = 0; i < response.length - 1; i++) {
+                for(var i = 0; i < response.length - 2; i++) {
                     $(".show-card-info").get(0).innerHTML += `
                         <!-- Card item START -->
                         <div class="col-md-6 col-xl-4" id="${response[i].id}">
@@ -597,7 +600,7 @@ Footer END -->
                     `
                 }
 
-                response[response.length - 1].listFavorite.forEach(e => {
+                response[response.length - 2].listFavorite.forEach(e => {
                     if($("div #" + e).get(0) !== undefined) {
                         $("div #" + e + " a.h6.mb-0.z-index-2 i").get(0).classList.remove("bi-bookmark")
                         $("div #" + e + " a.h6.mb-0.z-index-2 i").get(0).classList.add("bi-bookmark-fill")
@@ -605,6 +608,49 @@ Footer END -->
                         $("div #" + e + " a.h6.mb-0.z-index-2").get(0).href = "/removeFavorite?id=" + e;
                     }
                 })
+
+                $("#numEnd")[0].innerText = response[response.length - 1].size
+                if(pageNumber == 0){
+                    $("#numStart")[0].innerText = 1
+                } else {
+                    $("#numStart")[0].innerText = 1 + 12*pageNumber
+                }
+                if(response.length - 2 > response[response.length - 1].size){
+                    $("#numTo")[0].innerText = response[response.length - 1].size
+                } else {
+                    $("#numTo")[0].innerText = response.length - 2 + 12*pageNumber
+                }
+
+                var num = Math.ceil(response[response.length - 1].size/12)
+                if(num < 2){
+                    $(".pagination")[0].parentElement.parentElement.parentElement.classList.add("d-none")
+                } else {
+                    $(".pagination")[0].parentElement.parentElement.parentElement.classList.remove("d-none")
+
+                    $("ul.pagination")[0].innerHTML = `
+                        <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fa-solid fa-angle-left"></i></a></li>
+                    `
+
+                    for(var i = 0; i < num; i++){
+                        if(i == pageNumber){
+                            $("ul.pagination")[0].innerHTML += `
+                                 <li class="page-item mb-0 pageable active">
+                                    <a href="#" class="page-link take-a-pet">${i + 1}</a>
+                                 </li>
+                            `
+                        } else {
+                            $("ul.pagination")[0].innerHTML += `
+                                 <li class="page-item mb-0 pageable">
+                                    <a href="#" class="page-link take-a-pet">${i + 1}</a>
+                                 </li>
+                            `
+                        }
+                    }
+
+                    $("ul.pagination")[0].innerHTML += `
+                        <li class="page-item mb-0 pageable"><a class="page-link" href="#"><i class="fa-solid fa-angle-right"></i></a></li>
+                    `
+                }
             },
             error: function() {
                 console.log(1);

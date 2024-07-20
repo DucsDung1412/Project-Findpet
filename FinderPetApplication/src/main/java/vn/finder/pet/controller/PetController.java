@@ -14,6 +14,7 @@ import vn.finder.pet.entity.Animals;
 import vn.finder.pet.entity.Users;
 import vn.finder.pet.service.AdoptService;
 import vn.finder.pet.service.AnimalsService;
+import vn.finder.pet.service.BreedService;
 import vn.finder.pet.service.UsersService;
 
 import java.util.ArrayList;
@@ -27,12 +28,14 @@ public class PetController {
     private AnimalsService animalsService;
     private UsersService usersService;
     private AdoptService adoptService;
+    private BreedService breedService;
 
     @Autowired
-    public PetController(AnimalsService animalsService, UsersService usersService, AdoptService adoptService) {
+    public PetController(AnimalsService animalsService, UsersService usersService, AdoptService adoptService, BreedService breedService) {
         this.animalsService = animalsService;
         this.usersService = usersService;
         this.adoptService = adoptService;
+        this.breedService = breedService;
     }
 
     public String getEmailLogin(){
@@ -72,14 +75,18 @@ public class PetController {
             listAdoptId.add(e.getAnimals().getId());
         });
 
+        if(breed_type.equals("All")){
+            breed_type = "%";
+        }
+
         Page<Animals> listAnimal = this.animalsService.searchAnimals(Arrays.asList(breed_type), breed == null ? "" : breed, location == null ? "" : location, breed_type.equals("Cat") ? (age == null ? Arrays.asList("Kitten", "Young", "Adult", "Senior") : Arrays.asList(age)) : (age == null ? Arrays.asList("Puppy", "Young", "Adult", "Senior") : Arrays.asList(age)), gender == null ? Arrays.asList(true, false) : Arrays.asList(gender), size == null ? "" : size, "", listAdoptId, 0, 12);
-        model.addAttribute("listAnimal", listAnimal);
-        model.addAttribute("breed_type", breed_type);
+
         if(breed_type.equals("Cat")){
             model.addAttribute("age_type", "Kitten");
         } else {
             model.addAttribute("age_type", "Puppy");
         }
+
         ArrayList<Long> listFavorites = new ArrayList<>();
         if(this.getEmailLogin() != null){
             Users users = this.usersService.findById(this.getEmailLogin()).get();
@@ -87,8 +94,12 @@ public class PetController {
                 listFavorites.add(e.getAnimals().getId());
             });
         }
+
         model.addAttribute("listFavorites", listFavorites);
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("listAnimal", listAnimal);
+        model.addAttribute("breed_type", breed_type);
+        model.addAttribute("listBreedType", this.breedService.findByBreed_type(breed_type));
         return "/pet-grid";
     }
 

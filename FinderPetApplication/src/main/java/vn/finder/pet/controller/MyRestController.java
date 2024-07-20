@@ -92,10 +92,13 @@ public class MyRestController {
             map.put("gender", e.getAnimalGender());
             listSearch.add(map);
         });
-
         Map<String, Object> mapFavorite = new HashMap<>();
         mapFavorite.put("listFavorite", listFavorites);
         listSearch.add(mapFavorite);
+
+        Map<String, Object> maxSize = new HashMap<>();
+        maxSize.put("size", this.animalsService.searchAnimals(animalInfoRequest.getBreedType(), animalInfoRequest.getBreed(), animalInfoRequest.getLocation(), animalInfoRequest.getAge(), animalInfoRequest.getGender(), animalInfoRequest.getSize(), animalInfoRequest.getName(), listAdoptId, 0, Integer.MAX_VALUE).getTotalElements());
+        listSearch.add(maxSize);
 
         return listSearch;
     }

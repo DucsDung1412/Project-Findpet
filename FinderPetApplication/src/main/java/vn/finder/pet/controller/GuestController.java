@@ -418,4 +418,9 @@ public class GuestController {
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         return "donate-confirm";
     }
+
+    @GetMapping("/shop-token")
+    public String shopToken(){
+        return "/coming-soon";
+    }
 }
