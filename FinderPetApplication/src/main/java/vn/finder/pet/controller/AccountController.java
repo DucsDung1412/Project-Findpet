@@ -209,9 +209,19 @@ public class AccountController {
     }
 
     @GetMapping("/donate-confirm")
-    public String donateConfirm(Model model){
+    public String donateConfirm(Model model, @RequestParam(value = "id") Long id){
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.userService.findById(this.getEmailLogin()).get());
+        model.addAttribute("status", "thành công");
+        model.addAttribute("spon", this.sponsService.findById(id));
+        model.addAttribute("transactionId", 123456789);
         return "/donate-confirm";
+    }
+
+    @GetMapping("/adopt-confirm")
+    public String adoptConfirm(Model model, @RequestParam(value = "id") Long id){
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.userService.findById(this.getEmailLogin()).get());
+        model.addAttribute("adopt", this.adoptService.findById(id));
+        return "/booking-confirm";
     }
 }
 

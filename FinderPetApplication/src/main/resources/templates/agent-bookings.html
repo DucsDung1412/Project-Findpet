@@ -126,8 +126,8 @@
 			</div>
 			<!-- Title END -->
 	
-			<!-- Booking table START -->
-			<div class="row">
+			<!-- Adopt table START -->
+			<div th:if="${listAdopt} != null" class="row">
 				<div class="col-12">
 					<div class="card border">
 						<!-- Card header START -->
@@ -151,22 +151,20 @@
 								<!-- Select option -->
 								<div class="col-md-3">
 									<!-- Short by filter -->
-									<form>
-										<select class="form-select js-choice" aria-label=".form-select-sm">
-											<option value="">Fillter by status</option>
-											<option>Adpoted</option>
-											<option>Awaiting</option>
-											<option>Reserved</option>
-											<option>Cancel</option>
-										</select>
-									</form>
+									<div class="d-flex justify-content-end">
+										<input type="radio" class="btn-check" name="options-base" id="option7" autocomplete="off" th:checked="${queryStatus} == 'Adopt'">
+										<a href="/manager/bookings" class="btn label" for="option7">Adopt</a>
+
+										<input type="radio" class="btn-check" name="options-base" id="option8" autocomplete="off" th:checked="${queryStatus} == 'Donate'">
+										<a href="/manager/bookings?query=Donate" class="btn label" for="option8">Donate</a>
+									</div>
 								</div>
 							</div>
 							<!-- Search and select END -->
 	
 							<!-- Hotel room list START -->
 							<div class="table-responsive border-0">
-								<table class="table align-middle p-4 mb-0 table-hover table-shrink">
+								<table th:if="${listAdopt} != null" class="table align-middle p-4 mb-0 table-hover table-shrink">
 									<!-- Table head -->
 									<thead class="table-light">
 										<tr>
@@ -194,7 +192,7 @@
                                                 <div th:if="${adopt.getAdopt_status().equals('Cancel')}" class="badge text-bg-danger">Cancel</div>
                                             </td>
 											<td>
-                                                <a href="#" class="btn btn-sm btn-light mb-0 w-100" th:if="${!adopt.getAdopt_status().equals('Awaiting')}">Xem chi tiết</a>
+                                                <a th:href="@{/account/adopt-confirm(id=${adopt.id})}" class="btn btn-sm btn-light mb-0 w-100" th:if="${!adopt.getAdopt_status().equals('Awaiting')}">Xem chi tiết</a>
                                                 <div class="d-flex flex-column" th:if="${adopt.getAdopt_status().equals('Awaiting')}">
                                                     <a th:href="@{/manager/bookings/disable-pet(id=${adopt.getAnimals().id})}" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
                                                     <a th:href="@{/manager/bookings/enable-pet(id=${adopt.getAnimals().id})}" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
@@ -204,6 +202,8 @@
 									</tbody>
 									<!-- Table body END -->
 								</table>
+
+
 							</div>
 							<!-- Hotel room list END -->
 						</div>
@@ -223,7 +223,7 @@
 										</li>
                                         <li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listAdopt.totalPages - 1)}"
                                             th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
-                                            <a th:href="@{'/manager/bookings/changePage?page='+${pageIndex.index}}" th:text="${pageIndex.index + 1}" class="page-link"></a>
+                                            <a th:href="@{/manager/bookings/changePage(page=${pageIndex.index})}" th:text="${pageIndex.index + 1}" class="page-link"></a>
                                         </li>
 										<li class="page-item">
 											<a class="page-link" href="#">Next</a>
@@ -236,7 +236,110 @@
 					</div>
 				</div>
 			 </div> 
-			<!-- Booking table END -->
+			<!-- Adopt table END -->
+
+			<!-- Donate table START -->
+			<div th:if="${listDonate} != null" class="row">
+				<div class="col-12">
+					<div class="card border">
+						<!-- Card header START -->
+						<div class="card-header border-bottom">
+							<h5 class="card-header-title">Bookings<span class="badge bg-primary bg-opacity-10 text-primary ms-2" th:text="${listDonate.stream().toList().size()} + ' Requets'">20 Requets</span></h5>
+						</div>
+						<!-- Card header END -->
+
+						<!-- Card body START -->
+						<div class="card-body">
+							<!-- Search and select START -->
+							<div class="row g-3 align-items-center justify-content-between mb-3">
+								<!-- Search -->
+								<div class="col-md-8">
+									<form class="rounded position-relative">
+										<input class="form-control pe-5" type="search" placeholder="Search" aria-label="Search">
+										<button class="btn border-0 px-3 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6"></i></button>
+									</form>
+								</div>
+
+								<!-- Select option -->
+								<div class="col-md-3">
+									<!-- Short by filter -->
+									<div class="d-flex justify-content-end">
+										<input type="radio" class="btn-check" name="options-base" id="option5" autocomplete="off" th:checked="${queryStatus} == 'Adopt'">
+										<a href="/manager/bookings" class="btn label" for="option5">Adopt</a>
+
+										<input type="radio" class="btn-check" name="options-base" id="option6" autocomplete="off" th:checked="${queryStatus} == 'Donate'">
+										<a href="/manager/bookings?query=Donate" class="btn label" for="option6">Donate</a>
+									</div>
+								</div>
+							</div>
+							<!-- Search and select END -->
+
+							<!-- Hotel room list START -->
+							<div class="table-responsive border-0">
+								<table th:if="${listDonate} != null" class="table align-middle p-4 mb-0 table-hover table-shrink">
+									<!-- Table head -->
+									<thead class="table-light">
+									<tr>
+										<th scope="col" class="border-0 rounded-start">#</th>
+										<th scope="col" class="border-0">Name</th>
+										<th scope="col" class="border-0">Type</th>
+										<th scope="col" class="border-0">Date</th>
+										<th scope="col" class="border-0">Gift</th>
+										<th scope="col" class="border-0 rounded-end">Action</th>
+									</tr>
+									</thead>
+
+									<!-- Table body START -->
+									<tbody class="border-top-0">
+									<!-- Table item -->
+									<tr th:each="donate, stat : ${listDonate}">
+										<td> <h6 class="mb-0" th:text="${stat.count} < 10 ? '0'+${stat.count} : ${stat.count}">01</h6> </td>
+										<td> <h6 class="mb-0"><a href="#" th:text="${donate.getUsers().getUserName()}">Deluxe Pool View</a></h6> </td>
+										<td> <h6 class="mb-0"><a href="#" th:text="${donate.getShelters().getShelterName()}">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
+										<td> <h6 class="mb-0 fw-light" th:text="${donate.getSponsDate()}">Nov 22 - 25</h6> </td>
+										<td> <p class="mb-0 fw-light" th:text="${donate.getSponsGift()}">Nov 22 - 25</p> </td>
+										<td>
+											<a th:href="@{/account/}" class="btn btn-sm btn-light mb-0 w-100">Xem chi tiết</a>
+										</td>
+									</tr>
+									</tbody>
+									<!-- Table body END -->
+								</table>
+
+
+							</div>
+							<!-- Hotel room list END -->
+						</div>
+						<!-- Card body END -->
+
+						<!-- Card footer START -->
+						<div class="card-footer pt-0">
+							<!-- Pagination and content -->
+							<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+								<!-- Content -->
+								<p class="mb-sm-0 text-center text-sm-start">Showing <span th:text="${listDonate.number} * ${listDonate.size} == 0 ? 1 : (${listDonate.number} * ${listDonate.size}) + 1">1</span> to <span th:text="${listDonate.totalElements} - (${listDonate.number} * ${listDonate.size} + ${listDonate.size}) < 0 ? ${listDonate.totalElements} : (${listDonate.number} * ${listDonate.size} + ${listDonate.size})">10</span> of <span th:text="${listDonate.totalElements}">57</span> entries</p>
+								<!-- Pagination -->
+								<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation" th:if="${listDonate.totalPages} >= 2">
+									<ul class="pagination pagination-sm pagination-primary-soft mb-0">
+										<li class="page-item disabled">
+											<a class="page-link" href="#" tabindex="-1">Prev</a>
+										</li>
+										<li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listDonate.totalPages - 1)}"
+											th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
+											<a th:href="@{/manager/bookings/changePage(page=${pageIndex.index}, query='Donate')}" th:text="${pageIndex.index + 1}" class="page-link"></a>
+										</li>
+										<li class="page-item">
+											<a class="page-link" href="#">Next</a>
+										</li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+						<!-- Card footer END -->
+					</div>
+				</div>
+			</div>
+			<!-- Donate table END -->
 		</div>
 	</section>
 	<!-- =======================

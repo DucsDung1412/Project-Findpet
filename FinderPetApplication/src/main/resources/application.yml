@@ -5,13 +5,13 @@ spring:
         registration:
           google:
             clientId:
-            clientSecret:
+            clientSecret: 
             scope:
               - email
               - profile
           facebook:
             clientId:
-            clientSecret: 
+            clientSecret:
             scope:
               - email
               - public_profile

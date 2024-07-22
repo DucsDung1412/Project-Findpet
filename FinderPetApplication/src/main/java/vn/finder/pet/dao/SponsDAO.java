@@ -14,4 +14,7 @@ public interface SponsDAO extends JpaRepository<Spons, Long> {
 
     @Query("SELECT s FROM Spons s WHERE s.users.userName LIKE :userName")
     public Page<Spons> findAllByUser(Pageable pageable, @Param("userName") String userName);
+
+    @Query("SELECT s FROM Spons s WHERE s.shelters.id = :id ORDER BY s.sponsDate DESC")
+    Page<Spons> findByStatus(Pageable pageable, @Param("id") Long id);
 }

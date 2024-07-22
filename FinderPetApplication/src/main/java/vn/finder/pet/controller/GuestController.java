@@ -420,7 +420,8 @@ public class GuestController {
     }
 
     @GetMapping("/shop-token")
-    public String shopToken(){
+    public String shopToken(Model model){
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         return "/coming-soon";
     }
 }

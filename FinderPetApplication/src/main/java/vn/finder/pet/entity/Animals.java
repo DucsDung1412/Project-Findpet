@@ -41,6 +41,9 @@ public class Animals {
     @JoinColumn(name = "shelter_id", nullable = false)
     private Shelters shelters;
 
+    @OneToOne(mappedBy = "animals", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private AnimalInfo animalInfo;
+
     @OneToMany(mappedBy = "animals", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Avatar> listAvatar;
 
@@ -160,6 +163,14 @@ public class Animals {
 
     public void setListAvatar(List<Avatar> listAvatar) {
         this.listAvatar = listAvatar;
+    }
+
+    public AnimalInfo getAnimalInfo() {
+        return animalInfo;
+    }
+
+    public void setAnimalInfo(AnimalInfo animalInfo) {
+        this.animalInfo = animalInfo;
     }
 
     @Override

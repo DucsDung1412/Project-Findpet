@@ -162,4 +162,8 @@ public class AdoptService {
     public void sendMailToDisable(Long id){
         mailService.sendMailToAdminDisable(getUserShelters(id),getUserShelters(id));
     }
+
+    public Adopt findById(Long id) {
+        return this.adoptDAO.findById(id).get();
+    }
 }

@@ -118,7 +118,7 @@ Main content START -->
 					<div class="card-body text-center p-4">
 						<!-- Title -->
 						<h1 class="card-title fs-3">🎊 CHÚC MỪNG! 🎊</h1>
-						<p class="lead mb-3">Quá trình nhận nuôi thành công</p>
+						<p class="lead mb-3"><span th:text="${adopt.users.firstName} + ' ' + ${adopt.users.lastName}"></span> đã đăng ký nhận nuôi thành công</p>
 
 						<!-- Second title -->
 						<h5 class="text-primary mb-4">Tình trạng: <span th:text="${adopt.adopt_status}">Đang chờ xử lý</span></h5>

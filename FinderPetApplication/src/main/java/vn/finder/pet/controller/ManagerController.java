@@ -24,14 +24,16 @@ public class ManagerController {
     private FavoritesService favoritesService;
     private UsersService usersService;
     private SheltersService sheltersService;
+    private SponsService sponsService;
 
     @Autowired
-    public ManagerController(AnimalsService animalsService, AdoptService adoptService, FavoritesService favoritesService, UsersService usersService, SheltersService sheltersService) {
+    public ManagerController(AnimalsService animalsService, AdoptService adoptService, FavoritesService favoritesService, UsersService usersService, SheltersService sheltersService, SponsService sponsService) {
         this.animalsService = animalsService;
         this.adoptService = adoptService;
         this.favoritesService = favoritesService;
         this.usersService = usersService;
         this.sheltersService = sheltersService;
+        this.sponsService = sponsService;
     }
 
     public String getEmailLogin(){
@@ -152,7 +154,7 @@ public class ManagerController {
     }
 
     @GetMapping("/bookings")
-    public String agentBookings(Model model, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "status", required = false) String status){
+    public String agentBookings(Model model, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "status", required = false) String status, @RequestParam(value = "query", required = false) String query){
         if(page == null){
             page = "0";
         }
@@ -160,7 +162,14 @@ public class ManagerController {
         if(status == null){
             status = "%";
         }
-        model.addAttribute("listAdopt", this.animalsService.findByStatus(this.getEmailLogin(), status, pg == 0 ? 0 : pg - 1, 10));
+
+        if(query != null){
+            model.addAttribute("listDonate", this.sponsService.findByStatus(this.getEmailLogin(), pg == 0 ? 0 : pg - 1, 10));
+            model.addAttribute("queryStatus", "Donate");
+        } else {
+            model.addAttribute("listAdopt", this.animalsService.findByStatus(this.getEmailLogin(), status, pg == 0 ? 0 : pg - 1, 10));
+            model.addAttribute("queryStatus", "Adopt");
+        }
         model.addAttribute("page", pg == 0 ? 1 : pg);
         model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
         model.addAttribute("statusActive", "bookings");
@@ -169,8 +178,11 @@ public class ManagerController {
     }
 
     @GetMapping("/bookings/changePage")
-    public String changePageAgentBooking(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
+    public String changePageAgentBooking(@RequestParam("page") int page, @RequestParam(value = "query", required = false) String query, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
+        if(query != null){
+            redirectAttributes.addAttribute("query", query);
+        }
         return "redirect:/manager/bookings";
     }
 
@@ -206,42 +218,38 @@ public class ManagerController {
     }
 
     @GetMapping("/add-animal")
-    public String addListingMinimal(Model model){
+    public String addListingMinimal(Model model, @RequestParam(value = "error", required = false) Boolean error){
         model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("title", "Add New Animal");
+        model.addAttribute("button", "Add Animal");
+        Animals animals = new Animals();
+        model.addAttribute("animal", animals);
+
+        if(error != null){
+            if(!error){
+                model.addAttribute("error", "Thêm animal thành công");
+            } else {
+                model.addAttribute("error", "Vui lòng nhập đầy đủ thông tin");
+            }
+        }
         return "/add-listing-minimal";
     }
 
-    @PostMapping("/uploadpet")
-    public String auto1(@RequestBody DtoPetShelters bd, RedirectAttributes atr) {
-
-        int flag = 0;
-        if (bd.getAnimalName().isEmpty()) {
-            atr.addAttribute("message", "Chưa nhập tên thằng lồn");
-            flag++;
+    @GetMapping("/edit-animal")
+    public String editListingMinimal(Model model, @RequestParam(value = "id") Long id, @RequestParam(value = "error", required = false) Boolean error){
+        model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("title", "Edit Information Animal");
+        model.addAttribute("button", "Edit Animal");
+        model.addAttribute("id", id);
+        Animals animals = this.animalsService.findById(id);
+        model.addAttribute("animal", animals);
+        if(error != null){
+            if(!error){
+                model.addAttribute("error", "Chỉnh sửa animal thành công");
+            } else {
+                model.addAttribute("error", "Vui lòng nhập đầy đủ thông tin");
+            }
         }
-        if (bd.getAnimal_info_characteristics().isEmpty()) {
-            flag++;
-        }
-        if (bd.getAnimalAvatar().isEmpty()) {
-            flag++;
-        }
-        if (bd.getBreed_name().isEmpty()) {
-            flag++;
-        }
-        if (bd.getAnimal_info_description().isEmpty()) {
-            flag++;
-        }
-        if (flag == 0) {
-            if(animalsService.checkAnimal(bd.getBreed_name(),
-                    bd.getBreed_type(),
-                    bd.getAnimalName(),
-                    bd.isAnimalGender(),
-                    bd.getAnimalSize(),
-                    bd.getAnimalAge())){
-                sheltersService.createShelter(bd, this.getEmailLogin());
-            };
-
-        }
-        return "redirect:/manager/add-animal";
+        return "/add-listing-minimal";
     }
 }

@@ -44,7 +44,7 @@ public interface AnimalsDAO extends JpaRepository<Animals, Long> {
     @Query("SELECT COUNT(a.id) FROM Animals a INNER JOIN a.listAdopt ad WHERE a.shelters.id = :id")
     Integer findCountAdopt(@Param("id") Long id);
 
-    @Query("SELECT ad FROM Animals a INNER JOIN a.listAdopt ad WHERE ad.adopt_status LIKE %:status% AND a.shelters.id = :id")
+    @Query("SELECT ad FROM Animals a INNER JOIN a.listAdopt ad WHERE ad.adopt_status LIKE %:status% AND a.shelters.id = :id ORDER BY ad.adoptDate DESC")
     Page<Adopt> findByStatus(@Param("status") String status, Pageable pageable, @Param("id") Long id);
 
     @Query("SELECT COUNT(a.id) FROM Animals a INNER JOIN a.listFavorites f WHERE a.shelters.id = :id")

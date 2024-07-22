@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import vn.finder.pet.dao.AnimalsDAO;
 import vn.finder.pet.entity.Adopt;
 import vn.finder.pet.entity.Animals;
+import vn.finder.pet.entity.DtoPetShelters;
 import vn.finder.pet.entity.Users;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AnimalsService {
@@ -121,7 +123,37 @@ public class AnimalsService {
             this.animalsDAO.save(animal);
             return true;
         } catch (Exception e){
+            System.out.println(e);
+        }
+        return false;
+    }
 
+    @Transactional
+    public Boolean updateAnimal(DtoPetShelters bd, Long id){
+        Optional<Animals> animals = this.animalsDAO.findById(id);
+        if(!animals.isEmpty()){
+//            animals.get().getBreed().setBreed_type(bd.getBreed_type());
+//            animals.get().getBreed().setBreed_name(bd.getBreed_name());
+            animals.get().setAnimalName(bd.getAnimalName());
+            animals.get().setAnimalSize(bd.getAnimalSize());
+            animals.get().setAnimalAge(bd.getAnimalAge());
+            animals.get().setAnimalGender(bd.isAnimalGender());
+            animals.get().setAnimalAvatar(bd.getAnimalAvatar());
+            animals.get().getAnimalInfo().setAnimalInfoColor(bd.getAnimal_info_color());
+            animals.get().getAnimalInfo().setAnimalInfoLeg(bd.getAnimal_info_leg());
+            animals.get().getAnimalInfo().setAnimalInfoHarmony(bd.getAnimal_info_harmony());
+            animals.get().getAnimalInfo().setAnimalInfoHealth(bd.getAnimal_info_health());
+            animals.get().getAnimalInfo().setAnimalInfoCharacteristics(bd.getAnimal_info_characteristics());
+            animals.get().getAnimalInfo().setAnimalInfoDescription(bd.getAnimal_info_description());
+            System.out.println("--------------");
+            System.out.println("--------------");
+            System.out.println("--------------");
+            System.out.println("--------------");
+            System.out.println(animals.get().getListAvatar());
+            System.out.println("--------------");
+            System.out.println("--------------");
+            System.out.println("--------------");
+            this.animalsDAO.save(animals.get());
         }
         return false;
     }

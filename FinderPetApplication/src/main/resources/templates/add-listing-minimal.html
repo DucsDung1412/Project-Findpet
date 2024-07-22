@@ -113,7 +113,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto text-center">
-					<h1 class="fs-2 mb-2">Add New Listing</h1>
+					<h1 class="fs-2 mb-2" th:text="${title}">Add New Listing</h1>
 					<p class="mb-0">Praise effects wish change way and any wanted. Lively use looked latter regard had.</p>
 				</div>
 			</div>
@@ -143,14 +143,14 @@
 									<!-- Animal type -->
 									<div class="col-md-6 form-group">
 										<label class="form-label">Animal type</label>
-										<select id="select-type" class="form-select js-choice sl-size animal-type">
+										<select id="select-type" class="form-select sl-size animal-type">
 											<option value="">Select Option</option>
-											<option>Dog</option>
-											<option>Cat</option>
-											<option>Bird</option>
-											<option>Rabbits</option>
-											<option>Small & Furry</option>
-											<option>Rabbits</option>
+											<option th:selected="${animal.breed.breed_type} == 'Dog'">Dog</option>
+											<option th:selected="${animal.breed.breed_type} == 'Cat'">Cat</option>
+											<option th:selected="${animal.breed.breed_type} == 'Bird'">Bird</option>
+											<option th:selected="${animal.breed.breed_type} == 'Rabbits'">Rabbits</option>
+											<option th:selected="${animal.breed.breed_type} == 'Small & Furry'">Small & Furry</option>
+											<option th:selected="${animal.breed.breed_type} == 'Rabbits'">Rabbits</option>
 											<option>Other</option>
 										</select>
 										<input class="form-control mt-2 other-animal d-none" type="text" placeholder="Enter animal name" name="breed_type_input">
@@ -162,7 +162,7 @@
 										<label class="form-label">Animal breed</label>
 										<select id="select-breed" class="form-select js-choice animal-breed" data-search-enabled="true">
 											<option value="">Select breed</option>
-											<option>Gogri</option>
+											<option th:selected="">Gogri</option>
 											<option>Bulldog</option>
 											<option>Chichiquaqua</option>
 											<option>Other</option>
@@ -469,7 +469,7 @@
 	
 						<!-- Button -->
 						<div class="text-end">
-							<button id="add-list" type="submit" class="btn btn-primary mb-0">Add listing</button>
+							<button id="add-list" type="submit" class="btn btn-primary mb-0" th:text="${button}">Add listing</button>
 						</div>
 					</form>
 				</div>
@@ -497,6 +497,26 @@ Footer END -->
 		</path>
 	</svg>
 </div>
+
+<!-- Modal notice START -->
+<div class="modal d-flex" style="background-color: rgba(1,1,1,0.6);" th:if="${error} != null">
+	<div class="cookiesContent align-items-center justify-content-center m-auto" id="cookiesPopup">
+		<button class="close">✖</button>
+		<img src="https://cdn-icons-png.flaticon.com/512/1047/1047711.png" alt="cookies-img" />
+		<p th:text="${error}">Khôi phục mật khẩu thành công</p>
+		<button class="accept">OK</button>
+	</div>
+</div>
+<!-- Modal notice END -->
+
+<script type="text/javascript" th:if="${error} != null">
+	document.querySelector(".modal .close").onclick = function () {
+        document.querySelector(".modal").classList.add("d-none");
+    }
+    document.querySelector(".modal .accept").onclick = function() {
+        document.querySelector(".modal").classList.add("d-none");
+    }
+</script>
 
 <!-- Bootstrap JS -->
 <script src="https://booking.webestica.com/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -559,6 +579,7 @@ Footer END -->
 	<!--  Save Animal  -->
 	$(document).ready(function() {
 		 $(document).on('click', '#add-list', function(event) {
+		 	event.preventDefault();
 			 // Lấy giá trị selected của animal từ dropdown
 			 var selectoption = $('.animal-type').val();
 			 var animalType = "";
@@ -590,11 +611,11 @@ Footer END -->
 				//select breed and  pet size
 				switch (selectoption) {
 				 case 'Dog':
-					 animalType = 'dog';
+					 animalType = 'Dog';
 					 animalSize=$('.animal-dog').val();
 					 break;
 				 case 'Cat':
-					 animalType = 'cat';
+					 animalType = 'Cat';
 					 animalSize=$('.animal-dog').val();
 					 break;
 				 case 'Bird':
@@ -684,22 +705,21 @@ Footer END -->
 
 			 console.log(requestData);
 
-
 			 $.post({
-				 url: "/manager/uploadpet",
+				 url: "/manager/uploadPet?id=[[${id}]]",
 				 contentType: "application/json",
 				 data: JSON.stringify(requestData),
 				 success: function(response) {
-					 console.log("Request succeeded:");
+					 window.location.href = response;
 				 },
-
 				 error: function(xhr, status, error) {
-				 console.log(JSON.stringify(requestData));
+					 console.log(JSON.stringify(requestData));
 					 console.log("Request failed:"+status+xhr);
 					 console.log(contentType);
-
 				 }
 			 });
+
+
 		 });
 	 });
 

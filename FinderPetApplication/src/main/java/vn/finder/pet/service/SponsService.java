@@ -8,16 +8,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import vn.finder.pet.dao.SponsDAO;
 import vn.finder.pet.entity.Spons;
+import vn.finder.pet.entity.Users;
 
 import java.util.List;
 
 @Service
 public class SponsService {
     private SponsDAO sponsDAO;
+    private UsersService usersService;
 
     @Autowired
-    public SponsService(SponsDAO sponsDAO) {
+    public SponsService(SponsDAO sponsDAO, UsersService usersService) {
         this.sponsDAO = sponsDAO;
+        this.usersService = usersService;
     }
 
     @Transactional
@@ -46,5 +49,11 @@ public class SponsService {
     public Page<Spons> findAllByUser(int page, int size, String userName){
         Pageable pageable = PageRequest.of(page, size);
         return this.sponsDAO.findAllByUser(pageable, userName);
+    }
+
+    public Page<Spons> findByStatus(String email, int page, int sizePage){
+        Pageable pageable = PageRequest.of(page, sizePage);
+        Users users = this.usersService.findById(email).get();
+        return this.sponsDAO.findByStatus(pageable, users.getShelters().getId());
     }
 }
