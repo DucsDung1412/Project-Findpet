@@ -214,7 +214,7 @@
 											</div>
 
 											<!-- Title -->
-											<h5 class="card-title mb-0 me-5"><a href="/pet-detail" th:text="${animals.animalName}">Cole</a></h5>
+											<h5 class="card-title mb-0 me-5"><a th:href="@{/manager/edit-animal(id=${animals.id})}" th:text="${animals.animalName}">Cole</a></h5>
 											<ul class="nav nav-divider mb-2 mb-sm-3">
 												<i class="bi bi-info-square-fill me-2"></i>
 												<li class="nav-item" th:text="${animals.animalAge}">Young</li>
@@ -230,7 +230,7 @@
 												</div>
 												<!-- Button -->
 												<div class="hstack gap-2 mt-3 mt-sm-0">
-													<a href="#" class="btn btn-sm btn-primary mb-0"><i class="bi bi-pencil-square fa-fw me-1"></i>Edit</a>    
+													<a th:href="@{/manager/edit-animal(id=${animals.id})}" class="btn btn-sm btn-primary mb-0"><i class="bi bi-pencil-square fa-fw me-1"></i>Edit</a>
 													<a href="#" class="btn btn-sm btn-danger mb-0"><i class="fa-solid fa-trash-can fa-fw me-1"></i>Delete</a>    
 												</div>                  
 											</div>

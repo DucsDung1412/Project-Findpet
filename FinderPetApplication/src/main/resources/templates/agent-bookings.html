@@ -183,7 +183,7 @@
 										<tr th:each="adopt, stat : ${listAdopt}">
 											<td> <h6 class="mb-0" th:text="${stat.count} < 10 ? '0'+${stat.count} : ${stat.count}">01</h6> </td>
 											<td> <h6 class="mb-0"><a href="#" th:text="${adopt.getUsers().getUserName()}">Deluxe Pool View</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#" th:text="${adopt.getAnimals().getAnimalName()}">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
+											<td> <h6 class="mb-0"><a th:href="@{/manager/edit-animal(id=${adopt.animals.id})}" th:text="${adopt.getAnimals().getAnimalName()}">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
 											<td> <h6 class="mb-0 fw-light" th:text="${adopt.getAdoptDate()}">Nov 22 - 25</h6> </td>
 											<td>
                                                 <div th:if="${adopt.getAdopt_status().equals('Adopted')}" class="badge text-bg-success">Adopted</div>

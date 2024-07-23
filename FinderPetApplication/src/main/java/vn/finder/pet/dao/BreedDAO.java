@@ -12,4 +12,10 @@ import java.util.List;
 public interface BreedDAO extends JpaRepository<Breed, Long> {
     @Query("SELECT b FROM Breed b WHERE b.breed_type LIKE :breedType")
     List<Breed> findByBreed_type(@Param("breedType") String breedType);
+
+    @Query("SELECT DISTINCT b.breed_type FROM Breed b")
+    List<String> findAllBreedType();
+
+    @Query("SELECT b FROM Breed b WHERE b.breed_type LIKE :breed_type AND b.breed_name LIKE :breed_name")
+    Breed findByBreedTypeAndBreedName(@Param("breed_type") String breed_type, @Param("breed_name") String breed_name);
 }

@@ -145,12 +145,7 @@
 										<label class="form-label">Animal type</label>
 										<select id="select-type" class="form-select sl-size animal-type">
 											<option value="">Select Option</option>
-											<option th:selected="${animal.breed.breed_type} == 'Dog'">Dog</option>
-											<option th:selected="${animal.breed.breed_type} == 'Cat'">Cat</option>
-											<option th:selected="${animal.breed.breed_type} == 'Bird'">Bird</option>
-											<option th:selected="${animal.breed.breed_type} == 'Rabbits'">Rabbits</option>
-											<option th:selected="${animal.breed.breed_type} == 'Small & Furry'">Small & Furry</option>
-											<option th:selected="${animal.breed.breed_type} == 'Rabbits'">Rabbits</option>
+											<option th:each="breed : ${listBreed}" th:selected="${animal.breed.breed_type} == ${breed}" th:text="${breed}">Dog</option>
 											<option>Other</option>
 										</select>
 										<input class="form-control mt-2 other-animal d-none" type="text" placeholder="Enter animal name" name="breed_type_input">
@@ -160,11 +155,9 @@
 									<!-- Animal breed -->
 									<div class="col-md-6 form-group">
 										<label class="form-label">Animal breed</label>
-										<select id="select-breed" class="form-select js-choice animal-breed" data-search-enabled="true">
+										<select id="select-breed" class="form-select animal-breed">
 											<option value="">Select breed</option>
-											<option th:selected="">Gogri</option>
-											<option>Bulldog</option>
-											<option>Chichiquaqua</option>
+											<option th:each="name : ${listName}" th:selected="${animal.breed.breed_name} == ${name.breed_name}" th:text="${name.breed_name}">Dog</option>
 											<option>Other</option>
 										</select>
 										<input class="form-control breed-name d-none mt-2" type="text" placeholder="Enter breed name" name="breed_name_input">
@@ -174,7 +167,7 @@
 									<!-- Animal name -->
 									<div class="col-md-6 form-group">
 										<label class="form-label">Animal name</label>
-										<input class="form-control animal-Name" id="petname" type="text" placeholder="Enter animal name">
+										<input class="form-control animal-Name" id="petname" type="text" placeholder="Enter animal name" th:value="${animal.animalName}">
 										<div class="invalid-feedback">  </div>
 									</div>
 	
@@ -184,10 +177,10 @@
 										<div class="dog-size list-select">
 											<select class="form-select js-choice sl-size animal-dog animalSize">
 												<option value="">Select Option</option>
-												<option>Small</option>
-												<option>Medium</option>
-												<option>Large</option>
-												<option>Extra Large</option>
+												<option th:selected="${animal.animalSize} == 'Small'">Small</option>
+												<option th:selected="${animal.animalSize} == 'Medium'">Medium</option>
+												<option th:selected="${animal.animalSize} == 'Large'">Large</option>
+												<option th:selected="${animal.animalSize} == 'Extra Large'">Extra Large</option>
 											</select>
 										</div>
 										<div class="invalid-feedback">  </div>
@@ -198,10 +191,10 @@
 										<label class="form-label">Animal age</label>
 										<select class="form-select js-choice animal-age" data-search-enabled="true" id="animalAge">
 											<option value="">Select Age</option>
-											<option>Puppy</option>
-											<option>Young</option>
-											<option>Adult</option>
-											<option>Senior</option>
+											<option th:selected="${animal.animalAge} == 'Newborn'">Newborn</option>
+											<option th:selected="${animal.animalAge} == 'Young'">Young</option>
+											<option th:selected="${animal.animalAge} == 'Adult'">Adult</option>
+											<option th:selected="${animal.animalAge} == 'Senior'">Senior</option>
 										</select>
 										<div class="invalid-feedback">  </div>
 									</div>
@@ -212,14 +205,14 @@
 										<div class="d-sm-flex">
 											<!-- Radio -->
 											<div class="form-check radio-bg-light me-4">
-												<input class="form-check-input animalGender" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+												<input class="form-check-input animalGender" type="radio" name="flexRadioDefault" id="flexRadioDefault1" th:checked="${animal.animalGender}">
 												<label class="form-check-label" for="flexRadioDefault1">
 													Male
 												</label>
 											</div>
 											<!-- Radio -->
 											<div class="form-check radio-bg-light me-4">
-												<input class="form-check-input animalGender" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+												<input class="form-check-input animalGender" type="radio" name="flexRadioDefault" id="flexRadioDefault2" th:checked="!${animal.animalGender}">
 												<label class="form-check-label" for="flexRadioDefault2">
 													Female
 												</label>
@@ -299,7 +292,7 @@
 									<!-- Color -->
 									<div class="col-md-6 form-group">
 										<label class="form-label">Color</label>
-										<input id="animalcolor" class="form-control animal-color" type="text" placeholder="Enter animal color">
+										<input id="animalcolor" class="form-control animal-color" type="text" placeholder="Enter animal color" th:value="${animal.animalInfo.animalInfoColor}">
 										<div class="invalid-feedback">  </div>
 									</div>
 	
@@ -308,8 +301,8 @@
 										<label class="form-label">leg</label>
 										<select class="form-select js-choice animal-Leg" id="animalLeg">
 											<option value="">Select Leg</option>
-											<option>Short</option>
-											<option>Long</option>
+											<option th:selected="${animal.animalInfo.animalInfoLeg} == 'Short'">Short</option>
+											<option th:selected="${animal.animalInfo.animalInfoLeg} == 'Long'">Long</option>
 										</select>
 										<div class="invalid-feedback">  </div>
 									</div>
@@ -320,21 +313,21 @@
 										<div class="d-flex">
 											<!-- Checkbox -->
 											<div class="form-check checkbox-bg-light me-4">
-												<input class="form-check-input animalHarmony" type="checkbox" name="flexCheckboxDefaultHarmony" id="flexCheckboxDefault1">
+												<input class="form-check-input animalHarmony" type="checkbox" name="flexCheckboxDefaultHarmony" id="flexCheckboxDefault1" th:checked="${#strings.contains(animal.animalInfo.animalInfoHarmony, 'Children')}">
 												<label class="form-check-label" for="flexCheckboxDefault1">
 													Children
 												</label>
 											</div>
 											<!-- Checkbox -->
 											<div class="form-check checkbox me-4">
-												<input class="form-check-input animalHarmony" type="checkbox" name="flexCheckboxDefaultHarmony" id="flexCheckboxDefault2">
+												<input class="form-check-input animalHarmony" type="checkbox" name="flexCheckboxDefaultHarmony" id="flexCheckboxDefault2" th:checked="${#strings.contains(animal.animalInfo.animalInfoHarmony, 'Dog')}">
 												<label class="form-check-label" for="flexCheckboxDefault2">
 													Dog
 												</label>
 											</div>
 											<!-- Checkbox -->
 											<div class="form-check checkbox me-4">
-												<input class="form-check-input animalHarmony" type="checkbox" name="flexCheckboxDefaultHarmony" id="flexCheckboxDefault3">
+												<input class="form-check-input animalHarmony" type="checkbox" name="flexCheckboxDefaultHarmony" id="flexCheckboxDefault3" th:checked="${#strings.contains(animal.animalInfo.animalInfoHarmony, 'Cat')}">
 												<label class="form-check-label" for="flexCheckboxDefault3">
 													Cat
 												</label>
@@ -356,21 +349,21 @@
 										<div class="d-flex">
 											<!-- Checkbox -->
 											<div class="form-check checkbox-bg-light me-4">
-												<input class="form-check-input animalHealth" type="checkbox" name="flexCheckboxDefaultHealth" id="flexCheckboxDefault5">
+												<input class="form-check-input animalHealth" type="checkbox" name="flexCheckboxDefaultHealth" id="flexCheckboxDefault5" th:checked="${#strings.contains(animal.animalInfo.animalInfoHealth, 'Vaccinated')}">
 												<label class="form-check-label" for="flexCheckboxDefault5">
 													Vaccinated
 												</label>
 											</div>
 											<!-- Checkbox -->
 											<div class="form-check checkbox me-4">
-												<input class="form-check-input animalHealth" type="checkbox" name="flexCheckboxDefaultHealth" id="flexCheckboxDefault6">
+												<input class="form-check-input animalHealth" type="checkbox" name="flexCheckboxDefaultHealth" id="flexCheckboxDefault6" th:checked="${#strings.contains(animal.animalInfo.animalInfoHealth, 'Dewormed')}">
 												<label class="form-check-label" for="flexCheckboxDefault6">
 													Dewormed
 												</label>
 											</div>
 											<!-- Checkbox -->
 											<div class="form-check checkbox me-4">
-												<input class="form-check-input animalHealth" type="checkbox" name="flexCheckboxDefaultHealth" id="flexCheckboxDefault7">
+												<input class="form-check-input animalHealth" type="checkbox" name="flexCheckboxDefaultHealth" id="flexCheckboxDefault7" th:checked="${#strings.contains(animal.animalInfo.animalInfoHealth, 'Spayed')}">
 												<label class="form-check-label" for="flexCheckboxDefault7">
 													Spayed
 												</label>
@@ -390,7 +383,7 @@
 									<!-- Characteristics -->
 									<div class="col-12 form-group">
 										<label class="form-label">Characteristics</label>
-										<textarea class="form-control" name="Characteristics" id="petCharacteristics" rows="2" placeholder="Enter keywords"></textarea>
+										<textarea class="form-control" name="Characteristics" id="petCharacteristics" rows="2" placeholder="Enter keywords" th:text="${animal.animalInfo.animalInfoCharacteristics}"></textarea>
 										<div class="invalid-feedback">  </div>
 									</div>
 
@@ -538,33 +531,49 @@ Footer END -->
 
 <script>
 	$(document).on('change', '.animal-type', (event) => {
-		for(var i = 0; i < $(".list-select").length; i++){
-			if(!$(".list-select").get(i).classList.contains("d-none")){
-				$(".list-select").get(i).classList.add("d-none")
+		$("#select-breed")[0].innerHTML = `<option value="">Select breed</option>`
+
+		if(event.currentTarget.value == 'Other'){
+			if($(".other-animal").get(0).classList.contains("d-none")){
+				$(".other-animal").get(0).classList.remove("d-none")
 			}
-		}
-		if(!$(".other-animal").get(0).classList.contains("d-none")){
+			$("#select-breed")[0].innerHTML += `
+				<option value="Other">Other</option>
+			`
+		} else {
 			$(".other-animal").get(0).classList.add("d-none")
-		}
-		switch (event.currentTarget.innerText) {
-			case "Dog":
-				$(".list-select.dog-size").get(0).classList.remove("d-none")
-				break;
-<!--			case "Cat":-->
-<!--				$(".list-select.cat-size").get(0).classList.remove("d-none")-->
-<!--				break;-->
-<!--			case "Other":-->
-<!--				$(".list-select.other-size").get(0).classList.remove("d-none")-->
-<!--				$(".other-animal").get(0).classList.remove("d-none")-->
-<!--				break;-->
-			default:
-				$(".list-select.dog-size").get(0).classList.remove("d-none")
-				break;
+			if(event.currentTarget.value != ''){
+				$.ajax({
+					type: "POST",
+					url: "/load-breed",
+					contentType: "application/json",
+					data: event.currentTarget.value,
+					success: function(response) {
+						response.forEach(e => {
+							$("#select-breed")[0].innerHTML += `
+								<option value="${e}">${e}</option>
+							`
+						})
+						$("#select-breed")[0].innerHTML += `
+							<option value="Other">Other</option>
+						`
+					},
+					error: function() {
+						console.log(1);
+					}
+				});
+			}
 		}
 	})
 
 	$(document).on("change", ".animal-breed", (event) => {
-		$(".animal-breed").get(0).innerText === "Other" ? $(".breed-name").get(0).classList.remove("d-none") : $(".breed-name").get(0).classList.add("d-none")
+		if(event.currentTarget.value == 'Other'){
+			if($(".breed-name").get(0).classList.contains("d-none")){
+				$(".breed-name").get(0).classList.remove("d-none")
+			}
+		} else {
+			$(".breed-name").get(0).classList.add("d-none")
+		}
 	})
 
 
@@ -598,7 +607,7 @@ Footer END -->
 			 var animalDescription = "";
 
 				// các lựa chọn
-				animalBreedName=$('.animal-Name').val();
+				animalBreedName=$('#select-breed').val();
 				animalCharacteristics=$('textarea[name="Characteristics"]').val();
 				animalColor=$('.animal-color').val();
 				animalAvatar=$('.my-image').val();
@@ -610,36 +619,38 @@ Footer END -->
 
 				//select breed and  pet size
 				switch (selectoption) {
-				 case 'Dog':
-					 animalType = 'Dog';
-					 animalSize=$('.animal-dog').val();
-					 break;
-				 case 'Cat':
-					 animalType = 'Cat';
-					 animalSize=$('.animal-dog').val();
-					 break;
-				 case 'Bird':
-					 animalType = 'Bird';
-					 animalSize=$('.animal-dog').val();
-					 break;
-				 case 'Rabbits':
-					 animalType = 'Rabbits';
-					 animalSize=$('.animal-dog').val();
-					 break;
-				 case 'Small & Furry':
-					 animalType = 'Small&Furry';
-					 animalSize=$('.animal-dog').val();
-					 break;
-				 case 'Other':
-					 animalType = $('.other-animal').val();
-					 animalSize=$('.animal-dog').val();
-					 break;
-				 default:
-					 animalType ='null';
-					 console.log('Unknown animal type selected');
-					 break;
-			 }
-
+					 case 'Dog':
+						 animalType = 'Dog';
+						 animalSize=$('.animal-dog').val();
+						 break;
+					 case 'Cat':
+						 animalType = 'Cat';
+						 animalSize=$('.animal-dog').val();
+						 break;
+					 case 'Bird':
+						 animalType = 'Bird';
+						 animalSize=$('.animal-dog').val();
+						 break;
+					 case 'Rabbits':
+						 animalType = 'Rabbits';
+						 animalSize=$('.animal-dog').val();
+						 break;
+					 case 'Small & Furry':
+						 animalType = 'Small&Furry';
+						 animalSize=$('.animal-dog').val();
+						 break;
+					 case 'Other':
+						 animalType = $('.other-animal').val();
+						 animalSize=$('.animal-dog').val();
+						 break;
+					 default:
+						 animalType ='null';
+						 console.log('Unknown animal type selected');
+						 break;
+				}
+				if(animalBreedName == 'Other'){
+					animalBreedName=$('.breed-name').val();
+				}
 			// lấy Harmony pet
 			 $('input[name="flexCheckboxDefaultHarmony"]:checked').each(function() {
 				var label1 = $('label[for="' + $(this).attr('id') + '"]')[0].innerText;
@@ -688,7 +699,7 @@ Footer END -->
 			 // Tạo đối tượng requestData
 			 var requestData = {
 				 breed_type: animalType,
-				 breed_name: animalBreedName,
+				 breed_name: animalBreedName+'',
 				 animalName: animalName,
 				 animalSize: animalSize,
 				 animalGender:AnimalGender,

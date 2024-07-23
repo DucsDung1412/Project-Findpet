@@ -31,4 +31,12 @@ public class BreedService {
     public List<Breed> findByBreed_type(String breedType){
         return this.breedDAO.findByBreed_type(breedType);
     }
+
+    public List<String> findAllBreedType(){
+        return this.breedDAO.findAllBreedType();
+    }
+
+    public Breed findByBreedTypeAndBreedName(String breed_type, String breed_name){
+        return this.breedDAO.findByBreedTypeAndBreedName(breed_type, breed_name);
+    }
 }

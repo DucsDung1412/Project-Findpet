@@ -309,7 +309,7 @@
 										<tr th:each="awaiting, stat : ${listAwaiting}">
 											<td> <h6 class="mb-0" th:text="${stat.count} < 10 ? '0'+${stat.count} : ${stat.count}">01</h6> </td>
 											<td> <h6 class="mb-0"><a href="#" th:text="${awaiting.getUsers().getUserName()}">Deluxe Pool View</a></h6> </td>
-											<td> <h6 class="mb-0"><a href="#" th:text="${awaiting.getAnimals().getAnimalName()}">With Breakfast</a></h6> </td>
+											<td> <h6 class="mb-0"><a th:href="@{/manager/edit-animal(id=${awaiting.animals.id})}" th:text="${awaiting.getAnimals().getAnimalName()}">With Breakfast</a></h6> </td>
 											<td th:text="${awaiting.getAdoptDate()}"> Nov 22 - 25 </td>
 											<td> <div class="badge text-bg-warning">Awaiting</div> </td>
 											<td> 

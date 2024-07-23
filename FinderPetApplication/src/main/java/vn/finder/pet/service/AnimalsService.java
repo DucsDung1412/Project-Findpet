@@ -7,11 +7,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import vn.finder.pet.dao.AnimalsDAO;
-import vn.finder.pet.entity.Adopt;
-import vn.finder.pet.entity.Animals;
-import vn.finder.pet.entity.DtoPetShelters;
-import vn.finder.pet.entity.Users;
+import vn.finder.pet.entity.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,11 +17,13 @@ import java.util.Optional;
 public class AnimalsService {
     private AnimalsDAO animalsDAO;
     private UsersService usersService;
+    private BreedService breedService;
 
     @Autowired
-    public AnimalsService(AnimalsDAO animalsDAO, UsersService usersService) {
+    public AnimalsService(AnimalsDAO animalsDAO, UsersService usersService, BreedService breedService) {
         this.animalsDAO = animalsDAO;
         this.usersService = usersService;
+        this.breedService = breedService;
     }
 
     public Animals findById(Long id){
@@ -112,9 +112,9 @@ public class AnimalsService {
         return this.animalsDAO.findByBreedOrderByCustom(breedName, breedType, pageable);
     }
 
-    public Boolean checkAnimal(String breedName, String breedType,String animalName,boolean animalGender,String animalSize,String animalAge){
-        List<Animals> animals = animalsDAO.findAnimalsByCriteria(breedName,breedType,animalName,animalGender,animalSize,animalAge);
-        return animals.isEmpty();
+    public Animals checkAnimal(String breedName, String breedType,String animalName,boolean animalGender,String animalSize,String animalAge){
+        Animals animals = animalsDAO.findAnimalsByCriteria(breedName,breedType,animalName,animalGender,animalSize,animalAge);
+        return animals;
     }
 
     @Transactional
@@ -129,31 +129,40 @@ public class AnimalsService {
     }
 
     @Transactional
-    public Boolean updateAnimal(DtoPetShelters bd, Long id){
+    public Boolean updateAnimal(DtoPetShelters dps, Long id){
         Optional<Animals> animals = this.animalsDAO.findById(id);
         if(!animals.isEmpty()){
-//            animals.get().getBreed().setBreed_type(bd.getBreed_type());
-//            animals.get().getBreed().setBreed_name(bd.getBreed_name());
-            animals.get().setAnimalName(bd.getAnimalName());
-            animals.get().setAnimalSize(bd.getAnimalSize());
-            animals.get().setAnimalAge(bd.getAnimalAge());
-            animals.get().setAnimalGender(bd.isAnimalGender());
-            animals.get().setAnimalAvatar(bd.getAnimalAvatar());
-            animals.get().getAnimalInfo().setAnimalInfoColor(bd.getAnimal_info_color());
-            animals.get().getAnimalInfo().setAnimalInfoLeg(bd.getAnimal_info_leg());
-            animals.get().getAnimalInfo().setAnimalInfoHarmony(bd.getAnimal_info_harmony());
-            animals.get().getAnimalInfo().setAnimalInfoHealth(bd.getAnimal_info_health());
-            animals.get().getAnimalInfo().setAnimalInfoCharacteristics(bd.getAnimal_info_characteristics());
-            animals.get().getAnimalInfo().setAnimalInfoDescription(bd.getAnimal_info_description());
-            System.out.println("--------------");
-            System.out.println("--------------");
-            System.out.println("--------------");
-            System.out.println("--------------");
-            System.out.println(animals.get().getListAvatar());
-            System.out.println("--------------");
-            System.out.println("--------------");
-            System.out.println("--------------");
-            this.animalsDAO.save(animals.get());
+            if(this.breedService.findByBreedTypeAndBreedName(dps.getBreed_type(), dps.getBreed_name()) == null){
+                Breed db = new Breed();
+                db.setBreed_type(dps.getBreed_type());
+                db.setBreed_name(dps.getBreed_name());
+                this.breedService.save(db);
+                animals.get().setBreed(db);
+            } else {
+                animals.get().setBreed(this.breedService.findByBreedTypeAndBreedName(dps.getBreed_type(), dps.getBreed_name()));
+            }
+            animals.get().setAnimalName(dps.getAnimalName());
+            animals.get().setAnimalSize(dps.getAnimalSize());
+            animals.get().setAnimalAge(dps.getAnimalAge());
+            animals.get().setAnimalGender(dps.isAnimalGender());
+//            animals.get().setAnimalAvatar(dps.getAnimalAvatar());
+            animals.get().getAnimalInfo().setAnimalInfoColor(dps.getAnimal_info_color());
+            animals.get().getAnimalInfo().setAnimalInfoLeg(dps.getAnimal_info_leg());
+            animals.get().getAnimalInfo().setAnimalInfoHarmony(dps.getAnimal_info_harmony());
+            animals.get().getAnimalInfo().setAnimalInfoHealth(dps.getAnimal_info_health());
+            animals.get().getAnimalInfo().setAnimalInfoCharacteristics(dps.getAnimal_info_characteristics());
+            animals.get().getAnimalInfo().setAnimalInfoDescription(dps.getAnimal_info_description());
+
+//            List<Avatar> av= new ArrayList<>();
+//            dps.getListAvatar().forEach(e ->{
+//                Avatar a = new Avatar();
+//                a.setAvatar_name(e);
+//                a.setAnimals(animals.get());
+//                av.add(a);
+//            } );
+//            animals.get().setListAvatar(av);
+
+//            this.animalsDAO.save(animals.get());
         }
         return false;
     }

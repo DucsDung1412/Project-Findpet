@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import vn.finder.pet.entity.AnimalInfo;
 import vn.finder.pet.entity.Animals;
+import vn.finder.pet.entity.Breed;
 import vn.finder.pet.entity.DtoPetShelters;
 import vn.finder.pet.service.*;
 
@@ -23,17 +25,17 @@ public class ManagerController {
     private AdoptService adoptService;
     private FavoritesService favoritesService;
     private UsersService usersService;
-    private SheltersService sheltersService;
     private SponsService sponsService;
+    private BreedService breedService;
 
     @Autowired
-    public ManagerController(AnimalsService animalsService, AdoptService adoptService, FavoritesService favoritesService, UsersService usersService, SheltersService sheltersService, SponsService sponsService) {
+    public ManagerController(AnimalsService animalsService, AdoptService adoptService, FavoritesService favoritesService, UsersService usersService, SponsService sponsService, BreedService breedService) {
         this.animalsService = animalsService;
         this.adoptService = adoptService;
         this.favoritesService = favoritesService;
         this.usersService = usersService;
-        this.sheltersService = sheltersService;
         this.sponsService = sponsService;
+        this.breedService = breedService;
     }
 
     public String getEmailLogin(){
@@ -223,8 +225,11 @@ public class ManagerController {
         model.addAttribute("title", "Add New Animal");
         model.addAttribute("button", "Add Animal");
         Animals animals = new Animals();
+        animals.setBreed(new Breed(null, "", ""));
+        animals.setAnimalInfo(new AnimalInfo(null, "", "", "", "", "", "", animals));
         model.addAttribute("animal", animals);
-
+        model.addAttribute("listBreed", this.breedService.findAllBreedType());
+        model.addAttribute("listName", new ArrayList<>());
         if(error != null){
             if(!error){
                 model.addAttribute("error", "Thêm animal thành công");
@@ -243,6 +248,9 @@ public class ManagerController {
         model.addAttribute("id", id);
         Animals animals = this.animalsService.findById(id);
         model.addAttribute("animal", animals);
+        model.addAttribute("listBreed", this.breedService.findAllBreedType());
+        model.addAttribute("listName", this.breedService.findByBreed_type(animals.getBreed().getBreed_type()));
+
         if(error != null){
             if(!error){
                 model.addAttribute("error", "Chỉnh sửa animal thành công");

@@ -22,14 +22,16 @@ public class MyRestController {
     private FavoritesService favoritesService;
     private AdoptService adoptService;
     private SheltersService sheltersService;
+    private BreedService breedService;
 
     @Autowired
-    public MyRestController(AnimalsService animalsService, UsersService usersService, FavoritesService favoritesService, AdoptService adoptService, SheltersService sheltersService) {
+    public MyRestController(AnimalsService animalsService, UsersService usersService, FavoritesService favoritesService, AdoptService adoptService, SheltersService sheltersService, BreedService breedService) {
         this.animalsService = animalsService;
         this.usersService = usersService;
         this.favoritesService = favoritesService;
         this.adoptService = adoptService;
         this.sheltersService = sheltersService;
+        this.breedService = breedService;
     }
 
     public String getEmailLogin(){
@@ -141,35 +143,42 @@ public class MyRestController {
     }
 
     @PostMapping("/manager/uploadPet")
-    public String auto1(@RequestBody DtoPetShelters bd, @RequestParam(value = "id", required = false) String id, Model model) {
+    public String auto1(@RequestBody DtoPetShelters dps, @RequestParam(value = "id", required = false) String id, Model model) {
         int flag = 0;
-        if (bd.getAnimalName().isEmpty()) {
+        if (dps.getAnimalName().isEmpty()) {
             flag++;
         }
-        if (bd.getAnimal_info_characteristics().isEmpty()) {
+        if (dps.getAnimal_info_characteristics().isEmpty()) {
             flag++;
         }
-        if (bd.getAnimalAvatar().isEmpty()) {
+        if (dps.getAnimalAvatar().isEmpty()) {
             flag++;
         }
-        if (bd.getBreed_name().isEmpty()) {
+        if (dps.getBreed_name().isEmpty()) {
             flag++;
         }
-        if (bd.getAnimal_info_description().isEmpty()) {
+        if (dps.getAnimal_info_description().isEmpty()) {
             flag++;
         }
+        System.out.println(flag);
         if(flag == 0){
-            if(animalsService.checkAnimal(bd.getBreed_name(), bd.getBreed_type(), bd.getAnimalName(), bd.isAnimalGender(), bd.getAnimalSize(), bd.getAnimalAge())){
+            if(animalsService.checkAnimal(dps.getBreed_name(), dps.getBreed_type(), dps.getAnimalName(), dps.isAnimalGender(), dps.getAnimalSize(), dps.getAnimalAge()) == null){
                 if(id == ""){
-                    sheltersService.createShelter(bd, this.getEmailLogin());
+                    //  save animal
+                    sheltersService.createShelter(dps, this.getEmailLogin());
                     return "/manager/add-animal?error=false";
                 } else {
                     // edit animal
-                    animalsService.updateAnimal(bd, Long.parseLong(id));
+                    animalsService.updateAnimal(dps, Long.parseLong(id));
                     return "/manager/edit-animal?id=" + id + "&error=false";
                 }
             } else {
                 // loi
+                if(id != ""){
+                    // edit animal
+                    animalsService.updateAnimal(dps, Long.parseLong(id));
+                    return "/manager/edit-animal?id=" + id + "&error=false";
+                }
             }
         }
 
@@ -178,6 +187,15 @@ public class MyRestController {
         } else {
             return "/manager/edit-animal?id=" + id + "&error=true";
         }
+    }
+
+    @PostMapping("/load-breed")
+    public ArrayList<String> loadBreed(@RequestBody String breedType){
+        ArrayList<String> listBreed = new ArrayList<>();
+        this.breedService.findByBreed_type(breedType).forEach(e -> {
+            listBreed.add(e.getBreed_name());
+        });
+        return listBreed;
     }
 }
 

@@ -67,14 +67,13 @@ public interface AnimalsDAO extends JpaRepository<Animals, Long> {
     Page<Animals> findByBreedOrderByCustom(@Param("breedName") String breedName, @Param("breedType") String breedType, Pageable pageable);
 
     @Query("SELECT a FROM Animals a " +
-            "JOIN FETCH a.breed b " +
-            "WHERE b.breed_name LIKE %:breedName% " +
-            "AND b.breed_type LIKE %:breedType% " +
+            "WHERE a.breed.breed_name LIKE %:breedName% " +
+            "AND a.breed.breed_type LIKE %:breedType% " +
             "AND a.animalName LIKE %:animalName% " +
             "AND a.animalGender = :animalGender " +
             "AND a.animalSize LIKE %:animalSize% " +
             "AND a.animalAge LIKE %:animalAge%")
-    List<Animals> findAnimalsByCriteria(@Param("breedName") String breedName,
+    Animals findAnimalsByCriteria(@Param("breedName") String breedName,
                                         @Param("breedType") String breedType,
                                         @Param("animalName") String animalName,
                                         @Param("animalGender") Boolean animalGender,
