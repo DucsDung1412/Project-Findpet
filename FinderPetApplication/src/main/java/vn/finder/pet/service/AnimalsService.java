@@ -166,4 +166,14 @@ public class AnimalsService {
         }
         return false;
     }
+
+    @Transactional
+    public Boolean deleteAnimal(Long id){
+        Optional<Animals> animals = this.animalsDAO.findById(id);
+        if(!animals.isEmpty()){
+            this.animalsDAO.delete(animals.get());
+            return true;
+        }
+        return false;
+    }
 }

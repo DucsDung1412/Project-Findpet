@@ -108,7 +108,7 @@ public class ManagerController {
     }
 
     @GetMapping("/listings")
-    public String agentListings(Model model, @RequestParam(value = "page", required = false) String page){
+    public String agentListings(Model model, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "status", required = false) String status){
         if(page == null){
             page = "0";
         }
@@ -133,6 +133,7 @@ public class ManagerController {
         model.addAttribute("page", pg == 0 ? 1 : pg);
         model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
         model.addAttribute("statusActive", "listings");
+        model.addAttribute("status", status);
 
         return "/agent-listings";
     }
@@ -140,6 +141,16 @@ public class ManagerController {
     @GetMapping("/listings/changePage")
     public String changePageAgentListings(@RequestParam("page") int page, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
+        return "redirect:/manager/listings";
+    }
+
+    @GetMapping("/delete-animal")
+    public String deleteAnimal(@RequestParam("id") Long id, RedirectAttributes redirectAttributes){
+        if(this.animalsService.deleteAnimal(id)){
+            redirectAttributes.addAttribute("status", "Delete thành công");
+        } else {
+            redirectAttributes.addAttribute("status", "Delete thất bại");
+        }
         return "redirect:/manager/listings";
     }
 
