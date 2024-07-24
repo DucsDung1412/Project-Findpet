@@ -47,6 +47,11 @@ public class SheltersService {
         return this.shelterDAO.findSheltersByStatusContaining(pageable, status);
     }
 
+    public Page<Shelters> findByShelterNameAndShelterAddress(String status, String shelterName, String shelterAddress, int page, int sizePage){
+        Pageable pageable = PageRequest.of(page, sizePage);
+        return this.shelterDAO.findByShelterNameAndShelterAddress(pageable, shelterName, shelterAddress, status);
+    }
+
     public Shelters findById(Long id){
         return this.shelterDAO.findById(id).get();
     }

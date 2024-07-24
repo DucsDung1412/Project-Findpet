@@ -223,6 +223,12 @@ public class AccountController {
         model.addAttribute("adopt", this.adoptService.findById(id));
         return "/booking-confirm";
     }
+
+    @GetMapping("/signUp-shelter")
+    public String signUpShelter(Model model){
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.userService.findById(this.getEmailLogin()).get());
+        return "/add-listing";
+    }
 }
 
 
