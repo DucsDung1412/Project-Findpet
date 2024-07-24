@@ -4,14 +4,14 @@ spring:
       client:
         registration:
           google:
-            clientId: 287184763370-v7s8uhlidbpvg08mg010slllmkucs8ur.apps.googleusercontent.com
-            clientSecret: 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
+            clientId:
+            clientSecret: 
             scope:
               - email
               - profile
           facebook:
-            clientId: 935767661624220
-            clientSecret: 38b5fb37afd767e3a00f61362b50d348
+            clientId:
+            clientSecret:
             scope:
               - email
               - public_profile
