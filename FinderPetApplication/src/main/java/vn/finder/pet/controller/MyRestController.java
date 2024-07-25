@@ -7,9 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import vn.finder.pet.entity.AnimalInfoRequest;
-import vn.finder.pet.entity.DtoPetShelters;
-import vn.finder.pet.entity.Users;
+import vn.finder.pet.entity.*;
 import vn.finder.pet.service.*;
 
 import java.util.*;
@@ -23,15 +21,17 @@ public class MyRestController {
     private AdoptService adoptService;
     private SheltersService sheltersService;
     private BreedService breedService;
+    private MailService mailService;
 
     @Autowired
-    public MyRestController(AnimalsService animalsService, UsersService usersService, FavoritesService favoritesService, AdoptService adoptService, SheltersService sheltersService, BreedService breedService) {
+    public MyRestController(AnimalsService animalsService, UsersService usersService, FavoritesService favoritesService, AdoptService adoptService, SheltersService sheltersService, BreedService breedService, MailService mailService) {
         this.animalsService = animalsService;
         this.usersService = usersService;
         this.favoritesService = favoritesService;
         this.adoptService = adoptService;
         this.sheltersService = sheltersService;
         this.breedService = breedService;
+        this.mailService = mailService;
     }
 
     public String getEmailLogin(){
@@ -196,6 +196,19 @@ public class MyRestController {
             listBreed.add(e.getBreed_name());
         });
         return listBreed;
+    }
+
+    @PostMapping("/share-detail")
+    public String sharePet(@RequestBody DtoSharePet sharePet){
+        System.out.println(sharePet.getEmail()+"\n"+sharePet.getLinkshare()+"\n"+sharePet.getId());
+        Animals animals= animalsService.findById(sharePet.getId());
+        if(getEmailLogin() == null){
+            mailService.sendMailSharePet(sharePet.getEmail(),animals.getAnimalName(),animals.getAnimalAge(),animalsService.petGender(animals.getAnimalGender()),sharePet.getLinkshare());
+        }else{
+
+            mailService.sendMailSharePetUser(sharePet.getEmail(),animals.getAnimalName(),animals.getAnimalAge(), animalsService.petGender(animals.getAnimalGender()),sharePet.getLinkshare(),getEmailLogin());
+        }
+        return " ";
     }
 }
 

@@ -231,7 +231,7 @@ Title and tabs START -->
                                         </li>
                                         <!-- Share -->
                                         <li class="list-inline-item">
-                                            <a href="#" class="btn btn-sm btn-white px-2"><i class="fa-solid fa-fw fa-share-alt" style="color: #000000;"></i></a>
+                                            <a href="#" id="view-modal" class="btn btn-sm btn-white px-2"><i class="fa-solid fa-fw fa-share-alt" style="color: #000000;"></i></a>
                                         </li>
                                     </div>
                                     <!-- wishlist -->
@@ -709,6 +709,7 @@ Footer END -->
         </svg>
     </div>
 
+    <!--  Modal Accept  -->
     <div id="myModal" class="modal d-none align-items-center justify-content-center" style="background-color: rgba(1,1,1,0.6);">
         <div class="modal-dialog modal-confirm">
             <div class="modal-content">
@@ -731,6 +732,56 @@ Footer END -->
         </div>
     </div>
 
+    <!-- Modal Share -->
+    <div class="popup">
+        <header>
+            <span style="font-size: 21px; font-weight: 600; color: black;">Share Animal</span>
+            <div class="close"><i class="uil uil-times">X</i></div>
+        </header>
+        <div class="content">
+            <p>Share this link via</p>
+            <ul class="icons">
+                <a href="https://www.facebook.com/" class="copy-link" target="_blank"><i class=" fab fa-facebook-f"></i></a>
+                <a href="https://x.com/i/flow/login" class="copy-link" target="_blank"><i class=" fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/" class="copy-link" target="_blank"><i class=" fab fa-instagram"></i></a>
+                <a href="https://www.whatsapp.com/" class="copy-link" target="_blank"><i class=" fab fa-whatsapp"></i></a>
+                <a href="https://web.telegram.org/k/" class="copy-link" target="_blank"><i class=" fab fa-telegram-plane"></i></a>
+            </ul>
+            <p>Or Send Mail</p>
+            <div class="field">
+                <i class="fa-solid fa-envelope"></i>
+                <input class="name-email" type="email">
+                <a sec:authorize="isAuthenticated()" th:href="@{/pet-list/pet-detail(id=${animal.id})}" class="btn btn-primary" id="send" style="width: 104px;  margin: 0; padding-top: 6px; padding-bottom: 6px;">Send</a>
+                <a sec:authorize="!isAuthenticated()" href="/sign-in" class="btn btn-primary" style="width: 104px;  margin: 0; padding-top: 6px; padding-bottom: 6px;">Send</a>
+            </div>
+            <div class="field">
+                <i class="fa-solid fa-copy"></i>
+                <input id="myInput" type="text" readonly>
+                <button id="my-button">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal notice START -->
+    <div class="modal modal-status d-flex" style="background-color: rgba(1,1,1,0.6);" th:if="${status} != null">
+        <div class="cookiesContent align-items-center justify-content-center m-auto" id="cookiesPopup">
+            <button class="close">✖</button>
+            <img src="https://cdn-icons-png.flaticon.com/512/1047/1047711.png" alt="cookies-img" />
+            <p>Share Pet <span th:text="${status}"> mật khẩu thành công</span></p>
+            <button class="accept">OK</button>
+        </div>
+    </div>
+    <!-- Modal notice END -->
+
+    <script type="text/javascript" th:if="${status} != null">
+        document.querySelector(".modal-status .close").onclick = function () {
+            document.querySelector(".modal-status").classList.add("d-none");
+        }
+        document.querySelector(".modal-status .accept").onclick = function() {
+            document.querySelector(".modal-status").classList.add("d-none");
+        }
+    </script>
+
     <!-- Bootstrap JS -->
     <script src="../js/bootstrap.bundle.min.js"></script>
 
@@ -740,6 +791,9 @@ Footer END -->
 
     <!-- ThemeFunctions -->
     <script src="../js/functions.js"></script>
+
+    <!--  JQuery  -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <script>
         document.querySelector("#myModal .modal-header button").onclick = (event) => {
@@ -754,6 +808,66 @@ Footer END -->
             document.querySelector("#myModal").classList.add("d-flex")
             document.querySelector("#myModal").classList.remove("d-none")
         }
+
+        const viewBtn = document.getElementById("view-modal"),
+              popup = document.querySelector(".popup"),
+              close = popup.querySelector(".close"),
+              field = popup.querySelector(".field"),
+              input = document.getElementById('myInput'),
+              copy = document.getElementById('my-button');
+
+
+        viewBtn.onclick = (event) => {
+              event.preventDefault();
+              const link = window.location.href;
+              input.value = link;
+              popup.classList.toggle("show"); // Ẩn/hiện popup khi nhấn thẻ <a>
+        }
+
+        viewBtn.onclick = (event) => {
+              event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+              popup.classList.toggle("show"); // Ẩn/hiện popup khi nhấn thẻ <a>
+        }
+
+        close.onclick = () => {
+            popup.classList.remove("show"); // Ẩn popup khi nhấn nút "close"
+        }
+
+        $('#send').click(function(e) {
+            e.preventDefault();
+            var email = $('.name-email').val();
+            var currentUrl = window.location.href;
+            var test = [[${id}]];
+
+            var postData = {
+                email: email,
+                linkshare: currentUrl,
+                id:test
+            };
+
+            fetch('/share-detail', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postData) // Chuyển đổi đối tượng thành chuỗi JSON để gửi đi
+            }).then(response => {
+                console.log(postData);
+                return response.json(); // Chuyển đổi phản hồi sang đối tượng JSON
+            })
+
+            window.location.href = `/pet-list/pet-detail?id=${test}&status=success`;
+        });
+
+        input.value=window.location.href;
+        copy.addEventListener("click", function() {
+            input.select();
+            document.execCommand("copy");
+            copy.innerText = "Copied";
+            setTimeout(function() {
+                copy.innerText = "Copy";
+            }, 3000);
+        });
     </script>
 
 </body>

@@ -176,4 +176,14 @@ public class AnimalsService {
         }
         return false;
     }
+
+    public String petGender(boolean gender){
+        String gd = "";
+        if(gender == true){
+            gd = "Giống Đực";
+        }else {
+            gd = "Giống Cái";
+        }
+        return gd;
+    }
 }

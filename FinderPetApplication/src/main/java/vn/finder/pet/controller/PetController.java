@@ -104,11 +104,15 @@ public class PetController {
     }
 
     @GetMapping("/pet-detail")
-    public String getPetDetail(@RequestParam Long id, Model model){
+    public String getPetDetail(@RequestParam Long id, Model model, @RequestParam(value = "status", required = false) String status){
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         Animals animals = this.animalsService.findById(id);
         model.addAttribute("listSameAnimal", this.animalsService.findByBreedOrderByCustom(animals.getBreed().getBreed_name(), animals.getBreed().getBreed_type(), 0, 4).stream().toList());
         model.addAttribute("animal", animals);
+        model.addAttribute("id",id);
+        if(status != null){
+            model.addAttribute("status", status);
+        }
         return "/pet-detail";
     }
 

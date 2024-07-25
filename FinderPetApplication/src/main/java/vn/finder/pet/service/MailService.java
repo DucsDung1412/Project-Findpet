@@ -88,4 +88,32 @@ public class MailService {
 	public void sendMailToAdminDisable(String email,String name){
 		sendmail(send,"Thông Báo Tới Từ Admin "+name,"Yêu Xin Chấp Thuận ĐÃ Bị Từ Chối Vì Không Đủ Điều Kiện Thành Shelters: ",email);
 	}
+
+	public boolean checkString(String email){
+		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+		if(email.matches(emailRegex)){
+			return true;
+		}
+		return false;
+	}
+
+	public void sendMailSharePet (String email,String name,String age,String Gender,String url){
+		if(checkString(email) == true){
+			sendmail(send,"Thông Báo PetFinder","Mình muốn chia sẻ với bạn thông tin về một con thú cưng đáng yêu Tên Là:"+name.toUpperCase()+"\n"
+					+"Age: "+age.toUpperCase()+"\n"
+					+"Gender:"+Gender.toUpperCase()+"\n"+
+					". Bạn có thể xem chi tiết tại đường dẫn sau:"+url+"\n"+"Trân trọng,\n" +
+					email,email);
+		}
+	}
+
+	public void sendMailSharePetUser (String email,String name,String age,String Gender,String url,String user){
+		if(checkString(email) == true){
+			sendmail(send,"Thông Báo PetFinder",user+" muốn chia sẻ với bạn thông tin về một con thú cưng đáng yêu Tên Là:"+name+"\n"
+					+"Age:"+age.toUpperCase()+"\n"
+					+"Gender:"+Gender.toUpperCase()+"\n"+
+					"Bạn có thể xem chi tiết tại đường dẫn sau:"+url+"\n"+"Trân trọng,\n" +
+					email,email);
+		}
+	}
 }
