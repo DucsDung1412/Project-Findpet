@@ -369,26 +369,6 @@ Best Find START -->
 						<div class="row g-0 align-items-center">
 							<!-- Image -->
 							<div class="col-sm-6" style="background-color: #e7f6f8;">
-								<img src="https://cdn-icons-png.freepik.com/512/672/672675.png?uid=R54454630&ga=GA1.1.1564375792.1708571423" style="height: 136px; padding: 8px 14px;" class="card-img rounded-0" alt="">
-							</div>
-
-							<!-- Title and content -->
-							<div class="col-sm-6">
-								<div class="card-body px-3">
-									<h6 class="card-title"><a href="#" class="stretched-link">Other Animals</a></h6>
-									<p class="mb-0">Search for Other Animals quickly</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Slider item -->
-				<div>
-					<div class="card border rounded-3 overflow-hidden">
-						<div class="row g-0 align-items-center">
-							<!-- Image -->
-							<div class="col-sm-6" style="background-color: #e7f6f8;">
 								<img src="https://cdn-icons-png.freepik.com/512/12363/12363111.png?uid=R54454630&ga=GA1.1.1564375792.1708571423" style="height: 136px; padding: 14px;" class="card-img rounded-0" alt="">
 							</div>
 
@@ -716,7 +696,7 @@ Featured Hotels START -->
 
 		<div class="row g-4">
 			<!-- Hotel item -->
-			<div class="col-sm-6 col-xl-3">
+			<div class="col-sm-6 col-xl-3" th:each="animal : ${listFavorite}">
 				<!-- Card START -->
 				<div class="card card-img-scale overflow-hidden bg-transparent">
 					<!-- Image and overlay -->
@@ -732,95 +712,11 @@ Featured Hotels START -->
 					<!-- Card body -->
 					<div class="card-body px-2">
 						<!-- Title -->
-						<h5 class="card-title"><a href="#" class="stretched-link">Baga Comfort</a></h5>
+						<h5 class="card-title"><a th:href="@{/pet-list/pet-detail(id=${animal.id})}" class="stretched-link" th:text="${animal.animalName}">Baga Comfort</a></h5>
 						<!-- Price and rating -->
 						<div class="d-flex justify-content-between align-items-center">
-							<h6 class="text-success mb-0">Shiba<small class="fw-light">/Young</small> </h6>
-							<h6 class="mb-0">Female</h6>
-						</div>
-					</div>
-				</div>
-				<!-- Card END -->
-			</div>
-
-			<!-- Hotel item -->
-			<div class="col-sm-6 col-xl-3">
-				<!-- Card START -->
-				<div class="card card-img-scale overflow-hidden bg-transparent">
-					<!-- Image and overlay -->
-					<div class="card-img-scale-wrapper rounded-3">
-						<!-- Image -->
-						<img src="https://img.freepik.com/free-photo/dog-waiting-veterinarian-office_23-2149198673.jpg?t=st=1713948571~exp=1713952171~hmac=9cddb84266867deaf3b26ef4a197b5641078073e1850900af11da1e30a34e944&w=360" class="card-img" alt="hotel image">
-						<!-- Badge -->
-						<div class="position-absolute bottom-0 start-0 p-3">
-							<div class="badge text-bg-dark fs-6 rounded-pill stretched-link"><i class="bi bi-geo-alt me-2"></i>California</div>
-						</div>
-					</div>
-
-					<!-- Card body -->
-					<div class="card-body px-2">
-						<!-- Title -->
-						<h5 class="card-title"><a href="" class="stretched-link">Apollo Siler</a></h5>
-						<!-- Price and rating -->
-						<div class="d-flex justify-content-between align-items-center">
-							<h6 class="text-success mb-0">Corgi <small class="fw-light">/Young</small> </h6>
-							<h6 class="mb-0">Male</h6>
-						</div>
-					</div>
-				</div>
-				<!-- Card END -->
-			</div>
-
-			<!-- Hotel item -->
-			<div class="col-sm-6 col-xl-3">
-				<!-- Card START -->
-				<div class="card card-img-scale overflow-hidden bg-transparent">
-					<!-- Image and overlay -->
-					<div class="card-img-scale-wrapper rounded-3">
-						<!-- Image -->
-						<img src="https://img.freepik.com/free-photo/view-adorable-cat-eating-its-food_52683-137884.jpg?t=st=1713948674~exp=1713952274~hmac=6bf3599ed02e2113d0ee62af2dca2a0b6a8df0dbfe07e0192099d3bf1c1a0f39&w=360" class="card-img" alt="hotel image">
-						<!-- Badge -->
-						<div class="position-absolute bottom-0 start-0 p-3">
-							<div class="badge text-bg-dark fs-6 rounded-pill stretched-link"><i class="bi bi-geo-alt me-2"></i>Los Angeles</div>
-						</div>
-					</div>
-
-					<!-- Card body -->
-					<div class="card-body px-2">
-						<!-- Title -->
-						<h5 class="card-title"><a href="#" class="stretched-link">Wayne Lucid</a></h5>
-						<!-- Price and rating -->
-						<div class="d-flex justify-content-between align-items-center">
-							<h6 class="text-success mb-0">Calico<small class="fw-light">/Adult</small> </h6>
-							<h6 class="mb-0">Female</h6>
-						</div>
-					</div>
-				</div>
-				<!-- Card END -->
-			</div>
-
-			<!-- Hotel item -->
-			<div class="col-sm-6 col-xl-3">
-				<!-- Card START -->
-				<div class="card card-img-scale overflow-hidden bg-transparent">
-					<!-- Image and overlay -->
-					<div class="card-img-scale-wrapper rounded-3">
-						<!-- Image -->
-						<img src="https://img.freepik.com/free-photo/beautiful-guinea-pig-pet-portrait_23-2149152074.jpg?t=st=1713948884~exp=1713952484~hmac=11f3a3f5a161016ad287c189f911e79d140668509c4fac15d15d07a74ec0ce39&w=360" class="card-img" alt="hotel image">
-						<!-- Badge -->
-						<div class="position-absolute bottom-0 start-0 p-3">
-							<div class="badge text-bg-dark fs-6 rounded-pill stretched-link"><i class="bi bi-geo-alt me-2"></i>Chicago</div>
-						</div>
-					</div>
-
-					<!-- Card body -->
-					<div class="card-body px-2">
-						<!-- Title -->
-						<h5 class="card-title"><a href="#" class="stretched-link">Helios Showner</a></h5>
-						<!-- Price and rating -->
-						<div class="d-flex justify-content-between align-items-center">
-							<h6 class="text-success mb-0">Hamster <small class="fw-light">/Young</small> </h6>
-							<h6 class="mb-0">Male</h6>
+							<h6 class="text-success mb-0"><span th:text="${animal.breed.breed_name} + '/'">Shiba</span><small class="fw-light" th:text="${animal.animalAge}">/Young</small> </h6>
+							<h6 class="mb-0" th:text="${animal.animalGender} ? 'Male' : 'Female'">Female</h6>
 						</div>
 					</div>
 				</div>
@@ -986,168 +882,14 @@ Near by START -->
 
 		<div class="row g-4 g-md-5">
 			<!-- Card item START -->
-			<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+			<div class="col-6 col-sm-4 col-lg-3 col-xl-2" th:each="animal : ${listExplore}">
 				<div class="card bg-transparent text-center p-1 h-100">
 					<!-- Image -->
 					<img src="https://dbw3zep4prcju.cloudfront.net/animal/84e2baab-2cc7-494b-bff9-c3fb6cc2ff60/image/4bb6f175-8965-4155-a842-72e3a478860d.jpg?versionId=kyqmZCcR4BHMS3.ULrSIc6kQM54KUjaw&bust=1711923766&width=450" class="rounded-circle" alt="">
 
 					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Toaster</a></h5>
-						<span>Corgi</span>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
-
-			<!-- Card item START -->
-			<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-				<div class="card bg-transparent text-center p-1 h-100">
-					<!-- Image -->
-					<img src="https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/71380552/1/?bust=1713606800&width=450" class="rounded-circle" alt="">
-
-					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Courage</a></h5>
-						<span>Affenpinscher</span>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
-
-			<!-- Card item START -->
-			<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-				<div class="card bg-transparent text-center p-1 h-100">
-					<!-- Image -->
-					<img src="https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/55773155/1/?bust=1675327572&width=450" class="rounded-circle" alt="">
-
-					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Kaeo</a></h5>
-						<span>Hound Mix</span>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
-
-			<!-- Card item START -->
-			<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-				<div class="card bg-transparent text-center p-1 h-100">
-					<!-- Image -->
-					<img src="https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/71380555/1/?bust=1713605855&width=450" style="height: 147px;" class="rounded-circle" alt="">
-
-					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">King Martin</a></h5>
-						<span>American Shorthair</span>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
-
-			<!-- Card item START -->
-			<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-				<div class="card bg-transparent text-center p-1 h-100">
-					<!-- Image -->
-					<img src="https://www.petfinder.my/photo/pet/1122/112200-474564-m.jpg" style="height: 147px" class="rounded-circle" alt="">
-
-					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Licid Shiter</a></h5>
-						<span>Bengal</span>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
-
-			<!-- Card item START -->
-			<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-				<div class="card bg-transparent text-center p-1 h-100">
-					<!-- Image -->
-					<img src="https://www.petfinder.my/photo/pet/1329/132956-595606-l.jpg" class="rounded-circle" alt="">
-
-					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Julius</a></h5>
-						<span>Selkirk Rex</span>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
-
-			<!-- Card item START -->
-			<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-				<div class="card bg-transparent text-center p-1 h-100">
-					<!-- Image -->
-					<img src="https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/70858045/1/?bust=1713731925&width=450" class="rounded-circle" alt="">
-
-					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Kix Melin</a></h5>
-						<span>Bunny Rabbit</span>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
-
-			<!-- Card item START -->
-			<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-				<div class="card bg-transparent text-center p-1 h-100">
-					<!-- Image -->
-					<img src="https://dbw3zep4prcju.cloudfront.net/animal/0a2e7996-98c6-40a3-973a-cee61b073002/image/b1f85592-91b9-4f60-9c87-34bafc2c1b77.jpg?versionId=ywZsrtIy0Hzy3VETk_LJLbgoQRO1wZ7c&bust=1711923637&width=450" class="rounded-circle" alt="">
-
-					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Munchie</a></h5>
-						<span>Netherland Dwarf Mix</span>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
-
-			<!-- Card item START -->
-			<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-				<div class="card bg-transparent text-center p-1 h-100">
-					<!-- Image -->
-					<img src="https://dbw3zep4prcju.cloudfront.net/animal/a2002ef5-3f92-4098-8ca7-78c439a94144/image/43f80b39-223f-4eab-aecf-c4fba46ce887.jpg?versionId=AZ1_brxJMJsjBiloOX4p23gQrgvOrfs4&bust=1713452518&width=450" style="height: 147px;" class="rounded-circle" alt="">
-
-					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Chidori</a></h5>
-						<span>Cockatiel</span>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
-
-			<!-- Card item START -->
-			<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-				<div class="card bg-transparent text-center p-1 h-100">
-					<!-- Image -->
-					<img src="https://dbw3zep4prcju.cloudfront.net/animal/3e1e0cc2-c49e-47f8-b9fa-27da44a57bee/image/8a68380a-10a9-4b81-b82d-d5c89b0b939b.jpg?versionId=3DVg1PkCoHof6PCqDsHhKRHjbVGafZBY&bust=1713469667&width=450" style="height: 147px;" class="rounded-circle" alt="">
-
-					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Oscar Lemon</a></h5>
-						<span>Maccaw</span>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
-
-			<!-- Card item START -->
-			<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-				<div class="card bg-transparent text-center p-1 h-100">
-					<!-- Image -->
-					<img src="https://dbw3zep4prcju.cloudfront.net/animal/33adf95c-6fb7-4b6d-ba86-79eb033c13b1/image/2d9eedcd-5f2f-4254-84f9-826d010934a5.jpg?versionId=PMHyuIMACISlFGFZkinsWEispn9RncqN&bust=1713442661&width=450" style="height: 147px;" class="rounded-circle" alt="">
-
-					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Thoretta</a></h5>
-						<span>Short-Haired</span>
-					</div>
-				</div>
-			</div>
-			<!-- Card item END -->
-
-			<!-- Card item START -->
-			<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-				<div class="card bg-transparent text-center p-1 h-100">
-					<!-- Image -->
-					<img src="https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/70278789/1/?bust=1713763317&width=450" style="height: 147px;" class="rounded-circle" alt="">
-
-					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Sundae</a></h5>
-						<span>Mouse Mix</span>
+						<h5 class="card-title"><a th:href="@{/pet-list/pet-detail(id=${animal.id})}" class="stretched-link" th:text="${animal.animalName}">Toaster</a></h5>
+						<span th:text="${animal.breed.breed_name}">Corgi</span>
 					</div>
 				</div>
 			</div>
