@@ -4,7 +4,7 @@ spring:
       client:
         registration:
           google:
-            clientId: 
+            clientId:
             clientSecret:
             scope:
               - email

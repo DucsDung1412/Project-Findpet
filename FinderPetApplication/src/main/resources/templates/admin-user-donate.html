@@ -181,8 +181,8 @@
 				<div class="col-sm-6 col-xxl-3">
 					<div class="card card-body bg-light p-4 h-100">
 						<h6 class="mb-0">Thu nhập trong tháng</h6>
-						<h3 class="mb-2 mt-2">$112</h3>
-						<p class="mt-auto mb-0">Increase <span class="badge bg-success bg-opacity-10 text-success">10% <i class="bi bi-graph-up"></i></span></p>
+						<h3 class="mb-2 mt-2" th:text="${sumMonth} + ' VND'">$112</h3>
+						<p class="mt-auto mb-0"><span th:text="${upToDownMonth}">Increase </span> from last month <span th:class="${upToDownMonth} == 'Increase' ? 'badge bg-success bg-opacity-10 text-success' : 'badge bg-danger bg-opacity-10 text-danger'"><span th:text="${muchMonth} + '%'">10%</span> <i th:class="${upToDownMonth} == 'Increase' ? 'bi bi-graph-up' : 'bi bi-graph-down'"></i></span></p>
 					</div>
 				</div>
 
@@ -190,8 +190,8 @@
 				<div class="col-sm-6 col-xxl-3">
 					<div class="card card-body bg-light p-4 h-100">
 						<h6 class="mb-0">Thu nhập trong năm</h6>
-						<h3 class="mb-2 mt-2">$899.95</h3>
-						<p class="mt-auto mb-0">Increase from last year <span class="badge bg-success bg-opacity-10 text-success">21% <i class="bi bi-graph-up"></i></span></p>
+						<h3 class="mb-2 mt-2" th:text="${sumYear} + ' VND'">$899.95</h3>
+						<p class="mt-auto mb-0"><span th:text="${upToDownYear}">Increase</span> from last month <span th:class="${upToDownYear} == 'Increase' ? 'badge bg-success bg-opacity-10 text-success' : 'badge bg-danger bg-opacity-10 text-danger'"><span th:text="${muchYear} + '%'">10%</span> <i th:class="${upToDownYear} == 'Increase' ? 'bi bi-graph-up' : 'bi bi-graph-down'"></i></span></p>
 					</div>
 				</div>
 
@@ -203,8 +203,8 @@
 								<i class="bi bi-info-circle-fill small"></i>
 							</a>
 						</h6>
-						<h3>$15,356</h3>
-						<p class="mb-0 mt-auto">Expected payout on 05/10/2022</p>
+						<h3 th:text="${allMoney} + ' VND'">$15,356</h3>
+						<p class="mb-0 mt-auto">Expected payout on <span th:text="' ' + ${currentDate}"> 05/10/2022</span></p>
 					</div>
 				</div>
 
@@ -212,7 +212,7 @@
 				<div class="col-sm-6 col-xxl-3">
 					<div class="card bg-primary p-4" style="height: 100%">
 						<div class="d-flex justify-content-between align-items-start text-white">
-							<img class="w-40px" src="https://booking.webestica.com/assets/images/element/visa.svg" alt="">
+							<img class="w-40px" alt="" src="https://stcd02206177151.cloud.edgevnpay.vn/assets/images/logo-icon/logo-primary.svg" style="background: white; padding: 4px;">
 							<!-- Card action START -->
 							<div class="dropdown">
 								<a class="text-white" href="#" id="creditcardDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
@@ -235,9 +235,9 @@
 						<div class="mt-4 text-white fw-bold">
 							<span>Information</span>
 						</div>
-						<h5 class="text-white mt-4">**** **** **** 1569</h5>
+						<h5 class="text-white mt-4">**** **** **** 2198</h5>
 						<div class="d-flex justify-content-between text-white">
-							<span>Valid thru: 12/26</span>
+							<span>Valid thru: 07/15</span>
 							<span>CVV: ***</span>
 						</div>
 					</div>

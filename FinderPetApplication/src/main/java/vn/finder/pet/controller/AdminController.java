@@ -16,9 +16,14 @@ import vn.finder.pet.entity.Adopt;
 import vn.finder.pet.entity.Users;
 import vn.finder.pet.service.*;
 
+import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Controller
 @RequestMapping("/admin")
@@ -108,7 +113,7 @@ public class AdminController {
     }
 
     @GetMapping("/shelter-detail")
-    public String adminShelterDetail(Model model, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "id") Long id){
+    public String adminShelterDetail(Model model, @RequestParam(value = "page", required = false) String page, @RequestParam(value = "status", required = false) String status, @RequestParam(value = "id") Long id){
         if(page == null){
             page = "0";
         }
@@ -124,6 +129,11 @@ public class AdminController {
         model.addAttribute("page", pg == 0 ? 1 : pg);
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         model.addAttribute("statusActive", "shelter");
+
+        if(status != null){
+            model.addAttribute("status", status);
+
+        }
         return "/admin-shelter-detail";
     }
 
@@ -131,6 +141,24 @@ public class AdminController {
     public String changePageAdminShelterDetail(@RequestParam("page") int page, @RequestParam("id") Long id, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("page", page + 1);
         redirectAttributes.addAttribute("id", id);
+        return "redirect:/admin/shelter-detail";
+    }
+
+    @GetMapping("/shelter-detail/delete")
+    public String deleteShelter(@RequestParam("id") Long id, RedirectAttributes redirectAttributes){
+        this.sheltersService.updateShelter(id, "Canceled");
+        redirectAttributes.addAttribute("id", id);
+        redirectAttributes.addAttribute("status", "Tắt hoạt động của Shelter thành công");
+        adoptService.sendMailToDelete(id);
+        return "redirect:/admin/shelter-detail";
+    }
+
+    @GetMapping("/shelter-detail/accept")
+    public String acceptShelter(@RequestParam("id") Long id, RedirectAttributes redirectAttributes){
+        this.sheltersService.updateShelter(id, "Opening");
+        redirectAttributes.addAttribute("id", id);
+        redirectAttributes.addAttribute("status", "Mở hoạt động của Shelter thành công");
+        adoptService.sendMailToAgree(id);
         return "redirect:/admin/shelter-detail";
     }
 
@@ -160,7 +188,7 @@ public class AdminController {
     }
 
     @GetMapping("/regist-list/accept-shelter")
-    public String acceptShelter(@RequestParam("id") Long id, RedirectAttributes redirectAttributes){
+    public String adminAcceptShelter(@RequestParam("id") Long id, RedirectAttributes redirectAttributes){
         this.sheltersService.updateShelter(id, "Opening");
         redirectAttributes.addAttribute("page", 0);
         adoptService.sendMailToAgree(id);
@@ -209,7 +237,7 @@ public class AdminController {
             }
         }
         model.addAttribute("totalCanceled", i);
-        model.addAttribute("listAdopt", this.adoptService.findByUsers(userName, "%", pg == 0 ? 0 : pg - 1, 1));
+        model.addAttribute("listAdopt", this.adoptService.findByUsers(userName, "%", pg == 0 ? 0 : pg - 1, 10));
         if(changePassword != null){
             model.addAttribute("changePassword", changePassword ? "thành công" : "thất bại");
         }
@@ -242,10 +270,56 @@ public class AdminController {
             page = "0";
         }
         int pg = Integer.valueOf(page);
+
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.GERMAN);
+
         model.addAttribute("page", pg == 0 ? 1 : pg);
         model.addAttribute("listSpon", this.sponsService.findAllToPage(pg == 0 ? 0 : pg - 1, 10));
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         model.addAttribute("statusActive", "donate");
+
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = currentDate.format(formatter);
+        model.addAttribute("currentDate", formattedDate);
+
+        AtomicReference<Double> sum = new AtomicReference<>(0.0);
+        this.sponsService.findAllToPage(0, Integer.MAX_VALUE).stream().toList().forEach(e -> {
+            sum.updateAndGet(v -> v + e.getSponsGift());
+        });
+        String formattedNumber = numberFormat.format(sum.get());
+        model.addAttribute("allMoney", formattedNumber);
+
+        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
+        String currentMonth = currentDate.format(monthFormatter);
+        Double sumMonth = this.sponsService.findCountGiftInMonth(Integer.valueOf(currentMonth));
+        model.addAttribute("sumMonth", numberFormat.format(sumMonth));
+
+        DateTimeFormatter yearFormatter = DateTimeFormatter.ofPattern("yyyy");
+        String currentYear = currentDate.format(yearFormatter);
+        Double sumYear = this.sponsService.findCountGiftInYear(Integer.valueOf(currentYear));
+        model.addAttribute("sumYear", numberFormat.format(sumYear));
+
+        LocalDate previousMonthDate = currentDate.minusMonths(1);
+        String previousMonth = previousMonthDate.format(monthFormatter);
+        Double sumPrevMonth = this.sponsService.findCountGiftInMonth(Integer.valueOf(previousMonth));
+        if(sumMonth - sumPrevMonth < 0){
+            model.addAttribute("upToDownMonth", "Decrease");
+        } else {
+            model.addAttribute("upToDownMonth", "Increase");
+        }
+        model.addAttribute("muchMonth", ((sumMonth - sumPrevMonth)/sumPrevMonth)*100);
+
+        LocalDate previousYearDate = currentDate.minusYears(1);
+        String previousYear = previousYearDate.format(yearFormatter);
+        Double sumPrevYear = this.sponsService.findCountGiftInYear(Integer.valueOf(previousYear));
+        if(sumYear - sumPrevYear < 0){
+            model.addAttribute("upToDownYear", "Decrease");
+        } else {
+            model.addAttribute("upToDownYear", "Increase");
+        }
+        model.addAttribute("muchYear", ((sumYear - sumPrevYear)/sumPrevYear)*100);
+
         return "/admin-user-donate";
     }
 
@@ -276,5 +350,19 @@ public class AdminController {
         redirectAttributes.addAttribute("page", page + 1);
         redirectAttributes.addAttribute("id", id);
         return "redirect:/admin/donate-detail";
+    }
+
+    @GetMapping("/token-shop")
+    public String tokenShop(Model model){
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("statusActive", "tokenShop");
+        return "redirect:/coming-soon";
+    }
+
+    @GetMapping("/setting")
+    public String adminSetting(Model model){
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
+        model.addAttribute("statusActive", "setting");
+        return "redirect:/coming-soon";
     }
 }

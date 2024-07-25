@@ -9,7 +9,7 @@
     <nav class="navbar sidebar navbar-expand-xl navbar-light" th:fragment="navbar-admin">
         <!-- Navbar brand for xl START -->
         <div class="d-flex align-items-center">
-            <a class="navbar-brand" href="index">
+            <a class="navbar-brand" href="/index">
                 <img class="light-mode-item navbar-brand-item" src="https://booking.webestica.com/assets/images/logo.svg" alt="logo">
                 <img class="dark-mode-item navbar-brand-item" src="https://booking.webestica.com/assets/images/logo-light.svg" alt="logo">
             </a>
@@ -37,13 +37,13 @@
                     <li class="nav-item"> <a th:class="${statusActive} == 'regist' ? 'nav-link active' : 'nav-link'" href="/admin/regist-list">Pending Approval</a></li>
 
                     <!-- Menu item -->
-                    <li class="nav-item"> <a class="nav-link" href="#">Reward Shop</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/admin/token-shop">Reward Shop</a></li>
 
                     <!-- Menu item -->
                     <li class="nav-item"> <a th:class="${statusActive} == 'donate' ? 'nav-link active' : 'nav-link'" href="/admin/user-donate">Earnings</a></li>
 
                     <!-- Menu item -->
-                    <li class="nav-item"> <a class="nav-link" href="/admin-settings">Admin Settings</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/admin/setting">Admin Settings</a></li>
                 </ul>
                 <!-- Sidebar menu end -->
 

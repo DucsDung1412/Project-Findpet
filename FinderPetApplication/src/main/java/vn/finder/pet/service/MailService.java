@@ -85,6 +85,10 @@ public class MailService {
 		sendmail(send,"Thông Báo Tới Từ Admin",":"+"Đơn Xin Chấp Thuận Từ :  "+name+  "/n"+" Đã Được Xác Nhận Là Shelters ",email);
 	}
 
+	public void sendMailToAdminDelete(String email,String name){
+		sendmail(send,"Thông Báo Tới Từ Admin",":"+"Shelter của bạn :  "+name+  "/n"+" Đã bị chúng tôi tạm thời đóng cửa. Nếu có bất cứ khyếu nại nào vui lòng gửi báo cáo cho chúng tôi ",email);
+	}
+
 	public void sendMailToAdminDisable(String email,String name){
 		sendmail(send,"Thông Báo Tới Từ Admin "+name,"Yêu Xin Chấp Thuận ĐÃ Bị Từ Chối Vì Không Đủ Điều Kiện Thành Shelters: ",email);
 	}

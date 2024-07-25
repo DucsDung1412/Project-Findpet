@@ -299,7 +299,7 @@
 										<td> <h6 class="mb-0 fw-light" th:text="${donate.getSponsDate()}">Nov 22 - 25</h6> </td>
 										<td> <p class="mb-0 fw-light" th:text="${donate.getSponsGift()}">Nov 22 - 25</p> </td>
 										<td>
-											<a th:href="@{/account/}" class="btn btn-sm btn-light mb-0 w-100">Xem chi tiết</a>
+											<a th:href="@{/account/donate-confirm(id=${donate.id})}" class="btn btn-sm btn-light mb-0 w-100">Xem chi tiết</a>
 										</td>
 									</tr>
 									</tbody>

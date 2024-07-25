@@ -56,4 +56,12 @@ public class SponsService {
         Users users = this.usersService.findById(email).get();
         return this.sponsDAO.findByStatus(pageable, users.getShelters().getId());
     }
+
+    public Double findCountGiftInMonth(Integer month){
+        return this.sponsDAO.findCountGiftInMonth(month);
+    }
+
+    public Double findCountGiftInYear(Integer year){
+        return this.sponsDAO.findCountGiftInYear(year);
+    }
 }

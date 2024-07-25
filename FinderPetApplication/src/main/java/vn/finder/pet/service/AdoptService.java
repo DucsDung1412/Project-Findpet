@@ -159,6 +159,10 @@ public class AdoptService {
         mailService.sendMailToAdminAgree(getUserShelters(id),getUserShelters(id));
     }
 
+    public void sendMailToDelete(Long id){
+        mailService.sendMailToAdminDelete(getUserShelters(id),getUserShelters(id));
+    }
+
     public void sendMailToDisable(Long id){
         mailService.sendMailToAdminDisable(getUserShelters(id),getUserShelters(id));
     }
