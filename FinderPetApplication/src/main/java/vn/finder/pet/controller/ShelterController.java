@@ -57,13 +57,14 @@ public class ShelterController {
 
         if(location != null || name != null){
             model.addAttribute("listShelter", this.sheltersService.findByShelterNameAndShelterAddress("Opening", name, location, 0, Integer.MAX_VALUE));
+            model.addAttribute("totalShelter", this.sheltersService.findByShelterNameAndShelterAddress("Opening", name, location, 0, Integer.MAX_VALUE).getTotalElements());
         } else {
             model.addAttribute("listShelter", this.sheltersService.findSheltersByStatusContaining("Opening", pg == 0 ? 0 : pg - 1, 10));
+            model.addAttribute("totalShelter", this.sheltersService.findSheltersByStatusContaining("Opening", 0, Integer.MAX_VALUE).getTotalElements());
         }
 
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         model.addAttribute("page", pg == 0 ? 1 : pg);
-
         return "shelter-list";
     }
 
