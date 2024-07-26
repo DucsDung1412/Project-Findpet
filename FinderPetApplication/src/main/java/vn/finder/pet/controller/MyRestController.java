@@ -210,6 +210,29 @@ public class MyRestController {
         }
         return " ";
     }
+
+    @RequestMapping("/add-new-shelter")
+    public String addShelter(@RequestBody DtoAddShelters shelters){
+        int flag=0;
+        if(shelters.getAddressemail().isEmpty()){
+            flag++;
+        }
+        if(shelters.getNamne()==null){
+            flag++;
+        }
+        if(shelters.getOpentime().isEmpty()){
+            flag++;
+        }
+        if(shelters.getOpentime().isEmpty()){
+            flag++;
+        }
+        if(flag==0){
+            System.out.println(shelters);
+            sheltersService.addNewShelter(shelters,this.getEmailLogin());
+        }
+
+        return "/index?message=Đăng+ký+Shelter+thành+công";
+    }
 }
 
 

@@ -43,7 +43,8 @@ public class MySecurities {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests(config ->
-                        config.requestMatchers("/account/**").hasAnyAuthority("OAUTH2_USER", "ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN")
+                        config.requestMatchers("/account/signUp-shelter").hasRole("USER")
+                                .requestMatchers("/account/**").hasAnyAuthority("OAUTH2_USER", "ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN")
                                 .requestMatchers("/manager/**").hasAnyAuthority("ROLE_MANAGER", "ROLE_ADMIN")
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/**").permitAll())

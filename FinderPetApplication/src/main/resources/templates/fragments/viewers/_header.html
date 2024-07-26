@@ -85,12 +85,6 @@
                                     <i class="text-success fa-fw bi bi-cloud-download-fill me-2"></i>News and Blog
                                 </a>
                             </li>
-                            <li> <hr class="dropdown-divider"></li>
-                            <li>
-                                <a class="dropdown-item" href="/account/signUp-shelter" target="_blank">
-                                    <i class="text-success fa-fw bi bi-cloud-download-fill me-2"></i>Đăng ký Shelter
-                                </a>
-                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -227,6 +221,7 @@
                         <!-- Links -->
                         <li> <hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/account/profile"><i class="bi bi-bookmark-check fa-fw me-2"></i>My Profile</a></li>
+                        <li sec:authorize="hasRole('ROLE_USER')"><a class="dropdown-item" href="/account/signUp-shelter"><i class="bi bi-heart fa-fw me-2"></i>Đăng ký Shelter</a></li>
                         <li sec:authorize="hasRole('ROLE_MANAGER') || hasRole('ROLE_ADMIN')" th:if="${user.shelters} != null"><a class="dropdown-item" href="/manager/dashboard"><i class="bi bi-heart fa-fw me-2"></i>My Dashboard</a></li>
                         <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" href="/admin/dashboard"><i class="bi bi-heart fa-fw me-2"></i>Admin Dashboard</a></li>
                         <li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Settings</a></li>

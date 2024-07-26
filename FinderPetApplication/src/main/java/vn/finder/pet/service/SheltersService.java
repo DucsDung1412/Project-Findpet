@@ -104,4 +104,28 @@ public class SheltersService {
         }
         return false;
     }
+
+    @Transactional
+    public void addNewShelter(DtoAddShelters shelters,String email){
+        Shelters sh = new Shelters();
+        Users users = this.usersService.findById(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        sh.setUsers(users);
+        sh.setShelterAvatar(shelters.getImg());
+        sh.setShelterAddress(shelters.getLocation());
+        sh.setShelterEmail(shelters.getAddressemail());
+        sh.setShelterDate(Date.valueOf(LocalDate.now()));
+        sh.setShelterInfoFacebook(shelters.getLinkfacebook());
+        sh.setShelterInfoInstagram(shelters.getLinkintagram());
+        sh.setShelterPhone(shelters.getphonenumber());
+        sh.setShelterName(shelters.getNamne());
+        sh.setShelterInfoOperatingTime(shelters.getOpentime());
+        sh.setShelterDescription(shelters.getShortdescription());
+        sh.setShelterLatitude(shelters.getLatitude());
+        sh.setShelterLongitude(shelters.getLongitude());
+        sh.setShelterStatus("Awaiting");
+        sh.setShelterInfoPolicy(shelters.getListpolicy());
+        sh.setShelterInfoMission(shelters.getListmission());
+
+        this.shelterDAO.save(sh);
+    }
 }

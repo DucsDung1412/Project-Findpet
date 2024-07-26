@@ -1260,6 +1260,26 @@ Footer END -->
 </div>
 <!-- Navbar mobile END -->
 
+<!-- Modal notice START -->
+<div class="modal modal-status d-flex" style="background-color: rgba(1,1,1,0.6);" th:if="${status} != null">
+	<div class="cookiesContent align-items-center justify-content-center m-auto" id="cookiesPopup">
+		<button class="close">✖</button>
+		<img src="https://cdn-icons-png.flaticon.com/512/1047/1047711.png" alt="cookies-img" />
+		<p th:text="${status}">Khôi phục mật khẩu thành công</p>
+		<button class="accept">OK</button>
+	</div>
+</div>
+<!-- Modal notice END -->
+
+<script type="text/javascript" th:if="${status} != null">
+	document.querySelector(".modal-status .close").onclick = function () {
+        document.querySelector(".modal-status").classList.add("d-none");
+    }
+    document.querySelector(".modal-status .accept").onclick = function() {
+        document.querySelector(".modal-status").classList.add("d-none");
+    }
+</script>
+
 <!-- Bootstrap JS -->
 <script src="../js/bootstrap.bundle.min.js"></script>
 

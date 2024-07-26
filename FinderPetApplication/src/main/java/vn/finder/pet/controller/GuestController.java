@@ -81,7 +81,7 @@ public class GuestController {
     }
 
     @GetMapping("/index")
-    public String index(HttpSession session, Model model){
+    public String index(HttpSession session, Model model, @RequestParam(value = "message") String message){
         session.removeAttribute("emailUs");
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         model.addAttribute("listFavorite", this.favoritesService.findAll(0,4).stream().toList());
@@ -91,6 +91,11 @@ public class GuestController {
             Users users = this.usersService.findById(this.getEmailLogin()).get();
             model.addAttribute("listExplore", this.animalsService.findByShelterAddressOrderByCustom(0, 12, users.getCountry()).stream().toList());
         }
+
+        if(message != null){
+            model.addAttribute("status", message);
+        }
+       
         return "/index";
     }
 
