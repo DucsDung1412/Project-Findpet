@@ -22,6 +22,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -81,7 +83,7 @@ public class GuestController {
     }
 
     @GetMapping("/index")
-    public String index(HttpSession session, Model model, @RequestParam(value = "message") String message){
+    public String index(HttpSession session, Model model, @RequestParam(value = "message", required = false) String message){
         session.removeAttribute("emailUs");
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         model.addAttribute("listFavorite", this.favoritesService.findAll(0,4).stream().toList());
@@ -95,7 +97,7 @@ public class GuestController {
         if(message != null){
             model.addAttribute("status", message);
         }
-       
+
         return "/index";
     }
 
