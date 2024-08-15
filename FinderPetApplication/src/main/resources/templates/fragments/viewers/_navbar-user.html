@@ -19,8 +19,8 @@
 
                 <!-- Edit profile button -->
                 <div class="position-absolute top-0 end-0 p-3">
-                    <a href="/account-profile" class="text-primary-hover" data-bs-toggle="tooltip"
-                       data-bs-title="Edit profile">
+                    <a href="/account/profile" class="text-primary-hover" data-bs-toggle="tooltip"
+                       data-bs-title="Cập nhật hồ sơ">
                         <i class="bi bi-pencil-square"></i>
                     </a>
                 </div>
@@ -43,25 +43,25 @@
                     <!-- Sidebar menu item START -->
                     <ul class="nav nav-pills-primary-soft flex-column">
                         <li class="nav-item">
-                            <a th:class="${statusActive} == 'profile' ? 'nav-link active' : 'nav-link'" href="/account/profile"><i class="bi bi-person fa-fw me-2"></i>My Profile</a>
+                            <a th:class="${statusActive} == 'profile' ? 'nav-link active' : 'nav-link'" href="/account/profile"><i class="bi bi-person fa-fw me-2"></i>Hồ sơ</a>
                         </li>
                         <li class="nav-item">
-                            <a th:class="${statusActive} == 'wishlist' ? 'nav-link active' : 'nav-link'" href="/account/wishlist"><i class="bi bi-heart fa-fw me-2"></i>Wishlist</a>
+                            <a th:class="${statusActive} == 'wishlist' ? 'nav-link active' : 'nav-link'" href="/account/wishlist"><i class="bi bi-heart fa-fw me-2"></i>Danh sách thích</a>
                         </li>
                         <li class="nav-item">
-                            <a th:class="${statusActive} == 'history' ? 'nav-link active' : 'nav-link'" href="/account/history"><i class="bi bi-people fa-fw me-2"></i>Activity history</a>
+                            <a th:class="${statusActive} == 'history' ? 'nav-link active' : 'nav-link'" href="/account/history"><i class="bi bi-people fa-fw me-2"></i>Lịch sử hoạt động</a>
                         </li>
                         <li class="nav-item">
                             <a th:class="${statusActive} == 'donate' ? 'nav-link active' : 'nav-link'" href="/account/donate"><i class="bi bi-people fa-fw me-2"></i>Donate</a>
                         </li>
                         <li class="nav-item">
-                            <a th:class="${statusActive} == 'settings' ? 'nav-link active' : 'nav-link'" href="/account/settings"><i class="bi bi-gear fa-fw me-2"></i>Settings</a>
+                            <a th:class="${statusActive} == 'settings' ? 'nav-link active' : 'nav-link'" href="/account/settings"><i class="bi bi-gear fa-fw me-2"></i>Cài đặt</a>
                         </li>
                         <li class="nav-item">
-                            <a th:class="${statusActive} == 'delete' ? 'nav-link active' : 'nav-link'" href="/account/delete"><i class="bi bi-trash fa-fw me-2"></i>Delete Profile</a>
+                            <a th:class="${statusActive} == 'delete' ? 'nav-link active' : 'nav-link'" href="/account/delete"><i class="bi bi-trash fa-fw me-2"></i>Xóa tài khoản</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-danger bg-danger-soft-hover" th:href="@{/logout}"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
+                            <a class="nav-link text-danger bg-danger-soft-hover" th:href="@{/logout}"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Đăng xuất</a>
                         </li>
                     </ul>
                     <!-- Sidebar menu item END -->

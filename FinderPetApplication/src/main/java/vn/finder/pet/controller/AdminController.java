@@ -19,10 +19,7 @@ import vn.finder.pet.service.*;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Controller
@@ -33,14 +30,16 @@ public class AdminController {
     private AnimalsService animalsService;
     private AdoptService adoptService;
     private SponsService sponsService;
+    private BreedService breedService;
 
     @Autowired
-    public AdminController(SheltersService sheltersService, UsersService usersService, AnimalsService animalsService, AdoptService adoptService, SponsService sponsService) {
+    public AdminController(SheltersService sheltersService, UsersService usersService, AnimalsService animalsService, AdoptService adoptService, SponsService sponsService, BreedService breedService) {
         this.sheltersService = sheltersService;
         this.usersService = usersService;
         this.animalsService = animalsService;
         this.adoptService = adoptService;
         this.sponsService = sponsService;
+        this.breedService = breedService;
     }
 
     public String getEmailLogin(){
@@ -74,6 +73,32 @@ public class AdminController {
 
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         model.addAttribute("statusActive", "dashboard");
+
+        ArrayList<Double> listIncome = new ArrayList<>();
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter yearFormatter = DateTimeFormatter.ofPattern("yyyy");
+        String currentYear = currentDate.format(yearFormatter);
+
+        listIncome.add(this.sponsService.findCountGiftInMonth(1, Integer.valueOf(currentYear)) != null ? this.sponsService.findCountGiftInMonth(1, Integer.valueOf(currentYear)) : 0);
+        listIncome.add(this.sponsService.findCountGiftInMonth(2, Integer.valueOf(currentYear)) != null ? this.sponsService.findCountGiftInMonth(2, Integer.valueOf(currentYear)) : 0);
+        listIncome.add(this.sponsService.findCountGiftInMonth(3, Integer.valueOf(currentYear)) != null ? this.sponsService.findCountGiftInMonth(3, Integer.valueOf(currentYear)) : 0);
+        listIncome.add(this.sponsService.findCountGiftInMonth(4, Integer.valueOf(currentYear)) != null ? this.sponsService.findCountGiftInMonth(4, Integer.valueOf(currentYear)) : 0);
+        listIncome.add(this.sponsService.findCountGiftInMonth(5, Integer.valueOf(currentYear)) != null ? this.sponsService.findCountGiftInMonth(5, Integer.valueOf(currentYear)) : 0);
+        listIncome.add(this.sponsService.findCountGiftInMonth(6, Integer.valueOf(currentYear)) != null ? this.sponsService.findCountGiftInMonth(6, Integer.valueOf(currentYear)) : 0);
+        listIncome.add(this.sponsService.findCountGiftInMonth(7, Integer.valueOf(currentYear)) != null ? this.sponsService.findCountGiftInMonth(7, Integer.valueOf(currentYear)) : 0);
+        listIncome.add(this.sponsService.findCountGiftInMonth(8, Integer.valueOf(currentYear)) != null ? this.sponsService.findCountGiftInMonth(8, Integer.valueOf(currentYear)) : 0);
+        listIncome.add(this.sponsService.findCountGiftInMonth(9, Integer.valueOf(currentYear)) != null ? this.sponsService.findCountGiftInMonth(9, Integer.valueOf(currentYear)) : 0);
+        listIncome.add(this.sponsService.findCountGiftInMonth(10, Integer.valueOf(currentYear)) != null ? this.sponsService.findCountGiftInMonth(10, Integer.valueOf(currentYear)) : 0);
+        listIncome.add(this.sponsService.findCountGiftInMonth(11, Integer.valueOf(currentYear)) != null ? this.sponsService.findCountGiftInMonth(11, Integer.valueOf(currentYear)) : 0);
+        listIncome.add(this.sponsService.findCountGiftInMonth(12, Integer.valueOf(currentYear)) != null ? this.sponsService.findCountGiftInMonth(12, Integer.valueOf(currentYear)) : 0);
+
+        model.addAttribute("listIncome", listIncome);
+
+        ArrayList<Long> listRegist = new ArrayList<>();
+        listRegist.add(this.sheltersService.findSheltersByStatusContaining("Opening", 0, Integer.MAX_VALUE).getTotalElements());
+        listRegist.add(this.sheltersService.findSheltersByStatusContaining("Canceled", 0, Integer.MAX_VALUE).getTotalElements());
+
+        model.addAttribute("listRegist", listRegist);
         return "/admin-dashboard";
     }
 
@@ -129,6 +154,7 @@ public class AdminController {
         model.addAttribute("page", pg == 0 ? 1 : pg);
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         model.addAttribute("statusActive", "shelter");
+        model.addAttribute("animalsService", this.animalsService);
 
         if(status != null){
             model.addAttribute("status", status);
@@ -178,6 +204,7 @@ public class AdminController {
         model.addAttribute("status", status);
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         model.addAttribute("statusActive", "regist");
+        model.addAttribute("sheltersService", this.sheltersService);
         return "/admin-regist-list";
     }
 
@@ -243,6 +270,8 @@ public class AdminController {
         }
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         model.addAttribute("statusActive", "user");
+        model.addAttribute("breedService", this.breedService);
+        model.addAttribute("adoptService", this.adoptService);
         return "/admin-user-detail";
     }
 
@@ -292,21 +321,22 @@ public class AdminController {
 
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
         String currentMonth = currentDate.format(monthFormatter);
-        Double sumMonth = this.sponsService.findCountGiftInMonth(Integer.valueOf(currentMonth));
-        model.addAttribute("sumMonth", numberFormat.format(sumMonth));
-
         DateTimeFormatter yearFormatter = DateTimeFormatter.ofPattern("yyyy");
         String currentYear = currentDate.format(yearFormatter);
+
+        Double sumMonth = this.sponsService.findCountGiftInMonth(Integer.valueOf(currentMonth), Integer.valueOf(currentYear));
+        model.addAttribute("sumMonth", numberFormat.format(sumMonth));
+
         Double sumYear = this.sponsService.findCountGiftInYear(Integer.valueOf(currentYear));
         model.addAttribute("sumYear", numberFormat.format(sumYear));
 
         LocalDate previousMonthDate = currentDate.minusMonths(1);
         String previousMonth = previousMonthDate.format(monthFormatter);
-        Double sumPrevMonth = this.sponsService.findCountGiftInMonth(Integer.valueOf(previousMonth));
+        Double sumPrevMonth = this.sponsService.findCountGiftInMonth(Integer.valueOf(previousMonth), Integer.valueOf(currentYear));
         if(sumMonth - sumPrevMonth < 0){
-            model.addAttribute("upToDownMonth", "Decrease");
+            model.addAttribute("upToDownMonth", "Giảm");
         } else {
-            model.addAttribute("upToDownMonth", "Increase");
+            model.addAttribute("upToDownMonth", "Tăng");
         }
         model.addAttribute("muchMonth", ((sumMonth - sumPrevMonth)/sumPrevMonth)*100);
 
@@ -314,9 +344,9 @@ public class AdminController {
         String previousYear = previousYearDate.format(yearFormatter);
         Double sumPrevYear = this.sponsService.findCountGiftInYear(Integer.valueOf(previousYear));
         if(sumYear - sumPrevYear < 0){
-            model.addAttribute("upToDownYear", "Decrease");
+            model.addAttribute("upToDownYear", "Giảm");
         } else {
-            model.addAttribute("upToDownYear", "Increase");
+            model.addAttribute("upToDownYear", "Tăng");
         }
         model.addAttribute("muchYear", ((sumYear - sumPrevYear)/sumPrevYear)*100);
 

@@ -164,77 +164,7 @@
                     <!-- Sidebar START -->
                     <div class="col-lg-4 col-xl-3">
                         <!-- Responsive offcanvas body START -->
-                        <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasSidebar">
-                            <!-- Offcanvas header -->
-                            <div class="offcanvas-header justify-content-end pb-2">
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                                    data-bs-target="#offcanvasSidebar" aria-label="Close"></button>
-                            </div>
-
-                            <!-- Offcanvas body -->
-                            <div class="offcanvas-body p-3 p-lg-0">
-                                <div class="card bg-light w-100">
-
-                                    <!-- Edit profile button -->
-                                    <div class="position-absolute top-0 end-0 p-3">
-                                        <a href="/account-profile" class="text-primary-hover" data-bs-toggle="tooltip"
-                                            data-bs-title="Edit profile">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                    </div>
-
-                                    <!-- Card body START -->
-                                    <div class="card-body p-3">
-                                        <!-- Avatar and content -->
-                                        <div class="text-center mb-3">
-                                            <!-- Avatar -->
-                                            <div class="avatar avatar-xl mb-2">
-                                                <img class="avatar-img rounded-circle border border-2 border-white"
-                                                    src="https://booking.webestica.com/assets/images/avatar/01.jpg"
-                                                    alt="">
-                                            </div>
-                                            <h6 class="mb-0" th:text="${user.firstName} + ' ' + ${user.lastName}">Jacqueline Miller</h6>
-                                            <a href="#" class="text-reset text-primary-hover small" th:text="${user.userName}">hello@gmail.com</a>
-                                            <hr>
-                                        </div>
-
-                                        <!-- Sidebar menu item START -->
-                                        <ul class="nav nav-pills-primary-soft flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/account-profile"><i
-                                                        class="bi bi-person fa-fw me-2"></i>My Profile</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/account-wishlist"><i
-                                                        class="bi bi-heart fa-fw me-2"></i>Wishlist</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#"><i
-                                                        class="bi bi-people fa-fw me-2"></i>Activity history</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="#"><i
-                                                        class="bi bi-people fa-fw me-2"></i>Donate</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/account-settings"><i
-                                                        class="bi bi-gear fa-fw me-2"></i>Settings</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/account-delete"><i
-                                                        class="bi bi-trash fa-fw me-2"></i>Delete Profile</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link text-danger bg-danger-soft-hover" href="#" th:href="@{/logout}"><i
-                                                        class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
-                                            </li>
-                                        </ul>
-                                        <!-- Sidebar menu item END -->
-                                    </div>
-                                    <!-- Card body END -->
-                                </div>
-                            </div>
-                        </div>
+                        <div th:insert="~{fragments/viewers/_navbar-user :: navbar-user}"></div>
                         <!-- Responsive offcanvas body END -->
                     </div>
                     <!-- Sidebar END -->
@@ -261,19 +191,19 @@
                                 <!-- Card body START -->
                                 <div class="card-body mt-4">
                                     <!-- Form START -->
-                                    <form action="/change-info-user" method="get" class="row g-3 tab-changeProfile tab-donate">
+                                    <form th:action="@{/submitOrder}" method="post" class="row g-3 tab-changeProfile tab-donate">
                                         <!-- Current Status -->
                                         <div class="row form-group d-flex justify-content-between">
-                                            <label class="form-label col-lg-3 col-md-12">Current Status</label>
+                                            <label class="form-label col-lg-3 col-md-12">Tổng giá trị đã donate</label>
                                             <div class="col-lg-9 col-md-12">
                                                 <!-- Progress bar -->
                                                 <div class="overflow-hidden">
                                                     <div class="d-flex justify-content-between">
-                                                        <h6>Budget</h6>
-                                                        <h6>$22,300 of $36,000</h6>
+                                                        <h6>Ngân sách</h6>
+                                                        <h6>60.000 VND / 100.000 VND</h6>
                                                     </div>
                                                     <div class="progress progress-sm bg-success bg-opacity-10">
-                                                        <div class="progress-bar bg-success aos" role="progressbar" data-aos="slide-right" data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar bg-success aos" role="progressbar" data-aos="slide-right" data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                     <p class="mb-0 mt-2">Đã donate 15 lần</p>
                                                 </div>
@@ -282,7 +212,7 @@
 
                                         <!-- Usage Character -->
                                         <div class="row mt-3 form-group d-flex justify-content-between">
-                                            <label class="form-label col-lg-3 col-md-12">Usage Character</label>
+                                            <label class="form-label col-lg-3 col-md-12">Lựa chọn donate</label>
                                             <div class="col-lg-9 col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-6 col-lg-12 col-xxl-6">
@@ -323,14 +253,11 @@
 
                                         <!-- Manage Budget -->
                                         <div id="manage-budget" class="row form-group d-none mt-3 mb-2">
-                                            <label class="form-label col-lg-3 col-md-12">Shelter Name</label>
+                                            <label class="form-label col-lg-3 col-md-12">Tên trung tâm</label>
                                             <div class="col-lg-9 col-md-12">
-                                                <select class="form-select js-choice" data-search-enabled="true">
-                                                    <option value="">Select your country</option>
-                                                    <option>USA</option>
-                                                    <option selected>Paris</option>
-                                                    <option>India</option>
-                                                    <option>UK</option>
+                                                <select class="form-select js-choice" name="name" data-search-enabled="true">
+                                                    <option value="">Chọn trung tâm</option>
+                                                    <option th:each="shelter, iterStat : ${listShelter}" th:if="${iterStat.index > 0}" th:text="${shelter.shelterName}" th:value="${shelter.id}">USA</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -338,16 +265,16 @@
 
                                         <!-- Budget Notes -->
                                         <div class="custom-budget-notes form-group d-flex mb-3 mt-3">
-                                            <label class="form-label col-lg-3 col-md-12" style="margin-left: 7px;">Budget Notes</label>
-                                            <textarea class="form-control" rows="3" spellcheck="false" style="margin-left: -4px; margin-right: 38px;"></textarea>
+                                            <label class="form-label col-lg-3 col-md-12" style="margin-left: 7px;">Lời nhắn</label>
+                                            <textarea class="form-control" rows="3" id="orderInfo" name="orderInfo" spellcheck="false" style="margin-left: -4px; margin-right: 38px;"></textarea>
                                         </div>
 
                                         <!-- Manage Budget -->
                                         <div class="row form-group d-flex mt-2 mb-3">
-                                            <label class="form-label col-lg-3 col-md-12">Manage Budget</label>
+                                            <label class="form-label col-lg-3 col-md-12">Số tiền</label>
                                             <div class="col-lg-9 col-md-12">
                                                 <div class="input-group has-validation">
-                                                    <input id="money" type="number" class="form-control"  style="border-radius: 8px 0 0 8px;">
+                                                    <input type="number" class="form-control" id="amount" name="amount" style="border-radius: 8px 0 0 8px;">
                                                     <span class="input-group-text">VND</span>
                                                 </div>
                                                 <div class="invalid-feedback">  </div>
@@ -355,7 +282,7 @@
                                         </div>
 
                                         <div class="row form-group d-flex mt-2">
-                                            <label class="form-label col-lg-3 col-md-12">Accpet Policy</label>
+                                            <label class="form-label col-lg-3 col-md-12">Chấp nhận chính sách</label>
                                             <!--end::Col-->
                             
                                             <!--begin::Col-->
@@ -364,7 +291,7 @@
                                                 <div class="form-check form-switch form-check-custom form-check-solid">
                                                     <input class="form-check-input" type="checkbox" id="allowchanges" checked="checked">
                                                     <label class="form-check-label  fw-semibold text-gray-500 ms-3" for="allowchanges">
-                                                        Accpeted
+                                                        Chấp nhận
                                                     </label>
                                                 </div>
                                                 <div class="invalid-feedback">  </div>
@@ -374,7 +301,7 @@
                                         </div>
                                         <!-- Button -->
                                         <div class="col-12 text-end mt-3">
-                                            <button class="btn btn-primary mb-0">Donate</button>
+                                            <button type="submit" class="btn btn-primary mb-0">Donate</button>
                                         </div>
                                     </form>
                                     <!-- Form END -->
@@ -449,11 +376,11 @@ Footer END -->
             });
         });
 
-        Validator({
+         Validator({
 				workplace: ".tab-donate",
 				formGroupSelector: '.form-group',
 				rules: [
-                    Validator.isRequired("#money", "Please fill."),
+                    Validator.isRequired("#amount", "Please fill."),
 					Validator.isRequired("#allowchanges", "Please fill."),
 				]
 			});

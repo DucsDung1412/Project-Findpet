@@ -121,7 +121,7 @@ Main content START -->
 						<p class="lead mb-3"><span th:text="${adopt.users.firstName} + ' ' + ${adopt.users.lastName}"></span> đã đăng ký nhận nuôi thành công</p>
 
 						<!-- Second title -->
-						<h5 class="text-primary mb-4">Tình trạng: <span th:text="${adopt.adopt_status}">Đang chờ xử lý</span></h5>
+						<h5 class="text-primary mb-4">Tình trạng: <span th:text="${adoptService.transStatusToVN(adopt.adopt_status)}">Đang chờ xử lý</span></h5>
 
 						<!-- List -->
 						<div class="row justify-content-between text-start mb-4">
@@ -133,7 +133,7 @@ Main content START -->
 									</li>
                                     <li class="list-group-item d-sm-flex justify-content-between align-items-center">
                                         <span class="mb-0"><i class="bi bi-wallet2 fa-fw me-2"></i>Loài:</span>
-                                        <span class="h6 fw-normal mb-0" th:text="${adopt.animals.breed.breed_type}">Chó</span>
+                                        <span class="h6 fw-normal mb-0" th:text="${breedService.transBreedTypeToVN(adopt.animals.breed.breed_type)}">Chó</span>
                                     </li>
 									<li class="list-group-item d-sm-flex justify-content-between align-items-center">
 										<span class="mb-0"><i class="bi bi-person fa-fw me-2"></i>Giống:</span>
@@ -149,16 +149,16 @@ Main content START -->
 							<div class="col-lg-5">
                                 <li class="list-group-item d-sm-flex justify-content-between align-items-center">
                                     <span class="mb-0"><i class="bi bi-currency-dollar fa-fw me-2"></i>Kích cỡ:</span>
-                                    <span class="h6 fw-normal mb-0" th:text="${adopt.animals.animalSize}">Nhỏ</span>
+                                    <span class="h6 fw-normal mb-0" th:text="${animalsService.transSizeToVN(adopt.animals.animalSize)}">Nhỏ</span>
                                 </li>
 								<ul class="list-group list-group-borderless">
 									<li class="list-group-item d-sm-flex justify-content-between align-items-center">
 										<span class="mb-0"><i class="bi bi-calendar fa-fw me-2"></i>Tuổi:</span>
-										<span class="h6 fw-normal mb-0" th:text="${adopt.animals.animalAge}">Trẻ</span>
+										<span class="h6 fw-normal mb-0" th:text="${animalsService.transAgeToVN(adopt.animals.animalAge)}">Trẻ</span>
 									</li>
 									<li class="list-group-item d-sm-flex justify-content-between align-items-center">
 										<span class="mb-0"><i class="bi bi-people fa-fw me-2"></i>Giới tính:</span>
-										<span class="h6 fw-normal mb-0" th:text="${adopt.animals.animalGender} ? 'Male' : 'Female'">Nam</span>
+										<span class="h6 fw-normal mb-0" th:text="${animalsService.transGenderToVN(adopt.animals.animalGender)}">Nam</span>
 									</li>
 								</ul>
 							</div>
@@ -169,7 +169,7 @@ Main content START -->
 							<!-- Share button with dropdown -->
 							<div class="dropdown me-sm-2 mb-2 mb-sm-0">
 								<a href="#" class="btn btn-light mb-0 w-100" role="button" id="dropdownShare" data-bs-toggle="dropdown" aria-expanded="false">
-									<i class="bi bi-share me-2"></i>Share
+									<i class="bi bi-share me-2"></i>Chia sẻ
 								</a>
 								<!-- dropdown button -->
 								<ul class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownShare">
@@ -180,7 +180,7 @@ Main content START -->
 								</ul>
 							</div>
 							<!-- Download button -->
-							<a href="#" class="btn btn-primary mb-0"><i class="bi bi-file-pdf me-2"></i>Download PDF</a>
+							<a href="#" class="btn btn-primary mb-0"><i class="bi bi-file-pdf me-2"></i>Tải PDF</a>
 						</div>
 					</div>
 				</div>

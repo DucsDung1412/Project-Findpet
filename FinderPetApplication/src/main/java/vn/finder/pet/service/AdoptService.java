@@ -170,4 +170,17 @@ public class AdoptService {
     public Adopt findById(Long id) {
         return this.adoptDAO.findById(id).get();
     }
+
+    public String transStatusToVN(String status){
+        switch (status){
+            case "Awaiting":
+                return "Đang chờ";
+            case "Adopted":
+                return "Đã nhận";
+            case "Cancel":
+                return "Bị từ chối";
+            default:
+                return status;
+        }
+    }
 }

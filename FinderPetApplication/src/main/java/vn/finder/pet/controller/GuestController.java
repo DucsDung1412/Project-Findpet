@@ -39,12 +39,13 @@ public class GuestController {
     private SheltersService sheltersService;
     private OtpService otpService;
     private MailService mailService;
+    private BreedService breedService;
     private TwoFactorAuthPasswordsService twoFactorAuthPasswordsService;
     private static final String EMAIL_PATTERN = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
     private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 
     @Autowired
-    public GuestController(UsersService userService, FavoritesService favoritesService, AnimalsService animalsService, AdoptService adoptService, SponsService sponsService, VNPayService vnPayService, SheltersService sheltersService, OtpService otpService, MailService mailService, TwoFactorAuthPasswordsService twoFactorAuthPasswordsService) {
+    public GuestController(UsersService userService, FavoritesService favoritesService, AnimalsService animalsService, AdoptService adoptService, SponsService sponsService, VNPayService vnPayService, SheltersService sheltersService, OtpService otpService, MailService mailService, TwoFactorAuthPasswordsService twoFactorAuthPasswordsService, BreedService breedService) {
         this.usersService = userService;
         this.favoritesService = favoritesService;
         this.animalsService = animalsService;
@@ -55,6 +56,7 @@ public class GuestController {
         this.otpService = otpService;
         this.mailService = mailService;
         this.twoFactorAuthPasswordsService = twoFactorAuthPasswordsService;
+        this.breedService = breedService;
     }
 
     public String getEmailLogin(){
@@ -87,6 +89,10 @@ public class GuestController {
         session.removeAttribute("emailUs");
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         model.addAttribute("listFavorite", this.favoritesService.findAll(0,4).stream().toList());
+        model.addAttribute("listBreed", this.breedService.findAllBreedType());
+        model.addAttribute("breedService", this.breedService);
+        model.addAttribute("animalsService", this.animalsService);
+        model.addAttribute("sheltersService", this.sheltersService);
         if(this.getEmailLogin() == null){
             model.addAttribute("listExplore", this.animalsService.findRandom(0, 12).stream().toList());
         } else {
@@ -344,7 +350,7 @@ public class GuestController {
         }
 
         if (valid == 3) {
-            ra.addAttribute("messageComplete", "Đổi password thành công");
+            ra.addAttribute("messageComplete", "Đổi mật khẩu thành công");
             String emailus = (String)session.getAttribute("emailUs");
             this.twoFactorAuthPasswordsService.updatePassword(emailus, password.trim());
             return "redirect:/sign-in";
@@ -373,16 +379,13 @@ public class GuestController {
                               @RequestParam("usage") String usage,
                               @RequestParam("name") String idShelter,
                               HttpServletRequest request){
-        String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
-        Users users = this.usersService.findById(this.getEmailLogin()).get();
         Long id = 0L;
         if(usage.equals("center")){
             id = Long.valueOf(idShelter);
         }
-        Shelters shelters = this.sheltersService.findById(id);
-        Spons spons = new Spons(null, (double) orderTotal, orderInfo, Date.valueOf(LocalDate.now()), users, shelters);
-        this.sponsService.save(spons);
+        orderInfo += ("idShelterDonate: " + id);
+        String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
         return "redirect:" + vnpayUrl;
     }
 
@@ -394,30 +397,16 @@ public class GuestController {
         String paymentTime = request.getParameter("vnp_PayDate");
         String transactionId = request.getParameter("vnp_TransactionNo");
         String totalPrice = request.getParameter("vnp_Amount");
-
-        model.addAttribute("orderId", orderInfo);
         model.addAttribute("transactionId", transactionId);
-
-        String trimmedInput = totalPrice.substring(0, totalPrice.length() - 2);
-        StringBuilder formattedString = new StringBuilder(trimmedInput);
-        for (int i = trimmedInput.length() - 3; i > 0; i -= 3) {
-            formattedString.insert(i, '.');
-        }
-        model.addAttribute("totalPrice", formattedString.append(".00").toString());
-
-
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        LocalDateTime dateTime = LocalDateTime.parse(paymentTime, inputFormatter);
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        model.addAttribute("paymentTime", dateTime.format(outputFormatter));
 
         if(paymentStatus == 1){
             model.addAttribute("status", "thành công");
-            Spons s = new Spons();
-            for (int i = 0; i < this.sponsService.findAll().size(); i++){
-                s = this.sponsService.findAll().get(i);
-            }
+            String message = orderInfo.trim().substring(0, orderInfo.indexOf("idShelterDonate: "));
+            Long idShelter = Long.valueOf(orderInfo.trim().substring(orderInfo.indexOf("idShelterDonate: ")).replace("idShelterDonate: ", ""));
+            Spons s = new Spons(null, Double.valueOf(totalPrice)/100, message, Date.valueOf(LocalDate.now()), this.usersService.findById(this.getEmailLogin()).get(), this.sheltersService.findById(idShelter));
+            this.sponsService.save(s);
             model.addAttribute("spon", s);
+            model.addAttribute("sponsService", this.sponsService);
         } else {
             model.addAttribute("status", "thất bại");
         }

@@ -10,7 +10,9 @@ import vn.finder.pet.dao.SponsDAO;
 import vn.finder.pet.entity.Spons;
 import vn.finder.pet.entity.Users;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class SponsService {
@@ -57,11 +59,16 @@ public class SponsService {
         return this.sponsDAO.findByStatus(pageable, users.getShelters().getId());
     }
 
-    public Double findCountGiftInMonth(Integer month){
-        return this.sponsDAO.findCountGiftInMonth(month);
+    public Double findCountGiftInMonth(Integer month, Integer year){
+        return this.sponsDAO.findCountGiftInMonth(month, year);
     }
 
     public Double findCountGiftInYear(Integer year){
         return this.sponsDAO.findCountGiftInYear(year);
+    }
+
+    public static String formatCurrency(Double amount) {
+        NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+        return formatter.format(amount);
     }
 }

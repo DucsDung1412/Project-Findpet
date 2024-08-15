@@ -67,17 +67,17 @@
 
 			}
 		})
-		
+
 	</script>
 
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="../images/favicon.ico">
 
-    <!-- Font-Awesome -->
-    <link rel="stylesheet" type="text/css" href="//use.fontawesome.com/releases/v5.7.2/css/all.css">
+	<!-- Font-Awesome -->
+	<link rel="stylesheet" type="text/css" href="//use.fontawesome.com/releases/v5.7.2/css/all.css">
 	<script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
 
-    <!-- Bootstrap Font Icon CSS -->
+	<!-- Bootstrap Font Icon CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 	<!-- Google Font -->
@@ -99,19 +99,19 @@
 
 <!-- **************** MAIN CONTENT START **************** -->
 <main>
-	
+
 	<!-- Sidebar START -->
 	<nav th:insert="~{fragments/viewers/_navbar-admin :: navbar-admin}"></nav>
 	<!-- Sidebar END -->
-	
+
 	<!-- Page content START -->
 	<div class="page-content">
-	
+
 		<!-- Top bar START -->
 		<nav class="navbar top-bar navbar-light py-0 py-xl-3">
 			<div class="container-fluid p-0">
 				<div class="d-flex align-items-center w-100">
-	
+
 					<!-- Logo START -->
 					<div class="d-flex align-items-center d-xl-none">
 						<a class="navbar-brand" href="index.html">
@@ -119,7 +119,7 @@
 						</a>
 					</div>
 					<!-- Logo END -->
-	
+
 					<!-- Toggler for sidebar START -->
 					<div class="navbar-expand-xl sidebar-offcanvas-menu">
 						<button class="navbar-toggler me-auto p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar" aria-expanded="false" aria-label="Toggle navigation" data-bs-auto-close="outside">
@@ -127,7 +127,7 @@
 						</button>
 					</div>
 					<!-- Toggler for sidebar END -->
-					
+
 					<!-- Top bar left -->
 					<div class="navbar-expand-lg ms-auto ms-xl-0">
 						<!-- Toggler for menubar START -->
@@ -135,7 +135,7 @@
 							<i class="bi bi-search"></i>
 						</button>
 						<!-- Toggler for menubar END -->
-	
+
 						<!-- Topbar menu START -->
 						<div class="collapse navbar-collapse w-100 z-index-1" id="navbarTopContent">
 							<!-- Top search START -->
@@ -152,7 +152,7 @@
 						<!-- Topbar menu END -->
 					</div>
 					<!-- Top bar left END -->
-					
+
 					<!-- Top bar right START -->
 					<ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
 						<li th:insert="~{fragments/viewers/_header :: navbar-user-login}"></li>
@@ -162,15 +162,15 @@
 			</div>
 		</nav>
 		<!-- Top bar END -->
-	
+
 		<!-- Page main content START -->
 		<div class="page-content-wrapper p-xxl-4">
-	
+
 			<!-- Title -->
 			<div class="row">
 				<div class="col-12 mb-3 mb-sm-4">
 					<div class="d-sm-flex justify-content-between align-items-center">
-						<h1 class="h3 mb-3 mb-sm-0">Donate List</h1>			
+						<h1 class="h3 mb-3 mb-sm-0">Donate List</h1>
 					</div>
 				</div>
 			</div>
@@ -182,7 +182,7 @@
 					<div class="card card-body bg-light p-4 h-100">
 						<h6 class="mb-0">Thu nhập trong tháng</h6>
 						<h3 class="mb-2 mt-2" th:text="${sumMonth} + ' VND'">$112</h3>
-						<p class="mt-auto mb-0"><span th:text="${upToDownMonth}">Increase </span> from last month <span th:class="${upToDownMonth} == 'Increase' ? 'badge bg-success bg-opacity-10 text-success' : 'badge bg-danger bg-opacity-10 text-danger'"><span th:text="${muchMonth} + '%'">10%</span> <i th:class="${upToDownMonth} == 'Increase' ? 'bi bi-graph-up' : 'bi bi-graph-down'"></i></span></p>
+						<p class="mt-auto mb-0"><span th:text="${upToDownMonth}">Increase </span> so với tháng trước <span th:class="${upToDownMonth} == 'Tăng' ? 'badge bg-success bg-opacity-10 text-success' : 'badge bg-danger bg-opacity-10 text-danger'"><span th:text="${muchMonth} + '%'">10%</span> <i th:class="${upToDownMonth} == 'Tăng' ? 'bi bi-graph-up' : 'bi bi-graph-down'"></i></span></p>
 					</div>
 				</div>
 
@@ -191,7 +191,7 @@
 					<div class="card card-body bg-light p-4 h-100">
 						<h6 class="mb-0">Thu nhập trong năm</h6>
 						<h3 class="mb-2 mt-2" th:text="${sumYear} + ' VND'">$899.95</h3>
-						<p class="mt-auto mb-0"><span th:text="${upToDownYear}">Increase</span> from last month <span th:class="${upToDownYear} == 'Increase' ? 'badge bg-success bg-opacity-10 text-success' : 'badge bg-danger bg-opacity-10 text-danger'"><span th:text="${muchYear} + '%'">10%</span> <i th:class="${upToDownYear} == 'Increase' ? 'bi bi-graph-up' : 'bi bi-graph-down'"></i></span></p>
+						<p class="mt-auto mb-0"><span th:text="${upToDownYear}">Increase</span> so với năm trước <span th:class="${upToDownYear} == 'Tăng' ? 'badge bg-success bg-opacity-10 text-success' : 'badge bg-danger bg-opacity-10 text-danger'"><span th:text="${muchYear} + '%'">10%</span> <i th:class="${upToDownYear} == 'Tăng' ? 'bi bi-graph-up' : 'bi bi-graph-down'"></i></span></p>
 					</div>
 				</div>
 
@@ -204,7 +204,7 @@
 							</a>
 						</h6>
 						<h3 th:text="${allMoney} + ' VND'">$15,356</h3>
-						<p class="mb-0 mt-auto">Expected payout on <span th:text="' ' + ${currentDate}"> 05/10/2022</span></p>
+						<p class="mb-0 mt-auto">Cập nhật gần nhất: <span th:text="' ' + ${currentDate}"> 05/10/2022</span></p>
 					</div>
 				</div>
 
@@ -224,16 +224,16 @@
 									</svg>
 								</a>
 								<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="creditcardDropdown">
-									<li><a class="dropdown-item" href="#"><i class="bi bi-credit-card-2-front-fill me-2 fw-icon"></i>Edit card</a></li>
-									<li><a class="dropdown-item" href="#"><i class="bi bi-credit-card me-2 fw-icon"></i>Add new card</a></li>
-									<li><a class="dropdown-item" href="#"><i class="bi bi-arrow-bar-down me-2 fw-icon"></i>Withdrawal money</a></li>
-									<li><a class="dropdown-item" href="#"><i class="bi bi-calculator me-2 fw-icon"></i>Currency converter</a></li>
+									<li><a class="dropdown-item" href="#"><i class="bi bi-credit-card-2-front-fill me-2 fw-icon"></i>Thay đổi thẻ</a></li>
+									<li><a class="dropdown-item" href="#"><i class="bi bi-credit-card me-2 fw-icon"></i>Thêm thẻ mới</a></li>
+									<li><a class="dropdown-item" href="#"><i class="bi bi-arrow-bar-down me-2 fw-icon"></i>Rút tiền</a></li>
+									<li><a class="dropdown-item" href="#"><i class="bi bi-calculator me-2 fw-icon"></i>Chuyển đổi tiền tệ</a></li>
 								</ul>
 							</div>
 							<!-- Card action END -->
 						</div>
 						<div class="mt-4 text-white fw-bold">
-							<span>Information</span>
+							<span>Thông tin</span>
 						</div>
 						<h5 class="text-white mt-4">**** **** **** 2198</h5>
 						<div class="d-flex justify-content-between text-white">
@@ -251,7 +251,7 @@
 					<div class="card border rounded-3">
 						<!-- Card header -->
 						<div class="card-header border-bottom">
-							<h5 class="card-title mb-0">Donate History</h5>
+							<h5 class="card-title mb-0">Lịch sử Donate</h5>
 						</div>
 						<!-- Card body START -->
 						<div class="card-body">
@@ -260,23 +260,23 @@
 								<table class="table align-middle p-4 mb-0 table-hover table-shrink">
 									<!-- Table head -->
 									<thead class="table-light">
-										<tr>
-											<th scope="col" class="border-0 rounded-start">Email</th>
-											<th scope="col" class="border-0">Date</th>
-											<th scope="col" class="border-0">Amount</th>
-											<th scope="col" class="border-0 rounded-end">Action</th>
-										</tr>
+									<tr>
+										<th scope="col" class="border-0 rounded-start">Email</th>
+										<th scope="col" class="border-0">Ngày donate</th>
+										<th scope="col" class="border-0">Số tiền</th>
+										<th scope="col" class="border-0 rounded-end">Hành động</th>
+									</tr>
 									</thead>
 
 									<!-- Table body START -->
 									<tbody class="border-top-0">
-										<!-- Table item -->
-										<tr th:each="spon : ${listSpon}">
-											<td th:text="${spon.users.userName}"> daoducdung2000@gmail.com </td>
-											<td th:text="${spon.sponsDate}"> 29 Aug 2022 </td>
-											<td th:text="${spon.sponsGift}">$3,999</td>
-											<td> <div class="col"><a th:href="@{/admin/donate-detail(id=${spon.id})}" class="btn btn-sm btn-primary mb-0">View More</a></div> </td>
-										</tr>
+									<!-- Table item -->
+									<tr th:each="spon : ${listSpon}">
+										<td th:text="${spon.users.userName}"> daoducdung2000@gmail.com </td>
+										<td th:text="${spon.sponsDate}"> 29 Aug 2022 </td>
+										<td th:text="${spon.sponsGift}">$3,999</td>
+										<td> <div class="col"><a th:href="@{/admin/donate-detail(id=${spon.id})}" class="btn btn-sm btn-primary mb-0">Xem chi tiết</a></div> </td>
+									</tr>
 									</tbody>
 									<!-- Table body END -->
 								</table>
@@ -290,7 +290,7 @@
 							<!-- Pagination and content -->
 							<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
 								<!-- Content -->
-								<p class="mb-sm-0 text-center text-sm-start">Showing <span th:text="${listSpon.number} * ${listSpon.size} == 0 ? 1 : (${listSpon.number} * ${listSpon.size}) + 1">1</span> to <span th:text="${listSpon.totalElements} - (${listSpon.number} * ${listSpon.size} + ${listSpon.size}) < 0 ? ${listSpon.totalElements} : (${listSpon.number} * ${listSpon.size} + ${listSpon.size})">10</span> of <span th:text="${listSpon.totalElements}">57</span> entries</p>
+								<p class="mb-sm-0 text-center text-sm-start">Đang hiển thị <span th:text="${listSpon.number} * ${listSpon.size} == 0 ? 1 : (${listSpon.number} * ${listSpon.size}) + 1">1</span> đến <span th:text="${listSpon.totalElements} - (${listSpon.number} * ${listSpon.size} + ${listSpon.size}) < 0 ? ${listSpon.totalElements} : (${listSpon.number} * ${listSpon.size} + ${listSpon.size})">10</span> trên <span th:text="${listSpon.totalElements}">57</span> thành phần</p>
 								<!-- Pagination -->
 								<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation" th:if="${listSpon.totalPages} >= 2">
 									<ul class="pagination pagination-sm pagination-primary-soft mb-0">
@@ -318,8 +318,8 @@
 		<!-- Page main content END -->
 	</div>
 	<!-- Page content END -->
-	
-	</main>
+
+</main>
 <!-- **************** MAIN CONTENT END **************** -->
 
 

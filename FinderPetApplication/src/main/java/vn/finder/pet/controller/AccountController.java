@@ -21,15 +21,19 @@ public class AccountController {
     private AdoptService adoptService;
     private SheltersService sheltersService;
     private SponsService sponsService;
+    private AnimalsService animalsService;
+    private BreedService breedService;
     private TwoFactorAuthPasswordsService twoFactorAuthPasswordsService;
 
     @Autowired
-    public AccountController(UsersService userService, TwoFactorAuthPasswordsService twoFactorAuthPasswordsService, AdoptService adoptService, SheltersService sheltersService, SponsService sponsService) {
+    public AccountController(UsersService userService, TwoFactorAuthPasswordsService twoFactorAuthPasswordsService, AdoptService adoptService, SheltersService sheltersService, SponsService sponsService, AnimalsService animalsService, BreedService breedService) {
         this.userService = userService;
         this.twoFactorAuthPasswordsService = twoFactorAuthPasswordsService;
         this.adoptService = adoptService;
         this.sheltersService = sheltersService;
         this.sponsService = sponsService;
+        this.animalsService = animalsService;
+        this.breedService = breedService;
     }
 
     public String getEmailLogin(){
@@ -159,11 +163,17 @@ public class AccountController {
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.userService.findById(this.getEmailLogin()).get());
         model.addAttribute("favorites", true);
         model.addAttribute("statusActive", "wishlist");
+        model.addAttribute("animalsService", this.animalsService);
         return "/account-wishlist";
     }
 
     @GetMapping("/delete-favorite-detail")
     public String deleteFavoriteDetail(@RequestParam(value = "id") Long id){
+        System.out.println(id);
+        System.out.println("-----");
+        System.out.println("-----");
+        System.out.println("-----");
+        System.out.println("-----");
         this.userService.deleteFavorite(id);
         return "redirect:/account/wishlist";
     }
@@ -189,9 +199,14 @@ public class AccountController {
         int pg = Integer.valueOf(page);
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.userService.findById(this.getEmailLogin()).get());
         model.addAttribute("listAdopt", this.adoptService.findByUsers(this.getEmailLogin(), "%", pg == 0 ? 0 : pg - 1, 6));
+        model.addAttribute("totalAdopt", this.adoptService.findByUsers(this.getEmailLogin(), "%", 0, Integer.MAX_VALUE).getTotalElements());
         model.addAttribute("listDonate", this.sponsService.findAllByUser(pg == 0 ? 0 : pg - 1, 6, this.getEmailLogin()));
+        model.addAttribute("totalDonate", this.sponsService.findAllByUser(0, Integer.MAX_VALUE, this.getEmailLogin()).getTotalElements());
+        model.addAttribute("adoptService", this.adoptService);
         model.addAttribute("page", pg == 0 ? 1 : pg);
         model.addAttribute("statusActive", "history");
+        model.addAttribute("sponsService", this.sponsService);
+        model.addAttribute("breedService", this.breedService);
         return "/account-history";
     }
 
@@ -215,6 +230,7 @@ public class AccountController {
         model.addAttribute("status", "thành công");
         model.addAttribute("spon", this.sponsService.findById(id));
         model.addAttribute("transactionId", 123456789);
+        model.addAttribute("sponsService", this.sponsService);
         return "/donate-confirm";
     }
 
@@ -222,6 +238,9 @@ public class AccountController {
     public String adoptConfirm(Model model, @RequestParam(value = "id") Long id){
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.userService.findById(this.getEmailLogin()).get());
         model.addAttribute("adopt", this.adoptService.findById(id));
+        model.addAttribute("adoptService", this.adoptService);
+        model.addAttribute("animalsService", this.animalsService);
+        model.addAttribute("breedService", this.breedService);
         return "/booking-confirm";
     }
 
@@ -229,6 +248,12 @@ public class AccountController {
     public String signUpShelter(Model model){
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.userService.findById(this.getEmailLogin()).get());
         return "/add-listing";
+    }
+
+    @GetMapping("/shelter-added")
+    public String shelterAdded(Model model){
+        model.addAttribute("user", this.getEmailLogin() == null ? null : this.userService.findById(this.getEmailLogin()).get());
+        return "/listing-added";
     }
 }
 

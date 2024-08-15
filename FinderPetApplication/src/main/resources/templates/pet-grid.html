@@ -132,11 +132,11 @@
                                     <div class="row g-4">
                                         <!-- Location -->
                                         <div class="col-md-6 col-lg-6">
-                                            <label class="h6 fw-normal mb-0"><i class="bi bi-geo-alt text-primary me-1"></i>Location</label>
+                                            <label class="h6 fw-normal mb-0"><i class="bi bi-geo-alt text-primary me-1"></i>Vị trí</label>
                                             <!-- Input field -->
                                             <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
                                                 <select class="form-select js-choice sl-location" data-search-enabled="true">
-                                                    <option value="" selected>Select location</option>
+                                                    <option value="" selected>Chọn vị trí</option>
                                                     <option>An Giang</option>
                                                     <option>Bà Rịa - Vũng Tàu</option>
                                                     <option>Bắc Giang</option>
@@ -206,11 +206,11 @@
 
                                         <!-- Breed -->
                                         <div class="col-md-6 col-lg-6">
-                                            <label class="h6 fw-normal mb-0"><i class="fa-solid fa-person-skating text-primary me-1"></i>Breed type</label>
+                                            <label class="h6 fw-normal mb-0"><i class="fa-solid fa-person-skating text-primary me-1"></i>Giống loài</label>
                                             <!-- Input field -->
                                             <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
                                                 <select class="form-select js-choice sl-breed" data-search-enabled="true">
-                                                    <option selected value="">Select type</option>
+                                                    <option selected value="">Chọn giống</option>
                                                     <option th:each="breedType : ${listBreedType}" th:text="${breedType.breed_name}">Adventure</option>
                                                 </select>
                                             </div>
@@ -221,7 +221,7 @@
                                 <!-- Button -->
                                 <div class="col-xl-2">
                                     <div class="d-grid">
-                                        <a href="#" class="btn btn-lg btn-dark mb-0 take-a-pet">Take a pet</a>
+                                        <a href="#" class="btn btn-lg btn-dark mb-0 take-a-pet">Tìm kiếm</a>
                                     </div>
                                 </div>
                             </div>
@@ -232,7 +232,7 @@
                         <div class="d-grid mt-4">
                             <input type="checkbox" class="btn-check" id="btn-check-soft">
                             <label class="btn btn-primary-soft btn-primary-check mb-0" for="btn-check-soft" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-controls="collapseExample">
-                                <i class="bi fa-fe bi-sliders me-2"></i>Advance Filters
+                                <i class="bi fa-fe bi-sliders me-2"></i>Bộ lọc nâng cao
                             </label>
                         </div>
 
@@ -243,7 +243,7 @@
                                 <!-- Input item -->
                                 <div class="col-md-6 col-lg-6">
                                     <div class="form-control-borderless">
-                                        <label class="form-label">Enter Pet Name</label>
+                                        <label class="form-label">Tên động vật</label>
                                         <input type="text" class="form-control form-control-lg bg-light ip-name">
                                     </div>
                                 </div>
@@ -251,57 +251,57 @@
                                 <!-- Select Size -->
                                 <div class="col-md-6 col-lg-6">
                                     <div class="form-control-bg-light form-size-lg">
-                                        <label class="form-label">Size Type</label>
+                                        <label class="form-label">Kích cỡ</label>
                                         <select class="form-select js-choice sl-size">
-                                            <option value="">Select Option</option>
-                                            <option>Small (0-25 lbs)</option>
-                                            <option>Medium (26-60 lbs)</option>
-                                            <option>Large (61-100 lbs)</option>
-                                            <option>Extra Large (101 lbs or more)</option>
+                                            <option value="">Chọn kích cỡ</option>
+                                            <option value="Small">Nhỏ</option>
+                                            <option value="Medium">Trung bình</option>
+                                            <option value="Large">Lớn</option>
+                                            <option value="Extra Large">Rất lớn</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <!-- Age -->
                                 <div class="col-md-6 col-lg-6">
-                                    <label class="form-label">Age type</label>
+                                    <label class="form-label">Tuổi</label>
                                     <ul class="list-inline mb-0 g-3">
                                         <!-- 1 -->
                                         <li class="list-inline-item">
-                                            <input type="checkbox" class="btn-check" id="btn-check-9">
-                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-9" th:text="${age_type}">Puppy</label>
+                                            <input type="checkbox" class="btn-check" id="btn-check-9" value="Newborn">
+                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-9">Sơ sinh</label>
                                         </li>
                                         <!-- 2 -->
                                         <li class="list-inline-item">
-                                            <input type="checkbox" class="btn-check" id="btn-check-10">
-                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-10">Young</label>
+                                            <input type="checkbox" class="btn-check" id="btn-check-10" value="Young">
+                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-10">Trẻ</label>
                                         </li>
                                         <!-- 3 -->
                                         <li class="list-inline-item">
-                                            <input type="checkbox" class="btn-check" id="btn-check-11">
-                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-11">Adult</label>
+                                            <input type="checkbox" class="btn-check" id="btn-check-11" value="Adult">
+                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-11">Trưởng thành</label>
                                         </li>
                                         <!-- 4 -->
                                         <li class="list-inline-item">
-                                            <input type="checkbox" class="btn-check" id="btn-check-12">
-                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-12">Senior</label>
+                                            <input type="checkbox" class="btn-check" id="btn-check-12" value="Senior">
+                                            <label class="btn btn-light btn-primary-soft-check" for="btn-check-12">Già</label>
                                         </li>
                                     </ul>
                                 </div>
 
                                 <!-- Gender -->
                                 <div class="col-md-6 col-lg-6">
-                                    <label class="form-label">Gender</label>
+                                    <label class="form-label">Giới tính</label>
                                     <div>
                                         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1">
-                                            <label class="btn btn-light btn-primary-soft-check mb-0" for="btnradio1">Male</label>
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="false">
+                                            <label class="btn btn-light btn-primary-soft-check mb-0" for="btnradio1">Đực</label>
 
-                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2">
-                                            <label class="btn btn-light btn-primary-soft-check mb-0" for="btnradio2">Female</label>
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="true">
+                                            <label class="btn btn-light btn-primary-soft-check mb-0" for="btnradio2">Cái</label>
 
-                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3">
-                                            <label class="btn btn-light btn-primary-soft-check mb-0" for="btnradio3">Both</label>
+                                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="Both">
+                                            <label class="btn btn-light btn-primary-soft-check mb-0" for="btnradio3">Toàn bộ</label>
                                         </div>
                                     </div>
                                 </div>
@@ -328,7 +328,7 @@
             <div class="row g-4 align-items-center justify-content-between mb-4">
                 <!-- Content -->
                 <div class="col-12 col-xl-8">
-                    <h5 class="mb-0">Showing <span th:text="${listAnimal.number} * ${listAnimal.size} == 0 ? 1 : (${listAnimal.number} * ${listAnimal.size}) + 1" id="numStart">1</span> to <span id="numTo" th:text="${listAnimal.totalElements} - (${listAnimal.number} * ${listAnimal.size} + ${listAnimal.size}) < 0 ? ${listAnimal.totalElements} : (${listAnimal.number} * ${listAnimal.size} + ${listAnimal.size})">10</span> of <span id="numEnd" th:text="${listAnimal.totalElements}">57</span> result</h5>
+                    <h5 class="mb-0">Đang hiển thị <span th:text="${listAnimal.number} * ${listAnimal.size} == 0 ? 1 : (${listAnimal.number} * ${listAnimal.size}) + 1" id="numStart">1</span> đến <span id="numTo" th:text="${listAnimal.totalElements} - (${listAnimal.number} * ${listAnimal.size} + ${listAnimal.size}) < 0 ? ${listAnimal.totalElements} : (${listAnimal.number} * ${listAnimal.size} + ${listAnimal.size})">10</span> trên <span id="numEnd" th:text="${listAnimal.totalElements}">57</span> kết quả</h5>
                 </div>
 
                 <!-- Select option -->
@@ -367,10 +367,10 @@
 
                             <!-- List -->
                             <ul class="nav nav-divider mb-2 mb-sm-3">
-                                <li class="nav-item" th:text="${animal.animalAge}">Young</li>
-                                <li class="nav-item" th:text="${animal.animalSize}">Medium</li>
-                                <li class="nav-item" th:text="${animal.animalGender ? 'Male' : 'Female'}">Male</li>
-                                <li class="nav-item">More +</li>
+                                <li class="nav-item" th:text="${animalsService.transAgeToVN(animal.animalAge)}">Young</li>
+                                <li class="nav-item" th:text="${animalsService.transSizeToVN(animal.animalSize)}">Medium</li>
+                                <li class="nav-item" th:text="${animalsService.transGenderToVN(animal.animalGender)}">Male</li>
+                                <li class="nav-item">Thêm +</li>
                             </ul>
                         </div>
                         <!-- Card body END -->
@@ -381,7 +381,7 @@
                             <div class="d-sm-flex justify-content-sm-center align-items-center">
                                 <!-- Button -->
                                 <div class="mt-2 mt-sm-0">
-                                    <a href="#" th:href="@{'/pet-list/pet-detail?id=' + ${animal.id}}" class="btn btn-sm btn-primary-soft mb-0 w-100">View Detail<i class="bi bi-arrow-right ms-2"></i></a>
+                                    <a href="#" th:href="@{'/pet-list/pet-detail?id=' + ${animal.id}}" class="btn btn-sm btn-primary-soft mb-0 w-100">Xem chi tiết<i class="bi bi-arrow-right ms-2"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -493,17 +493,17 @@ Footer END -->
         }
 
         switch(document.querySelector(".banner-title").innerText) {
-            case "dog":
+            case "Chó":
                 listBreedType.push("Dog");
                 break;
-            case "cat":
+            case "Mèo":
                 listBreedType.push("Cat");
                 break;
-            case "Dog":
-                listBreedType.push("Dog");
+            case "Chim":
+                listBreedType.push("Bird");
                 break;
-            case "Cat":
-                listBreedType.push("Cat");
+            case "Chuột":
+                listBreedType.push("Furry");
                 break;
             default:
                 console.log(1);
@@ -513,23 +513,25 @@ Footer END -->
             name = $(".ip-name")[0].value
             size = $(".sl-size")[0].value
 
+
             for (let j = 0; j < $('.list-inline-item>input[type="checkbox"]').length; j++) {
                 if($('.list-inline-item>input[type="checkbox"]')[j].checked){
-                    var age = $('label[for="'+ $('.list-inline-item>input[type="checkbox"]')[j].id +'"]')[0].innerText
+                    var age = $('.list-inline-item>input[type="checkbox"]')[j].value
                     listAge.push(age)
                 }
             }
 
             for(let i = 0; i < $("input[type='radio']").length; i++){
                 if($("input[type='radio']")[i].checked){
-                    var gender = $('label[for="'+ $("input[type='radio']")[i].id +'"]')[0].innerText
+                    var gender = $("input[type='radio']")[i].value
                     var bo = true;
-                    if(gender === "Female"){
+                    if(gender === "false"){
                         bo = false;
                     } else if(gender === "Both"){
                         var bo1 = false;
                         listGender.push(bo1)
                     }
+                    console.log(bo)
                     listGender.push(bo)
                 }
             }
@@ -578,8 +580,8 @@ Footer END -->
                                     <ul class="nav nav-divider mb-2 mb-sm-3">
                                         <li class="nav-item">${response[i].age}</li>
                                         <li class="nav-item">${response[i].size}</li>
-                                        <li class="nav-item">${response[i].gender ? "Male" : "Female"}</li>
-                                        <li class="nav-item">More +</li>
+                                        <li class="nav-item">${response[i].gender}</li>
+                                        <li class="nav-item">Thêm +</li>
                                     </ul>
                                 </div>
                                 <!-- Card body END -->
@@ -590,7 +592,7 @@ Footer END -->
                                     <div class="d-sm-flex justify-content-sm-center align-items-center">
                                         <!-- Button -->
                                         <div class="mt-2 mt-sm-0">
-                                            <a href="/pet-list/pet-detail?id=${response[i].id}" class="btn btn-sm btn-primary-soft mb-0 w-100">View Detail<i class="bi bi-arrow-right ms-2"></i></a>
+                                            <a href="/pet-list/pet-detail?id=${response[i].id}" class="btn btn-sm btn-primary-soft mb-0 w-100">Xem chi tiết<i class="bi bi-arrow-right ms-2"></i></a>
                                         </div>
                                     </div>
                                 </div>

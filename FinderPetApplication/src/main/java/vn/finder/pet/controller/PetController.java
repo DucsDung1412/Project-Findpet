@@ -79,13 +79,7 @@ public class PetController {
             breed_type = "%";
         }
 
-        Page<Animals> listAnimal = this.animalsService.searchAnimals(Arrays.asList(breed_type), breed == null ? "" : breed, location == null ? "" : location, breed_type.equals("Cat") ? (age == null ? Arrays.asList("Kitten", "Young", "Adult", "Senior") : Arrays.asList(age)) : (age == null ? Arrays.asList("Puppy", "Young", "Adult", "Senior") : Arrays.asList(age)), gender == null ? Arrays.asList(true, false) : Arrays.asList(gender), size == null ? "" : size, "", listAdoptId, 0, 12);
-
-        if(breed_type.equals("Cat")){
-            model.addAttribute("age_type", "Kitten");
-        } else {
-            model.addAttribute("age_type", "Puppy");
-        }
+        Page<Animals> listAnimal = this.animalsService.searchAnimals(Arrays.asList(breed_type), breed == null ? "" : breed, location == null ? "" : location, age == null ? Arrays.asList("Newborn", "Young", "Adult", "Senior") : Arrays.asList(age), gender == null ? Arrays.asList(true, false) : Arrays.asList(gender), size == null ? "" : size, "", listAdoptId, 0, 12);
 
         ArrayList<Long> listFavorites = new ArrayList<>();
         if(this.getEmailLogin() != null){
@@ -98,7 +92,8 @@ public class PetController {
         model.addAttribute("listFavorites", listFavorites);
         model.addAttribute("user", this.getEmailLogin() == null ? null : this.usersService.findById(this.getEmailLogin()).get());
         model.addAttribute("listAnimal", listAnimal);
-        model.addAttribute("breed_type", breed_type);
+        model.addAttribute("breed_type", this.breedService.transBreedTypeToVN(breed_type));
+        model.addAttribute("animalsService", this.animalsService);
         model.addAttribute("listBreedType", this.breedService.findByBreed_type(breed_type));
         return "/pet-grid";
     }

@@ -22,35 +22,35 @@
                 <!-- Sidebar menu START -->
                 <ul class="navbar-nav flex-column" id="navbar-sidebar">
                     <!-- Menu item -->
-                    <li class="nav-item"><a href="/admin/dashboard" th:class="${statusActive} == 'dashboard' ? 'nav-link active' : 'nav-link'">Dashboard</a></li>
+                    <li class="nav-item"><a href="/admin/dashboard" th:class="${statusActive} == 'dashboard' ? 'nav-link active' : 'nav-link'">Bảng điều khiển</a></li>
 
                     <!-- Title -->
                     <li class="nav-item ms-2 my-2">Pages</li>
 
                     <!-- Menu item -->
-                    <li class="nav-item"> <a th:class="${statusActive} == 'shelter' ? 'nav-link active' : 'nav-link'" href="/admin/shelter-list">Shelters</a></li>
+                    <li class="nav-item"> <a th:class="${statusActive} == 'shelter' ? 'nav-link active' : 'nav-link'" href="/admin/shelter-list">Trung tâm</a></li>
 
                     <!-- Menu item -->
-                    <li class="nav-item"> <a th:class="${statusActive} == 'user' ? 'nav-link active' : 'nav-link'" href="/admin/user-list">Users</a></li>
+                    <li class="nav-item"> <a th:class="${statusActive} == 'user' ? 'nav-link active' : 'nav-link'" href="/admin/user-list">Người dùng</a></li>
 
                     <!-- Menu item -->
-                    <li class="nav-item"> <a th:class="${statusActive} == 'regist' ? 'nav-link active' : 'nav-link'" href="/admin/regist-list">Pending Approval</a></li>
+                    <li class="nav-item"> <a th:class="${statusActive} == 'regist' ? 'nav-link active' : 'nav-link'" href="/admin/regist-list">Danh sách đăng ký</a></li>
 
                     <!-- Menu item -->
-                    <li class="nav-item"> <a class="nav-link" href="/admin/token-shop">Reward Shop</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/admin/token-shop">Cửa hàng điểm thưởng</a></li>
 
                     <!-- Menu item -->
-                    <li class="nav-item"> <a th:class="${statusActive} == 'donate' ? 'nav-link active' : 'nav-link'" href="/admin/user-donate">Earnings</a></li>
+                    <li class="nav-item"> <a th:class="${statusActive} == 'donate' ? 'nav-link active' : 'nav-link'" href="/admin/user-donate">Thu nhập</a></li>
 
                     <!-- Menu item -->
-                    <li class="nav-item"> <a class="nav-link" href="/admin/setting">Admin Settings</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/admin/setting">Cài đặt</a></li>
                 </ul>
                 <!-- Sidebar menu end -->
 
                 <!-- Sidebar footer START -->
                 <div class="d-flex align-items-center justify-content-between text-primary-hover mt-auto p-3">
                     <a class="h6 fw-light mb-0 text-body" th:href="@{/logout}" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Sign out">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất
                     </a>
                     <a class="h6 mb-0 text-body" href="admin-settings.html" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Settings">
                         <i class="bi bi-gear-fill"></i>

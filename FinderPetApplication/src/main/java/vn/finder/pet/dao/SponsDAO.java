@@ -18,8 +18,8 @@ public interface SponsDAO extends JpaRepository<Spons, Long> {
     @Query("SELECT s FROM Spons s WHERE s.shelters.id = :id ORDER BY s.sponsDate DESC")
     Page<Spons> findByStatus(Pageable pageable, @Param("id") Long id);
 
-    @Query("SELECT SUM(s.sponsGift) FROM Spons s WHERE MONTH(s.sponsDate) = :month")
-    Double findCountGiftInMonth(@Param(value = "month") Integer month);
+    @Query("SELECT SUM(s.sponsGift) FROM Spons s WHERE MONTH(s.sponsDate) = :month AND YEAR(s.sponsDate) = :year")
+    Double findCountGiftInMonth(@Param(value = "month") Integer month, @Param(value = "year") Integer year);
 
     @Query("SELECT SUM(s.sponsGift) FROM Spons s WHERE YEAR(s.sponsDate) = :year")
     Double findCountGiftInYear(@Param(value = "year") Integer year);

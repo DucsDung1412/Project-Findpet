@@ -186,4 +186,38 @@ public class AnimalsService {
         }
         return gd;
     }
+
+    public String transGenderToVN(Boolean gender){
+        return gender ? "Cái" : "Đực";
+    }
+
+    public String transAgeToVN(String age){
+        switch (age) {
+            case "Newborn":
+                return "Sơ sinh";
+            case "Young":
+                return "Trẻ";
+            case "Adult":
+                return "Trưởng thành";
+            case "Senior":
+                return "Già";
+            default:
+                return age;
+        }
+    }
+
+    public String transSizeToVN(String size){
+        switch (size) {
+            case "Small":
+                return "Nhỏ";
+            case "Medium":
+                return "Trung bình";
+            case "Large":
+                return "Lớn";
+            case "Extra Large":
+                return "Rất lớn";
+            default:
+                return size;
+        }
+    }
 }

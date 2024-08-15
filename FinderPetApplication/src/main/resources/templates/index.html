@@ -74,7 +74,7 @@
 	<script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="../images/favicon.ico">
+	<link rel="shortcut icon" href="../images/main.jpg">
 
 	<!-- Google Font -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -115,8 +115,8 @@ Main Banner START -->
 				<!-- Content -->
 				<div class="col-lg-6 position-relative mb-4 mb-md-0">
 					<!-- Title -->
-					<h1 class="mb-4 mt-md-5 display-5">Find the desired
-						<span class="position-relative z-index-9">Pets nearby.
+					<h1 class="mb-4 mt-md-5 display-5">Tìm thú cưng
+						<span class="position-relative z-index-9">gần bạn.
 							<!-- SVG START -->
 							<span class="position-absolute top-50 start-50 translate-middle z-index-n1 d-none d-md-block mt-4">
 								<svg width="390.5px" height="21.5px" viewBox="0 0 445.5 21.5">
@@ -127,12 +127,12 @@ Main Banner START -->
 						</span>
 					</h1>
 					<!-- Info -->
-					<p class="mb-4">We are your go-to online platform connecting you with animals in search of loving homes. Here you are Easily find and adopt your ideal pet.</p>
+					<p class="mb-4">Chúng tôi là nền tảng trực tuyến kết nối bạn với động vật để tìm kiếm những ngôi nhà yêu thương. Tại đây bạn có thể dễ dàng tìm thấy và nhận nuôi thú cưng lý tưởng của mình.</p>
 
 					<!-- Buttons -->
 					<div class="hstack gap-4 flex-wrap align-items-center">
 						<!-- Button -->
-						<a href="#" class="btn btn-primary-soft mb-0">Discover Now</a>
+						<a href="#" class="btn btn-primary-soft mb-0">Khám Phá Ngay</a>
 						<!-- Story button -->
 						<a data-glightbox="" data-gallery="office-tour" href="https://www.youtube.com/embed/tXHviS-4ygo" class="d-block">
 							<!-- Avatar -->
@@ -182,7 +182,7 @@ Main Banner START -->
 							<!-- Title -->
 							<i class="bi bi-headset text-danger fs-3"></i>
 							<h5 class="text-dark mb-1">24 / 7</h5>
-							<h6 class="text-dark fw-light small mb-0">Guide Supports</h6>
+							<h6 class="text-dark fw-light small mb-0">Dịch vụ hỗ trợ</h6>
 						</div>
 					</div>
 
@@ -199,7 +199,7 @@ Main Banner START -->
 		<div class="row">
 			<div class="col-xl-10 position-relative mt-n3 mt-xl-n9">
 				<!-- Title -->
-				<h6 class="d-none d-xl-block mb-3">Check Availability</h6>
+				<h6 class="d-none d-xl-block mb-3">Sẵn sàng tìm kiếm</h6>
 
 				<!-- Booking from START -->
 				<form action="/pet-list/pet-search" method="get" class="card shadow rounded-3 position-relative p-4 pe-md-5 pb-5 pb-md-4">
@@ -211,9 +211,9 @@ Main Banner START -->
 								<i class="bi bi-geo-alt fs-3 me-2 mt-2"></i>
 								<!-- Select input -->
 								<div class="flex-grow-1">
-									<label class="form-label">Location</label>
+									<label class="form-label">Vị trí</label>
 									<select name="location" class="form-select js-choice" data-search-enabled="true">
-										<option value="" selected>Select location</option>
+										<option value="" selected>Chọn vị trí</option>
 										<option>An Giang</option>
 										<option>Bà Rịa - Vũng Tàu</option>
 										<option>Bắc Giang</option>
@@ -289,14 +289,10 @@ Main Banner START -->
 								<i class="bi bi-search fs-3 me-2 mt-2"></i>
 								<!-- Dropdown input -->
 								<div class="flex-grow-1">
-									<label class="form-label">Animal Type</label>
+									<label class="form-label">Loại động vật</label>
 									<select class="form-select js-choice" name="breed_type">
-										<option selected value="">Select type</option>
-										<option>Dog</option>
-										<option>Cat</option>
-										<option>Birds</option>
-										<option>Rabbits</option>
-										<option>Furry</option>
+										<option selected value="">Chọn loại</option>
+										<option th:each="breed : ${listBreed}" th:value="${breed}" th:text="${breedService.transBreedTypeToVN(breed)}">Dog</option>
 									</select>
 								</div>
 							</div>
@@ -335,8 +331,8 @@ Best Find START -->
 							<!-- Title and content -->
 							<div class="col-sm-6">
 								<div class="card-body px-3">
-									<h6 class="card-title"><a href="/pet-list/Dog" class="stretched-link">Dogs</a></h6>
-									<p class="mb-0">Search for Dogs quickly</p>
+									<h6 class="card-title"><a href="/pet-list/Dog" class="stretched-link">Chó</a></h6>
+									<p class="mb-0">Tìm toàn bộ loài chó nhanh chóng</p>
 								</div>
 							</div>
 						</div>
@@ -355,8 +351,8 @@ Best Find START -->
 							<!-- Title and content -->
 							<div class="col-sm-6">
 								<div class="card-body px-3">
-									<h6 class="card-title"><a href="/pet-list/Cat" class="stretched-link">Cats</a></h6>
-									<p class="mb-0">Search for Cats quickly</p>
+									<h6 class="card-title"><a href="/pet-list/Cat" class="stretched-link">Mèo</a></h6>
+									<p class="mb-0">Tìm toàn bộ loài mèo nhanh chóng</p>
 								</div>
 							</div>
 						</div>
@@ -375,8 +371,8 @@ Best Find START -->
 							<!-- Title and content -->
 							<div class="col-sm-6">
 								<div class="card-body px-3">
-									<h6 class="card-title"><a href="/shelter/list" class="stretched-link">Shelter & Rescues</a></h6>
-									<p class="mb-0">Search for Shelter & Rescues quickly</p>
+									<h6 class="card-title"><a href="/shelter/list" class="stretched-link">Trung tâm</a></h6>
+									<p class="mb-0">Tìm toàn bộ trung tâm thú cưng nhanh chóng</p>
 								</div>
 							</div>
 						</div>
@@ -642,34 +638,34 @@ About START -->
 
 			<!-- Right side START -->
 			<div class="col-lg-6">
-				<h2 class="mb-3 mb-lg-5">The Best Friends Start Here!</h2>
-				<p class="mb-3 mb-lg-5">Come to us and find the best friends for yourself or your loved ones to make life more interesting, and help these little friends have a wonderful family.</p>
+				<h2 class="mb-3 mb-lg-5">Những người bạn tốt nhất bắt đầu từ đây!</h2>
+				<p class="mb-3 mb-lg-5">Hãy đến với chúng tôi và tìm những người bạn tốt nhất cho bản thân hoặc những người thân yêu của bạn để cuộc sống trở nên thú vị hơn, đồng thời giúp những người bạn nhỏ này có một gia đình tuyệt vời.</p>
 
 				<!-- Features START -->
 				<div class="row g-4">
 					<!-- Item -->
 					<div class="col-sm-6">
 						<div class="icon-lg bg-success bg-opacity-10 text-success rounded-circle"><i class="fa-solid fa-utensils"></i></div>
-						<h5 class="mt-2">Good Healthy</h5>
-						<p class="mb-0">All pets here have been vaccinated, dewormed and are in the best health.</p>
+						<h5 class="mt-2">Sức khỏe tốt</h5>
+						<p class="mb-0">Tất cả thú cưng ở đây đều đã được tiêm phòng, tẩy giun và có sức khỏe tốt nhất.</p>
 					</div>
 					<!-- Item -->
 					<div class="col-sm-6">
 						<div class="icon-lg bg-danger bg-opacity-10 text-danger rounded-circle"><i class="bi bi-stopwatch-fill"></i></div>
-						<h5 class="mt-2">Quick Services</h5>
-						<p class="mb-0">We provide quick and easy-to-use services. </p>
+						<h5 class="mt-2">Dịch vụ nhanh</h5>
+						<p class="mb-0">Chúng tôi cung cấp các dịch vụ nhanh chóng và dễ sử dụng. </p>
 					</div>
 					<!-- Item -->
 					<div class="col-sm-6">
 						<div class="icon-lg bg-orange bg-opacity-10 text-orange rounded-circle"><i class="bi bi-shield-fill-check"></i></div>
-						<h5 class="mt-2">High Security</h5>
-						<p class="mb-0">User information will always be kept confidential in the best possible way.</p>
+						<h5 class="mt-2">Bảo mật cao</h5>
+						<p class="mb-0">Thông tin người dùng sẽ luôn được bảo mật theo cách tốt nhất có thể.</p>
 					</div>
 					<!-- Item -->
 					<div class="col-sm-6">
 						<div class="icon-lg bg-info bg-opacity-10 text-info rounded-circle"><i class="bi bi-lightning-fill"></i></div>
-						<h5 class="mt-2">24 Hours Support</h5>
-						<p class="mb-0">We are always ready to assist whenever you need it.</p>
+						<h5 class="mt-2">Hỗ trợ 24 giờ</h5>
+						<p class="mb-0">Chúng tôi luôn sẵn sàng hỗ trợ bất cứ khi nào bạn cần.</p>
 					</div>		
 				</div>
 				<!-- Features END -->
@@ -690,7 +686,7 @@ Featured Hotels START -->
 		<!-- Title -->
 		<div class="row mb-4">
 			<div class="col-12 text-center">
-				<h2 class="mb-0">Featured Animals</h2>
+				<h2 class="mb-0">Động vật nổi bật</h2>
 			</div>
 		</div>
 
@@ -705,7 +701,7 @@ Featured Hotels START -->
 						<img src="https://img.freepik.com/free-photo/front-view-adorable-shiba-inu-dog_23-2149457807.jpg?t=st=1713948444~exp=1713952044~hmac=37ff91970352adcd180a246d392386c0c35b1ade7ad2ee9f99e8a74fe37a3bcc&w=360" class="card-img" alt="hotel image">
 						<!-- Badge -->
 						<div class="position-absolute bottom-0 start-0 p-3">
-							<div class="badge text-bg-dark fs-6 rounded-pill stretched-link"><i class="bi bi-geo-alt me-2"></i>New York</div>
+							<div class="badge text-bg-dark fs-6 rounded-pill stretched-link"><i class="bi bi-geo-alt me-2"></i><span th:text="${sheltersService.extractCity(animal.shelters.shelterAddress)}">New York</span></div>
 						</div>
 					</div>
 
@@ -715,8 +711,8 @@ Featured Hotels START -->
 						<h5 class="card-title"><a th:href="@{/pet-list/pet-detail(id=${animal.id})}" class="stretched-link" th:text="${animal.animalName}">Baga Comfort</a></h5>
 						<!-- Price and rating -->
 						<div class="d-flex justify-content-between align-items-center">
-							<h6 class="text-success mb-0"><span th:text="${animal.breed.breed_name} + '/'">Shiba</span><small class="fw-light" th:text="${animal.animalAge}">/Young</small> </h6>
-							<h6 class="mb-0" th:text="${animal.animalGender} ? 'Male' : 'Female'">Female</h6>
+							<h6 class="text-success mb-0"><span th:text="${breedService.transBreedTypeToVN(animal.breed.breed_type)} + ' ' + ${animal.breed.breed_name} + '/'">Shiba</span><small class="fw-light" th:text="${animalsService.transAgeToVN(animal.animalAge)}">/Young</small> </h6>
+							<h6 class="mb-0" th:text="${animalsService.transGenderToVN(animal.animalGender)}">Female</h6>
 						</div>
 					</div>
 				</div>
@@ -799,7 +795,7 @@ Testimonials START -->
 									<!-- Quote -->
 									<span class="display-3 mb-0 text-primary"><i class="bi bi-quote"></i></span>
 									<!-- Content -->
-									<h5 class="fw-light">Moonlight newspaper up its enjoyment agreeable depending. Timed voice share led him to widen noisy young. At weddings believed in laughing</h5>
+									<h5 class="fw-light">PetFinder là nơi lý tưởng để kết nối những người yêu thú cưng với những chú chó, mèo đang tìm mái ấm mới. Với PetFinder, việc tìm kiếm và nhận nuôi thú cưng trở nên dễ dàng và hoàn toàn miễn phí. Tham gia cộng đồng yêu thú cưng của chúng tôi để chia sẻ niềm vui và tình yêu thương với những người bạn bốn chân đáng yêu!</h5>
 									<!-- Rating -->
 									<ul class="list-inline small mb-2">
 										<li class="list-inline-item me-0"><i class="fa-solid fa-star text-warning"></i></li>
@@ -842,7 +838,7 @@ Testimonials START -->
 									<!-- Quote -->
 									<span class="display-3 mb-0 text-primary"><i class="bi bi-quote"></i></span>
 									<!-- Content -->
-									<h5 class="fw-light">Passage its ten led hearted removal cordial. Preference any astonished unreserved Mrs. understood the Preference unreserved.</h5>
+									<h5 class="fw-light">PetFinder là một nền tảng tuyệt vời giúp kết nối những người yêu thú cưng với những chú chó, mèo đang cần một mái ấm mới. Với tính năng tìm kiếm dễ dàng, yêu thích và quyên góp, PetFinder không chỉ giúp thú cưng tìm được ngôi nhà mới mà còn xây dựng một cộng đồng yêu thương động vật. Tham gia PetFinder ngay hôm nay để tạo nên sự khác biệt!</h5>
 									<!-- Rating -->
 									<ul class="list-inline small mb-2">
 										<li class="list-inline-item me-0"><i class="fa-solid fa-star text-warning"></i></li>
@@ -876,7 +872,7 @@ Near by START -->
 		<!-- Title -->
 		<div class="row mb-4">
 			<div class="col-12 text-center">
-				<h2 class="mb-0">Explore More</h2>
+				<h2 class="mb-0">Động vật gần bạn</h2>
 			</div>
 		</div>
 
@@ -889,7 +885,7 @@ Near by START -->
 
 					<div class="card-body p-0 pt-3">
 						<h5 class="card-title"><a th:href="@{/pet-list/pet-detail(id=${animal.id})}" class="stretched-link" th:text="${animal.animalName}">Toaster</a></h5>
-						<span th:text="${animal.breed.breed_name}">Corgi</span>
+						<span th:text="${breedService.transBreedTypeToVN(animal.breed.breed_type)} + ' ' + ${animal.breed.breed_name}">Corgi</span>
 					</div>
 				</div>
 			</div>
@@ -911,8 +907,8 @@ Download app START -->
 				<div class="bg-body d-flex rounded-3 h-100 p-4">
 					<h3><i class="fa-solid fa-hand-holding-heart"></i></h3>
 					<div class="ms-3">
-						<h5>24x7 Help</h5>
-						<p class="mb-0">If we fall short of your expectation in any way, let us know</p>
+						<h5>Hỗ trợ 24x7</h5>
+						<p class="mb-0">Nếu chúng tôi không đáp ứng được sự mong đợi của bạn theo bất kỳ cách nào, hãy cho chúng tôi biết</p>
 					</div>
 				</div>
 			</div>
@@ -922,15 +918,15 @@ Download app START -->
 				<div class="bg-body d-flex rounded-3 h-100 p-4">
 					<h3><i class="fa-solid fa-hand-holding-usd"></i></h3>
 					<div class="ms-3">
-						<h5>Payment Trust</h5>
-						<p class="mb-0">All refunds come with no questions asked guarantee</p>
+						<h5>Ủy thác thanh toán</h5>
+						<p class="mb-0">Tất cả các khoản hoàn trả đều được đảm bảo không có câu hỏi nào</p>
 					</div>
 				</div>
 			</div>
 
 			<!-- Download app -->
 			<div class="col-lg-6 col-xl-5 col-xxl-3 ms-xxl-auto">
-				<h5 class="mb-4">Download app</h5>
+				<h5 class="mb-4">Tải ứng dụng</h5>
 				<div class="row g-3">
 					<!-- Google play store button -->
 					<div class="col-6 col-sm-4 col-md-3 col-lg-6">

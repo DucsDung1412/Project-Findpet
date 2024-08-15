@@ -67,17 +67,17 @@
 
 			}
 		})
-		
+
 	</script>
 
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="../images/favicon.ico">
 
-    <!-- Font-Awesome -->
-    <link rel="stylesheet" type="text/css" href="//use.fontawesome.com/releases/v5.7.2/css/all.css">
+	<!-- Font-Awesome -->
+	<link rel="stylesheet" type="text/css" href="//use.fontawesome.com/releases/v5.7.2/css/all.css">
 	<script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
 
-    <!-- Bootstrap Font Icon CSS -->
+	<!-- Bootstrap Font Icon CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 	<!-- Google Font -->
@@ -100,19 +100,19 @@
 
 <!-- **************** MAIN CONTENT START **************** -->
 <main>
-	
+
 	<!-- Sidebar START -->
 	<nav th:insert="~{fragments/viewers/_navbar-admin :: navbar-admin}"></nav>
 	<!-- Sidebar END -->
-	
+
 	<!-- Page content START -->
 	<div class="page-content">
-	
+
 		<!-- Top bar START -->
 		<nav class="navbar top-bar navbar-light py-0 py-xl-3">
 			<div class="container-fluid p-0">
 				<div class="d-flex align-items-center w-100">
-	
+
 					<!-- Logo START -->
 					<div class="d-flex align-items-center d-xl-none">
 						<a class="navbar-brand" href="index.html">
@@ -120,7 +120,7 @@
 						</a>
 					</div>
 					<!-- Logo END -->
-	
+
 					<!-- Toggler for sidebar START -->
 					<div class="navbar-expand-xl sidebar-offcanvas-menu">
 						<button class="navbar-toggler me-auto p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar" aria-expanded="false" aria-label="Toggle navigation" data-bs-auto-close="outside">
@@ -128,7 +128,7 @@
 						</button>
 					</div>
 					<!-- Toggler for sidebar END -->
-					
+
 					<!-- Top bar left -->
 					<div class="navbar-expand-lg ms-auto ms-xl-0">
 						<!-- Toggler for menubar START -->
@@ -136,7 +136,7 @@
 							<i class="bi bi-search"></i>
 						</button>
 						<!-- Toggler for menubar END -->
-	
+
 						<!-- Topbar menu START -->
 						<div class="collapse navbar-collapse w-100 z-index-1" id="navbarTopContent">
 							<!-- Top search START -->
@@ -163,17 +163,17 @@
 			</div>
 		</nav>
 		<!-- Top bar END -->
-	
+
 		<!-- Page main content START -->
 		<div class="page-content-wrapper p-xxl-4">
-	
+
 			<!-- Title -->
 			<div class="row">
 				<div class="col-12 mb-4 mb-sm-5">
 					<div class="d-sm-flex justify-content-between align-items-center">
 						<h1 class="h3 mb-2 mb-sm-0">Premium Room With Balcony</h1>
-						<a th:href="@{/admin/shelter-detail/delete(id=${shelter.id})}" th:if="${shelter.shelterStatus} == 'Opening'" class="btn btn-danger-soft text-nowrap mb-0"><i class="fa-solid fa-circle-xmark"></i> Delete Shelter</a>
-						<a th:href="@{/admin/shelter-detail/accept(id=${shelter.id})}" th:if="${shelter.shelterStatus} != 'Opening'" class="btn btn-primary-soft text-nowrap mb-0"><i class="fa-solid fa-circle-check"></i> Accept Shelter</a>
+						<a th:href="@{/admin/shelter-detail/delete(id=${shelter.id})}" th:if="${shelter.shelterStatus} == 'Opening'" class="btn btn-danger-soft text-nowrap mb-0"><i class="fa-solid fa-circle-xmark"></i> Tắt hoạt động trung tâm</a>
+						<a th:href="@{/admin/shelter-detail/accept(id=${shelter.id})}" th:if="${shelter.shelterStatus} != 'Opening'" class="btn btn-primary-soft text-nowrap mb-0"><i class="fa-solid fa-circle-check"></i> Mở hoạt động trung tâm</a>
 					</div>
 				</div>
 			</div>
@@ -200,7 +200,7 @@
 
 				<!-- Content -->
 				<div class="col-xxl-6">
-					<h4><span class="fw-light">Shelter: </span><span th:text="${shelter.shelterName}">Courtyard by Marriott New York</span></h4>
+					<h4><span class="fw-light">Trung tâm: </span><span th:text="${shelter.shelterName}">Courtyard by Marriott New York</span></h4>
 					<p class="fw-bold"><i class="bi bi-geo-alt me-2"></i><span th:text="${shelter.shelterAddress}">5855 W Century Blvd, Los Angeles - 90045</span></p>
 
 					<p class="mb-4">Tolerably behavior may admit daughters offending her ask own. Praise effect wishes to change way and any wanted. Lively use looked latter regard had. Does he part last</p>
@@ -211,7 +211,7 @@
 							<div class="d-flex align-items-center">
 								<div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-2"><i class="fa-solid fa-phone"></i></div>
 								<div class="ms-2">
-									<small>Phone</small>
+									<small>Số điện thoại</small>
 									<h6 class="mb-0 mt-1" th:text="${shelter.shelterPhone}">0906786999</h6>
 								</div>
 							</div>
@@ -250,7 +250,7 @@
 
 					<!-- Booking info -->
 					<div class="bg-light border border-secondary border-opacity-25 p-3 rounded d-inline-block mt-4 w-100">
-						<h6 class="small">Current Reservation:</h6>
+						<h6 class="small">Người sỡ hữu:</h6>
 						<!-- Avatar -->
 						<div class="d-sm-flex align-items-center">
 							<!-- Avatar -->
@@ -263,7 +263,7 @@
 						<!-- Info -->
 						<div class="hstack gap-4 gap-md-5 flex-wrap mt-2">
 							<div>
-								<small>Date:</small>
+								<small>Ngày tạo:</small>
 								<h6 class="fw-normal mb-0" style="font-size: 15px;" th:text="${shelter.shelterDate}">18 Dec 2022</h6>
 							</div>
 							<div>
@@ -271,7 +271,7 @@
 								<h6 class="fw-normal mb-0" style="font-size: 15px;" th:text="${shelter.users.userName}">daoducdung2000@gmail.com</h6>
 							</div>
 							<div>
-								<small>Location:</small>
+								<small>Vi trí:</small>
 								<h6 class="fw-normal mb-0" style="font-size: 15px;" th:text="${shelter.users.country}">Hồ Chí Minh</h6>
 							</div>
 						</div>
@@ -284,7 +284,7 @@
 			<div class="card shadow mt-5">
 				<!-- Card header START -->
 				<div class="card-header border-bottom">
-					<h5 class="card-header-title">Infomation Detail</h5>
+					<h5 class="card-header-title">Thông tin chi tiết</h5>
 				</div>
 				<!-- Card header END -->
 
@@ -296,19 +296,19 @@
 						<form class="p-0">
 							<!-- Name -->
 							<div class="mb-3">
-								<label class="form-label">Mission</label>
+								<label class="form-label">Nhiệm vụ</label>
 								<textarea class="form-control" rows="3" spellcheck="false" th:text="${shelter.shelterInfoMission}">2119 N Division Ave, New Hampshire, York, United States</textarea>
 							</div>
 
 							<!-- Name -->
 							<div class="mb-3">
-								<label class="form-label">Policy</label>
+								<label class="form-label">Chính sách</label>
 								<textarea class="form-control" rows="3" spellcheck="false" th:text="${shelter.shelterInfoPolicy}">2119 N Division Ave, New Hampshire, York, United States</textarea>
 							</div>
 
 							<!-- Operating -->
 							<div>
-								<label class="form-label">Operating</label>
+								<label class="form-label">Thời gian hoạt động</label>
 								<div class="input-group mb-3" th:each="open : ${listOpen}">
 									<input type="text" class="form-control" th:value="${open[0]}" placeholder="Day">
 									<input type="text" class="form-control" th:value="${open[1]}" placeholder="Time">
@@ -324,7 +324,7 @@
 			<div class="card shadow mt-5">
 				<!-- Card header START -->
 				<div class="card-header border-bottom">
-					<h5 class="card-header-title">Infomation Detail</h5>
+					<h5 class="card-header-title">Danh sách thú cưng</h5>
 				</div>
 				<!-- Card header END -->
 
@@ -334,20 +334,20 @@
 					<!-- Table head -->
 					<div class="bg-light rounded p-3 d-none d-lg-block">
 						<div class="row row-cols-7 g-4">
-							<div class="col"><h6 class="mb-0">Name</h6></div>
-							<div class="col"><h6 class="mb-0">Date</h6></div>
-							<div class="col"><h6 class="mb-0">Breed</h6></div>
-							<div class="col"><h6 class="mb-0">Age</h6></div>
-							<div class="col"><h6 class="mb-0">Gender</h6></div>
-							<div class="col"><h6 class="mb-0">Size</h6></div>
-							<div class="col"><h6 class="mb-0">Action</h6></div>
+							<div class="col"><h6 class="mb-0">Tên</h6></div>
+							<div class="col"><h6 class="mb-0">Ngày thêm</h6></div>
+							<div class="col"><h6 class="mb-0">Giống</h6></div>
+							<div class="col"><h6 class="mb-0">Tuổi</h6></div>
+							<div class="col"><h6 class="mb-0">Giới tính</h6></div>
+							<div class="col"><h6 class="mb-0">Kích cỡ</h6></div>
+							<div class="col"><h6 class="mb-0">Hành động</h6></div>
 						</div>
 					</div>
 					<!-- Table data -->
 					<div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4" th:each="animal : ${listAnimal}">
 						<!-- Data item -->
 						<div class="col">
-							<small class="d-block d-lg-none">Booked by:</small>
+							<small class="d-block d-lg-none">Tên:</small>
 							<div class="d-flex align-items-center">
 								<!-- Avatar -->
 								<div class="avatar avatar-xs flex-shrink-0">
@@ -358,41 +358,41 @@
 									<h6 class="mb-0 fw-light" th:text="${animal.animalName}">Lori Stevens</h6>
 								</div>
 							</div>
-						</div>	
+						</div>
 
 						<!-- Data item -->
 						<div class="col">
-							<small class="d-block d-lg-none">Check-in:</small>
+							<small class="d-block d-lg-none">Ngày thêm:</small>
 							<h6 class="mb-0 fw-normal" th:text="${animal.animalDate}">18 Dec 2022</h6>
 						</div>
 
 						<!-- Data item -->
 						<div class="col">
-							<small class="d-block d-lg-none">Check-out:</small>
+							<small class="d-block d-lg-none">Giống:</small>
 							<h6 class="mb-0 fw-normal" th:text="${animal.breed.breed_name}">22 Dec 2022</h6>
 						</div>
 
 						<!-- Data item -->
 						<div class="col">
-							<small class="d-block d-lg-none">Guests:</small>
-							<h6 class="mb-0 fw-normal" th:text="${animal.animalAge}">04</h6>
+							<small class="d-block d-lg-none">Tuổi:</small>
+							<h6 class="mb-0 fw-normal" th:text="${animalsService.transAgeToVN(animal.animalAge)}">04</h6>
 						</div>
 
 						<!-- Data item -->
 						<div class="col">
-							<small class="d-block d-lg-none">Amount:</small>
-							<h6 class="mb-0 fw-normal" th:text="${animal.animalGender ? 'Female' : 'Male'}">$1025</h6>
+							<small class="d-block d-lg-none">Giới tính:</small>
+							<h6 class="mb-0 fw-normal" th:text="${animalsService.transGenderToVN(animal.animalGender)}">$1025</h6>
 						</div>
 
 						<!-- Data item -->
 						<div class="col">
-							<small class="d-block d-lg-none">Payment:</small>
-							<h6 class="mb-0 fw-normal" th:text="${animal.animalSize}">Full payment</h6>
+							<small class="d-block d-lg-none">Kích cỡ:</small>
+							<h6 class="mb-0 fw-normal" th:text="${animalsService.transSizeToVN(animal.animalSize)}">Full payment</h6>
 						</div>
 
 						<!-- Data item -->
 						<div class="col">
-							<a th:href="@{/pet-list/pet-detail(id=${animal.id})}" class="btn btn-sm btn-light mb-0">View</a>
+							<a th:href="@{/pet-list/pet-detail(id=${animal.id})}" class="btn btn-sm btn-light mb-0">Xem thêm</a>
 						</div>
 					</div>
 				</div>
@@ -403,7 +403,7 @@
 					<!-- Pagination and content -->
 					<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
 						<!-- Content -->
-						<p class="mb-sm-0 text-center text-sm-start">Showing <span th:text="${listAnimal.number} * ${listAnimal.size} == 0 ? 1 : (${listAnimal.number} * ${listAnimal.size}) + 1">1</span> to <span th:text="${listAnimal.totalElements} - (${listAnimal.number} * ${listAnimal.size} + ${listAnimal.size}) < 0 ? ${listAnimal.totalElements} : (${listAnimal.number} * ${listAnimal.size} + ${listAnimal.size})">10</span> of <span th:text="${listAnimal.totalElements}">57</span> entries</p>
+						<p class="mb-sm-0 text-center text-sm-start">Đang hiển thị <span th:text="${listAnimal.number} * ${listAnimal.size} == 0 ? 1 : (${listAnimal.number} * ${listAnimal.size}) + 1">1</span> đến <span th:text="${listAnimal.totalElements} - (${listAnimal.number} * ${listAnimal.size} + ${listAnimal.size}) < 0 ? ${listAnimal.totalElements} : (${listAnimal.number} * ${listAnimal.size} + ${listAnimal.size})">10</span> trên <span th:text="${listAnimal.totalElements}">57</span> thành phần</p>
 						<!-- Pagination -->
 						<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation" th:if="${listAnimal.totalPages} >= 2">
 							<ul class="pagination pagination-sm pagination-primary-soft mb-0">
@@ -429,7 +429,7 @@
 		<!-- Page main content END -->
 	</div>
 	<!-- Page content END -->
-	
+
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
 

@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
 	<title>Booking - Multipurpose Online Booking Theme</title>
 
@@ -100,61 +100,7 @@
 <main>
 	
 	<!-- Sidebar START -->
-	<nav class="navbar sidebar navbar-expand-xl navbar-light">
-		<!-- Navbar brand for xl START -->
-		<div class="d-flex align-items-center">
-			<a class="navbar-brand" href="index.html">
-				<img class="light-mode-item navbar-brand-item" src="https://booking.webestica.com/assets/images/logo.svg" alt="logo">
-				<img class="dark-mode-item navbar-brand-item" src="https://booking.webestica.com/assets/images/logo-light.svg" alt="logo">
-			</a>
-		</div>
-		<!-- Navbar brand for xl END -->
-		
-		<div class="offcanvas offcanvas-start flex-row custom-scrollbar h-100" data-bs-backdrop="true" tabindex="-1" id="offcanvasSidebar">
-			<div class="offcanvas-body sidebar-content d-flex flex-column pt-4">
-	
-				<!-- Sidebar menu START -->
-				<ul class="navbar-nav flex-column" id="navbar-sidebar">
-					<!-- Menu item -->
-					<li class="nav-item"><a href="admin-dashboard.html" class="nav-link">Dashboard</a></li>
-
-					<!-- Title -->
-					<li class="nav-item ms-2 my-2">Pages</li>
-
-                    <!-- Menu item -->
-					<li class="nav-item"> <a class="nav-link active" href="#">Shelters</a></li>
-
-                    <!-- Menu item -->
-					<li class="nav-item"> <a class="nav-link" href="#">Users</a></li>
-
-                    <!-- Menu item -->
-					<li class="nav-item"> <a class="nav-link" href="#">Pending Approval</a></li>
-					
-					<!-- Menu item -->
-					<li class="nav-item"> <a class="nav-link" href="#">Reward Shop</a></li>
-	
-					<!-- Menu item -->
-					<li class="nav-item"> <a class="nav-link" href="admin-earnings.html">Earnings</a></li>
-	
-					<!-- Menu item -->
-					<li class="nav-item"> <a class="nav-link" href="admin-settings.html">Admin Settings</a></li>
-				</ul>
-				<!-- Sidebar menu end -->
-	
-				<!-- Sidebar footer START -->
-				<div class="d-flex align-items-center justify-content-between text-primary-hover mt-auto p-3">
-					<a class="h6 fw-light mb-0 text-body" href="sign-in.html" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Sign out">
-						<i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
-					</a>
-					<a class="h6 mb-0 text-body" href="admin-settings.html" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Settings">
-						<i class="bi bi-gear-fill"></i>
-					</a>
-				</div>
-				<!-- Sidebar footer END -->
-				
-			</div>
-		</div>
-	</nav>
+	<nav th:insert="~{fragments/viewers/_navbar-admin :: navbar-admin}"></nav>
 	<!-- Sidebar END -->
 	
 	<!-- Page content START -->
@@ -208,131 +154,7 @@
 					
 					<!-- Top bar right START -->
 					<ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
-						<!-- Dark mode options START -->
-						<li class="nav-item dropdown ms-3">
-							<button class="nav-notification lh-0 btn btn-light p-0 mb-0" id="bd-theme"
-							type="button"
-							aria-expanded="false"
-							data-bs-toggle="dropdown"
-							data-bs-display="static">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-half fa-fw theme-icon-active" viewBox="0 0 16 16">
-									<path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
-									<use href="#"></use>
-								</svg>
-							</button>
-
-							<ul class="dropdown-menu min-w-auto dropdown-menu-end" aria-labelledby="bd-theme">
-								<li class="mb-1">
-									<button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light">
-										<svg width="16" height="16" fill="currentColor" class="bi bi-brightness-high-fill fa-fw mode-switch me-1" viewBox="0 0 16 16">
-											<path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
-											<use href="#"></use>
-										</svg>Light						
-									</button>
-								</li>
-								<li class="mb-1">
-									<button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-stars-fill fa-fw mode-switch me-1" viewBox="0 0 16 16">
-											<path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
-											<path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
-											<use href="#"></use>
-										</svg>Dark
-									</button>
-								</li>
-								<li>
-									<button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-half fa-fw mode-switch" viewBox="0 0 16 16">
-											<path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
-											<use href="#"></use>
-										</svg>Auto
-									</button>
-								</li>
-							</ul>
-						</li>
-						<!-- Dark mode options END-->
-
-						<!-- Notification dropdown START -->
-						<li class="nav-item dropdown ms-3">
-							<!-- Notification button -->
-							<a class="nav-notification btn btn-light p-0 mb-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-								<i class="bi bi-bell fa-fw"></i>
-							</a>
-							<!-- Notification dote -->
-							<span class="notif-badge animation-blink"></span>
-		
-							<!-- Notification dropdown menu START -->
-							<div class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md shadow-lg p-0">
-								<div class="card bg-transparent">
-									<!-- Card header -->
-									<div class="card-header bg-transparent d-flex justify-content-between align-items-center border-bottom">
-										<h6 class="m-0">Notifications <span class="badge bg-danger bg-opacity-10 text-danger ms-2">4 new</span></h6>
-										<a class="small" href="#">Clear all</a>
-									</div>
-		
-									<!-- Card body START -->
-									<div class="card-body p-0">
-										<ul class="list-group list-group-flush list-unstyled p-2">
-											<!-- Notification item -->
-											<li>
-												<a href="#" class="list-group-item list-group-item-action rounded notif-unread border-0 mb-1 p-3">
-													<h6 class="mb-2">New! Booking flights from New York ✈️</h6>
-													<p class="mb-0 small">Find the flexible ticket on flights around the world. Start searching today</p>
-													<span>Wednesday</span>
-												</a>
-											</li>
-											<!-- Notification item -->
-											<li>
-												<a href="#" class="list-group-item list-group-item-action rounded border-0 mb-1 p-3">
-													<h6 class="mb-2">Sunshine saving are here 🌞 save 30% or more on a stay</h6>
-													<span>15 Nov 2022</span>
-												</a>
-											</li>
-										</ul>
-									</div>
-									<!-- Card body END -->
-		
-									<!-- Card footer -->
-									<div class="card-footer bg-transparent text-center border-top">
-										<a href="#" class="btn btn-sm btn-link mb-0 p-0">See all incoming activity</a>
-									</div>
-								</div>
-							</div>
-							<!-- Notification dropdown menu END -->
-						</li>
-						<!-- Notification dropdown END -->
-		
-						<!-- Profile dropdown START -->
-						<li class="nav-item ms-3 dropdown">
-							<!-- Avatar -->
-							<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-								<img class="avatar-img rounded-2" src="https://booking.webestica.com/assets/images/avatar/01.jpg" alt="avatar">
-							</a>
-		
-							<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
-								<!-- Profile info -->
-								<li class="px-3 mb-3">
-									<div class="d-flex align-items-center">
-										<!-- Avatar -->
-										<div class="avatar me-3">
-											<img class="avatar-img rounded-circle shadow" src="https://booking.webestica.com/assets/images/avatar/01.jpg" alt="avatar">
-										</div>
-										<div>
-											<a class="h6 mt-2 mt-sm-0" href="#">Lori Ferguson</a>
-											<p class="small m-0">example@gmail.com</p>
-										</div>
-									</div>
-								</li>
-		
-								<!-- Links -->
-								<li> <hr class="dropdown-divider"></li>
-								<li><a class="dropdown-item" href="#"><i class="bi bi-bookmark-check fa-fw me-2"></i>My Bookings</a></li>
-								<li><a class="dropdown-item" href="#"><i class="bi bi-heart fa-fw me-2"></i>My Wishlist</a></li>
-								<li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Settings</a></li>
-								<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help Center</a></li>
-								<li><a class="dropdown-item bg-danger-soft-hover" href="#"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
-							</ul>
-						</li>
-						<!-- Profile dropdown END -->
+						<li th:insert="~{fragments/viewers/_header :: navbar-user-login}"></li>
 					</ul>
 					<!-- Top bar right END -->
 				</div>
@@ -347,7 +169,7 @@
 			<div class="row">
 				<div class="col-12 mb-5">
 					<div class="d-sm-flex justify-content-between align-items-center">
-						<h1 class="h3 mb-2 mb-sm-0">Shelters</h1>
+						<h1 class="h3 mb-2 mb-sm-0">Danh sách trung tâm</h1>
 					</div>
 				</div>
 			</div>
@@ -358,13 +180,13 @@
 					<!-- Tabs -->
 					<ul class="nav nav-pills-shadow nav-responsive">
 						<li class="nav-item"> 
-							<a class="nav-link mb-0 me-sm-2 active" data-bs-toggle="tab" href="#tab-1">Name (A - Z)</a> 
+							<a class="nav-link mb-0 me-sm-2 active" data-bs-toggle="tab" href="#tab-1">Tên (A - Z)</a> 
 						</li>
                         <li class="nav-item"> 
-							<a class="nav-link mb-0 me-sm-2" data-bs-toggle="tab" href="#tab-2">Name (Z - A)</a> 
+							<a class="nav-link mb-0 me-sm-2" data-bs-toggle="tab" href="#tab-2">Tên (Z - A)</a> 
 						</li>
 						<li class="nav-item">
-							<a class="nav-link mb-0 me-sm-2" data-bs-toggle="tab" href="#tab-3">Date Created</a>
+							<a class="nav-link mb-0 me-sm-2" data-bs-toggle="tab" href="#tab-3">Ngày thành lập</a>
 						</li>
 					</ul>
 				</div>
@@ -374,7 +196,7 @@
 						<!-- Search -->
 						<div class="col-md-8">
 							<form class="rounded position-relative">
-								<input class="form-control bg-transparent" type="search" placeholder="Search" aria-label="Search">
+								<input class="form-control bg-transparent" type="search" placeholder="Tìm kiếm" aria-label="Search">
 								<button class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset" type="submit">
 									<i class="fas fa-search fs-6"></i>
 								</button>
@@ -392,7 +214,7 @@
 					<!-- Rooms START -->
 					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xxl-5 g-4">
 						<!-- Room item -->
-						<div class="col">
+						<div class="col" th:each="totalShelters : ${listTotalShelters}">
 							<div class="card shadow h-100">
 								<!-- Overlay item -->
 								<div class="position-relative">
@@ -403,13 +225,13 @@
 								<!-- Card body START -->
 								<div class="card-body px-3">
 									<!-- Title -->
-									<h5 class="card-title mb-1"><a href="admin-booking-detail.html">Deluxe Pool View with Breakfast</a></h5>
+									<h5 class="card-title mb-1"><a th:href="@{/admin/shelter-detail(id=${totalShelters.id})}" th:text="${totalShelters.shelterName}">Deluxe Pool View with Breakfast</a></h5>
 									<ul class="list-group list-group-borderless small mt-2 mb-0">
 										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-building fa-fw me-2"></i>Dao Duc Dung
+											<i class="fa-solid fa-building fa-fw me-2"></i><span th:text="${totalShelters.users.firstName} + ' ' + ${totalShelters.users.lastName}">Dao Duc Dung</span>
 										</li>
 										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-bed fa-fw me-2"></i>200 Animals
+											<i class="fa-solid fa-bed fa-fw me-2"></i><span th:text="${totalShelters.getListAnimals().size()}">200</span> Thú cưng
 										</li>
 									</ul>
 								</div>
@@ -419,334 +241,10 @@
 								<div class="card-footer pt-0">
 									<!-- Price -->
 									<div class="hstack gap-2 mb-2">
-										<h6 class="fw-normal mb-0">Date: </h6>
-										<small>14/12/2000</small>
+										<h6 class="fw-normal mb-0">Ngày tạo: </h6>
+										<small th:text="${totalShelters.shelterDate}">14/12/2000</small>
 									</div>
-									<a href="admin-booking-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View detail</a>
-								</div>
-							</div>
-						</div>
-
-						<!-- Room item -->
-						<div class="col">
-							<div class="card shadow h-100">
-								<!-- Overlay item -->
-								<div class="position-relative">
-									<!-- Image -->
-									<img src="https://booking.webestica.com/assets/images/category/hotel/4by3/02.jpg" class="card-img-top" alt="Card image">
-								</div>
-			
-								<!-- Card body START -->
-								<div class="card-body px-3">
-									<!-- Title -->
-									<h5 class="card-title mb-1"><a href="admin-booking-detail.html">Deluxe Pool View with Breakfast</a></h5>
-									<ul class="list-group list-group-borderless small mt-2 mb-0">
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-building fa-fw me-2"></i>Dao Duc Dung
-										</li>
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-bed fa-fw me-2"></i>200 Animals
-										</li>
-									</ul>
-								</div>
-								<!-- Card body END -->
-			
-								<!-- Card footer START-->
-								<div class="card-footer pt-0">
-									<!-- Price -->
-									<div class="hstack gap-2 mb-2">
-										<h6 class="fw-normal mb-0">Date: </h6>
-										<small>14/12/2000</small>
-									</div>
-									<a href="admin-booking-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View detail</a>
-								</div>
-							</div>
-						</div>
-
-                        <!-- Room item -->
-						<div class="col">
-							<div class="card shadow h-100">
-								<!-- Overlay item -->
-								<div class="position-relative">
-									<!-- Image -->
-									<img src="https://booking.webestica.com/assets/images/category/hotel/4by3/02.jpg" class="card-img-top" alt="Card image">
-								</div>
-			
-								<!-- Card body START -->
-								<div class="card-body px-3">
-									<!-- Title -->
-									<h5 class="card-title mb-1"><a href="admin-booking-detail.html">Deluxe Pool View with Breakfast</a></h5>
-									<ul class="list-group list-group-borderless small mt-2 mb-0">
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-building fa-fw me-2"></i>Dao Duc Dung
-										</li>
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-bed fa-fw me-2"></i>200 Animals
-										</li>
-									</ul>
-								</div>
-								<!-- Card body END -->
-			
-								<!-- Card footer START-->
-								<div class="card-footer pt-0">
-									<!-- Price -->
-									<div class="hstack gap-2 mb-2">
-										<h6 class="fw-normal mb-0">Date: </h6>
-										<small>14/12/2000</small>
-									</div>
-									<a href="admin-booking-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View detail</a>
-								</div>
-							</div>
-						</div>
-
-                        <!-- Room item -->
-						<div class="col">
-							<div class="card shadow h-100">
-								<!-- Overlay item -->
-								<div class="position-relative">
-									<!-- Image -->
-									<img src="https://booking.webestica.com/assets/images/category/hotel/4by3/02.jpg" class="card-img-top" alt="Card image">
-								</div>
-			
-								<!-- Card body START -->
-								<div class="card-body px-3">
-									<!-- Title -->
-									<h5 class="card-title mb-1"><a href="admin-booking-detail.html">Deluxe Pool View with Breakfast</a></h5>
-									<ul class="list-group list-group-borderless small mt-2 mb-0">
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-building fa-fw me-2"></i>Dao Duc Dung
-										</li>
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-bed fa-fw me-2"></i>200 Animals
-										</li>
-									</ul>
-								</div>
-								<!-- Card body END -->
-			
-								<!-- Card footer START-->
-								<div class="card-footer pt-0">
-									<!-- Price -->
-									<div class="hstack gap-2 mb-2">
-										<h6 class="fw-normal mb-0">Date: </h6>
-										<small>14/12/2000</small>
-									</div>
-									<a href="admin-booking-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View detail</a>
-								</div>
-							</div>
-						</div>
-
-                        <!-- Room item -->
-						<div class="col">
-							<div class="card shadow h-100">
-								<!-- Overlay item -->
-								<div class="position-relative">
-									<!-- Image -->
-									<img src="https://booking.webestica.com/assets/images/category/hotel/4by3/02.jpg" class="card-img-top" alt="Card image">
-								</div>
-			
-								<!-- Card body START -->
-								<div class="card-body px-3">
-									<!-- Title -->
-									<h5 class="card-title mb-1"><a href="admin-booking-detail.html">Deluxe Pool View with Breakfast</a></h5>
-									<ul class="list-group list-group-borderless small mt-2 mb-0">
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-building fa-fw me-2"></i>Dao Duc Dung
-										</li>
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-bed fa-fw me-2"></i>200 Animals
-										</li>
-									</ul>
-								</div>
-								<!-- Card body END -->
-			
-								<!-- Card footer START-->
-								<div class="card-footer pt-0">
-									<!-- Price -->
-									<div class="hstack gap-2 mb-2">
-										<h6 class="fw-normal mb-0">Date: </h6>
-										<small>14/12/2000</small>
-									</div>
-									<a href="admin-booking-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View detail</a>
-								</div>
-							</div>
-						</div>
-
-                        <!-- Room item -->
-						<div class="col">
-							<div class="card shadow h-100">
-								<!-- Overlay item -->
-								<div class="position-relative">
-									<!-- Image -->
-									<img src="https://booking.webestica.com/assets/images/category/hotel/4by3/02.jpg" class="card-img-top" alt="Card image">
-								</div>
-			
-								<!-- Card body START -->
-								<div class="card-body px-3">
-									<!-- Title -->
-									<h5 class="card-title mb-1"><a href="admin-booking-detail.html">Deluxe Pool View with Breakfast</a></h5>
-									<ul class="list-group list-group-borderless small mt-2 mb-0">
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-building fa-fw me-2"></i>Dao Duc Dung
-										</li>
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-bed fa-fw me-2"></i>200 Animals
-										</li>
-									</ul>
-								</div>
-								<!-- Card body END -->
-			
-								<!-- Card footer START-->
-								<div class="card-footer pt-0">
-									<!-- Price -->
-									<div class="hstack gap-2 mb-2">
-										<h6 class="fw-normal mb-0">Date: </h6>
-										<small>14/12/2000</small>
-									</div>
-									<a href="admin-booking-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View detail</a>
-								</div>
-							</div>
-						</div>
-
-                        <!-- Room item -->
-						<div class="col">
-							<div class="card shadow h-100">
-								<!-- Overlay item -->
-								<div class="position-relative">
-									<!-- Image -->
-									<img src="https://booking.webestica.com/assets/images/category/hotel/4by3/02.jpg" class="card-img-top" alt="Card image">
-								</div>
-			
-								<!-- Card body START -->
-								<div class="card-body px-3">
-									<!-- Title -->
-									<h5 class="card-title mb-1"><a href="admin-booking-detail.html">Deluxe Pool View with Breakfast</a></h5>
-									<ul class="list-group list-group-borderless small mt-2 mb-0">
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-building fa-fw me-2"></i>Dao Duc Dung
-										</li>
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-bed fa-fw me-2"></i>200 Animals
-										</li>
-									</ul>
-								</div>
-								<!-- Card body END -->
-			
-								<!-- Card footer START-->
-								<div class="card-footer pt-0">
-									<!-- Price -->
-									<div class="hstack gap-2 mb-2">
-										<h6 class="fw-normal mb-0">Date: </h6>
-										<small>14/12/2000</small>
-									</div>
-									<a href="admin-booking-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View detail</a>
-								</div>
-							</div>
-						</div>
-
-                        <!-- Room item -->
-						<div class="col">
-							<div class="card shadow h-100">
-								<!-- Overlay item -->
-								<div class="position-relative">
-									<!-- Image -->
-									<img src="https://booking.webestica.com/assets/images/category/hotel/4by3/02.jpg" class="card-img-top" alt="Card image">
-								</div>
-			
-								<!-- Card body START -->
-								<div class="card-body px-3">
-									<!-- Title -->
-									<h5 class="card-title mb-1"><a href="admin-booking-detail.html">Deluxe Pool View with Breakfast</a></h5>
-									<ul class="list-group list-group-borderless small mt-2 mb-0">
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-building fa-fw me-2"></i>Dao Duc Dung
-										</li>
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-bed fa-fw me-2"></i>200 Animals
-										</li>
-									</ul>
-								</div>
-								<!-- Card body END -->
-			
-								<!-- Card footer START-->
-								<div class="card-footer pt-0">
-									<!-- Price -->
-									<div class="hstack gap-2 mb-2">
-										<h6 class="fw-normal mb-0">Date: </h6>
-										<small>14/12/2000</small>
-									</div>
-									<a href="admin-booking-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View detail</a>
-								</div>
-							</div>
-						</div>
-
-                        <!-- Room item -->
-						<div class="col">
-							<div class="card shadow h-100">
-								<!-- Overlay item -->
-								<div class="position-relative">
-									<!-- Image -->
-									<img src="https://booking.webestica.com/assets/images/category/hotel/4by3/02.jpg" class="card-img-top" alt="Card image">
-								</div>
-			
-								<!-- Card body START -->
-								<div class="card-body px-3">
-									<!-- Title -->
-									<h5 class="card-title mb-1"><a href="admin-booking-detail.html">Deluxe Pool View with Breakfast</a></h5>
-									<ul class="list-group list-group-borderless small mt-2 mb-0">
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-building fa-fw me-2"></i>Dao Duc Dung
-										</li>
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-bed fa-fw me-2"></i>200 Animals
-										</li>
-									</ul>
-								</div>
-								<!-- Card body END -->
-			
-								<!-- Card footer START-->
-								<div class="card-footer pt-0">
-									<!-- Price -->
-									<div class="hstack gap-2 mb-2">
-										<h6 class="fw-normal mb-0">Date: </h6>
-										<small>14/12/2000</small>
-									</div>
-									<a href="admin-booking-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View detail</a>
-								</div>
-							</div>
-						</div>
-
-                        <!-- Room item -->
-						<div class="col">
-							<div class="card shadow h-100">
-								<!-- Overlay item -->
-								<div class="position-relative">
-									<!-- Image -->
-									<img src="https://booking.webestica.com/assets/images/category/hotel/4by3/02.jpg" class="card-img-top" alt="Card image">
-								</div>
-			
-								<!-- Card body START -->
-								<div class="card-body px-3">
-									<!-- Title -->
-									<h5 class="card-title mb-1"><a href="admin-booking-detail.html">Deluxe Pool View with Breakfast</a></h5>
-									<ul class="list-group list-group-borderless small mt-2 mb-0">
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-building fa-fw me-2"></i>Dao Duc Dung
-										</li>
-										<li class="list-group-item pb-0">
-											<i class="fa-solid fa-bed fa-fw me-2"></i>200 Animals
-										</li>
-									</ul>
-								</div>
-								<!-- Card body END -->
-			
-								<!-- Card footer START-->
-								<div class="card-footer pt-0">
-									<!-- Price -->
-									<div class="hstack gap-2 mb-2">
-										<h6 class="fw-normal mb-0">Date: </h6>
-										<small>14/12/2000</small>
-									</div>
-									<a href="admin-booking-detail.html" class="btn btn-sm btn-primary-soft mb-0 w-100">View detail</a>
+									<a th:href="@{/admin/shelter-detail(id=${totalShelters.id})}" class="btn btn-sm btn-primary-soft mb-0 w-100">Xem chi tiết</a>
 								</div>
 							</div>
 						</div>
@@ -756,17 +254,17 @@
 					<!-- Pagination START -->
 					<div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4">
 						<!-- Content -->
-						<p class="mb-sm-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
+						<p class="mb-sm-0 text-center text-sm-start">Đang hiển thị <span th:text="${listTotalShelters.number} * ${listTotalShelters.size} == 0 ? 1 : (${listTotalShelters.number} * ${listTotalShelters.size}) + 1">1</span> đến <span th:text="${listTotalShelters.totalElements} - (${listTotalShelters.number} * ${listTotalShelters.size} + ${listTotalShelters.size}) < 0 ? ${listTotalShelters.totalElements} : (${listTotalShelters.number} * ${listTotalShelters.size} + ${listTotalShelters.size})">10</span> trên <span th:text="${listTotalShelters.totalElements}">57</span> thành phần</p>
 						<!-- Pagination -->
-						<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
+						<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation" th:if="${listTotalShelters.totalPages} >= 2">
 							<ul class="pagination pagination-sm pagination-primary-soft mb-0">
 								<li class="page-item disabled">
 									<a class="page-link" href="#" tabindex="-1">Prev</a>
 								</li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item active"><a class="page-link" href="#">2</a></li>
-								<li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-								<li class="page-item"><a class="page-link" href="#">15</a></li>
+								<li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listTotalShelters.totalPages - 1)}"
+									th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
+									<a th:href="@{'/admin/shelter-list/changePage?page='+${pageIndex.index}}" th:text="${pageIndex.index + 1}" class="page-link"></a>
+								</li>
 								<li class="page-item">
 									<a class="page-link" href="#">Next</a>
 								</li>

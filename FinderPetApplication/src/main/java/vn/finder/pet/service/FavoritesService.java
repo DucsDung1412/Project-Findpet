@@ -30,6 +30,13 @@ public class FavoritesService {
     public Boolean removeOne(Long id) {
         Optional<Favorites> favoriteOptional = this.favoritesDAO.findById(id);
         if (favoriteOptional.isPresent()) {
+            System.out.println("******");
+            System.out.println("******");
+            System.out.println("******");
+            System.out.println(favoriteOptional.get());
+            System.out.println("******");
+            System.out.println("******");
+            System.out.println("******");
             this.favoritesDAO.delete(favoriteOptional.get());
             return true;
         }

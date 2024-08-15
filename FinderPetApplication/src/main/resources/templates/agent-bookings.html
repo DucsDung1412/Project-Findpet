@@ -67,18 +67,18 @@
 
 			}
 		})
-		
+
 	</script>
 
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="../images/favicon.ico">
-    
+
 	<!-- Bootstrap Font Icon CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
-    <!-- Font-Awesome -->
-    <link rel="stylesheet" type="text/css" href="//use.fontawesome.com/releases/v5.7.2/css/all.css">
-    <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
+	<!-- Font-Awesome -->
+	<link rel="stylesheet" type="text/css" href="//use.fontawesome.com/releases/v5.7.2/css/all.css">
+	<script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
 
 	<!-- Google Font -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -113,7 +113,7 @@
 	</section>
 	<!-- =======================
 	Menu item END -->
-		
+
 	<!-- =======================
 	Content START -->
 	<section class="pt-0">
@@ -121,21 +121,21 @@
 			<!-- Title START -->
 			<div class="row">
 				<div class="col-12">
-					<h1 class="fs-4 mb-0"><i class="bi bi-bookmark-heart fa-fw me-1"></i>Bookings</h1>
+					<h1 class="fs-4 mb-0"><i class="bi bi-bookmark-heart fa-fw me-1"></i>Hoạt động</h1>
 				</div>
 			</div>
 			<!-- Title END -->
-	
+
 			<!-- Adopt table START -->
 			<div th:if="${listAdopt} != null" class="row">
 				<div class="col-12">
 					<div class="card border">
 						<!-- Card header START -->
 						<div class="card-header border-bottom">
-							<h5 class="card-header-title">Bookings<span class="badge bg-primary bg-opacity-10 text-primary ms-2" th:text="${listAdopt.stream().toList().size()} + ' Requets'">20 Requets</span></h5>
+							<h5 class="card-header-title">Danh sách hoạt động<span class="badge bg-primary bg-opacity-10 text-primary ms-2" th:text="${listAdopt.stream().toList().size()} + ' Yêu cầu'">20 Yêu cầu</span></h5>
 						</div>
 						<!-- Card header END -->
-	
+
 						<!-- Card body START -->
 						<div class="card-body">
 							<!-- Search and select START -->
@@ -143,17 +143,17 @@
 								<!-- Search -->
 								<div class="col-md-8">
 									<form class="rounded position-relative">
-										<input class="form-control pe-5" type="search" placeholder="Search" aria-label="Search">
+										<input class="form-control pe-5" type="search" placeholder="Tìm kiếm" aria-label="Search">
 										<button class="btn border-0 px-3 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6"></i></button>
 									</form>
 								</div>
-	
+
 								<!-- Select option -->
 								<div class="col-md-3">
 									<!-- Short by filter -->
 									<div class="d-flex justify-content-end">
 										<input type="radio" class="btn-check" name="options-base" id="option7" autocomplete="off" th:checked="${queryStatus} == 'Adopt'">
-										<a href="/manager/bookings" class="btn label" for="option7">Adopt</a>
+										<a href="/manager/bookings" class="btn label" for="option7">Nhận nuôi</a>
 
 										<input type="radio" class="btn-check" name="options-base" id="option8" autocomplete="off" th:checked="${queryStatus} == 'Donate'">
 										<a href="/manager/bookings?query=Donate" class="btn label" for="option8">Donate</a>
@@ -161,44 +161,44 @@
 								</div>
 							</div>
 							<!-- Search and select END -->
-	
+
 							<!-- Hotel room list START -->
 							<div class="table-responsive border-0">
 								<table th:if="${listAdopt} != null" class="table align-middle p-4 mb-0 table-hover table-shrink">
 									<!-- Table head -->
 									<thead class="table-light">
-										<tr>
-											<th scope="col" class="border-0 rounded-start">#</th>
-											<th scope="col" class="border-0">Name</th>
-											<th scope="col" class="border-0">Type</th>
-											<th scope="col" class="border-0">Date</th>
-											<th scope="col" class="border-0">Status</th>
-											<th scope="col" class="border-0 rounded-end">Action</th>
-										</tr>
+									<tr>
+										<th scope="col" class="border-0 rounded-start">#</th>
+										<th scope="col" class="border-0">Email người nhận</th>
+										<th scope="col" class="border-0">Tên thú cưng</th>
+										<th scope="col" class="border-0">Ngày nhận</th>
+										<th scope="col" class="border-0">Trạng thái</th>
+										<th scope="col" class="border-0 rounded-end">Hành động</th>
+									</tr>
 									</thead>
-	
+
 									<!-- Table body START -->
 									<tbody class="border-top-0">
-										<!-- Table item -->
-										<tr th:each="adopt, stat : ${listAdopt}">
-											<td> <h6 class="mb-0" th:text="${stat.count} < 10 ? '0'+${stat.count} : ${stat.count}">01</h6> </td>
-											<td> <h6 class="mb-0"><a href="#" th:text="${adopt.getUsers().getUserName()}">Deluxe Pool View</a></h6> </td>
-											<td> <h6 class="mb-0"><a th:href="@{/manager/edit-animal(id=${adopt.animals.id})}" th:text="${adopt.getAnimals().getAnimalName()}">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
-											<td> <h6 class="mb-0 fw-light" th:text="${adopt.getAdoptDate()}">Nov 22 - 25</h6> </td>
-											<td>
-                                                <div th:if="${adopt.getAdopt_status().equals('Adopted')}" class="badge text-bg-success">Adopted</div>
-                                                <div th:if="${adopt.getAdopt_status().equals('Reserved')}" class="badge text-bg-info">Reserved</div>
-                                                <div th:if="${adopt.getAdopt_status().equals('Awaiting')}" class="badge text-bg-warning">Awaiting</div>
-                                                <div th:if="${adopt.getAdopt_status().equals('Cancel')}" class="badge text-bg-danger">Cancel</div>
-                                            </td>
-											<td>
-                                                <a th:href="@{/account/adopt-confirm(id=${adopt.id})}" class="btn btn-sm btn-light mb-0 w-100" th:if="${!adopt.getAdopt_status().equals('Awaiting')}">Xem chi tiết</a>
-                                                <div class="d-flex flex-column" th:if="${adopt.getAdopt_status().equals('Awaiting')}">
-                                                    <a th:href="@{/manager/bookings/disable-pet(id=${adopt.getAnimals().id})}" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
-                                                    <a th:href="@{/manager/bookings/enable-pet(id=${adopt.getAnimals().id})}" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
-                                                </div>
-                                            </td>
-										</tr>
+									<!-- Table item -->
+									<tr th:each="adopt, stat : ${listAdopt}">
+										<td> <h6 class="mb-0" th:text="${stat.count} < 10 ? '0'+${stat.count} : ${stat.count}">01</h6> </td>
+										<td> <h6 class="mb-0"><a href="#" th:text="${adopt.getUsers().getUserName()}">Deluxe Pool View</a></h6> </td>
+										<td> <h6 class="mb-0"><a th:href="@{/manager/edit-animal(id=${adopt.animals.id})}" th:text="${adopt.getAnimals().getAnimalName()}">Free Cancellation | Breakfast + Lunch/Dinner</a></h6> </td>
+										<td> <h6 class="mb-0 fw-light" th:text="${adopt.getAdoptDate()}">Nov 22 - 25</h6> </td>
+										<td>
+											<div th:if="${adopt.getAdopt_status().equals('Adopted')}" class="badge text-bg-success">Đã nhận</div>
+											<div th:if="${adopt.getAdopt_status().equals('Reserved')}" class="badge text-bg-info">Reserved</div>
+											<div th:if="${adopt.getAdopt_status().equals('Awaiting')}" class="badge text-bg-warning">Đang chờ</div>
+											<div th:if="${adopt.getAdopt_status().equals('Cancel')}" class="badge text-bg-danger">Đã từ chối</div>
+										</td>
+										<td>
+											<a th:href="@{/account/adopt-confirm(id=${adopt.id})}" class="btn btn-sm btn-light mb-0 w-100" th:if="${!adopt.getAdopt_status().equals('Awaiting')}">Xem chi tiết</a>
+											<div class="d-flex flex-column" th:if="${adopt.getAdopt_status().equals('Awaiting')}">
+												<a th:href="@{/manager/bookings/disable-pet(id=${adopt.getAnimals().id})}" class="btn btn-sm mb-0 btn-primary">Đồng ý</a>
+												<a th:href="@{/manager/bookings/enable-pet(id=${adopt.getAnimals().id})}" class="mt-2 btn btn-sm mb-0 btn-danger">Từ chối</a>
+											</div>
+										</td>
+									</tr>
 									</tbody>
 									<!-- Table body END -->
 								</table>
@@ -208,23 +208,23 @@
 							<!-- Hotel room list END -->
 						</div>
 						<!-- Card body END -->
-	
+
 						<!-- Card footer START -->
 						<div class="card-footer pt-0">
 							<!-- Pagination and content -->
 							<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
 								<!-- Content -->
-								<p class="mb-sm-0 text-center text-sm-start">Showing <span th:text="${listAdopt.number} * ${listAdopt.size} == 0 ? 1 : (${listAdopt.number} * ${listAdopt.size}) + 1">1</span> to <span th:text="${listAdopt.totalElements} - (${listAdopt.number} * ${listAdopt.size} + ${listAdopt.size}) < 0 ? ${listAdopt.totalElements} : (${listAdopt.number} * ${listAdopt.size} + ${listAdopt.size})">10</span> of <span th:text="${listAdopt.totalElements}">57</span> entries</p>
+								<p class="mb-sm-0 text-center text-sm-start">Đang hiển thị  <span th:text="${listAdopt.number} * ${listAdopt.size} == 0 ? 1 : (${listAdopt.number} * ${listAdopt.size}) + 1">1</span> đến <span th:text="${listAdopt.totalElements} - (${listAdopt.number} * ${listAdopt.size} + ${listAdopt.size}) < 0 ? ${listAdopt.totalElements} : (${listAdopt.number} * ${listAdopt.size} + ${listAdopt.size})">10</span> trên <span th:text="${listAdopt.totalElements}">57</span> thành phần</p>
 								<!-- Pagination -->
 								<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation" th:if="${listAdopt.totalPages} >= 2">
 									<ul class="pagination pagination-sm pagination-primary-soft mb-0">
 										<li class="page-item disabled">
 											<a class="page-link" href="#" tabindex="-1">Prev</a>
 										</li>
-                                        <li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listAdopt.totalPages - 1)}"
-                                            th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
-                                            <a th:href="@{/manager/bookings/changePage(page=${pageIndex.index})}" th:text="${pageIndex.index + 1}" class="page-link"></a>
-                                        </li>
+										<li class="" th:each="pageNumber, pageIndex : ${#numbers.sequence(0, listAdopt.totalPages - 1)}"
+											th:class="${pageIndex.index + 1} == ${page} ? 'page-item active' : 'page-item'">
+											<a th:href="@{/manager/bookings/changePage(page=${pageIndex.index})}" th:text="${pageIndex.index + 1}" class="page-link"></a>
+										</li>
 										<li class="page-item">
 											<a class="page-link" href="#">Next</a>
 										</li>
@@ -235,7 +235,7 @@
 						<!-- Card footer END -->
 					</div>
 				</div>
-			 </div> 
+			</div>
 			<!-- Adopt table END -->
 
 			<!-- Donate table START -->
@@ -244,7 +244,7 @@
 					<div class="card border">
 						<!-- Card header START -->
 						<div class="card-header border-bottom">
-							<h5 class="card-header-title">Bookings<span class="badge bg-primary bg-opacity-10 text-primary ms-2" th:text="${listDonate.stream().toList().size()} + ' Requets'">20 Requets</span></h5>
+							<h5 class="card-header-title">Danh sách hoạt động<span class="badge bg-primary bg-opacity-10 text-primary ms-2" th:text="${listDonate.stream().toList().size()} + ' Yêu cầu'">20 Yêu cầu</span></h5>
 						</div>
 						<!-- Card header END -->
 
@@ -255,7 +255,7 @@
 								<!-- Search -->
 								<div class="col-md-8">
 									<form class="rounded position-relative">
-										<input class="form-control pe-5" type="search" placeholder="Search" aria-label="Search">
+										<input class="form-control pe-5" type="search" placeholder="Tìm kiếm" aria-label="Search">
 										<button class="btn border-0 px-3 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6"></i></button>
 									</form>
 								</div>
@@ -265,7 +265,7 @@
 									<!-- Short by filter -->
 									<div class="d-flex justify-content-end">
 										<input type="radio" class="btn-check" name="options-base" id="option5" autocomplete="off" th:checked="${queryStatus} == 'Adopt'">
-										<a href="/manager/bookings" class="btn label" for="option5">Adopt</a>
+										<a href="/manager/bookings" class="btn label" for="option5">Nhận nuôi</a>
 
 										<input type="radio" class="btn-check" name="options-base" id="option6" autocomplete="off" th:checked="${queryStatus} == 'Donate'">
 										<a href="/manager/bookings?query=Donate" class="btn label" for="option6">Donate</a>
@@ -281,11 +281,11 @@
 									<thead class="table-light">
 									<tr>
 										<th scope="col" class="border-0 rounded-start">#</th>
-										<th scope="col" class="border-0">Name</th>
-										<th scope="col" class="border-0">Type</th>
-										<th scope="col" class="border-0">Date</th>
-										<th scope="col" class="border-0">Gift</th>
-										<th scope="col" class="border-0 rounded-end">Action</th>
+										<th scope="col" class="border-0">Email donate</th>
+										<th scope="col" class="border-0">Tên thú cưng</th>
+										<th scope="col" class="border-0">Ngày donate</th>
+										<th scope="col" class="border-0">Số tiền</th>
+										<th scope="col" class="border-0 rounded-end">Hành động</th>
 									</tr>
 									</thead>
 
@@ -317,7 +317,7 @@
 							<!-- Pagination and content -->
 							<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
 								<!-- Content -->
-								<p class="mb-sm-0 text-center text-sm-start">Showing <span th:text="${listDonate.number} * ${listDonate.size} == 0 ? 1 : (${listDonate.number} * ${listDonate.size}) + 1">1</span> to <span th:text="${listDonate.totalElements} - (${listDonate.number} * ${listDonate.size} + ${listDonate.size}) < 0 ? ${listDonate.totalElements} : (${listDonate.number} * ${listDonate.size} + ${listDonate.size})">10</span> of <span th:text="${listDonate.totalElements}">57</span> entries</p>
+								<p class="mb-sm-0 text-center text-sm-start">Đang hiển thị <span th:text="${listDonate.number} * ${listDonate.size} == 0 ? 1 : (${listDonate.number} * ${listDonate.size}) + 1">1</span> đến <span th:text="${listDonate.totalElements} - (${listDonate.number} * ${listDonate.size} + ${listDonate.size}) < 0 ? ${listDonate.totalElements} : (${listDonate.number} * ${listDonate.size} + ${listDonate.size})">10</span> trên <span th:text="${listDonate.totalElements}">57</span> thành phần</p>
 								<!-- Pagination -->
 								<nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation" th:if="${listDonate.totalPages} >= 2">
 									<ul class="pagination pagination-sm pagination-primary-soft mb-0">
@@ -344,7 +344,7 @@
 	</section>
 	<!-- =======================
 	Content END -->
-	
+
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
 
@@ -357,9 +357,9 @@ Footer END -->
 <!-- Back to top -->
 <div class="back-top">
 	<svg xmlns="http://www.w3.org/2000/svg" height="20" width="12"
-		viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+		 viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
 		<path fill="#ffffff"
-			d="M214.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 109.3V480c0 17.7 14.3 32 32 32s32-14.3 32-32V109.3l73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128z">
+			  d="M214.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 109.3V480c0 17.7 14.3 32 32 32s32-14.3 32-32V109.3l73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128z">
 		</path>
 	</svg>
 </div>

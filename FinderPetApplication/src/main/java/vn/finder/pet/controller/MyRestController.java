@@ -63,11 +63,11 @@ public class MyRestController {
         AnimalInfoRequest animalInfoRequest = new AnimalInfoRequest();
         animalInfoRequest.setLocation(((Map<String, String>)hashMap).get("location").isEmpty() ? "%" : ((HashMap<String, String>)hashMap).get("location"));
         animalInfoRequest.setBreed(((HashMap<String, String>)hashMap).get("breed").isEmpty() ? "%" : ((HashMap<String, String>)hashMap).get("breed"));
-        animalInfoRequest.setAge(((List<String>) ((HashMap<?, ?>) hashMap).get("age")).isEmpty() ? Arrays.asList("Puppy", "Young", "Adult", "Senior") : (List<String>) ((HashMap<?, ?>) hashMap).get("age"));
+        animalInfoRequest.setAge(((List<String>) ((HashMap<?, ?>) hashMap).get("age")).isEmpty() ? Arrays.asList("Newborn", "Young", "Adult", "Senior") : (List<String>) ((HashMap<?, ?>) hashMap).get("age"));
         animalInfoRequest.setPageNumber((int) ((HashMap<?, ?>)hashMap).get("page"));
         animalInfoRequest.setSizePage((int) ((HashMap<?, ?>)hashMap).get("sizePage"));
         animalInfoRequest.setGender( ((List<Boolean>) ((HashMap<?, ?>) hashMap).get("gender")).isEmpty() ?  Arrays.asList(true, false) : ((List<Boolean>) ((HashMap<?, ?>) hashMap).get("gender")));
-        animalInfoRequest.setSize(((Map<String, String>)hashMap).get("size").isEmpty() ? "%" : ((String)((Map<String, String>)hashMap).get("size")).trim().substring(0, ((Map<String, String>)hashMap).get("size").trim().indexOf(" (")));
+        animalInfoRequest.setSize(((Map<String, String>)hashMap).get("size").isEmpty() ? "%" : ((String)((Map<String, String>)hashMap).get("size")).trim());
         animalInfoRequest.setName(((Map<String, String>)hashMap).get("name").isEmpty() ? "%" : ((String)((Map<String, String>)hashMap).get("name")).trim());
         animalInfoRequest.setBreedType(((List<String>) ((HashMap<?, ?>) hashMap).get("breedType")).isEmpty() ? Arrays.asList("") : (List<String>) ((HashMap<?, ?>) hashMap).get("breedType"));
 
@@ -90,9 +90,9 @@ public class MyRestController {
             map.put("avatar", e.getAnimalAvatar());
             map.put("breed", e.getBreed().getBreed_name());
             map.put("name", e.getAnimalName());
-            map.put("age", e.getAnimalAge());
-            map.put("size", e.getAnimalSize());
-            map.put("gender", e.getAnimalGender());
+            map.put("age", this.animalsService.transAgeToVN(e.getAnimalAge()));
+            map.put("size", this.animalsService.transSizeToVN(e.getAnimalSize()));
+            map.put("gender", this.animalsService.transGenderToVN(e.getAnimalGender()));
             listSearch.add(map);
         });
         Map<String, Object> mapFavorite = new HashMap<>();
@@ -114,6 +114,14 @@ public class MyRestController {
             users.getListFavorites().forEach(e -> {
                if(e.getAnimals().getId() == id){
                    i.getAndIncrement();
+                   System.out.println("--------");
+                   System.out.println("--------");
+                   System.out.println("--------");
+                   System.out.println(e.getId());
+                   System.out.println("--------");
+                   System.out.println("--------");
+                   System.out.println("--------");
+
                    this.favoritesService.removeOne(e.getId());
                }
             });
@@ -231,7 +239,7 @@ public class MyRestController {
             sheltersService.addNewShelter(shelters,this.getEmailLogin());
         }
 
-        return "/index?message=Đăng+ký+Shelter+thành+công";
+        return "/shelter-added";
     }
 }
 

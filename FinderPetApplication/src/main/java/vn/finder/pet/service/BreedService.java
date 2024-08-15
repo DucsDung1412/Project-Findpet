@@ -39,4 +39,19 @@ public class BreedService {
     public Breed findByBreedTypeAndBreedName(String breed_type, String breed_name){
         return this.breedDAO.findByBreedTypeAndBreedName(breed_type, breed_name);
     }
+
+    public String transBreedTypeToVN(String breedType){
+        switch (breedType) {
+            case "Dog":
+                return "Chó";
+            case "Cat":
+                return "Mèo";
+            case "Bird":
+                return "Chim";
+            case "Furry":
+                return "Thỏ";
+            default:
+                return breedType;
+        }
+    }
 }

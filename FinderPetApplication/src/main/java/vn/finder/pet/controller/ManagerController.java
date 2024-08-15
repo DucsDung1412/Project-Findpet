@@ -85,7 +85,6 @@ public class ManagerController {
         model.addAttribute("listInteraction", listInteraction);
         model.addAttribute("statusActive", "dashboard");
 
-        System.out.println(Calendar.getInstance().get(Calendar.YEAR));
         return "/agent-dashboard";
     }
 
@@ -134,6 +133,8 @@ public class ManagerController {
         model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
         model.addAttribute("statusActive", "listings");
         model.addAttribute("status", status);
+        model.addAttribute("animalsService", this.animalsService);
+        model.addAttribute("breedService", this.breedService);
 
         return "/agent-listings";
     }
@@ -233,14 +234,15 @@ public class ManagerController {
     @GetMapping("/add-animal")
     public String addListingMinimal(Model model, @RequestParam(value = "error", required = false) Boolean error){
         model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
-        model.addAttribute("title", "Add New Animal");
-        model.addAttribute("button", "Add Animal");
+        model.addAttribute("title", "Thêm Thú Cưng");
+        model.addAttribute("button", "Thêm thú cưng");
         Animals animals = new Animals();
         animals.setBreed(new Breed(null, "", ""));
         animals.setAnimalInfo(new AnimalInfo(null, "", "", "", "", "", "", animals));
         model.addAttribute("animal", animals);
         model.addAttribute("listBreed", this.breedService.findAllBreedType());
         model.addAttribute("listName", new ArrayList<>());
+        model.addAttribute("breedService", this.breedService);
         if(error != null){
             if(!error){
                 model.addAttribute("error", "Thêm animal thành công");
@@ -254,13 +256,14 @@ public class ManagerController {
     @GetMapping("/edit-animal")
     public String editListingMinimal(Model model, @RequestParam(value = "id") Long id, @RequestParam(value = "error", required = false) Boolean error){
         model.addAttribute("user", this.usersService.findById(this.getEmailLogin()).get());
-        model.addAttribute("title", "Edit Information Animal");
-        model.addAttribute("button", "Edit Animal");
+        model.addAttribute("title", "Cập Nhật Thú Cưng");
+        model.addAttribute("button", "Cập nhật");
         model.addAttribute("id", id);
         Animals animals = this.animalsService.findById(id);
         model.addAttribute("animal", animals);
         model.addAttribute("listBreed", this.breedService.findAllBreedType());
         model.addAttribute("listName", this.breedService.findByBreed_type(animals.getBreed().getBreed_type()));
+        model.addAttribute("breedService", this.breedService);
 
         if(error != null){
             if(!error){

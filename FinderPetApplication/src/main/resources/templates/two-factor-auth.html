@@ -130,13 +130,13 @@ Main Content START -->
 									<img class="mb-4 h-50px" src="#" alt="logo">
 								</a>
 								<!-- Title -->
-								<h1 class="mb-2 h3">Two factor authentication</h1>
-								<p class="mb-sm-0">We have to send a code to <b th:text="${email}">example@gmail.com</b></p>
+								<h1 class="mb-2 h3">Xác thực tài khoản</h1>
+								<p class="mb-sm-0">Chúng tôi phải gửi mã tới <b th:text="${email}">example@gmail.com</b></p>
 								
 								<!-- Form START -->
 								<form action="/checkOtp" class="mt-sm-4 tab-two-factor" method="post">
 									<!-- Input box -->
-									<p class="mb-1">Enter the code we have sent you:</p>
+									<p class="mb-1">Nhập mã chúng tôi đã gửi cho bạn:</p>
 									<div class="form-group">
 										<div class="autotab d-flex justify-content-between gap-1 gap-sm-3 mb-2">
 											<input id="tf-1" name="so1" type="text" maxlength="1" class="form-control text-center p-3">
@@ -149,15 +149,15 @@ Main Content START -->
 									</div>
 									<!-- Button link -->
 									<div class="d-sm-flex justify-content-between small mb-4">
-										<span>Don't get a code?</span>
+										<span>Bạn không nhận được mã?</span>
 										<div>
 											<span id="countdown" class="text-decoration"></span>
-											<a href="/resetOtp" id="resendBtn" class="btn btn-sm btn-link p-0 text-decoration-underline mb-0">Click to resend</a>
+											<a href="/resetOtp" id="resendBtn" class="btn btn-sm btn-link p-0 text-decoration-underline mb-0">Bấm để gửi lại</a>
 										</div>
 									</div>
 
 									<!-- Button -->
-									<div><button type="submit" class="btn btn-primary w-100 mb-0">Verify and Process</button></div>
+									<div><button type="submit" class="btn btn-primary w-100 mb-0">Xác minh và xử lý</button></div>
 		
 									<!-- Copyright -->
 									<div class="text-primary-hover mt-3 text-center"> Copyrights ©2023 Booking. Build by <a href="https://www.webestica.com/" class="text-body">Webestica</a>. </div>
@@ -194,11 +194,11 @@ Main Content END -->
         workplace: ".tab-two-factor",
         formGroupSelector: '.form-group',
         rules: [
-            Validator.isRequired("#tf-1", "Please provide a valid."),
-            Validator.isRequired("#tf-2", "Please provide a valid."),
-            Validator.isRequired("#tf-3", "Please provide a valid."),
-            Validator.isRequired("#tf-4", "Please provide a valid."),
-            Validator.isRequired("#tf-5", "Please provide a valid."),
+            Validator.isRequired("#tf-1", "Vui lòng nhập đầy đủ thông tin."),
+            Validator.isRequired("#tf-2", "Vui lòng nhập đầy đủ thông tin."),
+            Validator.isRequired("#tf-3", "Vui lòng nhập đầy đủ thông tin."),
+            Validator.isRequired("#tf-4", "Vui lòng nhập đầy đủ thông tin."),
+            Validator.isRequired("#tf-5", "Vui lòng nhập đầy đủ thông tin."),
         ]
     });
 </script>
