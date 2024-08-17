@@ -1,4 +1,4 @@
-const API_KEY = "AIzaSyC26q4osHMCUH-bfIbjppqJ_RST-rf5ppg";
+const API_KEY = "";
 const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`;
 const submitButton = document.querySelector('#btn-gpt')
 const loadWrapp = document.querySelector(".load-wrapp")
